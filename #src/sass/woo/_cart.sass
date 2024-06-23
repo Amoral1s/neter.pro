@@ -1,0 +1,867 @@
+@import "../reset/_vars"
+
+  
+.woocommerce-message
+  font-size: 14px
+  a
+    font-size: 14px
+    text-decoration: none
+    padding-left: 10px
+.page-cart, .checkout
+  .cart-wrap
+    display: flex
+    justify-content: space-between
+    align-items: flex-start
+    &.loading
+      pointer-events: none
+  .cart-left
+    width: calc(100% - 400px - 20px)
+    .item
+      display: flex
+      justify-content: flex-start
+      align-items: center
+      position: relative
+      padding: 20px 24px
+      border-bottom: 1px solid $gray_200
+      .sku
+        font-size: 16px
+        font-weight: 400
+        color: $gray_450
+        display: flex
+        line-height: 1.2
+        margin-bottom: 10px
+      .setup
+        display: flex
+        input
+          display: none!important
+        input:checked + label
+          span
+            background-color: $green
+            border-color: $green
+        label
+          display: flex
+          justify-content: flex-start
+          align-items: center
+          cursor: pointer
+          &:hover
+            p
+              color: $green
+          p
+            font-size: 16px
+            font-weight: 400
+            margin: 0
+            line-height: 1
+            transition: .2s
+          span
+            background-color: #fff
+            border-radius: 8px
+            height: 24px
+            width: 24px
+            margin-right: 10px
+            display: flex
+            justify-content: center
+            align-items: center
+            border: 1px solid $gray_200
+      .product
+        &-remove
+          padding-bottom: 5px
+          margin-right: 0
+          margin-left: auto
+          a
+            background: transparent!important
+            &:hover
+              svg path
+                stroke: $green
+        &-price
+          display: block
+          margin-right: 20px
+          margin-left: auto
+          span
+            bdi
+              font-size: 18px
+              font-weight: 700
+              line-height: 1.2
+              white-space: nowrap
+              color: $text
+              span
+                font-size: 18px
+                white-space: nowrap
+        &-quantity
+          .plus, .minus
+            cursor: pointer
+            &:hover
+              svg path
+                stroke: $green
+          .quantity
+            display: flex
+            justify-content: center
+            align-items: center
+            width: 130px
+            border-radius: 9999px
+            background-color: $gray_50
+            height: 55px
+            margin-right: 20px
+            input
+              background: transparent
+              width: 50px
+              text-align: center
+              display: block
+              font-size: 16px
+              font-weight: 500
+        &-name
+          width: 380px
+          height: 80px
+          margin-left: 15px
+          margin-right: 15px
+          display: flex
+          flex-direction: column
+          align-items: flex-start
+          justify-content: flex-start
+          a
+            font-size: 16px
+            font-weight: 500
+            color: $text
+            text-decoration: none
+            display: block
+            width: 100%
+            margin-bottom: 10px
+            &:hover
+              color: $green
+        &-thumbnail
+          display: block
+          width: 80px
+          a
+            width: 100%
+            aspect-ratio: 1 / 1
+            display: block
+            border-radius: 18px
+            padding: 5px
+            background-color: $gray_50
+            img
+              width: 100%
+              aspect-ratio: 1 / 1
+              height: auto
+              border-radius: 12px
+              margin: 0
+              padding: 0
+  .cart-right, .checkout-right
+    width: 400px
+    border-radius: 24px 
+    padding: 30px
+    background-color: $gray_50
+    .cart_totals.processing 
+      .blockUI.blockOverlay
+        background: $gray_50!important
+    .button.cart-order
+      width: 100%
+      max-width: 100%
+      margin-top: 10px
+    .btn
+      display: flex
+      align-items: center
+      justify-content: center
+      transition: .2s
+      background: linear-gradient(93.07deg, #00AA46 2.08%, #009EC7 36.26%, #1652EB 99.36%)
+      color: #fff
+      font-size: 16px
+      font-weight: 500
+      cursor: pointer
+      width: 100%
+      max-width: 100%
+      margin-top: 20px
+      white-space: nowrap
+      line-height: 1.2
+      max-width: 100%
+      text-decoration: none
+      padding: 0 36px
+      height: 64px
+      border-radius: 49px
+      position: relative
+      &:hover
+        &::after
+          opacity: 1
+          transition: .2s
+      span
+        display: flex
+        color: #fff
+        font-size: 16px
+        font-weight: 500
+        transition: .2s
+        position: relative
+        z-index: 5
+      &::after
+        position: absolute
+        content: ''
+        width: 100%
+        height: 100%
+        top: 0
+        transition: .2s
+        right: 0
+        left: 0
+        bottom: 0
+        border-radius: 49px
+        z-index: 1
+        background: linear-gradient(93.07deg, #1EBE5A 2.08%, #14B2DB 36.26%, #3470FF 99.36%)
+        opacity: 0
+      
+    .cart-total-items
+      display: block
+      line-height: 1.2
+      color: $gray_400
+      font-size: 16px
+      margin-bottom: 10px
+    .meta-item
+      display: flex
+      justify-content: space-between
+      align-items: flex-end
+      margin-bottom: 10px
+      .line
+        width: 100%
+        border-bottom: 1px dashed #E5E7EB
+        margin: 0 10px 3px 10px
+      p, b
+        white-space: nowrap
+        font-weight: 400
+        margin: 0
+        display: block
+        font-size: 16px
+        line-height: 1.2
+        letter-spacing: 0
+      p
+        color: $gray_400
+      b
+        color: $text
+    .order-total
+      display: block
+      margin-bottom: 15px
+      .amount
+        bdi
+          font-size: 32px
+          font-weight: 700
+          letter-spacing: -1px
+          span
+            font-size: 32px
+
+.clear-cart.page-title
+  display: flex
+  align-items: center
+  justify-content: flex-start
+  a
+    display: flex
+    align-items: center
+    justify-content: flex-start
+    margin-left: 40px
+    padding-top: 5px
+    &:hover
+      span
+        color: $green
+      svg path
+        stroke: $green
+    .icon
+      margin-right: 10px
+    span
+      font-weight: 400
+      font-size: 16px
+      letter-spacing: -0.5px
+      color: $gray_400
+      transition: .2s
+
+
+@media (max-width: 992px)
+  .page-cart, .checkout
+    .cart-wrap
+      display: block
+    .cart-left
+      width: 100%
+    .cart-right, .right
+      width: 100%
+      margin-top: 20px
+    .cart-left .item
+      flex-wrap: wrap
+      align-items: center
+      .product
+        &-price
+          margin-left: 0
+          margin-right: 20px
+        &-remove
+          margin-left: 0
+          
+        &-quantity
+          margin-left: 0
+          margin-right: 20px
+          .quantity
+            margin: 0
+        &-name
+          width: calc(100% - 80px - 15px)
+          margin: 0
+          margin-bottom: 20px
+          margin-left: 15px
+          align-items: flex-start
+          justify-content: center
+          .setup
+            label
+              p
+                font-size: 14px
+              span
+                height: 20px
+                width: 20px
+                border-radius: 6px
+                svg 
+                  width: 16px
+                  height: 16px
+          .sku
+            font-size: 12px
+            margin-bottom: 0px
+          a
+            font-size: 14px
+            margin: 10px 0
+        &-thumbnail
+          margin-bottom: 20px
+
+
+
+@media (max-width: 578px)
+  .checkout .right .btn,
+  .page-cart .cart-right .btn
+    height: 55px
+    margin-top: 15px
+    span
+      font-size: 14px
+  .page-cart, .checkout
+    .cart-right, .right
+      padding: 20px
+      .cart-total-items
+        font-size: 14px
+        margin-bottom: 10px
+      .meta-item
+        p, b
+          font-size: 14px
+      .cart-total-price
+        .order-total
+          margin-bottom: 15px
+          .amount
+            bdi
+              font-size: 24px
+              span
+                font-size: 24px
+    .cart-left
+      .item
+        padding-left: 0 
+        padding-right: 0
+        .product
+          &-quantity
+            .quantity
+              height: 50px
+              width: 120px
+          &-price
+            .amount
+              bdi
+                font-size: 16px
+                span
+                  font-size: 16px
+
+  .clear-cart.page-title
+    a
+      margin-left: 20px
+      padding-top: 3px
+      span
+        font-size: 14px
+        white-space: nowrap
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  

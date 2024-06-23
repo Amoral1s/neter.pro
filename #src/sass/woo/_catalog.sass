@@ -1,0 +1,779 @@
+@import "../reset/_vars"
+
+
+section 
+  .woocommerce
+    width: 100%
+    margin: 0
+  .wrap ul.products,
+  .woocommerce ul.products,
+  .woocommerce ul.products
+    width: 100%
+    margin: 0
+    align-items: stretch
+    &.swiper-wrapper
+      display: flex
+    &:before, &::after
+      display: none
+    li.product
+      position: relative
+      height: auto
+      width: 100%
+      margin-right: 20px
+      margin-bottom: 40px
+      width: calc(25% - 20px)
+      display: flex
+      flex-direction: column
+      .button.br_compare_button
+        position: absolute
+        right: 20px
+        z-index: 5
+        top: 50px
+        width: 24px
+        height: 24px
+        background: transparent!important
+        background-repeat: no-repeat
+        background-size: 24px 24px!important
+        background-position: center
+        background-image: url(../img/icons/compare.svg)!important
+        font-size: 0
+        border-radius: 0
+        padding: 0
+        margin: 0
+        &.br_compare_added
+          background-image: url(../img/icons/compare-added.svg)!important
+        i, span
+          display: none!important
+        &::after
+          display: none
+      .tinv-wraper
+        position: static
+        height: 0!important
+        width: 0!important
+      .tinvwl_add_to_wishlist_button
+        position: absolute
+        top: 20px
+        right: 20px
+        padding: 0
+        margin: 0
+        height: 24px
+        width: 24px
+        border-radius: 100%
+        background-repeat: no-repeat
+        background-size: 24px 24px
+        background-position: center
+        background-image: url(../img/icons/like.svg)
+        transition: .2s
+        &.tinvwl-product-make-remove
+          background-image: url(../img/icons/liked.svg)
+          transition: .2s
+          height: 24px
+          width: 24px
+        &::before
+          display: none
+        span
+          display: none!important
+      .br_compare_button
+        position: absolute
+        top: 0
+        right: 0
+      &::after
+        display: none
+      .product-text
+        font-size: 16px
+        color: $text
+        margin-bottom: 14px
+        span
+          color: $green
+          font-weight: 700
+      .product-bottom
+        margin-bottom: 0
+        margin-top: auto
+        height: 100%
+        display: flex
+        flex-direction: column
+        justify-content: flex-end
+      &.label-on
+        position: relative
+        .onsale
+          display: none!important
+        .label-row
+          position: absolute
+          display: flex
+          justify-content: flex-start
+          align-items: center
+          flex-wrap: wrap
+          top: 24px
+          left: 20px
+          z-index: 10
+          padding-right: 50px
+          .label
+            font-size: 16px
+            color: #fff
+            font-weight: 500
+            letter-spacing: -0.5px
+            border-radius: 999px
+            margin-bottom: 10px
+            height: 32px
+            display: flex
+            justify-content: center
+            align-items: center
+            width: max-content
+            max-height: 32px
+            margin-right: 10px
+            min-height: 0
+            padding: 0 14px
+            background: linear-gradient(93.07deg, #00AA46 2.08%, #009EC7 36.26%, #1652EB 99.36%)
+      .woocommerce-LoopProduct-link
+        display: block
+        .product-thumb
+          display: flex
+          justify-content: center
+          align-items: center
+          aspect-ratio: 1 / 1
+          background-color: rgba(77, 96, 138, 0.03)
+          border-radius: 24px
+          overflow: hidden
+          padding: 5px
+          margin-bottom: 20px
+          position: relative
+          .discount-percentage
+            display: none
+          .onsale
+            position: absolute
+            font-size: 16px
+            color: #fff
+            font-weight: 500
+            letter-spacing: -0.5px
+            border-radius: 999px
+            height: 32px
+            display: flex
+            justify-content: center
+            align-items: center
+            top: 25px
+            width: max-content
+            left: 20px
+            max-height: 32px
+            min-height: 0
+            padding: 0 14px
+            background: linear-gradient(93.07deg, #00AA46 2.08%, #009EC7 36.26%, #1652EB 99.36%)
+          img
+            object-fit: contain
+            max-width: 100%
+            display: block
+            aspect-ratio: 1 / 1
+            border-radius: calc(24px - 5px)
+        .product-title
+          font-size: 16px
+          font-weight: 500
+          display: block
+          margin-bottom: 14px
+          line-height: 1.2
+          padding: 0
+          color: $text
+          cursor: pointer
+          &:hover
+            color: $green
+        .product-art
+          display: flex
+          justify-content: space-between
+          align-items: center
+          margin-bottom: 15px
+          .status
+            display: flex
+            align-items: center
+            justify-content: flex-start
+            span
+              color: $text
+              font-size: 14px
+              display: block
+              line-height: 1.2
+              padding-top: 2px
+              font-weight: 500
+            .icon
+              margin-right: 8px
+              display: flex
+              align-items: center
+          .sku
+            display: flex
+            justify-content: flex-end
+            align-items: center
+            color: $gray_400
+            font-size: 14px
+            font-weight: 400
+      .product-btns
+        display: flex
+        justify-content: space-between
+        align-items: center
+        margin-bottom: 0
+        margin-top: auto
+        .added_to_cart
+          display: none!important
+        .add_to_cart_button
+          border-radius: 49px
+          height: 54px
+          display: flex
+          justify-content: center
+          align-items: center
+          background-color: transparent
+          background: transparent
+          border: 1px solid $gray_400
+          width: 100px
+          min-width: 100px
+          margin: 0
+          padding: 0
+          font-size: 0
+          background-repeat: no-repeat
+          background-size: 24px 24px
+          background-position: center
+          background-image: url(../img/icons/add-cart.svg)
+          &::after
+            display: none
+          &:hover
+            border-color: $green
+            background-image: url(../img/icons/add-cart-hover.svg)
+          &.added
+            background-image: url(../img/icons/added.svg)
+            border-color: $green
+            &:hover
+              background-image: url(../img/icons/added.svg)
+              border-color: $green
+        .awooc-custom-order,
+        .order-btn
+          border-radius: 49px
+          display: flex
+          margin: 0
+          justify-content: center
+          align-items: center
+          padding: 0px
+          margin-right: 10px
+          white-space: nowrap
+          color: #fff
+          transition: .2s
+          width: 100%
+          font-size: 16px
+          font-weight: 500
+          font-family: $font
+          height: 54px
+          background: linear-gradient(93.07deg, #00AA46 2.08%, #009EC7 36.26%, #1652EB 99.36%)
+          &::after
+            display: none
+          &:hover
+            opacity: .9
+        .pre-order
+          display: flex
+          height: 55px
+      .product-price
+        width: 100%
+        display: flex
+        justify-content: flex-start
+        align-items: center
+        margin-bottom: 10px
+        .discount-percentage
+          background-color: red
+          height: 24px
+          display: flex
+          align-items: center
+          justify-content: center
+          color: #fff
+          font-size: 14px
+          font-weight: 700
+          padding: 0 6px
+          border-radius: 999px
+          line-height: 1
+        .price
+          margin: 0
+          display: flex
+          align-items: center
+          flex-direction: row-reverse
+          bdi
+            font-weight: 700
+            font-size: 22px
+            text-decoration: none
+            span
+              font-size: 22px
+              font-weight: 700
+          ins
+            text-decoration: none
+            margin-right: 12px
+          del
+            text-decoration: none
+            position: relative
+            margin-right: 12px
+            &::after
+              position: absolute
+              content: ''
+              top: 50%
+              transform: translateY(-50%)
+              height: 1px
+              width: calc(100% + 10px)
+              left: -5px
+              background-color: $gray_400
+            bdi
+              font-size: 16px
+              font-weight: 400
+              color: $gray_400
+              span
+                font-size: 16px
+                font-weight: 400
+                color: $gray_400
+      .product-attributes
+        display: flex
+        justify-content: flex-start
+        align-items: center
+        margin-bottom: 20px
+        .max
+          display: none!important
+        .attr
+          display: flex
+          align-items: center
+          justify-content: flex-start
+          margin-right: 24px
+          white-space: nowrap
+          .icon
+            margin-right: 6px
+          span
+            color: $text
+            white-space: nowrap
+            font-size: 16px
+            font-weight: 400
+            line-height: 1.2
+
+
+@media (max-width: 992px)
+  section 
+    .woocommerce ul.products,
+    .wrap ul.products,
+    ul.products
+      li.product 
+        padding-bottom: 0
+        margin-bottom: 0
+        &.label-on
+          .label-row
+            position: absolute
+            display: flex
+            justify-content: flex-start
+            align-items: center
+            flex-wrap: wrap
+            top: 10px
+            left: 15px
+            z-index: 10
+            padding-right: 50px
+            .label
+              font-size: 12px
+              font-weight: 500
+              padding: 0 14px
+              height: 27px
+              margin-right: 6px
+              margin-bottom: 6px
+        .product-text
+          font-size: 12px
+          margin-bottom: 10px
+        .product-attributes
+          margin-bottom: 10px
+          .attr
+            font-size: 12px
+            margin-right: 14px
+            span
+              font-size: 12px
+            .icon
+              margin-right: 4px
+              svg 
+                max-width: 16px
+                max-height: 16px
+        .product-price
+          margin-bottom: 6px
+          .discount-percentage
+            display: none
+          .price
+            del
+              bdi
+                font-size: 12px
+                span
+                  font-size: 12px
+            bdi
+              font-size: 16px
+              span
+                font-size: 16px
+        
+        .woocommerce-LoopProduct-link 
+          .product-art
+            margin-bottom: 10px
+            .status
+              .icon
+                margin-right: 6px
+                svg
+                  max-width: 16px
+                  max-height: 16px
+              span
+                font-size: 12px
+            .sku
+              display: none
+          .product-title
+            font-size: 14px
+            font-weight: 500
+            margin-bottom: 10px
+          .product-thumb
+            margin-bottom: 14px
+            border-radius: 20px
+            .onsale
+              font-size: 12px
+              font-weight: 500
+              padding: 0 14px
+              height: 27px
+              left: 10px
+              top: 15px
+            img
+              border-radius: 15px
+            .discount-percentage
+              display: flex
+              position: absolute
+              align-items: center
+              justify-content: center
+              bottom: 14px
+              left: 14px
+              background-color: #EB163C
+              color: #fff
+              border-radius: 999px
+              padding: 0 5px
+              height: 20px
+              font-size: 12px
+              line-height: 1
+              padding-top: 1px
+              font-weight: 700
+              white-space: nowrap
+        .product-btns 
+          margin-top: 0
+          .button.pre-order
+            height: 40px
+            font-size: 10px
+          .add_to_cart_button
+            height: 42px
+            max-width: 42px
+            padding: 0
+            min-width: 42px
+            background-size: 20px 20px
+          .awooc-custom-order,
+          .order-btn
+            font-size: 0
+            position: relative
+            width: 100%
+            margin-right: 6px
+            height: 40px
+            max-height: 40px
+            padding: 0
+            min-height: 40px
+            &::before
+              position: absolute
+              content: 'Купить'
+              display: block
+              top: 50%
+              left: 50%
+              transform: translate(-50%, -50%)
+              color: #fff
+              font-family: $font
+              z-index: 12
+              font-size: 14px
+              font-weight: 500
+        .product-bottom
+          margin-top: 0
+
+@media (max-width: 767px)
+  
+  section 
+    .woocommerce
+      width: 100%
+      margin: 0
+    .wrap ul.products,
+    .woocommerce ul.products,
+    .woocommerce ul.products
+      li.product
+        .button.br_compare_button
+          right: 10px
+          top: 40px
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  

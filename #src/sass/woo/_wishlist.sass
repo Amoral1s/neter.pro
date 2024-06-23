@@ -1,0 +1,183 @@
+@import "../reset/_vars"
+
+.page-wish
+  ul.products.wish-products
+    min-width: calc(100% + 20px)
+    display: flex
+    justify-content: flex-start
+    flex-wrap: wrap
+    li.product
+      margin-right: 20px
+      margin-bottom: 30px
+      width: calc(25% - 20px)
+  .wish-btns
+    position: relative
+    .tinvwl-to-left
+      display: none
+    .tinvwl-to-right
+      button
+        display: flex
+        align-items: center
+        justify-content: center
+        appearance: none
+        box-shadow: none
+        border: none
+        background: transparent
+        font-size: 16px
+        font-weight: 500
+        color: $gray_400
+        height: auto
+        padding: 0
+        margin: 0
+        padding-left: 34px
+        position: relative
+        top: -85px
+        left: 380px
+        &:after
+          position: absolute
+          left: 0
+          top: 50%
+          transform: translateY(-50%)
+          background-repeat: no-repeat
+          background-size: contain
+          height: 24px
+          width: 24px
+          z-index: 1
+          opacity: 1
+          border-radius: 0
+          background: transparent
+          background-image: url(../img/icons/cart-wish.svg)
+        &:hover
+          background: transparent
+          color: $green
+      button[name="tinvwl-action-product_selected"]
+        display: none
+
+
+
+@media (max-width: 992px)
+  .page-wish .wish-btns .tinvwl-to-right button
+    left: 230px
+    top: -75px
+  .page-wish
+    ul.products.wish-products
+      min-width: calc(100% + 20px)
+      display: flex
+      justify-content: flex-start
+      flex-wrap: wrap
+      li.product
+        margin-right: 20px
+        margin-bottom: 30px
+        width: calc(33.3% - 20px)
+
+@media (max-width: 767px)
+  .page-wish
+    ul.products.wish-products
+      min-width: 0
+      justify-content: space-between
+      li.product
+        margin-right: 0
+        margin-bottom: 20px
+        width: calc(50% - 4px)
+  section .woocommerce ul.products li.product .tinvwl_add_to_wishlist_button.tinvwl-product-make-remove, section .wrap ul.products li.product .tinvwl_add_to_wishlist_button.tinvwl-product-make-remove
+    height: 20px
+    width: 20px
+    background-size: 20px 20px
+    top: 10px
+    right: 10px
+  section .woocommerce ul.products li.product .tinvwl_add_to_wishlist_button.tinvwl-product-make-remove, section .wrap ul.products li.product .tinvwl_add_to_wishlist_button
+    height: 20px
+    width: 20px
+    background-size: 20px 20px
+    top: 10px
+    right: 10px
+
+
+@media (max-width: 992px)
+  .page-wish .wish-btns 
+    .tinvwl-to-right 
+      margin-bottom: 20px
+      margin-top: -5px
+      button
+        left: 0
+        top: 0
+        font-size: 14px
+
+
+.tinv-wishlist .tinv-modal .tinv-modal-inner
+  padding: 30px
+  border-radius: 24px
+  i
+    display: none!important
+  button.tinvwl_button_close
+    i
+      display: none!important
+    &::after
+      display: none!important
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+

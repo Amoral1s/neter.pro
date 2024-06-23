@@ -1,0 +1,2069 @@
+@import "../reset/_vars"
+
+.main-cats
+  .dots
+    display: none
+  .subtitle
+    max-width: 100%
+    display: flex
+    justify-content: space-between
+    align-items: center
+    flex-wrap: nowrap
+    span
+      font-size: 18px
+      font-weight: 400
+      display: block
+      max-width: 820px
+  .swiper
+    overflow: visible
+  .swiper-slide-next + .swiper-slide + .swiper-slide,
+  .swiper-slide-prev
+    opacity: .5
+  .arrows
+    display: flex
+    justify-content: flex-end
+    align-items: center
+    width: max-content
+    .arr
+      position: static
+    .arr-next
+      margin-left: 30px
+  .item-part
+    width: 100%
+    display: block
+    background-color: #fff
+    padding: 30px
+    border-radius: 24px
+    background-repeat: no-repeat
+    background-size: contain
+    background-position: right bottom
+    overflow: hidden
+    margin-bottom: 20px
+    height: 260px
+    transition: .2s
+    b
+      color: $text
+      &.left
+        max-width: 132px
+    span
+      display: block
+      color: $gray_200
+      margin-bottom: 10px
+      font-size: 16px
+  .onest
+    background-color: #fff
+    overflow: hidden
+    padding: 30px
+    height: 540px
+    border-radius: 24px
+    transition: .2s
+    background-repeat: no-repeat
+    background-size: contain
+    background-position: bottom right
+    display: flex
+    flex-direction: column
+    align-items: flex-start
+    p
+      margin-bottom: 0
+      margin-top: auto
+      color: $gray_400
+      max-width: 200px
+      font-size: 16px
+      line-height: 1.2
+    b
+      color: $text
+    span
+      color: $gray_400
+      font-size: 16px
+      display: block
+      margin-bottom: 10px
+
+.features
+  .wrap
+    justify-content: space-between
+    flex-wrap: nowrap
+  .item
+    width: calc(25% - (60px / 4))
+    border-radius: 24px
+    border: 1px solid $gray_300
+    padding: 30px
+    img
+      display: block
+      margin-bottom: 25px
+      width: 130px
+    b
+      font-size: 24px
+      margin-bottom: 10px
+    p
+      line-height: 1.2
+      margin: 0
+      color: $gray_400
+
+.our
+  padding-top: 20px
+  margin-bottom: 40px
+  .subtitle
+    max-width: 720px
+  .wrap
+    border-radius: 24px
+    padding: 50px
+    padding-bottom: 30px
+    position: relative
+    background-color: $white_60
+    position: relative
+    display: block
+  &-bg
+    position: absolute
+    top: -50px
+    right: -110px
+    width: 640px
+  &-feat
+    display: flex
+    justify-content: space-between
+    align-items: center
+    width: 825px
+    flex-wrap: wrap
+    margin-bottom: 25px
+    .item
+      width: calc(33.3% - (55px / 3))
+      display: flex
+      justify-content: flex-start
+      align-items: center
+      margin-bottom: 15px
+      img
+        margin-right: 10px
+      b
+        font-size: 16px
+  &-row
+    min-width: calc(100% + 20px)
+    .swiper
+      overflow: visible
+    &-wrap
+      display: flex
+      flex-wrap: wrap
+      justify-content: flex-start
+      align-items: stretch
+    .item
+      width: calc(20% - 20px)
+      background-color: #fff
+      border-radius: 24px
+      margin-right: 20px
+      margin-bottom: 20px
+      position: relative
+      display: flex
+      flex-direction: column
+      align-items: flex-start
+      height: 235px
+      img
+        width: 174px
+        margin: auto
+        margin-bottom: 0
+      .icon
+        position: absolute
+        right: 20px
+        top: 20px
+      b
+        padding-right: 50px
+        font-size: 18px
+        font-weight: 500
+        color: $text
+        padding-left: 20px
+        padding-top: 20px
+
+.consult-banner
+  margin-bottom: 100px
+  .form
+    .input
+      max-width: 240px
+    small
+      margin-top: 24px
+  .wrap
+    background-color: $dark
+    border-radius: 24px
+    padding: 37px 37px 37px 400px
+    position: relative
+    .title, .subtitle
+      color: #fff
+    .title
+      font-size: 32px
+      margin-bottom: 8px
+      line-height: 1.2
+      letter-spacing: -1px
+    .subtitle
+      font-size: 16px
+      margin-bottom: 24px
+    .left
+      position: absolute
+      left: 57px
+      width: 290px
+      top: -40px
+    .right
+      width: 100%
+
+.projects-row
+  .wrap
+    display: flex
+    flex-wrap: wrap
+    justify-content: space-between
+    align-items: flex-start
+    position: relative
+    height: 730px
+  .item
+    background-color: #fff
+    display: block
+    position: relative
+    border-radius: 24px
+    overflow: hidden
+    width: 300px
+    background-repeat: no-repeat
+    background-size: cover
+    background-position: center
+    transition: 10s
+    img
+      position: absolute
+      width: 100%
+      height: 100%
+      border-radius: 24px
+      object-fit: cover
+    &.last
+      width: 400px
+      position: absolute
+      right: 0
+      bottom: 0
+      border-radius: 24px
+      background-color: #fff
+      padding: 30px
+      display: flex
+      flex-direction: column
+      align-items: flex-start
+      justify-content: space-between
+      height: 210px
+      margin-bottom: 0
+      margin-top: 20px
+      .count
+        background-color: $main
+        color: #fff
+        font-weight: 500
+        font-size: 20px
+        padding: 0 16px
+        display: flex
+        justify-content: center
+        align-items: center
+        width: max-content
+        height: 40px
+        border-radius: 999px
+        line-height: 1
+      .moar
+        font-size: 18px
+        font-weight: 500
+        max-width: 123px
+        color: $text
+      .last-row
+        width: 100%
+        display: flex
+        justify-content: space-between
+        align-items: center
+    &.full
+      width: 505px
+      position: absolute
+      left: calc(50% - 50px)
+      transform: translateX(-50%)
+      height: 730px
+      background-repeat: no-repeat
+      background-size: cover
+      background-position: center
+      top: 0
+      .meta
+        position: absolute
+        bottom: 20px
+        width: calc(100% - 40px)
+        border-radius: 16px
+        background: rgba(255, 255, 255, 0.05)
+        backdrop-filter: blur(29px)
+        left: 20px
+        color: #fff
+        padding: 20px
+        b
+          font-size: 20px
+          margin-bottom: 10px
+        p
+          font-size: 16px
+          margin-bottom: 0
+          line-height: 1.2
+          color: $white_50
+    &.first
+      background-color: $dark
+      padding: 30px
+      color: #fff
+      display: flex
+      flex-direction: column
+      align-items: center
+      height: 250px
+      margin-bottom: 20px
+      span
+        display: block
+        text-align: center
+        font-size: 24px
+        max-width: 80px
+        margin-bottom: 35px
+        color: #fff
+        font-weight: 500
+      .num
+        width: 100%
+        display: block
+        text-align: center
+        font-size: 246px
+        color: $white_15
+        font-weight: 500
+        position: absolute
+        bottom: -120px
+        left: 50%
+        transform: translateX(-50%)
+    &:nth-child(2)
+      position: absolute
+      bottom: 0
+      left: 0
+      height: 460px
+    &:nth-child(4)
+      position: absolute
+      top: 0
+      right: 0
+      width: 400px
+      height: 500px
+    
+.order
+  .subtitle
+    margin-bottom: 0
+  .title
+    margin-bottom: 20px
+    max-width: 780px
+  .dots
+    display: none
+  .row
+    display: flex
+    justify-content: space-between
+    align-items: center
+    margin-bottom: 40px
+    .left
+      width: 820px
+    .right
+      width: max-content
+      padding: 20px
+      max-width: 230px
+      display: flex
+      justify-content: center
+      align-items: center
+      border-radius: 19px
+      border: 1px solid $gray_300
+      .icon
+        margin-right: 16px
+      .meta
+        display: block
+        b
+          font-size: 18px
+          font-weight: 500
+          margin-bottom: 2px
+        p
+          font-size: 14px
+          color: $gray_400
+  .item
+    width: calc(20% - (160px / 5))
+    display: block
+    .icon
+      background-color: #fff
+      border-radius: 12px
+      height: 80px
+      width: 80px
+      margin-bottom: 24px
+    b
+      font-size: 18px
+  .swiper-wrapper
+    justify-content: space-between
+  
+.tech-banner
+  margin-bottom: 100px
+  .subtitle
+    font-size: 16px
+  .form
+    .input
+      max-width: 240px
+      input
+        box-shadow: 0px 4px 55px 0px rgba(0, 0, 0, 0.05)
+        background-color: #fff
+    small
+      margin-top: 24px
+      color: $gray_400
+  .wrap
+    background-color: $white_60
+    border-radius: 24px
+    padding: 40px 60px
+    position: relative
+    .title
+      font-size: 32px
+      margin-bottom: 8px
+      line-height: 1.2
+      letter-spacing: -1px
+    .subtitle
+      font-size: 16px
+      margin-bottom: 24px
+    .right
+      position: absolute
+      width: 560px
+      top: 50%
+      transform: translateY(-50%)
+      right: -30px
+      img
+        display: block
+        width: 100%
+        height: auto
+    .left
+      width: 100%
+
+.about
+  color: #fff
+  .title, .content
+    color: #fff
+  &-top
+    display: flex
+    justify-content: space-between
+    align-items: flex-start
+    margin-bottom: 40px
+    .title
+      margin-bottom: 30px
+    .content
+      p, li
+        font-size: 16px
+        line-height: 1.5
+        margin-bottom: 15px
+        &:last-child
+          margin-bottom: 0
+    .right
+      width: 580px
+      display: flex
+      justify-content: space-between
+      align-items: flex-start
+      margin-top: 80px
+      .meta
+        width: calc(100% - 320px - 20px)
+        display: block
+        &-team
+          display: flex
+          flex-direction: column
+          align-items: flex-start
+          justify-content: space-between
+          border-radius: 20px
+          padding: 20px
+          height: 150px
+          background-color: #fff
+          b
+            color: $text
+            font-size: 16px
+          &-top
+            display: flex
+            justify-content: flex-start
+            align-items: center
+
+            .item
+              position: relative
+              overflow: hidden
+              border-radius: 100%
+              min-width: 55px
+              width: 55px
+              height: 55px
+              border: 2px solid #fff
+              img
+                width: 100%
+                object-fit: cover
+              &:nth-child(2)
+                left: -25px
+              &:nth-child(3)
+                left: -50px
+              &:nth-child(4)
+                left: -75px
+              &:nth-child(5)
+                left: -100px
+                background-color: $dark
+                display: flex
+                justify-content: center
+                align-items: center
+                font-size: 16px
+                font-weight: 400
+                line-height: 1.2
+                letter-spacing: -0.6px
+        &-projects
+          background-color: $main
+          border-radius: 20px
+          padding: 20px
+          margin-bottom: 20px
+          color: #fff
+          height: 150px
+          display: flex
+          flex-direction: column
+          align-items: flex-start
+          justify-content: space-between
+          color: #fff
+          b
+            font-size: 42px
+            font-weight: 500
+            line-height: 1
+            letter-spacing: -1.2px
+          p
+            color: #fff
+            font-size: 16px
+            font-weight: 500
+            max-width: 140px
+            line-height: 1.2
+            letter-spacing: -0.5px
+            margin-bottom: 0
+      .image
+        width: 320px
+        aspect-ratio: 1 / 1
+        img
+          width: 100%
+          aspect-ratio: 1 / 1
+          border-radius: 24px
+    .left
+      width: calc(100% - 580px - 50px)
+  &-feat
+    display: flex
+    justify-content: space-between
+    align-items: center
+    width: 100%
+    padding-top: 30px
+    border-top: 1px solid $white_15
+    margin-bottom: 40px
+    .item
+      display: flex
+      align-items: center
+      justify-content: flex-start
+      width: calc(25% - (180px / 4))
+      img
+        width: 55px
+        margin-right: 20px
+      p
+        width: calc(100% - 75px)
+        color: #fff
+        display: block
+        line-height: 1.2
+        font-size: 16px
+        margin: 0
+  &-video
+    position: relative
+    aspect-ratio: 1240 / 622
+    border-radius: 24px
+    margin-bottom: 90px
+    iframe
+      display: block
+      width: 100%!important
+      aspect-ratio: 1240 / 622
+      height: auto!important
+      border-radius: 24px
+    .play
+      position: absolute
+      top: 50%
+      transform: translate(-50%, -50%)
+      left: 50%
+      z-index: 5
+      cursor: pointer
+      transition: .2s
+      fill: rgba(44, 180, 194, 0.20)
+      backdrop-filter: blur(25px)
+      display: flex
+      justify-content: center
+      align-items: center
+      border-radius: 100%
+    .view
+      width: 100%
+      object-fit: cover
+      aspect-ratio: 1240 / 622
+      border-radius: 24px
+      position: absolute
+      left: 0
+      right: 0
+      top: 0
+      bottom: 0
+  &-circle
+    position: relative
+    .center
+      text-align: center
+      max-width: 100%
+    .circle-bg
+      position: absolute
+      top: calc(50% - 40px)
+      left: 50%
+      transform: translate(-50%, -50%)
+      z-index: 1
+      width: 712px
+      aspect-ratio: 1 / 1
+      display: flex
+      align-items: center
+      justify-content: center
+      .image
+        width: 400px
+        position: relative
+        z-index: 5
+      .bg
+        position: absolute
+        left: 50%
+        top: 50%
+        transform: translate(-50%, -50%)
+        width: 712px
+        aspect-ratio: 1 / 1
+        height: auto
+    .wrap
+      display: flex
+      justify-content: space-between
+      align-items: center
+      flex-wrap: wrap
+      position: relative
+      z-index: 5
+      
+    .item
+      width: 400px
+      display: flex
+      flex-direction: column
+      align-items: center
+      margin-bottom: 40px
+      &:nth-child(even)
+        margin-right: 100px
+      .icon
+        border-radius: 100%
+        height: 80px
+        width: 80px
+        margin-bottom: 10px
+        background: $white_8
+      b
+        text-align: center
+        color: #fff
+        font-size: 20px
+        display: block
+        margin-bottom: 8px
+      span
+        text-align: center
+        display: block
+        font-size: 16px
+        color: $gray_450  
+        letter-spacing: -0.5px
+
+.faq
+  .title
+    margin-bottom: 20px
+  .subtitle
+    margin-bottom: 25px
+  .btns
+    display: flex
+    align-items: center
+    justify-content: flex-start
+    .button
+      width: 176px
+    a
+      display: flex
+      align-items: center
+      justify-content: center
+      white-space: nowrap
+      margin-left: 24px
+      span
+        color: $main
+        font-weight: 500
+        display: block
+        margin-right: 10px
+        font-size: 16px
+  .wrap
+    display: flex
+    justify-content: space-between
+    align-items: flex-start
+  .left
+    width: 370px
+    
+  .right
+    width: calc(100% - 370px - 50px)
+  .item
+    background-color: $white_60
+    border-radius: 18px
+    margin-bottom: 14px
+    overflow: hidden
+    &.active
+      background-color: #fff
+    &-title
+      font-size: 18px
+      font-weight: 500
+      margin: 0
+      line-height: 1.2
+      cursor: pointer
+      display: flex
+      justify-content: space-between
+      align-items: center
+      padding: 24px
+      transition: .2s
+      &.active
+        .icon
+          transform: rotate(180deg)
+    &-content
+      margin-top: -12px
+      padding: 24px
+      padding-top: 0
+      display: none
+      p, li
+        font-size: 16px
+        line-height: 1.5
+        color: $gray_500
+        &:last-child
+          margin-bottom: 0
+
+.catalog-banner
+  margin-bottom: 100px
+  .wrap
+    background-color: $main
+    color: #fff
+    position: relative
+    padding: 60px 65px
+    border-radius: 24px
+    background-repeat: no-repeat
+    background-size: cover
+    background-position: right center
+    background-image: url(../img/banner-catalog.png)
+  .form
+    width: 350px
+    small
+      margin-top: 20px
+      color: $white_70
+      a
+        color: $white_70
+        &:hover
+          color: $dark
+    .input
+      margin-bottom: 10px
+  .left
+    width: 100%
+    position: relative
+    z-index: 2
+  .right
+    position: absolute
+    z-index: 1
+    right: 30px
+    bottom: 20px
+    width: 650px
+  .title
+    color: #fff
+    max-width: 650px
+    margin-bottom: 15px
+  .subtitle
+    margin-bottom: 30px
+    color: #fff
+    font-size: 16px
+    max-width: 420px
+
+.news
+  .title
+    display: flex
+    justify-content: space-between
+    align-items: flex-end
+    max-width: 100%
+    .all-news
+      display: flex
+      justify-content: flex-end
+      align-items: center
+      width: max-content
+      span
+        color: $main
+        font-size: 16px
+        font-weight: 500
+        white-space: nowrap
+      .icon
+        margin-left: 10px
+        svg path
+          stroke: $main
+  .item
+    background-color: #fff
+    border-radius: 24px
+    position: relative
+    img
+      width: 100%
+      object-fit: cover
+      border-radius: 24px
+      aspect-ratio: 400 / 265
+      height: auto
+    .meta
+      padding: 24px
+      display: flex
+      flex-direction: column
+      align-items: flex-start
+      justify-content: space-between
+      b
+        font-size: 18px
+        font-weight: 500
+        margin-bottom: 30px
+        transition: .2s
+        color: $text
+      .date
+        font-size: 16px
+        font-weight: 400
+        position: absolute
+        bottom: 24px
+        left: 24px
+        color: $gray_400  
+
+.map
+  overflow: hidden
+  height: 670px
+  margin-bottom: 0
+  position: relative
+  .wrap
+    width: 400px
+    padding: 30px
+    border-radius: 24px
+    background: rgba(255, 255, 255, 0.10)
+    backdrop-filter: blur(25px)
+    position: relative
+    z-index: 5
+    color: #fff
+    margin-top: 120px
+  .row
+    display: flex
+    justify-content: flex-start
+    align-items: center
+    margin-bottom: 8px
+    a
+      color: #fff
+      white-space: nowrap
+      margin-right: 24px
+      font-size: 18px
+      font-weight: 500
+      letter-spacing: -0.5px
+  .button
+    max-width: 190px
+    margin-top: 24px
+  .item
+    display: block
+    margin-bottom: 20px
+    &-last
+      span
+        display: block
+        font-size: 16px
+        font-weight: 400
+        line-height: 1.2
+        color: $gray_400
+        font-style: normal
+    p
+      color: #fff
+      font-size: 18px
+      font-weight: 500
+      margin-bottom: 8px
+      line-height: 1.2
+    address
+      font-size: 16px
+      font-weight: 400
+      line-height: 1.2
+      color: $gray_400
+      font-style: normal
+  .title
+    margin-bottom: 24px
+    font-size: 32px
+    border-bottom: 1px solid rgba(255, 255, 255, 0.30)
+    padding-bottom: 24px
+    color: #fff
+    width: 100%
+  #map
+    width: 100%
+    height: 720px
+    position: absolute
+    top: 0
+    right: 0
+    z-index: 1
+    left: 0
+    background-color: $dark
+  .ymaps-2-1-79-ground-pane
+    filter: invert(80%) grayscale(1) brightness(1) 
+  
+.footer
+  margin: 0
+  padding: 0
+
+  &-top
+    border-bottom: 1px solid $white_15
+    padding-top: 25px
+    padding-bottom: 25px
+    margin-bottom: 40px
+    .wrap
+      display: flex
+      justify-content: space-between
+      align-items: center
+      .social
+        display: flex
+        justify-content: flex-end
+        align-items: center
+        a
+          display: flex
+          justify-content: center
+          align-items: center
+          height: 44px
+          width: 44px
+          border-radius: 10px
+          background-color: $white_8
+          margin-left: 10px
+      .center
+        display: flex
+        justify-content: center
+        align-items: center
+        .item
+          display: block
+          margin: 0 30px
+          a
+            color: #fff
+            font-size: 18px
+            font-weight: 700
+            margin-bottom: 2px
+          span
+            color: $gray_400
+            display: block
+            font-size: 16px
+            font-weight: 400
+  &-menu
+    padding-bottom: 10px
+    .wrap
+      justify-content: space-between
+      flex-wrap: nowrap
+      .column
+        width: 25%
+      .list-title
+        color: #fff
+        font-weight: 500
+        font-size: 18px
+        display: block
+        line-height: 1.2
+        margin-bottom: 16px
+      .block
+        display: block
+        margin-bottom: 40px
+        li
+          display: block
+          margin-bottom: 14px
+          a, span
+            color: $white_70
+            font-size: 16px
+            font-weight: 400
+  &-feat
+    border-top: 1px solid $white_15
+    border-bottom: 1px solid $white_15
+    padding: 40px 0
+    margin-bottom: 30px
+    .wrap
+      display: flex
+      justify-content: space-between
+      align-items: center
+      .dir
+        width: calc(33.3% - 20px)
+        display: block
+        p
+          font-size: 14px
+          font-weight: 400
+          line-height: 1.2
+          margin: 0
+          color: rgba(#fff, .4)
+        &-top
+          display: flex
+          align-items: center
+          justify-content: flex-start
+          margin-bottom: 10px
+          b
+            font-size: 18px
+            font-weight: 500
+            margin: 0
+            color: #fff
+            margin-right: 20px
+          a
+            color: $main
+            font-size: 16px
+            font-weight: 500
+
+      .item
+        display: flex
+        align-items: center
+        justify-content: flex-start
+        width: calc(33.3% -  20px)
+        .icon
+          min-width: 70px
+          height: 70px
+          margin-right: 20px
+          border-radius: 20px
+          background-color: $white_8
+        .meta
+          display: block
+          b
+            color: #fff
+            font-size: 18px
+            font-weight: 500
+            margin-bottom: 8px
+          a
+            font-size: 16px
+            font-weight: 400
+            color: $gray_400
+            margin: 0
+            display: block
+  &-subscribe
+    padding-bottom: 30px
+    border-bottom: 1px solid $white_15
+    .form
+      background-color: transparent!important
+      form
+        display: flex
+        justify-content: flex-start
+        align-items: center
+        .input
+          min-width: 300px
+          width: 300px
+          margin-right: 10px
+          input
+            background-color: $white_8
+            color: #fff
+            &::placeholder
+              color: $white_50
+        .submit
+          width: 60px
+          min-width: 60px
+          margin: 0
+          .button
+            font-size: 0
+            background-repeat: no-repeat
+            background-size: 24px 24px
+            background-position: center
+            background-image: url(../img/icons/uni-btn.svg)
+
+    .wrap
+      display: flex
+      justify-content: space-between
+      align-items: center
+      .right
+        display: flex
+        align-items: center
+        justify-content: flex-end
+        .form
+          width: 370px
+          height: 60px
+          background-color: rgba($main, .3)
+        small
+          font-size: 14px
+          line-height: 1.2
+          color: $white_50
+          margin: 0
+          width: 332px
+          display: block
+          margin-left: 25px
+      .left
+        width: 415px
+        display: flex
+        align-items: center
+        justify-content: flex-start
+        .icon
+          width: 50px
+          margin-right: 20px
+          img
+            width: 100%
+        b
+          width: calc(100% - 70px)
+          color: #fff
+          font-size: 24px
+          white-space: nowrap
+          font-weight: 500
+  &-bottom
+    padding: 30px 0
+    .wrap
+      display: flex
+      align-items: center
+      justify-content: space-between
+      .button
+        max-height: 50px
+      .left
+        ul
+          display: flex
+          align-items: center
+          justify-content: flex-start
+          a, span
+            font-size: 16px
+            font-weight: 400
+            display: block
+            margin-right: 40px
+            white-space: nowrap
+            color: $gray_400
+
+#up-arr
+  position: fixed
+  right: 15px
+  bottom: 15px
+  z-index: 20
+  cursor: pointer
+  .icon
+    margin: auto
+    height: 40px
+    width: 40px
+    border-radius: 12px
+    background-color: $main
+  svg path
+    stroke: #fff
+
+@media (max-width: 992px)
+  section
+    margin-bottom: 40px
+  .title
+    &.sub
+      margin-bottom: 16px
+  .subtitle
+    margin-bottom: 20px
+  .main-cats
+    .subtitle
+      span
+        font-size: 16px
+        max-width: 400px
+  .features 
+    .wrap
+      flex-wrap: wrap
+      .item
+        width: calc(50% - 10px)
+        margin-bottom: 20px
+  .our 
+    padding-top: 0
+    .wrap
+      display: block
+    &-bg
+      display: none
+    &-row
+      .our-row-wrap
+        flex-wrap: wrap
+        justify-content: center
+        position: relative
+        left: -10px
+        .item
+          width: calc(33.3% - 10px)
+          margin-right: 5px
+          margin-left: 5px
+          margin-bottom: 10px
+          height: 210px
+          b
+            font-size: 16px
+    &-feat
+      justify-content: space-between
+      flex-wrap: wrap
+      width: 100%
+      .item
+        width: calc(50% - 10px)
+        margin-bottom: 20px
+  .consult-banner
+    margin-top: 100px
+    margin-bottom: 40px
+    .wrap
+      padding: 40px
+      padding-top: 85px
+      .right
+        width: 100%
+        .title
+          width: 100%
+          text-align: center
+        .subtitle
+          width: 100%
+          text-align: center
+      .left
+        position: absolute
+        left: 50%
+        width: 160px
+        transform: translateX(-50%)
+        top: -80px
+  .projects-row
+    .wrap
+      height: auto
+    .item
+      border-radius: 20px
+      width: 100%
+      transition: 0s
+      &.last
+        width: 100%
+        position: static
+        border-radius: 20px
+        height: auto
+        order: 15
+        margin-top: 0
+        height: 114px
+        padding: 16px
+        .count
+          font-size: 14px
+          height: 26px
+          padding-top: 0
+          padding-bottom: 0
+          padding-right: 10px
+          padding-left: 10px
+        .moar
+          font-size: 14px
+          max-width: 123px
+      &.full
+        width: 100%
+        position: relative
+        order: -5
+        left: auto
+        top: auto
+        transform: none
+        height: 380px
+        margin-bottom: 10px
+        img
+          height: 100%
+      &.first
+        order: 1
+        height: auto
+        margin-bottom: 10px
+        width: 33%
+        aspect-ratio: 102 / 80
+      &:nth-child(2)
+        position: absolute
+        bottom: 0
+        left: 0
+        height: auto
+        aspect-ratio: 104 / 151
+        width: calc(33%)
+        bottom: 124px
+        left: 0
+      &:nth-child(4)
+        position: relative
+        order: 5
+        margin-bottom: 10px
+        aspect-ratio: 216 / 247
+        transform: none
+        left: auto
+        right: auto
+        top: auto
+        width: calc(67% - 10px)
+        height: auto
+  .title-row
+    display: block
+    margin-bottom: 20px
+    .title
+      width: 100%
+      margin-bottom: 16px
+    .subtitle
+      width: 100%
+  .order
+    .swiper-wrapper
+      display: block
+      .item
+        margin-bottom: 20px
+        height: auto
+        display: flex
+        justify-content: flex-start
+        align-items: center
+        width: 100%
+        .icon
+          margin-right: 20px
+          margin-bottom: 0
+        
+    .container
+      position: relative
+      padding-bottom: 110px
+    .row
+      display: block
+      .right
+        position: absolute
+        bottom: 0
+        left: 15px
+        width: 100%
+        max-width: 100%
+      .left
+        width: 100%
+        margin-bottom: 20px
+  .tech-banner 
+    margin-top: 100px
+    margin-bottom: 40px
+    .wrap 
+      padding: 20px
+      padding-top: 90px
+      .left
+        .title, .subtitle
+          width: 100%
+          text-align: center
+      .right
+        left: 50%
+        transform: translateX(-50%)
+        width: 260px
+        top: -60px
+  .about
+    &-feat
+      justify-content: space-between
+      flex-wrap: wrap
+      margin-bottom: 20px
+      .item
+        width: calc(50% - 10px)
+        margin-bottom: 20px
+        img
+          margin-right: 10px
+    &-top
+      display: block
+      .left
+        width: 100%
+      .right
+        width: 100%
+        margin-top: 20px
+    &-video
+      margin-bottom: 50px
+      .play
+        width: 55px
+        height: 55px
+        svg
+          max-width: 55px
+          max-height: 55px
+    &-circle
+      position: relative
+      .title
+        margin-bottom: 15px
+      .wrap
+        position: static
+        .item
+          width: 100%
+          display: flex
+          align-items: center
+          justify-content: flex-start
+          flex-direction: row
+          position: relative
+          span
+            font-size: 12px
+            display: block
+            text-align: left
+          .icon
+            min-width: 60px
+            margin-bottom: 0
+            margin-right: 15px
+            width: 60px
+            height: 60px
+            img
+              width: 24px
+              height: 24px
+          .meta
+            width: calc(100% - 60px - 15px)
+            display: block
+          b
+            font-size: 14px
+            text-align: start
+            margin-bottom: 0
+            margin-bottom: 6px
+        .circle-bg
+          position: relative
+          left: auto
+          margin-left: auto
+          margin-right: auto
+          transform: none
+          top: auto
+          margin-top: -120px
+          width: 450px
+          margin-bottom: -100px
+          .bg
+            width: 450px
+          .image
+            width: 245px
+  .faq
+    .wrap
+      display: block
+      .left
+        width: 100%
+        margin-bottom: 25px
+      .right
+        width: 100%
+  .bg-dark
+    padding-top: 40px
+    padding-bottom: 40px
+    margin-bottom: 40px
+  .catalog-banner
+    .wrap
+      padding: 20px
+      padding-top: 190px
+      background-size: 450px 450px
+      background-repeat: no-repeat
+      background-position: top left
+      background-image: url(../img/icons/bg-cat-mob.png)
+      .right
+        left: 20px
+        top: 20px
+        width: 233px
+      .left
+        width: 100%
+        .form
+          width: 100%
+  .news
+    .wrap
+      .arr-prev
+        left: -20px
+      .arr-next
+        right: -20px
+  .map
+    height: 800px
+    .wrap
+      margin-top: 15px
+      margin-left: auto
+      margin-right: auto
+    #map
+      height: 840px
+  .footer
+    padding-top: 0
+    margin: 0
+    &-top
+      padding-top: 30px
+      .wrap
+        display: block
+        .center
+          margin-bottom: 40px
+        .social
+          display: flex
+          justify-content: center
+        .logo
+          margin: 0 auto 40px auto
+          display: flex
+          justify-content: center
+        .item
+          width: 100%
+    &-menu
+      border: none
+      margin-bottom: 0
+      .wrap
+        flex-wrap: wrap
+        justify-content: space-between
+        .column
+          width: 50%
+    &-feat
+      padding-top: 0
+      border: none
+      margin-bottom: 0
+      padding-bottom: 25px
+      .wrap
+        flex-direction: column-reverse
+        .dir
+          width: 100%
+          padding-bottom: 25px
+          padding-top: 25px
+          border-top: 1px solid $white_15
+          border-bottom: 1px solid $white_15
+        .item
+          width: 100%
+          margin-top: 25px
+    &-subscribe
+      border: none
+      .button
+        font-size: 0!important
+      .wrap
+        display: block
+        padding: 25px 0
+        border-top: 1px solid $white_15
+        border-bottom: 1px solid $white_15
+        .left
+          margin-bottom: 25px
+    &-bottom
+      padding: 0
+      .wrap
+        flex-direction: column-reverse
+        .left
+          width: 100%
+          display: block
+          nav
+            ul
+              display: block
+              a, span
+                margin-bottom: 10px
+        .right
+          width: 100%
+          margin-bottom: 24px
+  #up-arr
+    left: 10px  
+    bottom: 10px
+    right: auto
+    height: 30px
+    width: 30px
+    .icon
+      height: 30px
+      width: 30px
+      border-radius: 6px
+      svg
+        max-width: 20px
+        max-height: 20px
+
+@media (max-width: 767px)
+  .main-cats
+    .wrap
+      .swiper-wrapper
+        .item
+          &.double
+            .item-part
+              height: 140px
+              margin-bottom: 10px
+              padding: 15px
+              border-radius: 24px
+              span
+                font-size: 12px
+                margin-bottom: 5px
+              b
+                font-size: 14px
+                &.left
+                  width: 90px
+              &:last-child
+                margin-bottom: 0
+          &.onest
+            height: 290px
+            padding: 15px
+            border-radius: 24px
+            span
+              font-size: 12px
+              margin-bottom: 5px
+            b
+              font-size: 14px
+            p
+              font-size: 12px
+    .subtitle
+      display: flex
+      span
+        font-size: 12px
+        margin-bottom: 20px
+        width: calc(100% - 90px)
+      .arrows
+        display: flex
+        justify-content: flex-end
+        align-items: center
+        margin-bottom: 20px
+        width: calc(90px)
+        .arr-next
+          margin-left: 10px
+  .arr
+    height: 40px
+    width: 40px
+  .features
+    margin-bottom: 30px
+    .wrap
+      justify-content: space-between
+      .item
+        width: calc(50% - 4px)
+        margin-bottom: 8px
+        padding: 15px
+        img
+          width: 50px
+          margin-bottom: 10px
+        b
+          font-size: 14px
+          margin-bottom: 6px
+        p
+          font-size: 12px
+  .our
+    .wrap
+      border-radius: 0
+      background: transparent
+      padding: 0
+    &-feat
+      margin-bottom: 6px
+      .item
+        width: calc(50% - 5px)
+        margin-bottom: 14px
+        img
+          margin-right: 10px
+        b
+          font-size: 12px
+    &-row
+      .our-row-wrap
+        justify-content: center
+        .item
+          width: calc(50% - 6px)
+          margin: 0 3px
+          margin-bottom: 8px
+          height: auto
+          img
+            width: calc(100% - 60px)
+            object-fit: contain
+            aspect-ratio: 1 / 1
+          .icon
+            right: 15px
+            top: 15px
+          b
+            padding: 15px
+            font-size: 14px
+            padding-right: calc(24px + 20px)
+  .consult-banner
+    .wrap
+      .right
+        .title
+          font-size: 24px
+          margin-bottom: 10px
+        .subtitle
+          font-size: 12px
+          margin-bottom: 20px
+        .form
+          small
+            margin-top: 15px
+  .projects-row 
+    .item
+      &.full
+        .meta
+          left: 15px
+          width: calc(100% - 30px)
+          bottom: 15px
+          padding: 15px
+          b
+            font-size: 14px
+            margin-bottom: 4px
+          p
+            font-size: 12px
+  .about
+    padding-bottom: 16px
+    &-top
+      margin-bottom: 30px
+      .right
+        justify-content: space-between
+        .meta
+          width: calc(50% - 4px)
+          &-projects
+            padding: 15px
+            height: 95px
+            margin-bottom: 10px
+            b
+              font-size: 20px
+              margin-bottom: 4px
+            p
+              font-size: 12px
+          &-team
+            padding: 15px
+            height: 95px
+            margin-bottom: 0
+            margin-top: 0
+            b
+              font-size: 12px
+            &-top
+              .item
+                width: 36px
+                height: 36px
+                min-width: 36px
+                &.num
+                  font-size: 12px
+                &:nth-child(2)
+                  left: -15px
+                &:nth-child(3)
+                  left: -30px
+                &:nth-child(4)
+                  left: -45px
+                &:nth-child(5)
+                  left: -60px
+        .image
+          width: calc(50% - 4px)
+          height: 200px
+          img
+            height: 200px
+            object-fit: cover
+            border-radius: 24px
+    &-feat
+      padding-top: 20px
+      margin-bottom: 10px
+      .item
+        p
+          font-size: 12px
+          width: calc(100% - 65px)
+        img
+          width: 55px
+          margin-right: 10px
+    &-video
+      aspect-ratio: 328 / 200
+      img
+        width: 100%
+        height: 100%
+        aspect-ratio: 328 / 200
+      iframe
+        aspect-ratio: 328 / 200
+    &-circle
+      .item
+        margin-bottom: 24px
+  .faq
+    .wrap
+      .item
+        margin-bottom: 8px
+        &-content
+          padding: 15px
+          padding-top: 0
+          p, li
+            font-size: 12px
+        &-title
+          font-size: 14px
+          padding: 15px
+          .icon
+            margin-left: 15px
+  .catalog-banner
+    margin-bottom: 40px
+  .news .wrap 
+    .item
+      img
+        aspect-ratio: 272 / 181
+        height: auto
+      .meta
+        padding: 15px
+        b
+          font-size: 14px
+          margin: 0
+          margin-bottom: 20px
+        .date
+          font-size: 12px
+          bottom: 15px
+          left: 15px
+    .arr-prev
+      left: -30px
+    .arr-next
+      right: -30px
+  .footer
+    &-menu
+      display: none
+    &-top
+      padding-bottom: 24px
+      border: none
+      margin-bottom: 0
+      .logo
+        margin-bottom: 40px
+      .wrap
+        position: relative
+        .social
+          position: absolute
+          top: 75px
+          right: 0
+          display: flex
+          flex-wrap: wrap
+          justify-content: space-between
+          align-items: center
+          width: calc(90px + 10px)
+          a
+            width: 45px
+            height: 45px
+            margin: 0
+            margin-bottom: 10px
+        .center
+          display: block
+          margin-bottom: 0
+          width: 100%
+          .item
+            margin-bottom: 24px
+            margin-left: 0
+            margin-right: 0
+            &:last-child
+              margin-bottom: 0
+    &-feat
+      .wrap
+        .item
+          .meta
+            b
+              font-size: 16px
+              margin-bottom: 4px
+            a
+              font-size: 14px
+          .icon
+            width: 50px
+            border-radius: 16px
+            height: 50px
+            margin-right: 15px
+            min-width: 50px
+        p
+          font-size: 12px
+        .dir-top
+          margin-bottom: 12px
+          b
+            font-size: 16px
+            margin-right: 20px
+          a
+            font-size: 14px
+    &-subscribe
+      .wrap
+        .left
+          width: 100%
+          margin-bottom: 20px
+          .icon
+            width: 50px
+          b
+            font-size: 20px
+            white-space: normal
+            flex-wrap: wrap
+        .right
+          display: block
+          .form
+            width: 100%
+            height: auto
+            .b-unisender-form
+              flex-wrap: wrap
+              position: relative
+              .b-unisender-form__main
+                width: calc(100% - 70px)
+              &__footer 
+                position: static
+                .b-unisender-form__button-box
+                  position: absolute
+                  right: 0
+                  top: 0
+                .b-unisender-form__messages
+                  position: static
+                  right: auto
+                  top: auto
+                  bottom: auto
+                  left: auto
+                  .b-unisender-form__message
+                    width: 100%
+          small
+            width: 100%
+            margin-left: 0
+            margin-top: 20px
+    &-bottom
+      .left
+        a, span
+          font-size: 14px!important
+      .button
+        width: 100%
+        max-width: 100%
+
+@media (max-width: 578px)
+  .dots
+    background-color: $gray_200
+    position: static
+    margin-top: 20px
+    border-radius: 999px
+    .swiper-pagination-bullet
+      width: 100%
+      border-radius: 999px
+      height: 4px
+      background-color: transparent
+      &-active
+        background-color: $main
+  .main-cats 
+    .dots
+      display: flex
+    .subtitle 
+      span
+        width: 100%
+      .arrows
+        display: none
+    .wrap
+      overflow: hidden
+      min-width: calc(100% + 30px)
+      position: relative
+      left: -15px
+      padding-left: 15px
+      padding-right: 120px
+  .our
+    &-row
+      min-width: 0
+      .swiper
+        overflow: hidden
+        min-width: calc(100% + 30px)
+        position: relative
+        left: -15px
+        padding-left: 15px
+        padding-right: 30px
+        .swiper-wrapper
+          flex-wrap: nowrap
+          justify-content: flex-start
+          .item
+            margin-bottom: 0
+            width: auto
+            aspect-ratio: unset
+            margin: 0
+  .projects-row 
+    .item
+      &:nth-child(2)
+        aspect-ratio: 104 / 141
+      &.first
+        padding: 15px
+        span
+          font-size: 16px
+        .num
+          font-size: 79px
+          bottom: -45px
+  .order
+    .row
+      .right
+        width: calc(100% - 30px)
+        justify-content: flex-start
+        .icon
+          width: 24px
+          height: 24px
+          min-width: 24px
+          margin-right: 10px
+        .meta
+          width: 100%
+          display: flex
+          align-items: center
+          justify-content: flex-start
+          b
+            font-size: 14px
+            margin-bottom: 0
+            white-space: nowrap
+            margin-right: 16px
+            width: max-content
+          p
+            font-size: 12px
+            line-height: 1.2
+    .dots
+      display: flex
+    .swiper
+      overflow: hidden
+      min-width: calc(100% + 30px)
+      position: relative
+      left: -15px
+      padding-left: 15px
+      padding-right: 45px
+      .swiper-wrapper
+        flex-wrap: nowrap
+        display: flex
+        justify-content: flex-start
+        .item
+          display: block
+          margin: 0
+          .icon
+            width: 60px
+            min-width: 60px
+            height: 60px
+            margin-right: 0
+            margin-bottom: 15px
+          b
+            font-size: 14px
+            margin: 0
+            width: 100%
+  .tech-banner
+    margin-top: 80px
+    .wrap
+      .form
+        small
+          margin-top: 15px
+      .left
+        .title
+          font-size: 24px
+          margin-bottom: 10px
+          max-width: 180px
+          margin-left: auto
+          margin-right: auto
+        .subtitle
+          font-size: 12px
+          margin-bottom: 15px
+          max-width: 210px
+          margin-left: auto
+          margin-right: auto
+  .about
+    overflow: hidden
+    &-circle
+      .title
+        font-size: 26px
+        margin-bottom: 14px
+      .wrap
+        .item
+          margin-right: 0
+        .circle-bg
+          width: 240px
+          margin: 0 auto
+          position: relative
+          top: auto
+          .bg
+            position: absolute
+            left: 50%
+            top: 50%
+            transform: translate(-50%, -50%)
+            max-width: none
+            width: 450px
+    &-top
+      .content
+        p, li
+          font-size: 12px
+  .faq
+    .left
+      margin-bottom: 24px
+    .btns
+      display: flex
+      justify-content: space-between
+      align-items: center
+      .button
+        width: 50%
+        margin-right: 24px
+      a
+        margin-left: 0
+        width: calc(50% - 24px)
+        span
+          font-size: 14px
+          white-space: nowrap
+  .news
+    .arr
+      display: none
+    .swiper
+      min-width: calc(100% + 30px)
+      position: relative
+      left: -15px
+      padding-left: 15px
+      padding-right: 72px
+      .item
+        min-height: 0
+  .map
+    .wrap
+      width: 100%
+      max-width: 100%
+      padding: 20px
+      .button
+        max-width: 100%
+        width: 100%
+      .title
+        font-size: 26px
+        padding-bottom: 20px
+        margin-bottom: 20px
+      .item-last
+        width: 100%
+        .row
+          width: 100%
+          .phone
+            font-size: 16px
+            margin: 0
+            margin-right: 24px
+          .email
+            font-size: 14px
+            margin: 0
+        span
+          font-size: 14px
+      .item
+        margin-bottom: 20px
+        p
+          font-size: 16px
+          margin-bottom: 8px
+        address
+          font-size: 14px
+  .footer-subscribe 
+    .form 
+      form
+        .input
+          min-width: 0
+          input
+            max-height: 50px
+            font-size: 14px
+            &::placeholder
+              font-size: 14px
+  .consult-banner .wrap
+    padding-left: 20px
+    padding-right: 20px
+    padding-bottom: 20px
+@media (max-width: 370px)
+  .our-row .our-row-wrap .item .icon
+    display: none
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  

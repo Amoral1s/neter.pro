@@ -1,0 +1,1080 @@
+@import "./reset/_vars"
+@import "./reset/_reset"
+
+.fixed
+  overflow-y: hidden
+  display: block
+  position: relative
+  background-color: #fff
+  max-width: calc(100% - 10px)
+  .header
+    &.scrolled
+      right: auto
+      max-width: calc(100% - 10px)
+    &::after
+      height: 100%
+      width: 10px
+      right: -10px
+      top: 0
+      position: absolute
+      background-color: #fff
+      content: ''  
+
+.offer
+  background-color: $text
+  color: #fff
+  background-repeat: no-repeat
+  background-size: cover
+  background-position: center
+  .wrap
+    display: flex
+    flex-wrap: nowrap
+    flex-direction: column
+    align-items: flex-start
+    justify-content: flex-start
+    padding-top: 160px
+    padding-bottom: 70px
+    overflow: hidden
+    position: relative
+  .russia
+    position: absolute
+    right: 0
+    bottom: 70px
+  .btns
+    display: flex
+    align-items: center
+    justify-content: space-between
+    margin-bottom: 0
+    margin-top: auto
+    .button
+      margin-right: 14px
+      &:last-child
+        margin-right: 0
+  h1
+    color: #fff
+    max-width: 980px
+    display: block
+    font-size: 72px
+    line-height: 1
+    font-weight: 500
+    letter-spacing: -2.1px
+    margin-bottom: 24px
+  p
+    font-size: 18px
+    font-weight: 400
+    color: #fff
+    display: block
+    line-height: 1.2
+    max-width: 430px
+    margin-bottom: 190px
+
+@keyframes header
+    0%
+      transform: translateY(-100%)
+    100%
+      transform: translateY(0)
+
+.mob-header
+  position: absolute
+  top: 0
+  right: 0
+  width: 100%
+  z-index: 100
+  border-bottom: 1px solid $white_15
+  padding: 15px 0
+  .logo
+    .dark
+      display: none!important
+    .light
+      display: block!important
+  &.scrolled
+    position: fixed
+    left: 0
+    right: 0
+    width: 100%
+    top: 0
+    background-color: #fff
+    transform: translateY(-100%)
+    animation-name: header
+    animation-duration: 1s
+    animation-delay: 1s
+    animation-fill-mode: forwards
+  &.white, &.scrolled
+    border-bottom: 1px solid $gray_200
+    background-image: url('../img/bg.jpg')
+    background-color: lightgray
+    background-position: 0% 0%
+    background-repeat: repeat
+    .wrap
+      .logo
+        .light
+          display: none!important
+        .dark
+          display: block!important
+      .burger
+        svg path
+          stroke: #6B7280
+  .wrap
+    display: flex
+    align-items: center
+    justify-content: space-between
+    align-items: center
+    .logo
+      img
+        object-fit: contain
+        height: 32px
+
+@media (max-width: 992px)
+  .offer
+    .wrap
+      padding-top: 95px
+      h1
+        font-size: 50px
+      p
+        margin-bottom: 180px
+
+@media (min-width: 992px)
+  @keyframes search
+    0%
+      width: 0px
+    100%
+      width: 1065px
+  
+  .mob-header
+    display: none
+  .header
+    display: block!important
+    position: absolute
+    top: 0
+    right: 0
+    width: 100%
+    z-index: 100
+    &.header-home
+      .logo
+        .dark
+          display: none!important
+        .light
+          display: block!important
+    .button
+      max-height: 50px
+    .wrap
+      flex-wrap: nowrap
+    .logo
+      margin-right: 15px
+    .search
+      position: relative
+      z-index: 15
+      .search-wrap
+        transition: .2s
+        position: absolute
+        left: 15px
+        top: 0
+        height: 50px
+        z-index: 10
+        width: 0px
+        transition: .2s
+      &.active
+        .search-wrap
+          display: flex!important
+          transition: .2s
+          animation-name: search
+          animation-duration: 1s
+          animation-fill-mode: forwards
+    .search-toggle
+      background-color: $white_15
+      border-radius: 12px
+      height: 50px
+      width: 50px
+      display: flex
+      justify-content: center
+      align-items: center
+      backdrop-filter: blur(10px)
+      cursor: pointer
+      margin: 0 15px
+    .catalog-toggle
+      display: flex
+      align-items: center
+      justify-content: center
+      cursor: pointer
+      margin: 0 15px
+      position: relative
+      &.active
+        span
+          color: $hover!important
+        svg path
+          stroke: $hover!important
+        &::after
+          position: absolute
+          content: ''
+          height: 45px
+          top: 100%
+          right: 0
+          width: 200px
+      .icon
+        margin-right: 10px
+      span
+        color: #fff
+        font-size: 16px
+        display: block
+    &-contacts
+      display: flex
+      align-items: center
+      justify-content: flex-end
+      .link
+        display: flex
+        justify-content: center
+        color: #fff
+        font-size: 16px
+        white-space: nowrap
+        margin: 0 15px
+    .lang
+      display: flex
+      justify-content: center
+      align-items: center
+      height: 24px
+      width: 48px
+      margin-left: 30px
+      background-color: transparent
+      .gtranslate_wrapper
+        #gt_float_wrapper
+          .gt_float_switcher
+            color: #fff
+            box-shadow: none
+            background-color: transparent
+            position: relative
+            overflow: visible
+            .gt_options
+              position: absolute
+              transition: 0
+              background-color: #fff
+              padding: 5px
+              width: max-content
+              left: auto
+              right: -15px
+              top: calc(100% + 45px)
+              transition: 0
+              border-radius: 24px
+              box-shadow: 0px 4px 50px 0px rgba(0, 0, 0, 0.10)
+              padding: 24px
+              a
+                display: flex
+                justify-content: flex-start
+                align-items: center
+                font-size: 16px
+                color: $text
+                padding: 0
+                margin-bottom: 14px
+                font-family: $font
+                img
+                  width: 24px
+                  height: auto
+                  object-fit: contain
+                  margin-right: 14px
+                &:hover
+                  background-color: #fff
+                  color: $main
+                &:last-child
+                  margin-bottom: 0
+            .gt-selected
+              background-color: transparent!important
+              z-index: 10!important
+              .gt-current-lang
+                background-color: transparent!important
+                display: flex
+                justify-content: flex-end
+                align-items: center
+                padding: 0
+                position: relative
+                height: 35px
+                padding: 0px 12px
+                line-height: 1
+                border-radius: 8px
+                padding-right: 30px
+                &:hover
+                  background-color: $main!important
+                  color: #fff!important
+                  .gt-lang-code
+                    color: #fff
+                &::after
+                  position: absolute
+                  content: ''
+                  height: 24px
+                  width: 24px
+                  right: 5px
+                  top: calc(50% + 2px)
+                  transform: translateY(-50%)
+                  background-repeat: no-repeat
+                  background-size: contain
+                  background-image: url(../img/icons/arr-down-white.svg)
+                span
+                  color: #fff
+                  font-weight: 400
+                  font-size: 16px
+                  font-family: $font
+                span.gt_float_switcher-arrow
+                  display: none
+                img
+                  display: none
+    .button
+      margin-left: 30px
+    nav
+      display: flex
+      align-items: center
+      justify-content: space-between
+      ul
+        display: flex
+        align-items: center
+        justify-content: center
+        &>li
+          position: relative
+          &.menu-item-has-children
+            &.opened
+              &>a, &>span
+                transition: .2s
+                background-color: $white_8
+                backdrop-filter: blur(10px)
+                &::after
+                  transform: translateY(-50%) rotate(180deg)
+                  transition: .2s
+            &>a, &>span
+              cursor: pointer
+              position: relative
+              padding-right: calc(14px + 24px + 6px)
+              &::after
+                position: absolute
+                content: ''
+                height: 24px
+                transition: .2s
+                width: 24px
+                right: 14px
+                top: 50%
+                transform: translateY(-50%)
+                background-repeat: no-repeat
+                background-size: contain
+                background-image: url(../img/icons/menu-arr-down.svg)
+          ul
+            position: absolute
+            background-color: #fff
+            border-radius: 24px
+            padding: 30px
+            left: 0
+            top: calc(100% + 24px)
+            width: max-content
+            display: none
+            li
+              &:last-child
+                a, span
+                  margin-bottom: 0
+              a, span
+                color: $text
+                font-size: 16px
+                padding: 0
+                height: auto
+                display: block
+                margin-bottom: 14px
+                white-space: nowrap
+            &::after
+              position: absolute
+              content: ''
+              height: 26px
+              top: -24px
+              left: 0
+              right: 0
+              width: 100%
+          &>a, &>span
+            color: #fff
+            display: block
+            font-size: $fsz
+            margin: 0
+            padding: 14px
+            border-radius: 10px
+            background-color: transparent
+            display: flex
+            justify-content: center
+            align-items: center
+    .header-pc
+      padding-top: 20px
+      padding-bottom: 20px
+      background-color: transparent
+      transition: .2s
+      border-bottom: 1px solid $white_15
+      .wrap
+        display: flex
+        justify-content: space-between
+        align-items: center
+    &.header-white, &.header-open-menu
+      background-image: url('../img/bg.jpg')
+      background-color: lightgray
+      background-position: 0% 0%
+      background-repeat: repeat
+      .button
+        background-color: #fff
+      .search
+        .seatch-toggle
+          transition: .2s
+          &:hover
+            background-color: $main!important
+        .search-wrap
+          box-shadow: 0 0 15px rgba(#000, .1)
+          border-radius: 12px
+          border: 1px solid $gray_50
+      .lang
+        #gt_float_wrapper
+          .gt_float_switcher
+            .gt_options
+              box-shadow: 0 0 15px rgba($text, .1)
+            .gt-selected
+              .gt-current-lang
+                &:hover
+                  &::after
+                    background-image: url(../img/icons/menu-arr-down.svg)!important
+                &::after
+                  background-image: url(../img/icons/arr-down-dark.svg)
+                span
+                  color: $text
+      .catalog-toggle
+        span
+          color: $text
+        svg path
+          stroke: $text
+      .header-pc
+        border-color: $gray_200
+      .search-toggle
+        background-color: #fff
+        backdrop-filter: blur(0)
+        svg path
+          stroke: #9CA3AF
+      a.link
+        color: $text
+      .button.button-transparent
+        color: $text
+        &:hover
+          background-color: transparent
+      nav
+        ul
+          li
+            &.menu-item-has-children
+              &.opened
+                &>a, &>span
+                  transition: .2s
+                  background-color: $main
+                  backdrop-filter: blur(10px)
+                  color: #fff
+                  &::after
+                    background-image: url(../img/icons/menu-arr-down.svg)
+              &>a, &>span
+                &::after
+                  background-image: url(../img/icons/arr-menu-dark.svg)
+            a, span
+              color: $text
+      .logo
+        .light
+          display: none!important
+        .dark
+          display: block!important
+  .pc-catalog
+    position: fixed
+    z-index: 20
+    top: 0
+    right: 0
+    bottom: 0
+    left: 0
+    width: 100%
+    height: 100%
+    overflow-y: auto
+    background-image: url('../img/bg.jpg')
+    background-color: lightgray
+    background-position: 0% 0%
+    background-repeat: repeat
+    padding-top: 105px
+    color: $text
+    display: none
+    &.scrolled
+      padding-top: 75px
+    .container
+      height: 100%
+    .wrap
+      width: 310px
+      padding-right: 10px
+      border-right: 1px solid #E5E7EB
+      margin-right: 40px
+      padding: 10px
+      padding-left: 0
+      display: block
+      height: 100%
+      position: relative
+      .sub-menu
+        position: absolute
+        left: 310px
+        top: 0
+        width: 980px
+        padding-left: 40px
+        padding-right: 40px
+        padding-top: 40px
+        background-color: $bg
+        height: auto
+        display: flex
+        color: #000
+        flex-wrap: nowrap
+        justify-content: flex-start
+        display: none
+        &::after
+          position: absolute
+          content: ''
+          height: 100%
+          width: 40px
+          left: -40px
+          top: 0
+        &-wrap
+          width: 33.3%
+          margin-right: 20px
+          b
+            font-size: 20px
+            font-weight: 500
+            margin-bottom: 24px
+            width: 100%
+            min-height: 24px
+          a
+            display: block
+            margin-bottom: 14px
+            font-size: 16px
+            letter-spacing: -0.5px
+      .item
+        display: flex
+        justify-content: space-between
+        align-items: center
+        border-radius: 16px
+        padding: 5px 10px
+        transition: .2s
+        &:hover
+          background-color: $gray_50!important
+          p
+            color: $main
+        &.active
+          background-color: $gray_50!important
+          p
+            color: $main!important
+        .icon
+          width: 60px
+          height: 60px
+        p
+          width: calc(100% - 60px - 8px)
+          font-size: 16px
+          color: $text!important
+  .header.scrolled
+    position: fixed
+    left: 0
+    right: 0
+    width: 100%
+    top: 0
+    transform: translateY(-100%)
+    animation-name: header
+    animation-duration: 1s
+    animation-delay: 1s
+    animation-fill-mode: forwards
+    background-image: url('../img/bg.jpg')
+    background-color: lightgray
+    background-position: 0% 0%
+    background-repeat: repeat
+    border-bottom: 1px solid $gray_200
+    .search
+      .search-wrap
+        box-shadow: 0 0 15px rgba(#000, .1)
+        border-radius: 12px
+        border: 1px solid $gray_50
+    .lang
+      #gt_float_wrapper
+        .gt_float_switcher
+          .gt_options
+            box-shadow: 0 0 15px rgba($text, .1)
+          .gt-selected
+            .gt-current-lang
+              transition: .2s
+              &:hover
+                transition: .2s
+                &:after
+                  transition: .2s
+                  background-image: url(../img/icons/menu-arr-down.svg)!important
+              &::after
+                transition: .2s
+                background-image: url(../img/icons/arr-down-dark.svg)
+              span
+                color: $text
+    .catalog-toggle
+      span
+        color: $text
+      svg path
+        stroke: $text
+    .header-pc
+      border-color: $gray_200
+      border-bottom: none
+      padding-top: 10px
+      padding-bottom: 10px
+      .button
+        max-height: 50px
+    .search-toggle
+      background-color: #fff
+      backdrop-filter: blur(0)
+      &:hover
+        background-color: $main!important
+        svg path
+          stroke: #fff
+      svg path
+        stroke: #9CA3AF
+    a.link
+      color: $text
+    .button.button-transparent
+      color: $text
+      background-color: #fff
+      &:hover
+        background-color: $main!important
+        color: #fff!important
+    nav
+      ul
+        li
+          &.menu-item-has-children
+            &.opened
+              &>a, &>span
+                transition: .2s
+                background-color: $main!important
+                backdrop-filter: blur(10px)
+                color: #fff
+                &::after
+                  background-image: url(../img/icons/menu-arr-down.svg)
+            &>a, &>span
+              &::after
+                background-image: url(../img/icons/arr-menu-dark.svg)
+          a, span
+            color: $text
+    .logo
+      .light
+        display: none!important
+      .dark
+        display: block!important
+.mob-menu
+  display: none
+
+@media (max-width: 992px)
+  .mob-menu
+    position: fixed
+    top: 0
+    right: 0
+    height: 100dvh  
+    width: 100%
+    background-image: url('../img/bg.jpg')
+    background-color: lightgray
+    background-position: 0% 0%
+    background-repeat: repeat
+    z-index: 120
+    .back-btn
+      display: flex
+      align-items: center
+      justify-content: flex-start
+      margin-bottom: 10px
+      .icon
+        margin-right: 10px
+      span
+        font-size: 16px
+        font-weight: 500
+        color: $main
+    .menu
+      display: block
+      height: 100dvh
+      overflow-y: auto
+      padding-top: 80px
+      padding-bottom: 20px
+      background-image: url(../img/bg.jpg)
+      background-repeat: repeat
+      min-width: calc(100% + 10px)
+      padding-right: 10px
+    .search-wrap
+      display: block
+      margin-bottom: 15px
+      .dgwt-wcas-search-wrapp
+        .dgwt-wcas-sf-wrapp
+          padding: 0
+          .dgwt-wcas-search-input
+            padding-left: 20px
+            border-radius: 12px
+
+            &::placeholder
+              font-size: 16px
+              color: $gray_450
+              font-family: $font
+          .dgwt-wcas-search-submit
+            position: absolute
+            top: 50%
+            transform: translateY(-50%)
+            right: 20px
+            left: auto
+            height: 24px
+            width: 24px
+            background-size: 24px 24px
+            background-position: center
+            margin: 0
+            background-repeat: no-repeat
+            background-image: url(../img/icons/mob-search.svg)
+            border-radius: 0
+            svg 
+              display: none
+    .top
+      position: absolute
+      top: 0
+      right: 0
+      left: 0
+      width: 100%
+      z-index: 20000
+      padding: 15px 0
+      background-color: #F4F6F6
+      border-bottom: 1px solid $gray_200
+      height: 63px
+      .right
+        display: flex
+        justify-content: flex-end
+        align-items: center
+        .lang
+          margin-right: 24px
+      .container
+        display: flex
+        justify-content: space-between
+        align-items: center
+      .logo
+        img
+          height: 32px
+          object-fit: contain
+    .mob-nav
+      .menu_sublist
+        position: fixed
+        background-image: url('../img/bg.jpg')
+        background-color: lightgray
+        background-position: 0% 0%
+        background-repeat: repeat
+        z-index: 20000
+        padding-top: 18px
+        top: 63px
+        overflow-y: auto
+        right: 0
+        left: 0
+        width: 100%
+        height: calc(100dvh - 64px)
+        display: none
+        padding-bottom: 40px
+        &>a, &>span
+          font-size: 24px
+          font-weight: 500
+          display: block
+          margin-bottom: 16px
+          line-height: 1.2
+        li
+          &:last-child
+            a, span
+              margin-bottom: 0
+          a, span
+            font-size: 16px
+            font-weight: 400
+            display: block
+            margin-bottom: 14px
+            color: $text
+            padding: 0
+            border: none
+      ul
+        display: block
+        li
+          &.menu-item-has-children
+            ul
+              display: none
+            &>a, &>span
+              position: relative
+              &::after
+                position: absolute
+                content: ''
+                height: 24px
+                width: 24px
+                right: 0
+                top: 50%
+                transform: translateY(-50%)
+                background-repeat: no-repeat
+                background-size: contain
+                background-image: url(../img/icons/mob-arr-right.svg)
+          &>a, &>span
+            padding: 16px 0 
+            display: block
+            position: relative
+            border-bottom: 1px solid $gray_200
+            padding-right: 34px
+    .mob-cats
+      .wrapper
+        .item
+          display: flex
+          justify-content: flex-start
+          align-items: center
+          position: relative
+          padding: 5px 0
+          border-bottom: 1px solid $gray_200
+          img
+            width: 50px
+            height: 50px
+            min-width: 50px
+            margin-right: 10px
+          p
+            width: calc(100% - 60px)
+            padding-right: 34px
+            font-size: 16px
+            font-weight: 500
+            line-height: 1.2
+            margin: 0
+            color: $text!important
+          .icon
+            position: absolute
+            right: 0
+            top: 50%
+            transform: translateY(-50%)
+      .sub-menu
+        position: fixed
+        background-image: url('../img/bg.jpg')
+        background-color: lightgray
+        background-position: 0% 0%
+        background-repeat: repeat
+        z-index: 20000
+        padding-top: 18px
+        top: 63px
+        overflow-y: auto
+        right: 0
+        left: 0
+        width: 100%
+        height: calc(100dvh - 64px)
+        display: none
+        .mt-top
+          display: block
+          margin-top: -15px
+        a.main-link
+          color: $text
+          font-size: 24px
+          font-weight: 500
+          display: block
+          line-height: 1.2
+          margin-bottom: 16px
+        &-wrap
+          display: block
+          margin-bottom: 30px
+          b
+            font-size: 18px
+            font-weight: 500
+            margin-bottom: 16px
+          ul
+            display: block
+            li
+              &:last-child
+                a, span
+                  margin-bottom: 0
+              a, span
+                font-size: 16px
+                font-weight: 400
+                display: block
+                margin-bottom: 14px
+                color: $text
+    .mob-contacts
+      display: block
+      position: relative
+      margin-top: 20px
+      .social
+        position: absolute
+        top: 0
+        right: 0
+        display: block
+        width: max-content
+        display: flex
+        flex-direction: column
+        align-items: flex-end
+        justify-content: flex-start
+        a
+          background-color: #fff
+          border-radius: 10px
+          height: 45px
+          width: 45px
+          margin-bottom: 10px
+          display: flex
+          justify-content: center
+          align-items: center
+      .link
+        color: $text
+        display: block
+        margin-bottom: 20px
+        width: max-content
+        span
+          display: block
+          font-size: 18px
+          font-weight: 500
+          line-height: 1.2
+          margin-bottom: 6px
+        p
+          font-size: 14px
+          font-weight: 400
+          line-height: 1.2
+          margin: 0
+          color: $gray_450
+        &:hover
+          color: $text
+    .lang
+      display: flex
+      justify-content: center
+      align-items: center
+      height: 24px
+      width: 48px
+      margin-left: 30px
+      background-color: transparent
+      .gtranslate_wrapper
+        #gt_float_wrapper
+          .gt_float_switcher
+            color: $text
+            box-shadow: none
+            background-color: transparent
+            position: relative
+            overflow: visible
+            .gt_options
+              position: absolute
+              transition: 0
+              background-color: #fff!important
+              padding: 5px
+              width: max-content
+              left: auto
+              right: -15px
+              top: calc(100% + 15px)
+              transition: 0
+              border-radius: 24px
+              box-shadow: 0px 4px 50px 0px rgba(0, 0, 0, 0.10)
+              padding: 24px
+              a
+                display: flex
+                justify-content: flex-start
+                align-items: center
+                font-size: 16px
+                color: $text
+                padding: 0
+                margin-bottom: 14px
+                font-family: $font
+                background-color: #fff!important
+                img
+                  width: 24px
+                  height: auto
+                  object-fit: contain
+                  margin-right: 14px
+                &:last-child
+                  margin-bottom: 0
+            .gt-selected
+              background-color: transparent!important
+              z-index: 10!important
+              .gt-current-lang
+                background-color: transparent!important
+                display: flex
+                justify-content: flex-end
+                align-items: center
+                padding: 0
+                position: relative
+                padding-right: 28px
+                &::after
+                  position: absolute
+                  content: ''
+                  height: 24px
+                  width: 24px
+                  right: 0
+                  top: calc(50% + 2px)
+                  transform: translateY(-50%)
+                  background-repeat: no-repeat
+                  background-size: contain
+                  background-image: url(../img/icons/arr-down-dark.svg)
+                span
+                  color: $text
+                  font-weight: 400
+                  font-size: 16px
+                  font-family: $font
+                span.gt_float_switcher-arrow
+                  display: none
+                img
+                  display: none
+
+@media (max-width: 767px)
+  .offer
+    margin-bottom: 40px
+    .wrap
+      padding-bottom: 40px
+      .russia
+        display: none
+      h1
+        font-size: 36px
+        margin-bottom: 16px
+        line-height: 1
+        letter-spacing: -1px
+      p
+        font-size: 14px
+        line-height: 1.2
+        margin-bottom: 180px
+      .btns
+        display: flex
+        justify-content: space-between
+        align-items: center
+        width: 100%
+        .button
+          margin: 0
+          width: calc(50% - 4px)
+          max-width: 100%
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+

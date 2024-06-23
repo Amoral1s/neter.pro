@@ -1,0 +1,201 @@
+@import "../reset/_vars"
+
+.only-single-page.single
+  .single-top
+    .page-title
+      margin-bottom: 25px
+    .subtitle
+      max-width: 100%
+      margin-bottom: 25px
+      font-size: 18px
+    .thumb
+      display: block
+      margin-bottom: 40px
+      img
+        width: 100%
+        border-radius: 24px
+        aspect-ratio: 1240 / 570
+        object-fit: cover
+        display: block
+    .top-rat
+      display: flex
+      align-items: center
+      justify-content: flex-start
+      .new-rating
+        .wpd-rating-stars
+          display: flex
+          justify-content: flex-start
+          align-items: center
+          svg
+            width: 24px
+            height: 24px
+            display: block
+            margin-right: 3px
+            path
+              fill-opacity: 0.15
+              &.wpd-active
+                fill: #FFA621
+                fill-opacity: 1
+      .votes
+        display: flex
+        align-items: center
+        justify-content: flex-start
+        margin-left: 7px
+        font-size: 16px
+        color: $text
+        font-weight: 400
+    .meta-wrap
+      display: flex
+      justify-content: flex-start
+      align-items: center
+      margin-bottom: 40px
+      &-items
+        display: flex
+        align-items: center
+        justify-content: flex-start
+      .item
+        display: flex
+        align-items: center
+        justify-content: flex-start
+        margin-right: 30px
+        .icon
+          margin-right: 10px
+        .value
+          display: block
+          line-height: 1.2
+          font-size: 16px
+          font-weight: 400
+          color: $text
+          white-space: nowrap
+    .author
+      display: flex
+      justify-content: flex-start
+      align-items: center
+      margin-right: 40px
+      .name
+        display: block
+        p
+          font-weight: 500
+          font-size: 18px
+          color: $text
+          line-height: 1.2
+          white-space: nowrap
+          margin-bottom: 6px
+          letter-spacing: -0.5px
+        span
+          display: block
+          color: $gray_450
+          font-size: 14px
+          line-height: 1.2
+          font-weight: 400
+      .avatar
+        overflow: hidden
+        border-radius: 100%
+        height: 65px
+        width: 65px
+        background-color: gray
+        margin-right: 15px
+        display: flex
+        justify-content: center
+        align-items: center
+        svg
+          width: 50px
+          height: 50px
+        img
+          width: 65px
+          aspect-ratio: 1 / 1
+          border-radius: 100%
+          object-fit: contain
+
+.single-nav
+  border-radius: 24px 
+  margin-bottom: 40px
+  display: block
+  background-color: $gray_50
+  padding: 30px
+  b
+    font-size: 20px
+    display: block
+    margin-bottom: 15px
+    color: $text
+  a
+    display: block
+    font-size: 16px
+    color: $text
+    margin-bottom: 14px
+    &:hover
+      color: $green
+    &:last-child
+      margin-bottom: 0
+
+@media (max-width: 992px)
+  .only-single-page.single 
+    .single-top 
+      .meta-wrap
+        display: block
+        margin-bottom: 30px
+        .author
+          width: 100%
+          margin-bottom: 15px
+          margin-right: 0
+        &-items
+          display: flex
+          flex-wrap: wrap
+          margin-bottom: 5px
+          .item
+            margin-bottom: 10px
+      .share
+        justify-content: flex-start
+
+@media (max-width: 767px)
+  .only-single-page.single 
+    .single-top
+      .subtitle
+        font-size: 14px
+        margin-bottom: 25px
+      .meta-wrap
+        .rating
+          width: 100%
+          margin-bottom: 15px
+        .author
+          .name
+            p
+              font-size: 16px
+            span
+              font-size: 12px
+        &-items
+          display: flex
+          flex-wrap: wrap
+          margin-bottom: 5px
+          .item
+            margin-bottom: 10px
+            margin-right: 15px
+            .value
+              font-size: 14px
+      .thumb
+        margin-bottom: 30px
+        img
+          aspect-ratio: 328 / 220
+    .single-nav
+      padding: 20px
+      margin-bottom: 30px
+      b
+        font-size: 16px
+      a
+        font-size: 14px
+        margin-bottom: 10px
+        &:hover
+          color: $text
+        &:last-child
+          margin-bottom: 0
+
+
+
+
+
+
+
+
+
+
+

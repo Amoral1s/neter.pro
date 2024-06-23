@@ -1,0 +1,585 @@
+@import "../reset/_vars"
+
+.wpcf7-response-output
+  display: none!important
+
+.input
+  border-radius: 12px
+  position: relative
+  p
+    position: absolute
+    display: none
+    left: 20px
+    color: $gray_450
+    font-size: 12px
+    left: 20px
+    top: 8px
+    z-index: 5
+  textarea
+    border-radius: 12px
+    height: 155px
+    resize: none
+    border: none
+    font-size: 16px
+    font-weight: 400
+    color: $text
+    width: 100%
+    max-width: 100%
+    display: block
+    padding-top: 20px
+    font-family: $font
+    &:placeholder
+      color: $text_gray
+      font-family: $font
+      font-size: 18px
+  input
+    border-radius: 12px
+    height: 60px
+    border: none
+    font-size: 16px
+    color: $text
+    display: block
+    width: 100%
+    max-width: 100%
+    font-family: $font
+    &:placeholder
+      color: $text_gray
+      font-family: $font
+      font-size: 18px
+  &.listen
+    input
+      padding-top: 30px
+    textarea
+      padding-top: 30px
+    p
+      display: block
+  
+  .wpcf7-form-control-wrap
+    position: relative
+    display: block
+    span
+      position: absolute
+      z-index: 5
+      display: block
+      color: #fff
+      font-size: 12px
+      line-height: 1
+      padding: 4px 10px
+      background-color: #FF0D65
+      border-radius: 999px
+      top: -10px
+      right: -5px
+      &::before
+        content: ''
+        position: absolute
+        right: 31px
+        top: calc(100%)
+        background-repeat: no-repeat
+        background-size: contain
+        background-image: url(../img/icons/no-valid-arr.svg)
+        height: 8px
+        width: 12px
+      &::after
+        position: absolute
+        top: calc(100% + 10px)
+        content: ''
+        height: 24px
+        width: 24px
+        right: 25px
+        background-repeat: no-repeat
+        background-size: contain
+        background-image: url(../img/icons/no-valid.svg)
+
+.form
+  small
+    color: $white_50
+    font-size: 12px
+    font-weight: 400
+    display: block
+    line-height: 1.2
+    margin-top: 15px
+    a
+      color: $white_50
+      font-size: 12px
+      line-height: 1.2
+      font-weight: 400
+      text-decoration: underline
+      &:hover
+        color: $main
+  &-row
+    display: flex
+    justify-content: flex-start
+    align-items: center
+    .input
+      margin-right: 10px
+      width: 100%
+      max-width: 100%
+      &.half
+        width: calc(50% - 5px)
+        margin-right: 10px
+        &:last-child
+          margin-right: 0
+      p
+        left: 20px
+        top: 10px
+    .submit
+      width: 100%
+      max-width: 145px
+  .submit
+    position: relative
+    input
+      font-weight: 500
+      font-size: $fsz
+      height: 60px
+      &:hover
+        opacity: .9
+    .wpcf7-spinner
+      position: absolute
+      top: 50%
+      left: 50%
+      margin: 0
+      transform: translate(-50%, -50%)
+      z-index: 1
+  .input
+    textarea
+      border-radius: 12px
+      background-color: #fff
+      color: $text
+      font-size: $fsz
+      height: 120px
+      max-width: 100%
+      width: 100%
+      margin: 0
+      padding-left: 20px
+      font-family: $font
+      &::placeholder
+        color: $gray_450
+        font-size: 16px
+        font-weight: 400
+        letter-spacing: 0
+        font-family: $font
+    input
+      border-radius: 12px
+      background-color: #fff
+      color: $text
+      font-size: $fsz
+      height: 60px
+      max-width: 100%
+      width: 100%
+      margin: 0
+      padding-left: 20px
+      font-family: $font
+      &::placeholder
+        color: $gray_450
+        font-family: $font
+        font-size: 16px
+        font-weight: 400
+        letter-spacing: 0
+  &.form-white
+    form
+      max-width: 100%
+      width: 100%
+    small
+      color: $gray_400
+      a
+        color: $gray_400
+    .input.full
+      margin-bottom: 10px
+      textarea
+        max-height: 100%
+        height: 170px
+    .input
+      p
+        color: $gray_450
+      input,textarea
+        background-color: $gray_50
+
+@media (max-width: 767px)
+  .form
+    .form-row
+      display: block
+      .input
+        width: 100%
+        max-width: 100%
+        margin-right: 0
+        margin-bottom: 10px
+    .submit
+      width: 100%
+      max-width: 100%
+      .button
+        width: 100%
+        max-width: 100%
+    small
+      font-size: 12px
+      margin-top: 15px
+      a
+        font-size: 12px
+
+@media (max-width: 578px)
+  .form
+    .input
+      .wpcf7-not-valid-tip
+        top: -15px
+        &::after
+          top: calc(100% + 10px)
+        span
+          font-size: 10px
+      textarea
+        font-size: 14px!important
+        &::placeholder
+          font-size: 14px!important
+      input
+        max-height: 50px
+        font-size: 14px!important
+        &::placeholder
+          font-size: 14px!important
+      p
+        font-size: 12px
+      &.listen
+        p
+          top: 5px
+        input, textarea
+          padding-top: 28px
+
+@media (min-width: 992px)
+  .form
+    .input-file
+      &-button
+        transition: .2s
+        &:hover
+          transition: .2s
+          color: $main
+          border-color: $main
+
+.form
+  .input-file
+    display: flex
+    justify-content: space-between
+    align-items: center
+    width: 100%
+    margin-bottom: 20px
+    flex-wrap: wrap
+    position: relative
+    .wpcf7-form-control-wrap
+      position: absolute
+      color: #fff
+      left: 15px
+      top: -10px
+      .wpcf7-not-valid-tip
+        color: #fff
+        padding: 3px 10px
+        border-radius: 999px
+        background-color: #ff0d65
+        font-size: 10px
+    &-text
+      width: 100%
+      margin-top: 20px
+      font-size: 16px
+      font-weight: 400
+    input
+      display: none
+    &-button
+      min-width: 167px
+      width: 167px
+      height: 60px
+      display: flex
+      justify-content: center
+      align-items: center
+      font-weight: 500
+      transition: .2s
+      color: $text
+      font-size: 16px
+      line-height: 1.2
+      margin-right: 20px
+      border-radius: 12px
+      border: 1px solid $gray_200
+      cursor: pointer
+    small
+      color: $gray_400
+      font-size: 14px
+      display: block
+      text-align: left
+      margin: 0
+      width: calc(100% - 167px - 20px)
+      a
+        font-size: 14px
+        color: $gray_400
+
+
+@media (max-width: 578px)
+  .form
+    .input
+      input
+        padding-left: 15px!important
+        &::placeholder
+          font-size: 14px!important
+    .input-file
+      margin-bottom: 18px
+      &-text
+        margin-top: 15px
+        font-size: 14px
+      .wpcf7-form-control-wrap
+        position: absolute
+        color: #fff
+        left: -9px
+        top: 0
+        .wpcf7-not-valid-tip
+          padding: 3px 5px
+          font-size: 8px
+      &-button
+        width: 140px
+        height: 50px
+        font-size: 14px
+        min-width: 140px
+        margin-right: 15px
+      small
+        width: calc(100% - 140px - 15px)
+        font-size: 12px
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

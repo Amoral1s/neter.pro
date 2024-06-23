@@ -1,0 +1,887 @@
+@import "../reset/_vars"
+
+.single .comments
+  #wpdcom .wpd-comment .wpd-comment-label
+    margin-top: -10px
+  #wpdcom .wpd-space
+    display: none
+  #wpdcom .wpd-comment-header .wpd-comment-share,
+  #wpdcom .wpd-comment-header .wpd-comment-link
+    display: none
+  .by-wpdiscuz
+    display: none!important
+  #wpdcom .wpd-comment-text
+    min-width: calc(100% + 75px)
+    position: relative
+    left: -75px
+    padding-bottom: 0
+  #comments
+    margin: 0
+    background: transparent
+    width: 100%
+    max-width: 100%
+  #wpd-post-rating
+    width: 100%
+    margin-top: 60px
+    margin-bottom: 50px
+    background-color: rgba(47, 43, 67, 0.04)
+    border-radius: 0
+    padding: 30px
+    display: flex
+    justify-content: space-between
+    align-items: center
+    .wpd-rating-left,
+    .wpd-rating-right
+      display: none
+    .wpd-rating-wrap
+      display: flex
+      justify-content: flex-start
+      align-items: center
+      .wpd-rating-data
+        display: flex
+        justify-content: flex-start
+        align-items: center
+        flex-wrap: nowrap
+        flex-direction: row
+        position: relative
+        .wpd-rating-title
+          display: block
+          margin: 0
+          font-size: 22px
+          font-weight: 700
+          color: $text
+          font-family: 'Roboto Flex', sans-serif
+          margin-right: 30px
+          white-space: nowrap
+          width: max-content
+        .wpd-rate-starts
+          z-index: 10
+          position: absolute
+          top: 50%
+          transform: translateY(-50%)
+          margin: 0
+          left: 214px
+          cursor: pointer
+        .wpd-rating-stars
+          display: flex
+          margin-top: 0
+        .wpd-rating-value
+          display: none
+  #wpdcom
+    margin: 0
+    width: 100%
+    max-width: 100%
+    background: transparent    
+    display: flex
+    flex-direction: column
+    align-items: flex-start
+    justify-content: flex-start
+    .wpd-field-comment
+      width: 100%
+      .wpd-editor-buttons-right
+        display: none
+      .wpdiscuz-textarea-wrap
+        padding-bottom: 0
+        margin-bottom: 15px
+      .wpd-textarea-wrap
+        max-width: 100%
+        flex-basis: 100%
+      textarea
+        width: 100%
+        background-color: $gray_50
+        box-shadow: none
+        border-radius: 24px
+        border: none
+        height: 170px!important
+        resize: none
+        padding-top: 10px!important
+        font-size: $fsz
+        max-width: 100%
+    .wc_social_plugin_wrapper
+      display: none
+    #wpd-threads
+      order: -1
+      margin-top: 0
+      .wpd-thread-head
+        margin-bottom: 0
+        display: none
+        .wpd-thread-filter
+          display: none
+        .wpd-info 
+          display: none
+    .wpd-form-wrap
+      width: 100%
+      .wpd-form-foot
+        margin-left: 0
+        .wc_website-wrapper
+          display: none
+        .wpd-form-row
+          display: flex
+          justify-content: space-between
+          align-items: center
+          .wc-field-submit
+            padding: 0
+            margin: 0
+          .wpd-form-col-right
+            display: flex
+            .wc-field-submit
+              input
+                color: #fff
+                width: max-content
+                padding: 0 36px
+                font-size: 15px
+                font-weight: 500
+                font-family: $font
+                max-width: 100%
+                border-radius: 49px
+                background: linear-gradient(93deg, #00AA46 2.08%, #009EC7 36.26%, #1652EB 99.36%)
+                &:hover
+                  background-color: $hover
+          .wpd-form-col-left
+            width: max-content
+            display: flex
+            justify-content: flex-start
+            align-items: center
+            .wpdiscuz-item
+              width: 310px
+              padding: 0
+              margin: 0
+              margin-right: 15px
+              .wpd-field-icon
+                display: none
+              input.wpd-field
+                background: rgba(47, 43, 67, 0.04)
+                appearance: none
+                border: none
+                border-radius: 24px
+                height: 60px
+                width: 100%
+                max-width: 100%
+                box-shadow: none
+                color: $text
+                font-family: 'Roboto Flex', sans-serif
+                font-size: $fsz
+                color: $text
+                &:placeholder
+                  color: $text
+                  font-family: 'Roboto Flex', sans-serif
+                  font-size: $fsz
+                  color: $text_gray
+      input.wc_comm_submit
+        appearance: none
+        background-color: $main
+        transition: .2s
+        font-size: $fsz
+        border-radius: 16px
+        font-weight: 500
+        font-family: 'Roboto Flex', sans-serif
+        display: flex
+        justify-content: center
+        align-items: center
+        width: 190px
+        box-shadow: none
+        margin: 0
+        margin-left: 0
+        margin-right: auto
+        padding: 0
+        height: 60px
+        &:hover
+          background-color: $button_hover
+      .wpd_label
+        display: none
+      .wpd-form-head
+        display: none 
+      .wc-field-textarea
+        .wpd-avatar
+          display: none
+        .ql-toolbar
+          display: none
+        .ql-container
+          background-color: rgba($text, .05)
+          border-radius: 16px
+          height: 155px
+          border: none!important
+          padding: 10px bor
+          &:before
+            color: $text
+            font-size: $fsz
+            font-style: normal
+          p
+            font-size: $fsz
+            color: $text
+            font: 'Roboto Flex', sans-serif!important
+            font-style: normal
+  #wpd-threads
+    width: 100%
+    height: auto
+    display: block
+    margin-bottom: -50px
+    .wpd-thread-list  
+      width: 100%
+      .comment
+        background-color: transparent
+        border-radius: 0
+        padding: 0px
+        margin-bottom: 40px
+        width: 100%
+        .wpd-comment-footer
+          display: none
+        p
+          color: $text
+          font-size: $fsz 
+          span
+            color: $text!important
+            font-size: $fsz 
+  #wpdcom .wpd-thread-head 
+    border-bottom: none
+    margin-bottom: 40px
+    .wpd-thread-info
+      color: $text
+      display: flex
+      display: flex
+      flex-direction: row-reverse
+      justify-content: flex-end
+      align-items: center
+      font-size: 40px
+      font-weight: 700
+      border-bottom: none
+      text-transform: none
+      line-height: 1.2
+      .wpdtc
+        position: relative
+        padding-left: 25px
+        line-height: 1.2
+        &::after
+          position: absolute
+          content: ':'
+          font-size: 42px
+          left: 0
+          top: 50%
+          transform: translateY(-50%)
+          color: $text
+          font-weight: 700
+  #wpdcom .wpd-comment-author, #wpdcom .wpd-comment-author a
+    color: $text
+  #wpdcom .wpd-comment .wpd-comment-right
+    padding-bottom: 0
+  .wpd-comment-wrap
+    .wpd-avatar 
+      display: flex
+      justify-content: center
+      align-items: center
+      background-color: #304872
+      border-radius: 100%
+      height: 60px
+      width: 60px
+      min-width: 60px
+      div
+        width: 60px
+        height: 60px
+        display: flex
+        justify-content: center
+        align-items: center
+        text-transform: uppercase
+        font-size: 24px
+        font-weight: 500
+        line-height: 1.2
+        color: $white_50
+      img
+        display: none!important
+        width: 60px
+        object-fit: contain
+        border-radius: 100%
+    
+  #wpdcom .wpd-comment .wpd-comment-header
+    display: block
+    padding: 0
+    margin-bottom: 20px
+    .wpd-comment-author 
+      display: block
+      margin-right: 0
+      margin-bottom: 12px
+      font-size: 20px
+      font-weight: 700
+    .wpd-comment-date
+      display: block
+      margin: 0
+      font-size: $fsz
+      padding: 0
+      color: rgba($text, .5)
+      i
+        display: none
+
+.single .comments #wpdcom #wpd-threads .wpd-thread-head
+  display: block
+
+@media (max-width: 992px)
+  #wpd-post-rating
+    display: none!important
+  .single 
+    .comments 
+      #wpdcom 
+        .wpd-form-wrap 
+          .wpd-form-foot 
+            .wpd-form-row
+              display: block
+              .wpd-form-col-left
+                width: 100%
+                max-width: 100%
+                margin-bottom: 10px
+                .wpdiscuz-item
+                  width: calc(50% - 5px)
+                  margin-right: 8px
+                  &.wc_email-wrapper
+                    margin-right: 0
+              .wpd-form-col-right
+                width: 100%
+
+@media (max-width: 767px)
+  .single 
+    .comments 
+      #wpdcom 
+        .wpd-form-wrap 
+          .wpd-field-comment
+            .wpdiscuz-item
+              .wpdiscuz-textarea-wrap
+                margin-bottom: 10px
+                .wpd-textarea-wrap
+                  textarea
+                    height: 215px
+                    border-radius: 24px
+                    font-size: 14px
+                    &::placeholder
+                        font-size: 14px
+          .wpd-form-foot 
+            .wpd-form-row
+              .wpd-form-col-left
+                width: 100%
+                max-width: 100%
+                margin-bottom: 10px
+                .wpdiscuz-item
+                  width: calc(50% - 5px)
+                  margin-right: 8px
+                  input.wpd-field
+                    border-radius: 85px
+                    height: 55px
+                    font-size: 14px
+                    &::placeholder
+                      font-size: 14px
+                  &.wc_email-wrapper
+                    margin-right: 0
+              .wpd-form-col-right
+                width: 100%
+                .wc-field-submit
+                  width: 100%
+                  input
+                    width: 100%
+                    height: 55px
+                    font-size: 16px
+                    letter-spacing: -0.6px
+                    font-weight: 500
+                    border-radius: 49px
+        #wpd-threads
+          .wpd-thread-head
+            .wpd-thread-info 
+              font-size: 26px
+              padding: 0
+              span
+                font-size: 26px!important
+          .wpd-thread-list
+            .comment
+              margin-bottom: 30px
+              .wpd-comment-wrap
+                padding: 0
+                margin: 0
+                .wpd-comment-right
+                  width: calc(100% - 60px - 15px)
+                  .wpd-comment-text
+                    font-size: 14px
+                    p
+                      font-size: 14px
+                  .wpd-comment-header
+                    margin-top: 10px
+                    .wpd-comment-author 
+                      font-size: 16px
+                      margin-bottom: 6px
+                    .wpd-comment-date
+                      font-size: 14px
+                .wpd-comment-left 
+                  .wpd-avatar 
+                    width: 60px
+                    height: 60px
+                    .new-name
+                      font-size: 24px
+
+@media (max-width: 600px)
+  .single .comments #wpdcom .wpd-form-wrap .wpd-form-foot .wpd-form-row .wpd-form-col-left
+    display: block
+    .wpdiscuz-item
+      margin-right: 0
+      margin-bottom: 10px
+      width: 100%
+      max-width: 100%
+  .single 
+    .comments 
+      #wpdcom 
+        #wpd-threads
+          .wpd-thread-head
+            .wpd-thread-info 
+              font-size: 26px
+              padding: 0
+              display: flex
+              align-items: center
+              span
+                display: flex
+                align-items: center
+                padding-left: 14px
+                padding-top: 2px
+                &::after
+                  font-size: 26px
+                  top: calc(50% - 1px)
+          .wpd-thread-list
+            .comment
+              margin-bottom: 30px
+              .wpd-comment-wrap
+                display: flex!important
+                padding: 0
+                margin: 0
+                .wpd-comment-right
+                  width: calc(100% - 60px - 15px)
+                  .wpd-comment-text
+                    font-size: 14px
+                    p
+                      font-size: 14px
+                  .wpd-comment-header
+                    margin-top: 8px
+                    position: relative
+                    left: -10px
+                    .wpd-comment-author 
+                      font-size: 16px
+                      margin-bottom: 6px
+                    .wpd-comment-date
+                      font-size: 14px
+                .wpd-comment-left 
+                  max-width: 60px
+                  .wpd-comment-label
+                    position: relative
+                    margin: 0
+                    top: -15px
+                    left: 5px
+                  .wpd-avatar 
+                    max-width: 60px
+                    max-height: 60px
+                    .new-name
+                      font-size: 24px
+
+
+//FAQ COMMENTS
+.faq-comments .comments
+  #wpdcom .wpd-comment 
+    position: relative
+    .wpd-comment-label
+      z-index: 10
+      background-color: $main
+      width: max-content
+      position: absolute
+      left: 170px
+      top: 0
+  #wpdcom .wpd-space
+    display: none
+  #wpdcom .wpd-comment-header .wpd-comment-share,
+  #wpdcom .wpd-comment-header .wpd-comment-link
+    display: none
+  .by-wpdiscuz
+    display: none!important
+  #wpdcom 
+    .comment.depth-2
+      .wpd-comment-text
+        min-width: calc(100% - 75px)
+    .wpd-comment-text
+      min-width: calc(100% + 75px)
+      position: relative
+      left: -75px
+      padding-bottom: 0
+  #comments
+    margin: 0
+    background: transparent
+    width: 100%
+    max-width: 100%
+  #wpd-post-rating
+    display: none!important
+  #wpd-threads
+    .wpd-thread-head
+      display: none
+  #wpdcom
+    margin: 0
+    width: 100%
+    max-width: 100%
+    background: transparent    
+    display: flex
+    flex-direction: column
+    align-items: flex-start
+    justify-content: flex-start
+    .wpd-reply-to
+      display: none!important
+    .wpd-field-comment
+      width: 100%
+      .wpd-editor-buttons-right
+        display: none
+      .wpdiscuz-textarea-wrap
+        padding-bottom: 0
+        margin-bottom: 15px
+        padding: 0
+      .wpd-textarea-wrap
+        max-width: 100%
+        flex-basis: 100%
+        textarea
+          width: 100%
+          background-color: #fff
+          box-shadow: none
+          border-radius: 24px
+          border: none
+          max-height: 216px
+          height: 216px!important
+          resize: none
+          padding-top: 14px!important
+          padding-left: 24px!important
+          font-size: 18px
+          max-width: 100%
+          box-shadow: 0px 4px 55px 0px rgba(0, 0, 0, 0.05)
+          &::placeholder
+            font-size: 18px
+            color: $gray_400
+    .wc_social_plugin_wrapper
+      display: none
+    .wpd-form-wrap, .wpd_comm_form
+      width: 100%
+      .wpd-form-foot
+        margin-left: 0
+        .wc_website-wrapper
+          display: none
+        .wpd-form-row
+          display: flex
+          justify-content: flex-start
+          align-items: center
+          .wc-field-submit
+            padding: 0
+            margin: 0
+          .wpd-form-col-right
+            display: flex
+            .wc-field-submit
+              input
+                width: max-content
+                padding: 0 30px
+                font-size: 16px
+                font-weight: 500
+                font-family: $font
+                max-width: 100%
+                border-radius: 12px
+                background: transparent
+                background-color: $main
+                color: #fff
+                &:hover
+                  background-color: $button_hover
+          .wpd-form-col-left
+            width: max-content
+            display: flex
+            justify-content: flex-start
+            align-items: center
+            .wpdiscuz-item
+              width: 240px
+              padding: 0
+              margin: 0
+              margin-right: 10px
+              .wpd-field-icon
+                display: none
+              input.wpd-field
+                background: #fff
+                appearance: none
+                border: none
+                box-shadow: 0px 4px 55px 0px rgba(0, 0, 0, 0.05)
+                border-radius: 12px
+                height: 60px
+                width: 100%
+                max-width: 100%
+                box-shadow: none
+                color: $text
+                font-family: $font
+                font-size: $fsz
+                color: $text
+                &:placeholder
+                  color: $gray_450
+                  font-family: $font
+                  font-size: $fsz
+                  color: $text_gray
+      input.wc_comm_submit
+        appearance: none
+        background-color: $main
+        transition: .2s
+        font-size: $fsz
+        border-radius: 16px
+        font-weight: 500
+        font-family: 'Roboto Flex', sans-serif
+        display: flex
+        justify-content: center
+        align-items: center
+        width: 190px
+        box-shadow: none
+        margin: 0
+        margin-left: 0
+        margin-right: auto
+        padding: 0
+        height: 60px
+        &:hover
+          background-color: $button_hover
+      .wpd_label
+        display: none
+      .wpd-form-head
+        display: none 
+      .wc-field-textarea
+        .wpd-avatar
+          display: none
+        .ql-toolbar
+          display: none
+        .ql-container
+          background-color: rgba($text, .05)
+          border-radius: 16px
+          height: 155px
+          border: none!important
+          padding: 10px bor
+          &:before
+            color: $text
+            font-size: $fsz
+            font-style: normal
+          p
+            font-size: $fsz
+            color: $text
+            font: 'Roboto Flex', sans-serif!important
+            font-style: normal
+  #wpd-threads
+    width: 100%
+    height: auto
+    display: block
+    margin-bottom: -50px
+    .wpd-thread-list  
+      width: 100%
+      .comment
+        background-color: transparent
+        border-radius: 0
+        padding: 0px
+        margin-bottom: 40px
+        width: 100%
+        .wpd-comment-footer
+          position: relative
+          left: -75px
+          margin-top: 10px
+        p
+          color: $text
+          font-size: $fsz 
+          span
+            color: $text!important
+            font-size: $fsz 
+  #wpdcom .wpd-thread-head 
+    border-bottom: none
+    margin-bottom: 40px
+    .wpd-thread-info
+      color: $text
+      display: flex
+      display: flex
+      flex-direction: row-reverse
+      justify-content: flex-end
+      align-items: center
+      font-size: 40px
+      font-weight: 700
+      border-bottom: none
+      text-transform: none
+      line-height: 1.2
+      .wpdtc
+        position: relative
+        padding-left: 25px
+        line-height: 1.2
+        &::after
+          position: absolute
+          content: ':'
+          font-size: 42px
+          left: 0
+          top: 50%
+          transform: translateY(-50%)
+          color: $text
+          font-weight: 700
+  #wpdcom .wpd-comment-author, #wpdcom .wpd-comment-author a
+    color: $text
+  #wpdcom .wpd-comment .wpd-comment-right
+    padding-bottom: 0
+  .comment.depth-2
+    margin-top: 15px
+  .wpd-comment-status
+    display: none
+  .wpd-comment-wrap
+    &.wpd-blog-post_author
+      .wpd-avatar 
+        &::after
+          background-image: url(../img/favicon/icon-192.png)!important
+          width: 100%
+          height: 100%
+          border-radius: 100%
+    .wpd-avatar 
+      display: flex
+      justify-content: center
+      align-items: center
+      background-color: #0A3141
+      border-radius: 100%
+      height: 60px
+      width: 60px
+      min-width: 60px
+      position: relative
+      &::after
+        position: absolute
+        content: ''
+        height: 24px
+        width: 24px
+        background-repeat: no-repeat
+        background-size: contain
+        background-image: url(../img/icons/user.svg)
+        top: 50%
+        left: 50%
+        transform: translate(-50%, -50%)
+        z-index: 1
+      img
+        display: none!important
+        width: 60px
+        object-fit: contain
+        border-radius: 100%
+  #wpdcom .wpd-comment .wpd-comment-header
+    display: block
+    padding: 0
+    margin-bottom: 20px
+    .wpd-comment-author 
+      padding-top: 7px
+      display: block
+      margin-right: 0
+      margin-bottom: 6px
+      font-size: 18px
+      font-weight: 500
+      line-height: 1.2
+    .wpd-comment-date
+      display: block
+      margin: 0
+      font-size: 16px
+      padding: 0
+      color: $gray_450
+      i
+        display: none
+
+@media (max-width: 767px)
+  .faq-comments .comments 
+    overflow: hidden
+    .comment.depth-2
+      margin-left: 30px!important
+    #wpd-threads
+      margin-top: 0!important
+    #wpdcom 
+      .wpd-field-comment 
+        .wpdiscuz-textarea-wrap
+          margin-bottom: 4px!important
+          textarea
+            font-size: 14px!important
+            &:placeholder
+              font-size: 14px!important
+      .wpd-form-wrap 
+        .wpd-form-foot
+          .wpd-form-row
+            display: block
+            .wpd-form-col-left
+              display: block!important
+              margin: 0
+              width: 100%!important
+              max-width: 100%
+              .wpdiscuz-item
+                width: 100%!important
+                margin: 0!important
+                margin-bottom: 8px!important
+            .wpd-form-col-right
+              display: block
+              width: 100%
+              max-width: 100%
+              margin: 0
+              .wc-field-submit
+                width: 100%
+                max-width: 100%
+                input
+                  width: 100%!important
+                  max-width: 100%
+                  font-family: $font
+
+@media (max-width: 600px)
+  .faq-comments .comments #wpd-threads
+    margin-bottom: 0px!important
+  #wpdcom .wpd-second-button, #wpdcom .wpd-prim-button
+    font-size: 14px!important
+  #wpdcom .wpd-form .wpdiscuz-textarea-wrap textarea,
+  #wpdcom .wpd-form-row .wpd-field
+    font-size: 14px!important
+    padding-left: 15px!important
+    &::placeholder
+      font-size: 14px!important
+@media (max-width: 600px)
+  .faq-comments .comments #wpdcom .wpd-form-wrap .wpd-form-foot .wpd-form-row .wpd-form-col-left
+    display: block
+    .wpdiscuz-item
+      margin-right: 0
+      margin-bottom: 10px
+      width: 100%
+      max-width: 100%
+  .faq-comments 
+    .comments 
+      #wpdcom 
+        #wpd-threads
+          .wpd-thread-head
+            .wpd-thread-info 
+              font-size: 26px
+              padding: 0
+              display: flex
+              align-items: center
+              span
+                display: flex
+                align-items: center
+                padding-left: 14px
+                padding-top: 2px
+                &::after
+                  font-size: 26px
+                  top: calc(50% - 1px)
+          .wpd-thread-list
+            .comment
+              margin-bottom: 30px
+              .wpd-comment-wrap
+                display: flex!important
+                padding: 0
+                margin: 0
+                .wpd-comment-right
+                  width: calc(100% - 60px - 15px)
+                  .wpd-comment-text
+                    font-size: 14px
+                    p
+                      font-size: 14px
+                  .wpd-comment-header
+                    margin-top: 8px
+                    position: relative
+                    left: -10px
+                    .wpd-comment-author 
+                      font-size: 16px
+                      margin-bottom: 6px
+                      padding-top: 0!important
+                      margin-top: 0!important
+                    .wpd-comment-date
+                      font-size: 14px
+                .wpd-comment-left 
+                  max-width: 60px
+                  .wpd-comment-label
+                    margin: 0
+                    top: 10px
+                    left: 155px
+                  .wpd-avatar 
+                    max-width: 60px
+                    max-height: 60px
+                    .new-name
+                      font-size: 24px
+

@@ -1,0 +1,199 @@
+@import './_vars'
+@import './_fonts'
+	
+*
+	box-sizing: border-box
+	margin: 0
+	padding: 0
+
+body, html
+	position: relative
+	margin: 0
+	padding: 0
+	width: auto
+	color: $text
+	font-weight: 400
+	font-size: $fsz
+	overflow-x: hidden
+	background-image: url('../img/bg.jpg')
+	background-color: lightgray
+	background-position: 0% 0%
+	background-repeat: repeat
+	line-height: 1.2
+	font-family: $font
+	-ms-overflow-style: scrollbar
+	&::-webkit-scrollbar //скроллбар
+		width: 10px 
+		background-color: $bg
+	&::-webkit-scrollbar-thumb //ползунок
+		background: $text
+		border-radius: 4px
+	&::-webkit-scrollbar-button:vertical:start:decrement
+		background: linear-gradient(120deg, $bg 40%, rgba(0, 0, 0, 0) 41%), linear-gradient(240deg, $bg 40%, rgba(0, 0, 0, 0) 41%), linear-gradient(0deg, $bg 30%, rgba(0, 0, 0, 0) 31%)
+		background-color: $bg
+	&::-webkit-scrollbar-button:vertical:end:increment
+		background: linear-gradient(300deg, $bg 40%, rgba(0, 0, 0, 0) 41%), linear-gradient(60deg, $bg 40%, rgba(0, 0, 0, 0) 41%), linear-gradient(180deg, $bg 30%, rgba(0, 0, 0, 0) 31%)
+		background-color: $bg
+
+a, a:hover, a:active, a:link, a:focus
+	text-decoration: none
+	outline: none
+	color: $link
+	transition: .2s
+	font-size: $fsz
+	&:hover
+		transition: .2s
+		color: $green
+p
+	line-height: 1.5
+	display: block
+
+b
+	display: block
+	line-height: 1.2
+	font-weight: 500
+	font-size: 18px
+	letter-spacing: -0.7px
+
+img
+	max-width: 100%
+	display: block
+	object-fit: contain
+
+ul
+	list-style: none
+
+ol
+	list-style: decimal
+	padding-left: 20px
+
+div, span, article, nav, section, main, header
+	padding: 0
+	margin: 0
+
+input, button, select, textarea
+	box-shadow: none
+	color: $input_text
+	background-color: $input_bg
+	border: none
+	appearance: none
+	-webkit-appearance: none
+	-moz-appearance: none
+	font-size: $fsz
+	font-family: $font
+	option
+		background-color: $input_bg
+		color: $input_text
+	&:placeholder
+		font-size: $fsz
+		color: $text_gray
+
+textarea
+	resize: none
+	max-width: 100%
+	width: 100%
+	border: none
+	max-height: 160px
+	padding: 10px 15px
+	-moz-appearance: none
+	-webkit-appearance: none
+	appearance: none
+	font-size: $fsz
+	background: $input_bg
+	color: $input_text
+	box-shadow: none
+
+input[type="text"],input[type="tel"],input[type="submit"], button, input[type="password"], input[type="email"]
+	-webkit-appearance: none
+	appearance: none
+	padding: 10px 15px
+	border: none
+	width: 100%
+	max-width: 100%
+	box-shadow: none
+
+input[type="submit"], button
+	cursor: pointer
+
+input[type="number"]
+	padding: 10px 15px
+	width: 100%
+	max-width: 440px
+	-moz-appearance: textfield
+	&::-webkit-outer-spin-button,
+	&::-webkit-inner-spin-button
+		-webkit-appearance: none
+		appearance: none
+		-moz-appearance: textfield
+		visibility: hidden
+		position: absolute 
+		margin: 0
+	
+input:focus, textarea:focus, select:focus, button:focus, select:focus
+	outline: none
+
+h1, h2, h3, h4, h5
+	font-weight: 500
+	display: block
+
+.container, .mob-nav .menu_sublist
+	width: 100%
+	max-width: 1270px
+	padding-right: 15px
+	padding-left: 15px
+	margin-right: auto
+	margin-left: auto
+
+@media (max-width: 992px) 
+	.container, .mob-nav .menu_sublist
+		max-width: 740px
+@media (max-width: 767px) 
+	.container, .mob-nav .menu_sublist
+		max-width: 540px
+@media (max-width: 576px) 
+	.container, .mob-nav .menu_sublist
+		max-width: 100%
+
+section
+	margin-bottom: 80px
+
+.disabled
+	pointer-events: none
+	opacity: 0.5
+
+.hidden
+	display: none
+
+
+
+@media (min-width: 2000px)
+	html
+		zoom: 1.2
+@media (min-width: 2300px)
+	html
+		zoom: 1.3
+
+    
+@media (min-width: 992px) and (max-width: 1275px)
+	html
+		zoom: 0.7
+@media (min-width: 1275px) and (max-width: 1400px)
+	html
+		zoom: 0.9
+
+
+.icon
+	transition: .2s
+	display: flex
+	justify-content: center
+	align-items: center
+	&:hover
+		transition: .2s
+svg 
+	transition: .2s
+	path, rect
+		transition: .2s
+	&:hover
+		transition: .2s
+		path, rect
+			transition: .2s

@@ -1,0 +1,333 @@
+@import "../reset/_vars"
+  
+@media (max-width: 992px)
+  a.button
+    &:hover
+      color: #fff
+
+
+
+@media (min-width: 992px)
+  .news
+    .all-news
+      span
+        transition: .2s
+      &:hover
+        span
+          transition: .2s
+          color: $main!important
+        .icon
+          transform: rotate(45deg)
+  .projects-row .wrap
+    .item
+      transition: 1s
+      &:hover
+        transition: 1s
+        transform: scale(1.05)
+        z-index: 5
+      &.first
+        &:hover
+          transform: none
+          box-shadow: none
+      &.full
+        transition: 1s
+        &:hover
+          transform: translateX(-50%) scale(1.02)
+          transition: 1s
+      &.last
+        transition: .2s
+        .icon
+          transition: .2s
+        &:hover
+          transition: .2s
+          transform: none
+          box-shadow: 0px 4px 50px 0px rgba(0, 70, 84, 0.10)
+          .icon
+            transition: .2s
+            transform: rotate(45deg)
+  .our-row
+    .item
+      transition: .2s
+      .icon
+        transition: .2s
+      &:hover
+        box-shadow: 0px 4px 50px 0px rgba(0, 70, 84, 0.10)
+        transition: .2s
+        .icon
+          transition: .2s
+          transform: rotate(45deg)
+  .item-part, .onest
+    transition: .2s
+    &:hover
+      box-shadow: 0px 4px 50px 0px rgba(0, 70, 84, 0.10)
+      transition: .2s
+  .onest
+    &:hover
+      span
+        color: $gray_400
+        transition: 0
+      b
+        color: $text
+        transition: 0
+      p
+        color: $gray_400
+        transition: 0
+  .arr
+    &:hover
+      background-color: $main
+      svg path
+        stroke: #fff
+  .button, a.button
+    &:hover
+      transition: .2s
+      background-color: #40C8D6
+      color: #fff 
+    &.button-dark
+      &:hover
+        background-color: #284F5F
+    &.button-transparent
+      &:hover
+        background-color: #284F5F
+        color: #fff
+        filter: blur(0)
+  .search-toggle
+    transition: .2s
+    &:hover
+      transition: .2s
+      background-color: $hover
+  .catalog-toggle
+    span
+      transition: .2s
+    &:hover
+      span
+        color: $hover
+        transition: .2s
+      svg path
+        stroke: $hover
+  .header.header-white, .header.scrolled, .header.header-page
+    .search-toggle
+      &:hover
+        background-color: $main
+        svg path
+          stroke: #fff
+    .link
+      &:hover
+        color: $hover
+    .button.button-transparent
+      &:hover
+        color: #fff
+        background-color: $dark
+    nav ul li
+      a
+        &:hover
+          color: $hover
+  .about-video .play
+    transition: .5s
+    &:hover
+      transition: .5s
+      transform: translate(-50%, -50%) scale(1.05)
+  .faq 
+    .item
+      &-title
+        cursor: pointer
+        transition: .2s
+        &:hover
+          transition: .2s
+          background-color: #fff
+    .btns
+      a
+        &:hover
+          .icon
+            transform: rotate(45deg)
+  .slider-wrap
+    .arr
+      &:hover
+        transition: .2s
+        background-color: $main
+        svg path
+          stroke: #fff
+  .news
+    .item
+      &:hover
+        b
+          color: #18A0AE
+          transition: .2s
+  .map
+    a
+      &:hover
+        color: $main
+  .footer-top
+    .wrap
+      .social
+        a
+          &:hover
+            background-color: $main
+      .center
+        .item
+          a
+            &:hover
+              color: $main
+  .footer-menu
+    .wrap
+      .column
+        a.list-title
+          &:hover
+            color: $main
+        .block
+          li
+            a
+              &:hover
+                color: $main
+  .footer-feat
+    .item
+      .meta
+        a
+          &:hover
+            color: $main
+    .dir
+      a
+        &:hover
+          color: #fff
+  .footer-bottom
+    .wrap
+      ul
+        li
+          a
+            &:hover
+              color: $main
+  .header .search-wrap .dgwt-wcas-search-wrapp .dgwt-wcas-search-form .dgwt-wcas-sf-wrapp .dgwt-wcas-close, .header .search-wrap .dgwt-wcas-search-wrapp .dgwt-wcas-search-form .dgwt-wcas-sf-wrapp .dgwt-wcas-preloader,.header .search-wrap .dgwt-wcas-search-wrapp .dgwt-wcas-search-form .dgwt-wcas-sf-wrapp .dgwt-wcas-search-submit
+    &:hover
+      transition: .2s
+      transform: translateY(-50%) scale(1.1)
+  .pc-catalog
+    .wrap
+      .item
+        &:hover
+          background-color: $gray_50!important
+          p
+            color: $main!important
+  #up-arr
+    .icon
+      &:hover
+        background-color: $dark
+        transition: .2s
+  .news-cats
+    ul
+      li
+        a
+          &:hover
+            background-color: $main
+            color: #fff
+            transition: .2s
+  .header
+    .lang .gtranslate_wrapper #gt_float_wrapper .gt_float_switcher .gt-selected .gt-current-lang
+      transition: .2s
+      &:hover
+        background-color: $white_8!important
+        transition: .2s
+    .search
+      .search-toggle
+        &:hover
+          background-color: $white_8
+    nav
+      ul
+        &>li
+          ul
+            li
+              a
+                &:hover
+                  transition: .2s
+                  color: $main
+          &.menu-item-has-children
+            &>span, &>a
+              transition: .2s
+              &:hover
+                color: #fff
+                transition: .2s
+                background-color: $white_8
+                backdrop-filter: blur(10px)
+          &>a
+            transition: .2s
+            &:hover
+              color: #fff
+              transition: .2s
+              background-color: $white_8
+              backdrop-filter: blur(10px)
+    &.header-white, &.header-open-menu, &.scrolled, &.header-page
+      .lang .gtranslate_wrapper #gt_float_wrapper .gt_float_switcher .gt-selected .gt-current-lang
+        transition: .2s
+        &:hover
+          background-color: $dark!important
+          transition: .2s
+      .catalog-toggle
+        &:hover
+          span, svg path
+            color: $main
+            stroke: $main
+      .search
+        .search-toggle
+          &:hover
+            background-color: $dark!important
+      .button.button-transparent
+        &:hover
+          background-color: $dark!important
+      nav
+        ul
+          &>li
+            ul
+              li
+                a
+                  &:hover
+                    transition: .2s
+                    color: $main!important
+                    background-color: transparent!important
+            &.menu-item-has-children
+              &.opened
+                &>span, &>a
+                  color: #fff!important
+                  transition: .2s
+                  background-color: $dark!important
+                  backdrop-filter: blur(10px)
+              &>span, &>a
+                transition: .2s
+                &:hover
+                  color: #fff
+                  transition: .2s
+                  background-color: $dark
+                  backdrop-filter: blur(10px)
+                  &::after
+                    background-image: url(../img/icons/arr-down-white.svg)
+            &>a
+              transition: .2s
+              &:hover
+                color: #fff!important
+                transition: .2s
+                background-color: $dark
+                backdrop-filter: blur(10px)
+  .button.button-border, a.button.button-border
+    &:hover
+      border-color: $main
+      background-color: #fff
+      color: $main
+      transition: .2s
+  .contacts-top
+    .wrap
+      .item
+        a
+          &:hover
+            color: $main
+    .social
+      a
+        .icon
+          &:hover
+            background-color: $main
+            svg 
+              path
+                fill: #fff
+                &:nth-child(2)
+                  fill: $main
+
+
+
+
+

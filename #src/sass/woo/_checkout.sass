@@ -1,0 +1,650 @@
+@import "../reset/_vars"
+
+
+
+.checkout
+  display: flex
+  justify-content: space-between
+  align-items: flex-start
+  flex-wrap: wrap
+
+  .checkout-right
+    width: 400px
+    border-radius: 24px
+    padding: 30px
+    background-color: $gray_50
+    #payment
+      background: transparent
+      ul
+        display: none
+      .place-order
+        padding: 0
+        background: transparent
+        display: block
+      .woocommerce-terms-and-conditions-wrapper
+        display: block
+        .woocommerce-privacy-policy-text
+          p
+            font-size: 12px
+            font-weight: 400
+            color: $gray_400
+            line-height: 1.2
+            margin: 0
+            a
+              font-size: 12px
+              color: $gray_400
+              text-decoration: underline
+              &:hover
+                color: $green
+      .btn
+        margin-bottom: 20px
+  wc-order-attribution-inputs
+    display: none
+  .checkout-left
+    width: calc(100% - 400px - 90px) 
+    .mini-title
+      display: block
+      line-height: 1.2
+      margin-bottom: 20px
+      font-size: 28px
+      letter-spacing: -0.8px
+      &.sub
+        margin-top: 20px
+        margin-bottom: 10px
+    ul#shipping_method, #payment ul
+      display: flex
+      flex-wrap: wrap
+      justify-content: space-between
+      align-items: center
+      margin-bottom: 20px
+      li
+        display: block
+        width: calc(50% - 8px)
+        padding: 0
+        margin: 0
+        input
+          display: none
+        &::after, &:before
+          display: none!important
+        label
+          margin-bottom: 15px
+          border: 1px solid $gray_200
+          background-color: #fff
+          border-radius: 9999px
+          display: flex
+          justify-content: flex-start
+          align-items: center
+          height: 83px
+          padding-left: 64px
+          font-size: 18px
+          font-weight: 700
+          position: relative
+          transition: .2s
+          cursor: pointer
+          &:hover
+            border-color: $green
+          &::before
+            position: absolute
+            content: ''
+            height: 14px
+            width: 14px
+            border-radius: 100%
+            background-color: $green
+            top: 50%
+            transform: translateY(-50%)
+            left: 30px
+            transition: .2s
+            opacity: 0
+          &::after
+            position: absolute
+            content: ''
+            height: 24px
+            width: 24px
+            border-radius: 100%
+            border: 1px solid $gray_200
+            transition: .2s
+            top: 50%
+            transform: translateY(-50%)
+            left: 24px
+        input:checked + label
+          border-color: $green
+          &::after
+            border-color: $green
+          &:before
+            opacity: 1
+    #payment
+      background: transparent
+      ul
+        padding: 0
+        margin: 0
+        border: none
+        &:before, &::after
+          display: none
+        li
+          label
+            flex-direction: column
+            align-items: flex-start
+            justify-content: center
+            p
+              font-size: 16px
+              display: block
+              line-height: 1.2
+              margin: 1px 0
+            span
+              display: block!important
+              font-size: 14px
+              font-weight: 400
+              color: $gray_400
+              margin: 1px 0
+      .btn
+        display: none
+      .woocommerce-terms-and-conditions-wrapper,
+      .form-row.place-order
+        display: none
+      input
+        display: none
+    .type
+      display: flex
+      align-items: center
+      justify-content: flex-start
+      margin-bottom: 20px
+      padding-top: 10px
+      &.type-phone
+        &>label
+          font-size: 16px
+          font-weight: 500
+        .woocommerce-input-wrapper
+          label
+            margin-right: 0
+            margin-left: 20px
+      .optional
+        display: none
+      
+      .woocommerce-input-wrapper
+        display: flex
+        align-items: center
+        justify-content: flex-start
+        input:checked + label
+          &::after
+            border-color: $green
+          &::before
+            opacity: 1
+        label
+          margin-right: 40px
+          font-size: 16px
+          font-weight: 400
+          padding-left: 34px
+          position: relative
+          cursor: pointer
+          
+          &:hover
+            &::after
+              border-color: $green
+          &::after
+            position: absolute
+            content: ''
+            height: 24px
+            width: 24px
+            border-radius: 100%
+            left: 0
+            top: 50%
+            transform: translateY(-50%)
+            border: 1px solid $gray_200
+            transition: .2s
+          &::before
+            position: absolute
+            content: ''
+            height: 14px
+            width: 14px
+            top: 50%
+            transform: translateY(-50%)
+            background-color: $green
+            left: 6px
+            border-radius: 100%
+            transition: .2s
+            opacity: 0
+        input
+          display: none
+    .input
+      margin-bottom: 15px
+      p
+        left: 20px
+        font-size: 14px
+        top: 7px
+      textarea
+        border-radius: 24px
+        padding-left: 20px
+        height: 200px
+
+
+.woocommerce-NoticeGroup, .woocommerce-notices-wrapper
+  width: 100%
+  .woocommerce-error
+    background-color: #fff
+    border-radius: 49px
+    border: 1px solid red
+    flex-wrap: wrap
+    display: flex
+    justify-content: flex-start
+    align-items: center
+    margin: 5px 0
+    &::before
+      top: 50%
+      transform: translateY(-50%)
+    li
+      margin: 0
+      &::after
+        display: none
+    &::after
+      display: none
+    li[data-id="billing_phone"]
+      display: none
+  .woocommerce-message
+    background-color: #fff
+    border-radius: 49px
+    border: 1px solid $green
+    display: flex
+    justify-content: flex-start
+    align-items: center
+    margin-bottom: 20px
+    li
+      margin: 0
+      &::after
+        display: none
+    &::after
+      display: none
+    li[data-id="billing_phone"]
+      display: none
+
+
+@media (min-width: 992px)
+  .checkout
+    height: 100%
+    .checkout-right
+      position: sticky
+      top: 10px
+
+@media (max-width: 992px)
+  .checkout
+    .checkout-left
+      width: 100%
+      margin-bottom: 20px
+    .checkout-right
+      width: 100%
+
+@media (max-width: 767px)
+  .checkout
+    display: block
+    .checkout-right
+      padding: 20px
+      #payment
+        .btn
+          margin-bottom: 15px
+    .checkout-left
+      .mini-title
+        font-size: 20px
+        margin-bottom: 15px
+        &.sub
+          margin-top: 15px
+          margin-bottom: 5px
+      ul#shipping_method, #payment ul
+        li
+          width: 100%
+          label
+            margin-bottom: 8px
+            height: 73px
+            font-size: 14px
+            font-weight: 700
+            padding-right: 15px
+            p
+              font-size: 14px
+              font-weight: 700
+            span
+              font-size: 14px
+              font-weight: 400
+              p
+                font-size: 14px
+                font-weight: 400
+            &:hover
+              border-color: $gray_200
+      .type
+        display: block
+        margin-bottom: 5px
+        padding-top: 10px
+        &.type-phone
+          &>label
+            font-size: 16px
+            font-weight: 500
+            margin-bottom: 5px
+          .woocommerce-input-wrapper
+            label
+              margin-right: 0
+              margin-left: 0px
+              margin-bottom: 10px
+        .optional
+          display: none
+        
+        .woocommerce-input-wrapper
+          display: block
+          label
+            margin-right: 0px
+            margin-bottom: 10px
+            font-size: 14px
+            
+            &:hover
+              &::after
+                border-color: $green
+            &::after
+              position: absolute
+              content: ''
+              height: 24px
+              width: 24px
+              border-radius: 100%
+              left: 0
+              top: 50%
+              transform: translateY(-50%)
+              border: 1px solid $gray_200
+              transition: .2s
+            &::before
+              position: absolute
+              content: ''
+              height: 14px
+              width: 14px
+              top: 50%
+              transform: translateY(-50%)
+              background-color: $green
+              left: 6px
+              border-radius: 100%
+              transition: .2s
+              opacity: 0
+          input
+            display: none
+      .input
+        margin-bottom: 15px
+        textarea
+          border-radius: 24px
+
+  
+@media (min-width: 2000px)
+  .order .line
+    width: 2300px
+
+@media (min-width: 2300px)
+  .order .line
+    width: 2800px
+
+@media (min-width: 992px) and (max-width: 1275px)
+  .order .line
+    width: 100vw
+    zoom: 1.6
+  .map.order-map
+    min-width: calc(100vw + 560px)
+
+@media (min-width: 1275px) and (max-width: 1400px)
+  .order .line
+    width: 100vw
+    zoom: 1.6
+  .map.order-map
+    min-width: calc(100vw + 800px)
+  
+.map.order-map
+  position: relative
+  z-index: 10
+  transform: translateX(-50%)
+  left: 50%
+  width: 100vw
+  max-width: 100vw
+  margin-bottom: -80px
+  overflow: hidden
+  iframe
+    border-radius: 0!important
+    margin: 0!important
+    height: 100%!important
+    aspect-ratio: unset
+.order
+  margin-bottom: 0px
+  margin-top: -160px
+  position: relative
+  z-index: 5
+  .line-mob
+    display: none
+  .set
+    position: absolute
+    bottom: 0
+    right: 0
+  .line
+    position: absolute
+    bottom: -5px
+    left: 50%
+    transform: translateX(-50%)
+    width: 100vw
+    display: block!important
+    object-fit: contain
+    max-width: 100vw
+  .wrap
+    display: flex
+    justify-content: space-between
+    align-items: flex-start
+    position: relative
+    z-index: 5
+    .btn
+      display: flex
+      text-decoration: none
+      align-items: center
+      justify-content: center
+      transition: .2s
+      background: linear-gradient(93.07deg, #00AA46 2.08%, #009EC7 36.26%, #1652EB 99.36%)
+      color: #fff
+      font-size: 16px
+      font-weight: 500
+      cursor: pointer
+      width: max-content
+      white-space: nowrap
+      line-height: 1.2
+      max-width: 100%
+      padding: 0 36px
+      height: 64px
+      border-radius: 49px
+      position: relative
+      &:hover
+        &::after
+          opacity: 1
+      span
+        display: flex
+        color: #fff
+        font-size: 16px
+        font-weight: 500
+        transition: .2s
+        position: relative
+        z-index: 5
+      &::after
+        position: absolute
+        content: ''
+        width: 100%
+        height: 100%
+        top: 0
+        transition: .2s
+        right: 0
+        left: 0
+        bottom: 0
+        border-radius: 49px
+        z-index: 1
+        background: linear-gradient(93.07deg, #1EBE5A 2.08%, #14B2DB 36.26%, #3470FF 99.36%)
+        opacity: 0
+    .right
+      width: 480px
+      display: flex
+      align-items: flex-end
+      img.man
+        display: block
+        margin-bottom: -10px
+        position: relative
+        z-index: 10
+    .left
+      width: calc(100% - 530px - 60px)
+      padding-top: 140px
+
+@media (max-width: 992px)
+  .map.order-map
+    margin-bottom: -40px
+  .order
+    margin: 0
+    position: relative
+    margin-bottom: 60px
+    .line
+      display: none!important
+    .line-mob
+      display: block
+      position: absolute
+      left: 50%
+      transform: translateX(-50%)
+      bottom: 0
+      z-index: 1
+      width: 100vw
+      max-width: 200vw
+    .wrap
+      flex-direction: column-reverse
+      align-items: center
+      .left
+        width: 100%
+        padding: 0
+        padding-top: 30px
+        .page-title
+          display: block!important
+      .right
+        position: relative
+        width: 100%
+        margin-bottom: 0
+        display: flex
+        justify-content: center
+        img.man
+          width: 220px
+          margin: 0
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
