@@ -475,7 +475,7 @@
 
 
 //FAQ COMMENTS
-.faq-comments .comments
+.faq-comments .comments, .single .comments
   #wpdcom .wpd-comment 
     position: relative
     .wpd-comment-label
@@ -772,7 +772,7 @@
         display: none
 
 @media (max-width: 767px)
-  .faq-comments .comments 
+  .faq-comments .comments, .single-comments
     overflow: hidden
     .comment.depth-2
       margin-left: 30px!important
@@ -813,8 +813,9 @@
                   font-family: $font
 
 @media (max-width: 600px)
-  .faq-comments .comments #wpd-threads
-    margin-bottom: 0px!important
+  .faq-comments .comments, .single .comments
+    #wpd-threads
+      margin-bottom: 0px!important
   #wpdcom .wpd-second-button, #wpdcom .wpd-prim-button
     font-size: 14px!important
   #wpdcom .wpd-form .wpdiscuz-textarea-wrap textarea,
@@ -824,14 +825,15 @@
     &::placeholder
       font-size: 14px!important
 @media (max-width: 600px)
-  .faq-comments .comments #wpdcom .wpd-form-wrap .wpd-form-foot .wpd-form-row .wpd-form-col-left
-    display: block
-    .wpdiscuz-item
-      margin-right: 0
-      margin-bottom: 10px
-      width: 100%
-      max-width: 100%
-  .faq-comments 
+  .faq-comments .comments, .single .comments
+    #wpdcom .wpd-form-wrap .wpd-form-foot .wpd-form-row .wpd-form-col-left
+      display: block
+      .wpdiscuz-item
+        margin-right: 0
+        margin-bottom: 10px
+        width: 100%
+        max-width: 100%
+  .faq-comments, .single
     .comments 
       #wpdcom 
         #wpd-threads
@@ -885,3 +887,124 @@
                     .new-name
                       font-size: 24px
 
+
+
+@media (min-width: 992px)
+  .single .comments, .faq-comments .comments
+    #wpdcom .wpd-form-wrap .wpd-form-foot 
+      .wpd-form-row 
+        justify-content: flex-start
+        .clearfix
+          display: none
+        .wpd-form-col-left
+          width: max-content!important
+        .wpd-form-col-right
+          width: max-content!important
+          position: relative
+          .wpd-field-captcha
+            position: absolute
+            right: auto
+            bottom: auto
+            left: 100%
+            top: 0
+@media (max-width: 992px)
+  .single .comments, .faq-comments .comments
+    #wpdcom
+      overflow-y: hidden
+  .single .comments, .faq-comments .comments
+    #wpdcom .wpd-form-wrap .wpd-form-foot 
+      .wpd-form-row 
+        display: block
+        .clearfix
+          display: none
+        .wpd-form-col-left
+          width: 100%!important
+        .wpd-form-col-right
+          width: 100%!important
+          position: relative
+          .wpd-field-captcha
+            position: absolute
+            right: auto!important
+            bottom: auto!important
+            left: 0
+            top: 0
+@media (max-width: 767px)
+  .single .comments, .faq-comments .comments
+    #wpdcom .wpd-form-wrap .wpd-form-foot 
+      .wpd-form-row 
+        display: block
+        .clearfix
+          display: none
+        .wpd-form-col-left
+          width: 100%!important
+        .wpd-form-col-right
+          width: 100%!important
+          position: relative
+          margin-bottom: 80px
+          .wpd-field-captcha
+            position: absolute
+            right: auto!important
+            bottom: auto!important
+            left: 0
+            top: calc(100% + 15px)
+
+.single
+  .comments
+    #wpd-post-rating
+      display: block!important
+      background-color: #fff
+      border-radius: 24px
+    #wpdcom
+      position: relative
+      display: flex
+      flex-direction: column-reverse
+      padding-top: 100px
+      .wpd-form-wrap
+        margin-bottom: 30px
+      .wpd-thread-head
+        .wpd-thread-info 
+          position: absolute
+          top: 0
+          font-weight: 500
+
+@media (max-width: 578px)
+  .single .comments #wpdcom .wpd-form-wrap
+    margin-bottom: 0
+  .single .comments #wpd-post-rating .wpd-rating-wrap
+    display: block
+    width: 100%
+    max-width: 100%
+    .wpd-rating-data
+      flex-direction: column
+      align-items: center
+      justify-content: flex-start
+      width: 100%
+      max-width: 100%
+      min-width: 0
+      .wpd-rating-title
+        font-weight: 500
+        margin-bottom: 15px
+        font-size: 24px
+        margin-right: 0
+        width: 100%
+        text-align: center
+      .wpd-rate-starts
+        display: flex!important
+        left: 50%
+        transform: translateX(-50%)
+        bottom: 0
+        top: auto
+      .wpd-rating-stars
+        position: relative
+        display: flex
+        justify-content: center
+        align-items: center
+
+
+@media (max-width: 767px)
+  .faq-comments .comments #wpd-threads .wpd-thread-list, .single .comments #wpd-threads .wpd-thread-list
+    padding-bottom: 0
+  .single .comments #wpdcom
+    padding-top: 55px    
+  .single .comments #wpdcom #wpd-threads .wpd-thread-head .wpd-thread-info
+    white-space: nowrap

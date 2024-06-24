@@ -8453,6 +8453,29 @@ jQuery(document).ready(function ($) {
           });
         })
     }
+    const gallContentSlider = document.querySelectorAll('.wp-block-gallery');
+    if (gallContentSlider.length > 0) {
+        gallContentSlider.forEach(elem => {
+          const items = elem.querySelectorAll('.wp-block-image');
+          const swiperWrapper = document.createElement('div');
+          swiperWrapper.classList.add('swiper-wrapper');
+          elem.appendChild(swiperWrapper);
+          const newSwiperWrapper = elem.querySelector('.swiper-wrapper');
+          items.forEach(img => {
+            img.classList.add('swiper-slide');
+            const clone = img.cloneNode(true);
+            newSwiperWrapper.appendChild(clone);
+            img.remove();
+          });
+          elem.classList.add('swiper');
+
+          new Swiper(elem, {
+            spaceBetween: 8,
+            autoHeight: false,
+            slidesPerView: 1,
+          });
+        })
+    }
 
     const orderSlider = document.querySelectorAll('section.order');
     if (orderSlider.length > 0) {
@@ -8763,9 +8786,10 @@ jQuery(document).ready(function ($) {
 			 if (elem.id) {
 				 if (
 							elem.closest('.line') || 
+							elem.closest('.product') || 
 							elem.classList.contains('wpcf7') || 
 							elem.classList.contains('awooc-custom-order') || 
-							elem.classList.contains('swiper-wrapper')
+							elem.classList.contains('swiper-wrapper') 
 						) 
 					{
 					 return
@@ -8790,32 +8814,8 @@ jQuery(document).ready(function ($) {
 		 votes.textContent = ratngVotes;
 	 }
 
-	 const commentsWrapper = document.querySelector('.wpd-thread-wrapper');
-
-	 if (commentsWrapper) {
-		const itemsName = commentsWrapper.querySelectorAll('.wpd-avatar');
-		const itemsNameValue = commentsWrapper.querySelectorAll('.wpd-comment-author');
-
-		if (itemsName.length > 0) {
-			itemsNameValue.forEach((e, i) => {
-				const newName = document.createElement('div');
-				newName.classList.add('new-name');
-				const fullName = e.innerText.split(' '); // Разделяем строку на слова
-				const initials = fullName.map(word => word.charAt(0)); // Берем первую букву из каждого слова
-				const result = initials.join(''); // Объединяем все первые буквы
-				newName.innerText = result; // Вставляем полученные инициалы в блок itemsName
-				itemsName[i].appendChild(newName);
-			});
-		}
-	 }
 	 
- 
-	 $(".anchor").click(function () {
-		 var elementClick = $(this).attr("href");
-		 var destination = $(elementClick).offset().top - 100;
-		 $("html:not(:animated),body:not(:animated)").animate({scrollTop: destination}, 500);
-		 return false;
-	 });
+
 
 	
  
@@ -8931,6 +8931,14 @@ jQuery(document).ready(function ($) {
 			})
 		}
 	}
+
+	 
+	$(".anchor").click(function () {
+		var elementClick = $(this).attr("href");
+		var destination = $(elementClick).offset().top - 100;
+		$("html:not(:animated),body:not(:animated)").animate({scrollTop: destination}, 500);
+		return false;
+	});
 
 	
 }); //end

@@ -35,7 +35,7 @@
 		<?php } ?>
 		<div class="meta-wrap">
 			<div class="author">
-				<?php if (get_field('avatar')) : ?>
+				<?php if (get_field('author_image')) : ?>
 				<div class="avatar">
 					<img src="<?php echo get_field('author_image'); ?>" alt="Автор статьи">
 				</div>
@@ -74,20 +74,19 @@
 			<div class="meta-wrap-items">
 				<div class="item date">
 					<div class="icon">
-						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-							<path d="M7 2C7 1.44772 6.55228 1 6 1C5.44772 1 5 1.44772 5 2V2.44885C5.38032 2.32821 5.78554 2.24208 6.21533 2.17961C6.46328 2.14357 6.72472 2.11476 7 2.09173V2Z" fill="#24B642"/>
-							<path d="M19 2.44885C18.6197 2.32821 18.2145 2.24208 17.7847 2.17961C17.5367 2.14357 17.2753 2.11476 17 2.09173V2C17 1.44772 17.4477 1 18 1C18.5523 1 19 1.44772 19 2V2.44885Z" fill="#24B642"/>
-							<path opacity="0.3" fill-rule="evenodd" clip-rule="evenodd" d="M13.0288 2H10.9712C9.02294 1.99997 7.45141 1.99994 6.21533 2.17961C4.92535 2.3671 3.8568 2.76781 3.01802 3.6746C2.18949 4.57031 1.83279 5.69272 1.66416 7.04866C1.49997 8.36894 1.49998 10.0541 1.5 12.1739V12.8261C1.49998 14.9459 1.49997 16.6311 1.66416 17.9513C1.83279 19.3073 2.18949 20.4297 3.01802 21.3254C3.8568 22.2322 4.92535 22.6329 6.21533 22.8204C7.45142 23.0001 9.02293 23 10.9712 23H13.0288C14.9771 23 16.5486 23.0001 17.7847 22.8204C19.0747 22.6329 20.1432 22.2322 20.982 21.3254C21.8105 20.4297 22.1672 19.3073 22.3358 17.9513C22.5 16.6311 22.5 14.9459 22.5 12.8261V12.1739C22.5 10.0541 22.5 8.36895 22.3358 7.04866C22.1672 5.69272 21.8105 4.57031 20.982 3.6746C20.1432 2.76781 19.0747 2.3671 17.7847 2.17961C16.5486 1.99994 14.9771 1.99997 13.0288 2ZM4.49783 9C4.03921 9 3.8099 9 3.66385 9.14417C3.51781 9.28833 3.51487 9.51472 3.509 9.96751C3.50027 10.6407 3.5 11.3942 3.5 12.2432V12.7568C3.5 14.9616 3.50182 16.5221 3.64887 17.7045C3.79327 18.8656 4.06263 19.5094 4.48622 19.9673C4.89956 20.4142 5.4647 20.6903 6.503 20.8412C7.57858 20.9975 9.00425 21 11.05 21H12.95C14.9957 21 16.4214 20.9975 17.497 20.8412C18.5353 20.6903 19.1004 20.4142 19.5138 19.9673C19.9374 19.5094 20.2067 18.8656 20.3511 17.7045C20.4982 16.5221 20.5 14.9616 20.5 12.7568V12.2432C20.5 11.3942 20.4997 10.6407 20.491 9.96751C20.4851 9.51472 20.4822 9.28833 20.3362 9.14417C20.1901 9 19.9608 9 19.5022 9H4.49783Z" fill="#24B642"/>
-							<path fill-rule="evenodd" clip-rule="evenodd" d="M6.75 13C6.75 12.3096 7.30964 11.75 8 11.75H8.00897C8.69933 11.75 9.25897 12.3096 9.25897 13C9.25897 13.6904 8.69933 14.25 8.00897 14.25H8C7.30964 14.25 6.75 13.6904 6.75 13ZM10.7455 13C10.7455 12.3096 11.3052 11.75 11.9955 11.75H12.0045C12.6948 11.75 13.2545 12.3096 13.2545 13C13.2545 13.6904 12.6948 14.25 12.0045 14.25H11.9955C11.3052 14.25 10.7455 13.6904 10.7455 13ZM14.741 13C14.741 12.3096 15.3007 11.75 15.991 11.75H16C16.6904 11.75 17.25 12.3096 17.25 13C17.25 13.6904 16.6904 14.25 16 14.25H15.991C15.3007 14.25 14.741 13.6904 14.741 13ZM6.75 17C6.75 16.3096 7.30964 15.75 8 15.75H8.00897C8.69933 15.75 9.25897 16.3096 9.25897 17C9.25897 17.6904 8.69933 18.25 8.00897 18.25H8C7.30964 18.25 6.75 17.6904 6.75 17ZM10.7455 17C10.7455 16.3096 11.3052 15.75 11.9955 15.75H12.0045C12.6948 15.75 13.2545 16.3096 13.2545 17C13.2545 17.6904 12.6948 18.25 12.0045 18.25H11.9955C11.3052 18.25 10.7455 17.6904 10.7455 17Z" fill="#24B642"/>
+						<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none">
+							<path d="M17 1V3M5 1V3" stroke="#2CB4C2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+							<path d="M1.5 11.2432C1.5 6.88594 1.5 4.70728 2.75212 3.35364C4.00424 2 6.01949 2 10.05 2H11.95C15.9805 2 17.9958 2 19.2479 3.35364C20.5 4.70728 20.5 6.88594 20.5 11.2432V11.7568C20.5 16.1141 20.5 18.2927 19.2479 19.6464C17.9958 21 15.9805 21 11.95 21H10.05C6.01949 21 4.00424 21 2.75212 19.6464C1.5 18.2927 1.5 16.1141 1.5 11.7568V11.2432Z" stroke="#2CB4C2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+							<path d="M5 7H17" stroke="#2CB4C2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 						</svg>
 					</div>
 					<time class="value" datetime="<?php echo get_the_date('d.m.Y') ?>"><?php echo get_the_date('d M Y') ?></time>
 				</div>
 				<div class="item read-time">
 					<div class="icon">
-						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-							<path opacity="0.3" d="M1.25 12C1.25 6.06294 6.06294 1.25 12 1.25C17.9371 1.25 22.75 6.06294 22.75 12C22.75 17.9371 17.9371 22.75 12 22.75C6.06294 22.75 1.25 17.9371 1.25 12Z" fill="#24B642"/>
-							<path fill-rule="evenodd" clip-rule="evenodd" d="M16.7071 7.29289C17.0976 7.68342 17.0976 8.31658 16.7071 8.70711L13.4143 11.9999L13.707 12.2925C14.0975 12.683 14.0975 13.3162 13.707 13.7067C13.3165 14.0973 12.6833 14.0973 12.2928 13.7068L12.0001 13.4141L11.7071 13.7071C11.3166 14.0976 10.6834 14.0976 10.2929 13.7071C9.90237 13.3166 9.90237 12.6834 10.2929 12.2929L10.5858 11.9999L8.79292 10.2071C8.40238 9.81662 8.40236 9.18346 8.79287 8.79292C9.18338 8.40238 9.81654 8.40236 10.2071 8.79287L12.0001 10.5857L15.2929 7.29289C15.6834 6.90237 16.3166 6.90237 16.7071 7.29289Z" fill="#24B642"/>
+						<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none">
+							<path d="M17.952 7.60639L20.4622 7.45358C18.6629 2.70459 13.497 -0.000269146 8.4604 1.34456C3.09599 2.77692 -0.0903694 8.26089 1.34347 13.5933C2.77731 18.9258 8.28839 22.0874 13.6528 20.6551C17.6358 19.5916 20.4181 16.2945 21 12.4842" stroke="#2CB4C2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+							<path d="M11 6.99982L11 10.9998L13 12.9998" stroke="#2CB4C2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 						</svg>
 					</div>
 					<div class="value">
@@ -96,9 +95,10 @@
 				</div>
 				<div class="item views">
 					<div class="icon">
-						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-							<path opacity="0.3" d="M12 4.25C9.42944 4.25 7.22595 5.38141 5.52031 6.71298C3.81313 8.04576 2.55126 9.61974 1.84541 10.6095L1.79219 10.6837C1.53904 11.0358 1.25 11.4378 1.25 12C1.25 12.5622 1.53904 12.9642 1.79219 13.3163L1.84541 13.3905C2.55126 14.3803 3.81313 15.9542 5.52031 17.287C7.22595 18.6186 9.42944 19.75 12 19.75C14.5706 19.75 16.774 18.6186 18.4797 17.287C20.1869 15.9542 21.4487 14.3803 22.1546 13.3905L22.2078 13.3163C22.461 12.9642 22.75 12.5622 22.75 12C22.75 11.4378 22.461 11.0358 22.2078 10.6837L22.1546 10.6095C21.4487 9.61974 20.1869 8.04576 18.4797 6.71298C16.774 5.38141 14.5706 4.25 12 4.25Z" fill="#24B642"/>
-							<path fill-rule="evenodd" clip-rule="evenodd" d="M12 15.5C10.067 15.5 8.5 13.933 8.5 12C8.5 10.067 10.067 8.5 12 8.5C13.933 8.5 15.5 10.067 15.5 12C15.5 13.933 13.933 15.5 12 15.5Z" fill="#24B642"/>
+						<svg xmlns="http://www.w3.org/2000/svg" width="22" height="20" viewBox="0 0 22 20" fill="none">
+							<path d="M1 6C1 6 5.47715 1 11 1C16.5228 1 21 6 21 6" stroke="#2CB4C2" stroke-width="1.5" stroke-linecap="round"/>
+							<path d="M20.544 11.045C20.848 11.4713 21 11.6845 21 12C21 12.3155 20.848 12.5287 20.544 12.955C19.1779 14.8706 15.6892 19 11 19C6.31078 19 2.8221 14.8706 1.45604 12.955C1.15201 12.5287 1 12.3155 1 12C1 11.6845 1.15201 11.4713 1.45604 11.045C2.8221 9.12944 6.31078 5 11 5C15.6892 5 19.1779 9.12944 20.544 11.045Z" stroke="#2CB4C2" stroke-width="1.5"/>
+							<path d="M14 12C14 10.3431 12.6569 9 11 9C9.34315 9 8 10.3431 8 12C8 13.6569 9.34315 15 11 15C12.6569 15 14 13.6569 14 12Z" stroke="#2CB4C2" stroke-width="1.5"/>
 						</svg>
 					</div>
 					<div class="value">
@@ -114,31 +114,20 @@
 					<div itemprop="ratingCount" class="votes">
 					</div>
 				</div>
-				
-				
-			</div>
-			<div class="share">
-				<script src="https://yastatic.net/share2/share.js"></script>
-				<div class="ya-share2 share-block" data-curtain data-shape="round" data-services="vkontakte,telegram,whatsapp"></div>
-				<div class="share-link">
-					<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-						<path fill-rule="evenodd" clip-rule="evenodd" d="M13.1727 9.32599C11.8822 8.03546 9.80945 8.00326 8.48045 9.22941C8.14215 9.54141 7.61494 9.52024 7.30287 9.18191C6.9908 8.84366 7.01203 8.31645 7.35031 8.00437C9.33403 6.17428 12.4258 6.22196 14.3513 8.14744C16.3256 10.1218 16.3256 13.3229 14.3513 15.2973L11.9627 17.6858C9.98828 19.6602 6.78721 19.6602 4.81282 17.6858C2.83843 15.7115 2.83843 12.5104 4.81282 10.536L5.19978 10.149C5.52522 9.82357 6.05285 9.82357 6.37829 10.1491C6.70373 10.4745 6.70372 11.0021 6.37828 11.3276L5.99133 11.7145C4.66783 13.038 4.66783 15.1838 5.99133 16.5073C7.31484 17.8308 9.4607 17.8308 10.7842 16.5073L13.1727 14.1188C14.4963 12.7953 14.4963 10.6495 13.1727 9.32599Z" fill="#9CA3AF"/>
-						<path fill-rule="evenodd" clip-rule="evenodd" d="M14.0086 3.49264C12.6851 2.16913 10.5393 2.16913 9.2158 3.49264L6.82727 5.88118C5.50376 7.2047 5.50376 9.35051 6.82727 10.674C8.11776 11.9645 10.1906 11.9968 11.5196 10.7706C11.8579 10.4586 12.3851 10.4798 12.6971 10.8181C13.0092 11.1563 12.988 11.6835 12.6497 11.9956C10.666 13.8258 7.57424 13.778 5.64876 11.8526C3.67437 9.87818 3.67437 6.67706 5.64876 4.70268L8.0373 2.31413C10.0117 0.339747 13.2128 0.339747 15.1872 2.31413C17.1616 4.28852 17.1616 7.48963 15.1872 9.46401L14.8002 9.85093C14.4748 10.1764 13.9471 10.1764 13.6217 9.85093C13.2963 9.52551 13.2963 8.99793 13.6217 8.67243L14.0086 8.28549C15.3322 6.96198 15.3322 4.81615 14.0086 3.49264Z" fill="#9CA3AF"/>
-					</svg>
-				</div>
 			</div>
 		</div>
 		<div class="thumb">
 			<img src="<?php echo the_post_thumbnail_url(); ?>" alt="<?php the_title(); ?>" >
 		</div>
 	</div>
-
+	<?php if (get_field('nav_toggle') == false) : ?>
 	<div class="single-nav">
 		<b>Содержание статьи</b>
 		<div class="single-nav-wrap">
 
 		</div>
 	</div>
+	<?php endif; ?>
 
 	<div class="content">
 		<?php the_content(); ?>
@@ -183,27 +172,81 @@
       </div>
       <div class="swiper">
         <div class="swiper-wrapper">
-				<?php
-						while ( $query->have_posts() ) {
-							$query->the_post();
-				?>
-          <a href="<?php the_permalink(); ?>" class="item swiper-slide">
-            <?php
-              $news_image_alt = get_post_meta(get_post_thumbnail_id(), '_wp_attachment_image_alt', true);
+					<?php
+						$current_post_id = get_the_ID();
+						// Получаем все записи
+						$args_all = array(
+							'post_type'      => 'post',
+							'posts_per_page' => -1, // Получаем все записи
+							'orderby' => 'date',
+							'order' => 'DESC'
+						);
+						$all_posts = new WP_Query( $args_all );
+						// Ищем индекс текущей записи
+						$current_index = -1;
+						if ( $all_posts->have_posts() ) {
+								$posts_array = $all_posts->posts;
+								foreach ( $posts_array as $index => $post ) {
+										if ( $post->ID == $current_post_id ) {
+												$current_index = $index;
+												break;
+										}
+								}
+						}
+						// Выводим 10 записей после текущей и если недостаточно, то добавляем записи до текущей
+						if ( $current_index != -1 ) {
+							$related_posts = array();
+							// Добавляем записи после текущей
+							for ( $i = $current_index + 1; $i < $current_index + 11 && $i < count( $posts_array ); $i++ ) {
+								if ($posts_array[$i]->ID != $current_post_id) {
+									$related_posts[] = $posts_array[$i];
+								}
+							}
+							// Если недостаточно, добавляем записи до текущей в обратном порядке
+							if ( count( $related_posts ) < 10 ) {
+								for ( $i = $current_index - 1; $i >= 0 && count( $related_posts ) < 10; $i-- ) {
+									if ($posts_array[$i]->ID != $current_post_id) {
+										$related_posts[] = $posts_array[$i];
+									}
+								}
+							}
+							// Если записей все равно меньше 10, добавляем сколько есть
+							if ( count( $related_posts ) < 10 ) {
+								for ( $i = 0; $i < count( $posts_array ); $i++ ) {
+									if ($posts_array[$i]->ID != $current_post_id && !in_array($posts_array[$i], $related_posts)) {
+										$related_posts[] = $posts_array[$i];
+									}
+									if ( count( $related_posts ) >= 10 ) {
+										break;
+									}
+								}
+							}
+							// Выводим записи
+							if ( !empty( $related_posts ) ) {
+								foreach ( $related_posts as $post ) {
+										setup_postdata( $post );
+									?>
+									<a href="<?php the_permalink(); ?>" class="item swiper-slide">
+										<?php
+											$news_image_alt = get_post_meta(get_post_thumbnail_id(), '_wp_attachment_image_alt', true);
 
-              if (empty($news_image_alt)) {
-                  $news_image_alt = get_the_title();
-              }
+											if (empty($news_image_alt)) {
+													$news_image_alt = get_the_title();
+											}
 
-              echo wp_get_attachment_image(get_post_thumbnail_id(), 'medium', false, array('alt' => $news_image_alt));
-            ?>
-            <b><?php the_title(); ?></b>
-            <div class="content">
-              <?php the_excerpt(); ?>
-            </div>
-            <div class="date"><?php echo get_the_date('d.m.Y') ?></div>
-          </a>
-          <?php }  ?>
+											echo wp_get_attachment_image(get_post_thumbnail_id(), 'medium', false, array('alt' => $news_image_alt));
+										?>
+										<div class="meta">
+											<b><?php the_title(); ?></b>
+											<div class="date"><?php echo get_the_date('d.m.Y') ?></div>
+										</div>
+          				</a>
+									<?php
+								}
+								wp_reset_postdata();
+							}
+						}
+					?>
         </div>
       </div>
       <div class="arr arr-next">
@@ -218,6 +261,25 @@
 
 
 <?php endwhile; ?>
+
+<?php if (get_field('catalog_banner_title', 'options')) : ?>
+<section class="catalog-banner">
+  <div class="container">
+    <div class="wrap">
+      <div class="left">
+        <b class="title sub"><?php echo get_field('catalog_banner_title', 'options'); ?></b>
+        <p class="subtitle"><?php echo get_field('catalog_banner_subtitle', 'options'); ?></p>
+        <div class="form">
+          <?php echo do_shortcode('[contact-form-7 id="7dc5478" title="Отправка каталога"]'); ?>
+        </div>
+      </div>
+      <div class="right">
+        <img src="<?php echo get_field('catalog_banner_bg', 'options'); ?>" alt="<?php echo get_field('catalog_banner_title', 'options'); ?>">
+      </div>
+    </div>
+  </div>
+</section>
+<?php endif; ?>
 
 
 

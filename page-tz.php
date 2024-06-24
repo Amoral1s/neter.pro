@@ -14,7 +14,7 @@ get_header();
     <div class="wrap">
       <h1 class="page-title sub"><?php the_title(); ?></h1>
       <p class="subtitle"><?php echo get_field('offer_subtitle'); ?></p>
-      <a href="#calc" class="button link">
+      <a href="#calc" class="button anchor">
         Оставить заявку на разработку
       </a>
       <div class="row">
@@ -37,7 +37,7 @@ get_header();
 <section class="calc">
   <div class="container">
     <div class="wrap">
-      <h2 class="title sub"><?php echo get_field('calc_title') ?></h2>
+      <h2 class="title sub" id="calc"><?php echo get_field('calc_title') ?></h2>
       <p class="subtitle"><?php echo get_field('calc_subtitle'); ?></p>
       <div class="calc-wrapper">
         <div class="left">

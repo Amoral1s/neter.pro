@@ -1,0 +1,232 @@
+@import "../reset/_vars"
+
+.content
+  .block
+    &_important-text
+      display: flex
+      align-items: center
+      justify-content: space-between
+      padding: 30px
+      background-color: rgba(44, 180, 194, 0.16)
+      border-radius: 20px
+      margin-bottom: 40px
+      .icon
+        margin-right: 20px
+      b
+        display: block
+        width: calc(100% - 20px - 30px)
+        font-size: 20px
+        font-weight: 500
+        line-height: 1.2
+        color: $text
+        margin: 0
+    &_citata
+      display: flex
+      align-items: center
+      justify-content: space-between
+      padding: 30px
+      border: 1px solid $gray_200
+      border-radius: 20px
+      margin-bottom: 40px
+      .icon
+        margin-right: 20px
+      b
+        display: block
+        width: calc(100% - 20px - 30px)
+        font-size: 20px
+        font-weight: 500
+        line-height: 1.2
+        color: $text
+        margin: 0
+    &_category
+      display: flex
+      flex-wrap: wrap
+      justify-content: flex-start
+      align-items: stretch
+      min-width: calc(100% + 25px)
+      margin-bottom: 40px
+      .item
+        display: flex
+        align-items: center
+        justify-content: flex-start
+        width: calc(25% - 25px)
+        margin-right: 25px
+        border-radius: 24px
+        background-color: $gray_50
+        padding: 10px
+        text-decoration: none
+        color: $text
+        img
+          display: block
+          margin-right: 20px
+          width: 90px
+          height: 90px
+          object-fit: contain
+          object-position: center
+        b
+          font-size: 20px
+          font-weight: 700
+          letter-spacing: -0.6px
+          margin: 0
+          color: $text
+          transition: .2s
+        &:hover
+          b
+            color: $green
+            transition: .2s
+    &_services
+      display: block
+      margin-bottom: 40px
+      .item
+        border-radius: 24px
+        background-color: $gray_50
+        padding: 20px
+        margin-bottom: 20px
+        display: flex
+        justify-content: flex-start
+        align-items: center
+        text-decoration: none
+        position: relative
+        .icon
+          position: absolute
+          right: 20px
+          top: 20px
+          transition: .2s
+        img
+          height: 140px
+          width: 140px
+          object-fit: cover
+          border-radius: 14px
+          display: block
+          margin-right: 30px
+        .meta
+          width: calc(100% - 140px - 30px)
+          display: block
+          b
+            font-size: 24px
+            font-weight: 700
+            margin-bottom: 15px
+            color: $text
+            transition: .2s
+          p
+            font-size: 16px
+            font-weight: 400
+            color: $gray_450
+            margin: 0
+            line-height: 1.2
+        &:hover
+          .icon
+            transform: rotate(45deg)
+            transition: .2s
+          b
+            color: $green
+            transition: .2s
+
+@media (max-width: 992px)
+  .content
+    .block
+      &_category
+        min-width: 0
+        justify-content: space-between
+        .item
+          width: calc(50% - 4px)
+          margin-bottom: 8px
+          margin-right: 0
+
+@media (max-width: 767px)
+  .content
+    .block
+      &_important-text,
+      &_citata
+        padding: 20px
+        border-radius: 20px
+        margin-bottom: 30px
+        .icon
+          margin-right: 10px
+        b
+          display: block
+          width: calc(100% - 10px - 30px)
+          font-size: 16px
+      &_services
+        margin-bottom: 30px
+        .item
+          border-radius: 20px
+          padding: 15px
+          margin-bottom: 10px
+          .icon
+            right: 10px
+            top: 10px
+          img
+            height: 90px
+            width: 90px
+            border-radius: 14px
+            margin-right: 15px
+          .meta
+            width: calc(100% - 15px - 90px)
+            display: block
+            b
+              font-size: 14px
+              margin-bottom: 6px
+            p
+              font-size: 12px
+          &:hover
+            .icon
+              transform: none
+            b
+              color: $text
+      &_category
+        margin-bottom: 30px
+        .item
+          border-radius: 16px
+          padding: 10px
+          b
+            font-size: 12px
+          img
+            width: 40px
+            height: 40px
+            margin-right: 10px
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

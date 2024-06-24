@@ -93,11 +93,11 @@
         border-radius: 100%
         height: 65px
         width: 65px
-        background-color: gray
         margin-right: 15px
         display: flex
         justify-content: center
         align-items: center
+        background-color: #fff
         svg
           width: 50px
           height: 50px
@@ -111,7 +111,7 @@
   border-radius: 24px 
   margin-bottom: 40px
   display: block
-  background-color: $gray_50
+  background-color: #fff
   padding: 30px
   b
     font-size: 20px
@@ -124,10 +124,10 @@
     color: $text
     margin-bottom: 14px
     &:hover
-      color: $green
+      color: $main
     &:last-child
       margin-bottom: 0
-
+ 
 @media (max-width: 992px)
   .only-single-page.single 
     .single-top 
@@ -142,10 +142,6 @@
           display: flex
           flex-wrap: wrap
           margin-bottom: 5px
-          .item
-            margin-bottom: 10px
-      .share
-        justify-content: flex-start
 
 @media (max-width: 767px)
   .only-single-page.single 
@@ -191,11 +187,59 @@
 
 
 
+@media (max-width: 767px)
+  .only-single-page.single 
+    .single-top 
+      .page-title
+        font-size: 26px
+        font-weight: 500
+        margin-bottom: 10px
+        letter-spacing: -0.8px
+      .subtitle
+        font-size: 14px
+        line-height: 1.6
+        margin-bottom: 20px
+      .meta-wrap
+        margin-bottom: 30px
+        .meta-wrap-items
+          .rating
+            margin-bottom: 0
+            .votes
+              font-size: 14px
+              line-height: 1
+          .item
+            margin-right: 20px
+            margin-bottom: 15px
+            .icon
+              margin-right: 6px
+              svg
+                width: 16px
+            time, .value
+              font-size: 14px
+              margin: 0
+              white-space: nowrap
 
+        .avatar
+          width: 55px
+          height: 55px
+          margin-right: 15px
+          img
+            width: 55px
+            height: 55px
+          svg
+            width: 45px
+            height: 45px
+ 
 
-
-
-
+@media (max-width: 578px)
+  .only-single-page.single 
+    .thumb
+      min-width: calc(100% + 30px)
+      position: relative
+      left: -15px
+      img
+        border-radius: 0
+  
 
 
 

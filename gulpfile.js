@@ -2,7 +2,7 @@ import path from 'path';
 import { promises as fs } from 'fs';
 import browsersync from 'browser-sync';
 import fileinclude from 'gulp-file-include';
-import sass from 'sass';
+import * as sass from 'sass';
 import gulpSass from 'gulp-sass';
 import group_media from 'gulp-group-css-media-queries';
 import clean_css from 'gulp-clean-css';
@@ -34,10 +34,10 @@ const paths = {
     src: {
         html: './**/*.html',
         css: [
-            source_folder + '/sass/**/_*.scss',
-            source_folder + '/sass/*.sass',
-            '!' + source_folder + '/sass/**/_*.sass'
+            source_folder + '/sass/**/*.sass',
+            '!' + source_folder + '/sass/**/_*.sass' // Исключаем файлы с префиксом "_"
         ],
+        cssAll: source_folder + '/sass/**/*.sass', // Все SASS файлы, включая префиксы
         js: [
             source_folder + '/js/menu.js',
             source_folder + '/js/swiper.js',
@@ -67,11 +67,19 @@ const paths = {
 const browsersyncInstance = browsersync.create();
 const gulpSassInstance = gulpSass(sass);
 
+function logPaths(done) {
+    console.log('CSS Source Paths:', paths.src.css);
+    console.log('JS Source Paths:', paths.src.js);
+    done();
+}
+
 function browserSync() {
     browsersyncInstance.init({
         proxy: 'http://neter.local', // Убедитесь, что этот прокси соответствует вашему серверу MAMP
         notify: false,
-        open: false // Не открывать новое окно браузера при запуске
+        open: true, // Открыть новое окно браузера при запуске
+        codeSync: true, // Включить синхронизацию кода
+        cors: true // Включить CORS
     });
 }
 
@@ -83,7 +91,8 @@ function html() {
 }
 
 function css() {
-    return src(paths.src.css)
+    // Компилируем все файлы, включая префиксы
+    return src(paths.src.cssAll)
         .pipe(gulpSassInstance({ outputStyle: 'expanded' }).on('error', gulpSassInstance.logError))
         .pipe(group_media())
         .pipe(dest(paths.build.css))
@@ -177,7 +186,7 @@ function clean() {
 
 const fontsBuild = series(fonts_otf, fonts, fontstyle);
 const buildDev = series(clean, parallel(fontsBuild, css, html, js, images));
-const watcher = series(buildDev, parallel(watchFiles, browserSync));
+const watcher = series(logPaths, buildDev, parallel(watchFiles, browserSync));
 
 export { fontsBuild as fonts };
 export { watcher as watch };

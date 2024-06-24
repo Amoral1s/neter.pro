@@ -65,9 +65,10 @@ jQuery(document).ready(function ($) {
 			 if (elem.id) {
 				 if (
 							elem.closest('.line') || 
+							elem.closest('.product') || 
 							elem.classList.contains('wpcf7') || 
 							elem.classList.contains('awooc-custom-order') || 
-							elem.classList.contains('swiper-wrapper')
+							elem.classList.contains('swiper-wrapper') 
 						) 
 					{
 					 return
@@ -92,32 +93,8 @@ jQuery(document).ready(function ($) {
 		 votes.textContent = ratngVotes;
 	 }
 
-	 const commentsWrapper = document.querySelector('.wpd-thread-wrapper');
-
-	 if (commentsWrapper) {
-		const itemsName = commentsWrapper.querySelectorAll('.wpd-avatar');
-		const itemsNameValue = commentsWrapper.querySelectorAll('.wpd-comment-author');
-
-		if (itemsName.length > 0) {
-			itemsNameValue.forEach((e, i) => {
-				const newName = document.createElement('div');
-				newName.classList.add('new-name');
-				const fullName = e.innerText.split(' '); // Разделяем строку на слова
-				const initials = fullName.map(word => word.charAt(0)); // Берем первую букву из каждого слова
-				const result = initials.join(''); // Объединяем все первые буквы
-				newName.innerText = result; // Вставляем полученные инициалы в блок itemsName
-				itemsName[i].appendChild(newName);
-			});
-		}
-	 }
 	 
- 
-	 $(".anchor").click(function () {
-		 var elementClick = $(this).attr("href");
-		 var destination = $(elementClick).offset().top - 100;
-		 $("html:not(:animated),body:not(:animated)").animate({scrollTop: destination}, 500);
-		 return false;
-	 });
+
 
 	
  

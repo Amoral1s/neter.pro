@@ -5,9 +5,9 @@
 @include('inc/shortcodes.php');
 @include('inc/acf_blocks.php');
 @include('inc/unisender.php');
+@include('inc/woocommerce.php');
+@include('inc/woo-single-product.php');
 
-//@include('inc/woocommerce.php');
-//@include('inc/woo-single-product.php');
 //@include('inc/woo_cart.php');
 //@include('inc/woo_checkout.php');
 

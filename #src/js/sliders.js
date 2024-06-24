@@ -342,6 +342,29 @@ jQuery(document).ready(function ($) {
           });
         })
     }
+    const gallContentSlider = document.querySelectorAll('.wp-block-gallery');
+    if (gallContentSlider.length > 0) {
+        gallContentSlider.forEach(elem => {
+          const items = elem.querySelectorAll('.wp-block-image');
+          const swiperWrapper = document.createElement('div');
+          swiperWrapper.classList.add('swiper-wrapper');
+          elem.appendChild(swiperWrapper);
+          const newSwiperWrapper = elem.querySelector('.swiper-wrapper');
+          items.forEach(img => {
+            img.classList.add('swiper-slide');
+            const clone = img.cloneNode(true);
+            newSwiperWrapper.appendChild(clone);
+            img.remove();
+          });
+          elem.classList.add('swiper');
+
+          new Swiper(elem, {
+            spaceBetween: 8,
+            autoHeight: false,
+            slidesPerView: 1,
+          });
+        })
+    }
 
     const orderSlider = document.querySelectorAll('section.order');
     if (orderSlider.length > 0) {

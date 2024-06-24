@@ -110,5 +110,13 @@ jQuery(document).ready(function ($) {
 		}
 	}
 
+	 
+	$(".anchor").click(function () {
+		var elementClick = $(this).attr("href");
+		var destination = $(elementClick).offset().top - 100;
+		$("html:not(:animated),body:not(:animated)").animate({scrollTop: destination}, 500);
+		return false;
+	});
+
 	
 }); //end
