@@ -1,0 +1,513 @@
+@import "../reset/_vars"
+
+
+.cart-toggle
+  width: max-content
+  z-index: 90
+  position: fixed
+  right: 15px
+  bottom: 15px
+  .icon
+    display: none
+  &.loading
+    pointer-events: none
+    opacity: 0.5
+    .load-circle
+      visibility: visible
+  .wrapper
+    display: flex
+    justify-content: space-between
+    align-items: center
+    width: 190px
+    cursor: pointer
+    padding: 20px 30px
+    border-radius: 9999px
+    background-color: $main
+    box-shadow: 0px 130px 36px 0px rgba(0, 113, 128, 0.00), 0px 83px 33px 0px rgba(0, 113, 128, 0.02), 0px 47px 28px 0px rgba(0, 113, 128, 0.08), 0px 21px 21px 0px rgba(0, 113, 128, 0.14), 0px 5px 11px 0px rgba(0, 113, 128, 0.16)
+    .cart-count
+      background-color: #D81654
+      border-radius: 100%
+      color: #fff
+      width: 30px
+      height: 30px
+      display: flex
+      justify-content: center
+      align-items: center
+      line-height: 1
+      font-size: 16px
+      font-weight: 700
+      min-width: 30px
+      padding-top: 1px
+    p
+      width: 90px
+      color: #fff
+      font-size: 16px
+      margin-right: 10px
+      line-height: 1.2
+      font-weight: 500
+  
+.mini-cart
+  position: fixed
+  top: 50%
+  left: 50%
+  transform: translate(-50%, -50%)
+  width: 620px
+  z-index: 220
+  height: auto
+  max-height: calc(100dvh - 30px)
+  overflow-y: auto
+  border-radius: 24px
+  .wrapper
+    display: block
+    background: $bg
+    width: 100%
+    padding: 40px
+    border-radius: 24px
+    position: relative
+    .form
+      .form-title
+        font-size: 24px
+        font-weight: 500
+        line-height: .9
+        letter-spacing: -0.7px
+        display: block
+        margin-bottom: 20px
+      small
+        color: $gray_400
+        margin-top: 10px
+        a
+          color: $gray_400
+      .row
+        display: flex
+        justify-content: space-between
+        align-items: center
+        flex-wrap: wrap
+        .half
+          width: calc(50% - 4px)
+          margin-bottom: 8px
+    .mini-cart-content
+      display: block
+      margin-bottom: 20px
+      .item
+        display: flex
+        justify-content: space-between
+        align-items: center
+        padding: 20px 0
+        transition: .5s
+        &.loading
+          opacity: .5
+          pointer-events: none
+          .load-circle
+            visibility: visible
+        .meta
+          width: 100%
+          display: block
+          position: relative
+          .product-attrs
+            display: flex
+            align-items: center
+            justify-content: flex-start
+            .attr
+              display: flex
+              align-items: center
+              justify-content: flex-start
+              margin-right: 20px
+              .icon
+                margin-right: 8px
+              p
+                font-size: 14px
+                line-height: 1.2
+                color: $text
+          a
+            font-size: 16px
+            font-weight: 500
+            margin-bottom: 16px
+            display: block
+        .quantity
+          display: flex
+          align-items: center
+          justify-content: flex-end
+          width: 138px
+          min-width: 138px
+          input
+            min-width: 30px
+            background-color: transparent
+            margin: 0 10px
+            padding-left: 0
+            padding-right: 0
+            text-align: center
+          .plus, .minus
+            border-radius: 100%
+            display: flex
+            justify-content: center
+            align-items: center
+            background-color: #fff
+            width: 44px
+            height: 44px
+            min-width: 44px
+            cursor: pointer
+            &:hover
+              svg path
+                stroke: $main
+              
+        .thumb
+          border-radius: 16px
+          width: 86px
+          height: 86px
+          min-width: 86px
+          margin-right: 16px
+          display: flex
+          justify-content: center
+          align-items: center
+          background-color: #fff
+          img
+            width: 100%
+            height: auto
+            aspect-ratio: 1 / 1
+            border-radius: 16px
+            background-color: #fff
+    .close
+      position: absolute
+      top: 30px
+      right: 30px
+      cursor: pointer
+      &:hover
+        svg path
+          stroke: $main
+    .mini-title
+      font-size: 36px
+      display: block
+      margin-bottom: 10px
+      line-height: 1.2
+      letter-spacing: -1px
+    .mini-subtitle
+      font-size: 16px
+      font-weight: 400
+      color: $text
+      display: block
+      margin-bottom: 20px
+      line-height: 1.2
+
+@media (max-width: 992px)
+  .cart-toggle
+    right: 10px
+    bottom: 10px
+    .wrapper
+      position: relative
+      padding: 0
+      z-index: 1
+      width: 50px
+      height: 50px
+      border-radius: 100%
+      display: flex
+      justify-content: center
+      align-items: center
+      .load-circle
+        z-index: 10
+      .cart-count
+        height: auto
+        min-width: auto
+        width: auto
+        font-weight: 400
+        color: #fff
+        position: absolute
+        font-size: 12px
+        top: 0
+        right: 0
+        height: 20px
+        width: 20px
+        z-index: 5
+      .icon
+        display: flex
+      p
+        display: none
+
+@media (max-width: 767px)
+  .mini-cart
+    width: 420px
+    max-width: calc(100vw - 20px)
+    max-height: calc(100dvh - 20px)
+    .wrapper
+      padding: 20px
+      .form
+        .form-title
+          font-size: 18px
+          margin-bottom: 20px
+          letter-spacing: -0.5px
+        small
+          margin-top: 16px
+          font-size: 12px
+          a
+            font-size: 12px
+        .row
+          .half
+            width: 100%
+      .mini-cart-content
+        margin-bottom: 16px
+        .item
+          display: flex
+          align-items: flex-start
+          position: relative
+          .meta
+            width: calc(100% - 60px - 16px)
+            padding-bottom: calc(44px + 14px)
+            .product-attrs
+              .attr
+                &-name
+                  font-size: 12px
+                  white-space: nowrap
+            .load-circle
+              transform: none
+              background-color: $text
+              opacity: 1
+              left: -56px
+              top: auto
+              bottom: 10px
+            a
+              font-size: 14px
+              margin-bottom: 6px
+              &:hover
+                color: $text
+          .quantity
+            position: absolute
+            left: 76px
+            bottom: 20px
+            .plus, .minus
+              &:hover
+                svg path
+                  stroke: $gray_200
+          .thumb
+            border-radius: 14px
+            width: 60px
+            height: 60px
+            min-width: 60px
+            img
+              border-radius: 14px
+      .close
+        top: 20px
+        right: 20px
+        &:hover
+          svg path
+            stroke: $text
+      .mini-title
+        font-size: 24px
+        padding-right: 20px
+        letter-spacing: -0.7px
+      .mini-subtitle
+        font-size: 12px
+        margin-bottom: 16px
+        line-height: 1.2
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+

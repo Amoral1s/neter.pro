@@ -30,13 +30,6 @@ function register_blocks() {
             'category'          => 'formatting',
         ));
         acf_register_block_type(array(
-            'name'              => 'consultation',
-            'title'             => __('Консультация (Баннер) (NEW)'),
-            'description'       => __('Консультация (Баннер) (NEW)'),
-            'render_template'   => '/blocks/consultation.php',
-            'category'          => 'formatting',
-        ));
-        acf_register_block_type(array(
             'name'              => 'category',
             'title'             => __('Категории (NEW)'),
             'description'       => __('Категории (NEW)'),
@@ -44,10 +37,10 @@ function register_blocks() {
             'category'          => 'formatting',
         ));
         acf_register_block_type(array(
-            'name'              => 'service',
-            'title'             => __('Услуги (NEW)'),
-            'description'       => __('Услуги (NEW)'),
-            'render_template'   => '/blocks/service.php',
+            'name'              => 'sfery',
+            'title'             => __('Сферы (NEW)'),
+            'description'       => __('Сферы (NEW)'),
+            'render_template'   => '/blocks/sfery.php',
             'category'          => 'formatting',
         ));
         acf_register_block_type(array(

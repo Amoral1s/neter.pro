@@ -110,9 +110,11 @@ jQuery(document).ready(function ($) {
 
 	$('.overlay').on('click', function() {
 		$('.popup').fadeOut(300);
+		$('.mini-cart').fadeOut(300);
 		$('.overlay').fadeOut(300);
 		$('html').removeClass('fixed');
 		$('.popup').removeClass('popup-thx');
+    $('.product-tabs .wrapper-feed .right').fadeOut(200);
 		$('.popup.popup-video iframe').attr('src', '');
 		$('.popup.popup-service .service-pop-name').val('');
 		$('.popup.popup-service .serv-name').text('');
@@ -131,6 +133,18 @@ jQuery(document).ready(function ($) {
 		$('.popup').removeClass('popup-thx');
 		$('.popup.popup-video iframe').attr('src', '');
 	});
+
+	$('.call-review').on('click', function() {
+    $('.product-tabs .wrapper-feed .right').fadeIn(200);
+    $('.overlay').fadeIn(200);
+    $('html').addClass('fixed');
+  });
+
+  $('.product-tabs .wrapper-feed .right .close').on('click', function() {
+    $('.product-tabs .wrapper-feed .right').fadeOut(200);
+    $('.overlay').fadeOut(200);
+    $('html').removeClass('fixed');
+  });
 
 
 

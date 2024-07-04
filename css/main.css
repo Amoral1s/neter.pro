@@ -2504,6 +2504,12 @@ a.button {
   font-weight: 500;
 }
 
+.button.button-white,
+a.button.button-white {
+  background-color: #fff;
+  color: #0A3141;
+}
+
 .button.button-border,
 a.button.button-border {
   background-color: #fff;
@@ -2659,15 +2665,6 @@ a.button.button-transparent {
   width: 55px;
   height: 55px;
   z-index: 15;
-}
-
-.slider-wrap .arr:hover {
-  transition: 0.2s;
-  background-color: #2CB4C2;
-}
-
-.slider-wrap .arr:hover svg path {
-  stroke: #fff;
 }
 
 .slider-wrap .arr-prev {
@@ -2949,6 +2946,44 @@ a.button.button-transparent {
 
 .content a:hover {
   color: #40C8D6;
+}
+
+.content blockquote {
+  padding: 15px;
+  background-color: #fff;
+  margin-bottom: 24px;
+  position: relative;
+  padding-left: 46px;
+  border-radius: 24px;
+}
+
+.content blockquote::after {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-image: url(../img/icons/quote.svg);
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.content blockquote cite {
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.content blockquote p {
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 1.2;
+  margin-bottom: 15px;
+}
+
+.content blockquote p:last-child {
+  margin-bottom: 0;
 }
 
 .content p {
@@ -6371,7 +6406,7 @@ a.button.button-transparent {
 
 #up-arr {
   position: fixed;
-  right: 15px;
+  left: 15px;
   bottom: 15px;
   z-index: 20;
   cursor: pointer;
@@ -6404,6 +6439,15 @@ a.button.button-transparent {
 }
 
 @media (min-width: 992px) {
+  .slider-wrap .arr:hover {
+    transition: 0.2s;
+    background-color: #2CB4C2;
+  }
+
+  .slider-wrap .arr:hover svg path {
+    stroke: #fff;
+  }
+
   .single .comments #wpdcom .wpd-form-wrap .wpd-form-foot .wpd-form-row,
   .faq-comments .comments #wpdcom .wpd-form-wrap .wpd-form-foot .wpd-form-row {
     justify-content: flex-start;
@@ -6556,6 +6600,12 @@ a.button.button-transparent {
   a.button:hover {
     transition: 0.2s;
     background-color: #40C8D6;
+    color: #fff;
+  }
+
+  .button.button-white:hover,
+  a.button.button-white:hover {
+    background-color: #0A3141;
     color: #fff;
   }
 
@@ -7655,6 +7705,42 @@ a.button.button-transparent {
     display: flex;
   }
 
+  .content blockquote {
+    padding: 15px;
+    margin-bottom: 24px;
+    position: relative;
+    padding-left: 46px;
+  }
+
+  .content blockquote::after {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-image: url(../img/icons/quote.svg);
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .content blockquote cite {
+    font-size: 12px;
+    margin-top: 10px;
+  }
+
+  .content blockquote p {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.2;
+    margin-bottom: 15px;
+  }
+
+  .content blockquote p:last-child {
+    margin-bottom: 0;
+  }
+
   .content h2,
   .content h3,
   .content h4,
@@ -8047,6 +8133,11 @@ a.button.button-transparent {
 
   .single .comments #wpdcom #wpd-threads .wpd-thread-list .comment .wpd-comment-wrap .wpd-comment-left .wpd-avatar .new-name {
     font-size: 24px;
+  }
+
+  .single .comments #wpdcom .wpd-form-wrap .wpd-form-foot .wpd-form-row .wpd-form-col-right .wc-field-submit input,
+  .single .comments #wpdcom .wpd-form-wrap .wpd-form-foot .wpd-form-row .wpd-form-col-left .wpdiscuz-item input.wpd-field {
+    border-radius: 12px;
   }
 
   .faq-comments .comments,
@@ -8709,6 +8800,10 @@ a.button.button-transparent {
     margin-bottom: 10px;
     width: 100%;
     max-width: 100%;
+  }
+
+  .single .comments #wpdcom .wpd-form-wrap .wpd-field-comment .wpdiscuz-item .wpdiscuz-textarea-wrap {
+    margin-bottom: 5px;
   }
 
   .single .comments #wpdcom #wpd-threads .wpd-thread-head .wpd-thread-info {

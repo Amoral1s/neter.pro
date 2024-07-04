@@ -1,0 +1,1252 @@
+@import "../reset/_vars"
+@keyframes anim-btn
+  0%
+    transform: translate(-50%, -50%) scale(0.5)
+  25% 
+    transform: translate(-50%, -50%) scale(0.8)
+  50%
+    transform: translate(-50%, -50%) scale(1)
+  75%
+    transform: translate(-50%, -50%) scale(0.8)
+  100%
+    transform: translate(-50%, -50%) scale(0.5)
+
+.star-rating
+  position: relative
+  font-size: 1.2em 
+  margin-bottom: 2px
+  width: max-content
+  span
+    color: #FFCA5A
+    display: inline-block
+    position: absolute
+    top: 0
+    left: 0
+    height: 100%
+    overflow: hidden
+    &:before
+      content: '\2605 \2605 \2605 \2605 \2605' 
+      color: #FFCA5A
+      position: relative
+      letter-spacing: 6px
+      z-index: 1
+      white-space: nowrap
+      overflow: hidden
+      width: 100% 
+  &::before
+    content: '\2605 \2605 \2605 \2605 \2605' 
+    color: $gray_400
+    letter-spacing: 6px
+
+.catalog-page
+  .catalog-banner
+    width: 100%
+  .back-btn
+    display: none
+  .single-product
+    display: flex
+    justify-content: space-between
+    align-items: flex-start
+    flex-wrap: wrap
+    &-left
+      width: 611px
+      display: block
+      border-radius: 24px
+      margin-bottom: 60px
+      .onsale
+        display: none
+      .woocommerce-product-gallery
+        
+        .flex-control-nav
+          display: flex
+          align-items: center
+          justify-content: flex-start
+          margin: 0
+          padding: 0
+          margin-top: 10px
+          list-style-type: none
+          li
+            aspect-ratio: 1 / 1
+            border-radius: 12px
+            margin-right: 10px
+          img
+            border-radius: 16px
+            aspect-ratio: 1 / 1
+            width: 100%
+            height: auto
+            cursor: pointer
+            transition: .2s
+            &:hover
+              opacity: .8
+              transition: .2s
+        .flex-viewport, .woocommerce-product-gallery__wrapper
+          border-radius: 24px
+          img
+            border-radius: 24px
+            display: block
+            aspect-ratio: 1 / 1
+            width: 100%
+            height: auto
+            cursor: pointer
+            object-fit: cover
+    &-right
+      width: calc(100% - 611px - 50px)
+      padding-top: 30px
+      margin-bottom: 60px
+      .rating-row
+        display: flex
+        align-items: center
+        justify-content: flex-start
+        margin-bottom: 24px
+        
+        .rating-count
+          font-size: 16px
+          font-weight: 400
+          color: $text
+          display: block
+          margin-left: 10px
+        .aviable
+          div
+            font-size: 16px
+            font-weight: 500
+            display: block
+            white-space: nowrap
+            margin-left: 24px
+          &-false
+            color: #FF0D65
+          &-true
+            color: #0FBA00
+      .sku
+        font-size: 16px
+        font-weight: 400
+        display: block
+        margin-bottom: 10px
+        color: $gray_400
+      .title
+        font-size: 42px
+        font-weight: 500
+        line-height: 1
+        letter-spacing: -1.26px
+        color: $text
+        display: block
+        margin-bottom: 20px
+      .attrs
+        .mini-title
+          font-size: 18px
+          display: block
+          color: $text
+          font-weight: 500
+          line-height: 1.2
+          margin-bottom: 16px
+        ul
+          display: block
+          width: 100%
+          margin-bottom: 24px
+          li
+            width: 100%
+            display: flex
+            justify-content: space-between
+            align-items: flex-end
+            margin-bottom: 14px
+            &:last-child
+              margin-bottom: 0
+            p, b
+              display: block
+              white-space: nowrap
+              width: max-content
+              font-size: 16px
+              color: $text
+              font-weight: 400
+              margin: 0
+              line-height: 1.2
+            b
+              min-width: 300px
+              text-align: left
+            .line
+              width: 100%
+              border-bottom: 1px solid #E5E7EB
+              margin: 0 5px
+      .single-price
+        display: flex
+        align-items: center
+        justify-content: flex-start
+        margin-bottom: 36px
+        .price
+          display: block
+          del
+            display: block
+            color: $gray_400
+            text-decoration: none
+            position: relative
+            width: max-content
+            &::after
+              position: absolute
+              content: ''
+              height: 1px
+              width: 100%
+              left: 50%
+              transform: translate(-50%, -50%)
+              top: 50%
+              background-color: $gray_400
+            span
+              bdi
+                color: $gray_400
+                font-weight: 400
+                font-size: 20px
+                span
+                  font-weight: 400
+                  color: $gray_400
+                  font-size: 20px
+          ins
+            display: block
+            text-decoration: none
+            
+          span
+            bdi
+              font-size: 32px
+              color: $text
+              font-weight: 500
+              line-height: 1.2
+              span
+                font-size: 32px
+                font-weight: 500
+                line-height: 1.2
+                color: $text
+        .nds
+          display: block
+          font-size: 14px
+          font-weight: 400
+          line-height: 1.2
+          color: $gray_450
+          margin-left: 16px
+      .single-btns
+        display: flex
+        align-items: center
+        justify-content: flex-start
+        margin-bottom: 30px
+        .stock
+          display: none
+        .added_to_cart
+          display: none!important
+        .single_add_to_cart_button
+          width: 190px
+          position: relative
+          margin-right: 16px
+          &:before
+            content: ''
+            position: absolute
+            background-color: #fff
+            top: 50%
+            left: 50%
+            transform: translate(-50%, -50%)
+            width: 20px
+            height: 20px
+            border: none
+            border-radius: 100%
+            transform-origin: 8px 8px
+            animation-name: anim-btn
+            animation-duration: 1000ms
+            animation-timing-function: linear
+            animation-iteration-count: infinite
+            opacity: 0
+            transition: .2s
+          &.loading
+            font-size: 0
+            &:before
+              opacity: 1
+              transition: .2s
+          &::after
+            position: absolute
+            content: ''
+            height: 30px
+            width: 30px
+            background-repeat: no-repeat
+            background-size: contain
+            background-image: url(../img/icons/added-single.svg)
+            top: 50%
+            left: 50%
+            transform: translate(-50%, -50%)
+            transition: .5s
+            opacity: 0
+          &.added
+            font-size: 0!important
+            transition: .2s
+            &::after
+              opacity: 1
+              transition: .5s
+        .button-white
+          width: 250px
+          margin-left: 0
+        .quantity
+          display: none
+      .single-fields
+        display: flex
+        align-items: center
+        justify-content: flex-start
+        .item
+          display: flex
+          align-items: center
+          justify-content: flex-start
+          margin-right: 30px
+          .icon
+            margin-right: 10px
+          .meta
+            display: block
+            p
+              font-size: 14px
+              font-weight: 400
+              line-height: 1.2
+              margin-bottom: 4px
+              color: $gray_450
+            b
+              font-size: 16px
+              font-weight: 500
+              line-height: 1.2
+              margin: 0
+              color: $text
+  
+@media (max-width: 992px)
+  .catalog-page
+    .single-product
+      display: block
+      &-left
+        width: 100%
+        margin-bottom: 25px
+      &-right
+        width: 100%
+        padding-top: 0px
+        margin-bottom: 40px
+       
+@media (max-width: 767px)
+  .catalog-page
+    .single-product
+      position: relative
+      margin-bottom: 40px
+      .back-btn
+        display: flex
+        align-items: center
+        justify-content: center
+        border-radius: 100%
+        background-color: rgba(10, 49, 65, 0.05)
+        height: 45px
+        width: 45px
+        position: absolute
+        top: 10px
+        left: 10px
+        z-index: 15
+      &-right
+        .sku
+          font-size: 14px
+          margin-bottom: 10px
+        .title
+          font-size: 26px
+          line-height: 1
+          letter-spacing: -0.8px
+          margin-bottom: 16px
+        .rating-row
+          margin-bottom: 20px
+          .rating-count
+            font-size: 14px
+            margin-left: 4px
+          .aviable
+            div
+              font-size: 14px
+        .attrs
+          display: block
+          margin-bottom: 24px
+          .mini-title
+            font-size: 16px
+            margin-bottom: 16px
+          ul
+            margin-bottom: 0
+            li
+              margin-bottom: 10px
+              &:last-child
+                margin-bottom: 0
+              p,b
+                font-size: 14px
+                width: max-content
+                max-width: 100%
+                min-width: max-content
+                display: flex
+                letter-spacing: 0
+              b
+                text-align: right
+              .line
+                width: 100%
+                margin: 0 5px
+                border: 1px dashed #E5E7EB
+                display: block
+        .single-price
+          margin-bottom: 24px
+          .nds
+            font-size: 14px
+            margin-left: 16px
+          .price
+            span
+              bdi
+                font-size: 24px
+                letter-spacing: -0.7px
+                span
+                  font-size: 24px
+                  letter-spacing: -0.7px
+        .single-btns
+          margin-bottom: 20px
+          display: flex
+          justify-content: space-between
+          .added_to_cart
+            display: none!important
+          form
+            width: calc(50% - 4px)
+          .single_add_to_cart_button
+            width: 100%
+            font-size: 14px
+            height: 55px
+            max-width: 100%
+            &.loading
+              font-size: 0
+          .button-white
+            width: calc(50% - 4px)
+            margin-left: 14px
+            height: 55px
+            max-width: 100%
+            margin: 0
+        .single-fields
+          .item
+            .meta
+              p
+                font-size: 12px
+              b
+                font-size: 14px
+
+@media (max-width: 578px)
+  .catalog-page
+    .single-product
+       &-left
+        .woocommerce-product-gallery
+          .flex-control-nav
+            margin-top: 8px
+            li
+              aspect-ratio: 1 / 1
+              border-radius: 12px
+              margin-right: 8px
+              max-width: 60px
+            img
+              border-radius: 12px
+              aspect-ratio: 1 / 1
+              width: 100%
+              height: auto
+              cursor: pointer
+              transition: .2s
+//tabs
+@media (min-width: 992px)
+  .product-tabs
+    .tabs
+      .item
+        &:hover
+          color: $text
+          transition: .2s
+.product-tabs
+  width: 100%
+  .tabs
+    display: flex
+    align-items: center
+    justify-content: flex-start
+    border-bottom: 1px solid $gray_300
+    margin-bottom: 60px 
+    width: 100%
+    .item
+      white-space: nowrap
+      font-size: 18px
+      font-weight: 500
+      display: flex
+      justify-content: flex-start
+      align-items: center
+      margin-right: 40px
+      color: $gray_450
+      cursor: pointer
+      transition: .2s
+      position: relative
+      height: 55px
+      &::after
+        position: absolute
+        content: ''
+        height: 2px
+        background-color: $main
+        transition: .2s
+        bottom: 0
+        left: 0
+        width: 100%
+        right: 0
+        opacity: 0
+      &.active
+        color: $text
+        &::after
+          opacity: 1
+          transition: .2s
+  .wrapper
+    display: none
+    justify-content: space-between
+    flex-wrap: wrap
+    align-items: flex-start
+    .call-review
+      display: none
+    .title
+      width: 100%
+    &.active
+      display: flex
+    &-attrs
+      flex-wrap: wrap
+      .attrs
+        width: 100%
+        display: block
+      .title
+        width: 100%
+      .item
+        display: flex
+        justify-content: flex-start
+        align-items: center
+        width: 100%
+        border-bottom: 1px solid $gray_200
+        padding-bottom: 10px
+        padding-top: 10px
+        p, b
+          font-size: 16px
+          line-height: 1.2
+          letter-spacing: 0
+          margin: 0
+          font-weight: 400
+          padding: 0
+          display: block
+        p
+          color: $gray_450
+          margin-right: 16px
+        b
+          color: $text
+    &-content
+      
+      .left
+        width: 690px
+      .right
+        width: calc(100% - 690px - 50px)
+        margin: 0
+        padding: 0
+    &-feed
+      justify-content: space-between
+      align-items: flex-start
+      max-width: 100%
+      width: 100%
+      flex-wrap: nowrap
+      .close
+        display: none
+      .moar-btn
+        width: 100%
+        display: flex
+        justify-content: center
+        align-items: center
+        background-color: #fff
+        font-weight: 500
+        font-size: 16px
+        color: $main
+        cursor: pointer
+        transition: .2s
+        border-radius: 12px
+        height: 50px
+        border: 1px solid transparent
+        &:hover
+          border: 1px solid $main
+          transition: .2s
+      input.submit
+        display: flex
+        justify-content: center
+        align-items: center
+        background-color: $dark
+        transition: .2s
+        height: 60px  
+        cursor: pointer
+        color: #fff
+        font-weight: 500
+        border-radius: 12px
+        margin: 0
+        margin-bottom: 20px
+        &:hover
+          background-color: #284F5F
+          transition: .2s
+      small
+        display: none
+        margin: 0
+        &.form-text
+          display: block
+      .woocommerce-error, .woocommerce-info, .woocommerce-message
+        margin: 0
+        margin-bottom: 20px
+        font-size: 14px
+        padding-left: 45px
+        &:before
+          top: 50%
+          transform: translateY(-50%)
+          left: 15px
+      .mini-title
+        font-size: 36px
+        font-weight: 500
+        line-height: 1.2
+        letter-spacing: -1px
+        color: #fff
+        margin-bottom: 10px
+      .input
+        margin-bottom: 10px
+      .comment-notes
+        display: none
+      .comment-form-rating
+        display: block
+        margin-bottom: 20px
+      .rew-label
+        color: #fff
+        display: block
+        font-size: 16px
+        font-weight: 400
+        margin-bottom: 10px
+        line-height: 1.2
+      textarea
+        height: 190px
+      .stars
+        &.selected
+          a
+            background-image: url(../img/icons/star-yellow.svg)
+            &.active + a,
+            &.active + a + a,
+            &.active + a + a + a,
+            &.active + a + a + a + a,
+            &.active + a + a + a + a + a
+              background-image: url(../img/icons/star-white.svg)
+            &:hover
+              background-image: url(../img/icons/star-yellow.svg)
+        span
+          display: flex
+          justify-content: flex-start
+          align-items: center
+        a
+          width: 24px
+          height: 24px
+          display: flex
+          justify-content: center
+          align-items: center
+          font-size: 0
+          margin-right: 6px
+          background-repeat: no-repeat
+          background-size: contain
+          background-image: url(../img/icons/star-white.svg)
+          &.active, &:hover
+            background-image: url(../img/icons/star-yellow.svg)
+      .right
+        width: 400px
+        border-radius: 24px
+        background-color: $main
+        padding: 30px
+      .left
+        width: calc(100% - 400px - 20px)
+      .no-rew
+        p
+          font-size: 16px
+          font-weight: 400
+          color: $text
+      .comments
+        display: block
+        .children
+          padding-left: 30px
+        li
+          display: block
+          margin-bottom: 40px
+          .top
+            display: flex
+            align-items: center
+            justify-content: flex-start
+            margin-bottom: 24px
+            .avatar
+              height: 60px
+              width: 60px
+              display: flex
+              justify-content: center
+              align-items: center
+              border-radius: 100%
+              background-color: $dark
+              margin-right: 14px
+            .meta
+              display: block
+              .date
+                font-size: 16px
+                font-weight: 400
+                color: $gray_450
+              .author
+                display: flex
+                align-items: center
+                justify-content: flex-start
+                margin-bottom: 6px
+                .name
+                  font-weight: 500
+                  font-size: 18px
+                  display: block
+                  letter-spacing: -0.5px
+                  color: $text
+                  margin-right: 16px
+        li.depth-2
+          .avatar
+            background-color: #fff
+            background-image: url(../img/icons/neter.png)
+            background-size: 50px 50px
+            background-position: center
+            background-repeat: no-repeat
+            img
+              display: none
+    &-delivery
+      h3
+        font-size: 32px
+        margin-bottom: 16px
+      .delivery-part, .delivery
+        margin-bottom: 40px
+    &-buy
+      .order
+        margin-bottom: 80px
+        position: relative
+      .tech-banner
+        width: 100%
+        margin-bottom: 0
+      .buy-wrap
+        display: block
+        margin-bottom: 100px
+        .buy-item
+          margin-bottom: 30px
+          display: flex
+          align-items: center
+          justify-content: flex-start
+          &:last-child
+            margin-bottom: 0
+          .num
+            border-radius: 100%
+            width: 80px
+            height: 80px
+            display: flex
+            justify-content: center
+            align-items: center
+            color: $main
+            font-weight: 500
+            font-size: 32px
+            background-color: #fff
+            letter-spacing: -1px
+            line-height: 1
+            margin-right: 20px
+          p
+            width: calc(100% - 100px)
+            font-size: 18px
+            line-height: 1.5
+            color: $text
+            margin: 0
+
+@media (max-width: 992px)
+  .product-tabs .wrapper-delivery .delivery, .product-tabs .wrapper-delivery .delivery-part
+    margin-bottom: 20px
+  .product-tabs
+    .tabs
+      margin-bottom: 30px 
+      width: 100%
+      max-width: 100%
+    .wrapper
+      &-buy
+        .buy-wrap
+          margin-bottom: 40px
+          .buy-item
+            .num
+              height: 50px
+              width: 50px
+              margin-right: 14px
+              font-size: 24px
+            p
+              width: calc(100% - 64px)
+        .order
+          margin-bottom: 0
+          padding-bottom: 100px
+          .right
+            left: 0
+            width: 100%
+      &-feed
+        .no-rew
+          p
+            font-size: 14px
+            margin-bottom: 20px
+        .call-review
+          display: flex
+          margin-left: auto
+          margin-right: auto
+          margin-bottom: 34px
+          width: 330px
+          max-width: 100%
+        .left
+          width: 100%
+        .right
+          position: fixed
+          top: 50%
+          left: 50%
+          width: 400px
+          max-width: calc(100vw - 30px)
+          transform: translate(-50%, -50%)
+          background-color: #fff
+          z-index: 300
+          color: $text
+          padding: 20px
+          max-height: calc(100dvh - 20px)
+          overflow-y: auto
+          display: none
+          .close
+            display: block
+            position: absolute
+            right: 20px
+            top: 20px
+          small.form-text
+            color: $gray_400
+            a
+              color: $gray_400
+          .comment-form
+            
+            .input
+              textarea, input
+                background-color: $gray_50
+            .comment-form-rating
+              margin-bottom: 20px
+              .rew-label
+                color: $text
+                font-size: 16px
+                margin-bottom: 10px
+              .stars
+                a
+                  background-image: url(../img/icons/star-gray.svg)
+                &.selected
+                  a
+                    background-image: url(../img/icons/star-yellow.svg)
+                    &.active + a,
+                    &.active + a + a,
+                    &.active + a + a + a,
+                    &.active + a + a + a + a,
+                    &.active + a + a + a + a + a
+                      background-image: url(../img/icons/star-gray.svg)
+          .mini-title
+            font-size: 24px
+            color: $text
+            margin-bottom: 10px
+          
+      &-content
+        .left
+          width: 100%
+        .right
+          width: 100%
+
+@media (max-width: 767px)
+  .product-tabs
+    .tabs
+      .item
+        margin-right: 14px
+        font-size: 16px
+        height: 50px
+    .wrapper
+      &-delivery
+        .delivery
+          margin-bottom: 0px
+          .title
+            font-size: 26px
+            margin-bottom: 10px
+        .subtitle
+          margin-bottom: 20px
+        .title
+          font-size: 20px
+      &-buy
+        .buy-wrap
+          .buy-item
+            display: block
+            margin-bottom: 30px
+            &:last-child
+              margin-bottom: 0
+            .num
+              margin-bottom: 14px
+            p
+              width: 100%
+              font-size: 14px
+      &-feed
+        .left
+          .call-review
+            margin-bottom: 24px
+
+@media (max-width: 578px)
+  .product-tabs
+    .tabs
+      position: relative
+      left: -15px
+      padding-left: 15px
+      min-width: calc(100% + 30px)
+      overflow-y: auto
+      padding-bottom: 0
+      .item
+        margin-right: 24px
+    .wrapper
+      &-feed
+        .moar-btn
+          font-size: 14px
+          height: 50px
+          border: none!important
+        .call-review
+          max-width: 100%
+          width: 100%
+        .left
+          .comments
+            li
+              margin-bottom: 24px
+              .content
+                font-size: 14px
+                line-height: 1.6
+                p
+                  font-size: 14px
+                  line-height: 1.6
+                  &:last-child
+                    margin-bottom: 0
+              .top
+                margin-bottom: 16px
+                .avatar
+                  height: 50px
+                  width: 50px
+                  margin-right: 14px
+                .meta
+                  width: calc(100% - 64px)
+                  .author
+                    margin-bottom: 4px
+                    display: flex
+                    flex-wrap: wrap
+                  .name
+                    font-size: 16px
+                    margin-right: 16px
+                    white-space: nowrap
+                    width: max-content
+                  .star-rating
+                    width: max-content
+                  .date
+                    font-size: 14px
+      &-buy
+        .order
+          max-width: 100%
+      &-delivery
+        .subtitle
+          font-size: 14px
+      &-attrs
+        .item
+          display: flex
+          justify-content: space-between
+          align-items: center
+          padding: 10px 0
+          p, b
+            width: calc(50% - 4px)
+            font-size: 14px
+
+//Переклиновка
+@media (min-width: 992px)
+  .product-cats
+    .wrap
+      .item
+        &:hover
+          box-shadow: 0px 4px 50px 0px rgba(0, 70, 84, 0.10)
+          transition: .2s
+          .svg
+            transition: .2s
+            transform: translateY(-50%) rotate(45deg)
+          p
+            color: $main
+            transition: .2s
+  .product-links
+    .wrap
+      .item
+        &:hover
+          box-shadow: 0px 4px 50px 0px rgba(0, 70, 84, 0.10)
+          p
+            color: $main
+.product-links
+  width: 100%
+  display: block
+  margin-bottom: 45px
+  .wrap
+    display: flex
+    justify-content: flex-start
+    align-items: center
+    flex-wrap: wrap
+    .item
+      width: max-content
+      display: flex
+      justify-content: flex-start
+      align-items: center
+      height: 56px
+      border-radius: 999px
+      background-color: #fff
+      padding: 0 20px
+      margin-right: 14px
+      margin-bottom: 14px
+      transition: .2s
+      .icon
+        width: 24px
+        height: 24px
+        margin-right: 10px
+      p
+        font-size: 16px
+        font-weight: 500
+        color: $text
+        transition: .2s
+
+.product-cats
+  width: 100%
+  .wrap
+    display: flex
+    flex-wrap: wrap
+    justify-content: space-between
+    align-items: center
+  .item
+    display: flex
+    align-items: center
+    background-color: #fff
+    border-radius: 24px
+    padding: 24px
+    justify-content: flex-start
+    margin-bottom: 20px
+    width: calc(50% - 10px)
+    position: relative
+    .svg
+      position: absolute
+      right: 24px
+      top: 50%
+      transform: translateY(-50%)
+      transition: .5s
+      z-index: 1
+      display: flex
+      justify-content: center
+      align-items: center
+    .icon
+      width: 77px
+      height: 77px
+      margin-right: 16px
+      img
+        width: 100%
+    p
+      width: calc(100% - 77px - 16px - 48px)
+      font-size: 16px
+      font-weight: 500
+      line-height: 1.2
+      letter-spacing: -0.5px
+      color: $text
+      transition: .2s
+
+@media (max-width: 992px)
+  .product-cats
+    .wrap
+      display: block
+      .item
+        width: 100%
+        margin-right: 0
+
+  
+@media (max-width: 578px)
+  .product-cats
+    .wrap
+      .item
+        margin-bottom: 8px
+        padding: 10px 16px
+        .svg
+          right: 16px 
+        .icon
+          width: 60px
+          height: 60px
+          margin-right: 16px
+        p
+          font-size: 14px
+          width: calc(100% - 76px - 24px - 16px)
+        &:last-child
+          margin-bottom: 0
+  .product-links
+    .scroll-wrapper
+      max-width: 100%
+      width: 100%
+      overflow-y: auto
+      padding-bottom: 10px
+      min-width: calc(100% + 30px)
+      position: relative
+      left: -15px
+      padding-left: 15px
+    .wrap
+      width: max-content
+      .item
+        margin-bottom: 0
+        height: 40px
+        padding: 0 16px
+        margin-right: 8px
+        .icon
+          width: 24px
+          margin-right: 10px
+        p
+          width: calc(100% - 34px)
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+

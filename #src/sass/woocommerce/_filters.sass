@@ -1,0 +1,644 @@
+@import "../reset/_vars"
+
+@media (min-width: 992px)
+  .filters-popup .wrap .buttons
+    .button-white
+      &:hover
+        color: #fff
+  .shop-catalog-wrapper .shop-catalog-filters .wrap .wpfMainWrapper .wpfFilterButtons .wpfClearButton,
+  .shop-catalog-wrapper .shop-catalog-filters .wrap .wpfMainWrapper .wpfFilterWrapper .wpfFilterContent .wpfCheckboxHier .ms-options-wrap button
+    transition: .2s
+    z-index: 2
+    &:hover
+      transition: .2s
+      opacity: .8
+
+.shop-catalog-wrapper
+  .shop-catalog-filters
+    display: block
+    margin-bottom: 20px
+    .numbers
+      display: none
+      justify-content: center
+      align-items: center
+      height: 24px
+      width: 24px
+      min-width: 24px
+      color: #fff
+      font-size: 14px
+      font-weight: 700
+      line-height: 1
+      margin-left: 10px
+      background-color: $dark
+      border-radius: 100%
+    .wrap
+      display: flex
+      justify-content: space-between
+      align-items: center
+      position: relative
+      flex-wrap: nowrap
+      .call-filters
+        min-width: 220px
+        width: 220px
+        height: 60px
+        justify-content: center
+        position: relative
+        z-index: 10
+        &.active
+          margin-right: 70px
+        .icon
+          margin-right: 10px
+      .wpfMainWrapper
+        display: flex
+        justify-content: space-between
+        align-items: center
+        position: static
+        width: 100%!important
+        display: flex
+        position: static!important
+        .wpfFilterButtons
+          cursor: pointer
+          position: absolute
+          margin: 0
+          padding: 0
+          top: 50%
+          transform: translateY(-50%)
+          right: 0
+          width: 60px
+          max-width: 60px
+          min-width: 0
+          height: 60px
+          .wpfClearButton
+            z-index: 2
+            width: 100%
+            height: 100%
+            font-size: 0
+            cursor: pointer
+            background-color: transparent
+            width: 60px
+            height: 60px
+            padding: 0
+            margin: 0
+            border-radius: 12px
+            background-color: $gray_100
+            display: flex
+            justify-content: center
+            align-items: center
+            font-size: 0
+            background-repeat: no-repeat
+            background-size: 24px 24px
+            background-position: center
+            background-image: url(../img/icons/clear.svg)
+        .wpfFilterWrapper 
+          padding: 0
+          margin: 0
+          margin-right: 10px
+          .wpfFilterContent
+            .wpfCheckboxHier
+              .ms-options-wrap
+                .ms-options
+                  border-radius: 24px
+                  box-shadow:  0px 4px 50px 0px rgba(0, 0, 0, 0.10)
+                  background-color: #fff
+                  border: none
+                  padding: 24px
+                  width: calc(100% + 48px)
+                  margin-top: 12px
+                  ul
+                    display: block
+                    li
+                      margin-bottom: 12px
+                      &:last-child
+                        margin-bottom: 0
+                      &.selected
+                        label
+                          line-height: 1!important
+                          background-color: transparent
+                          &::after
+                            background-color: $main
+                            background-image: url(../img/icons/checked-filter.svg)
+                            background-position: center
+                            background-repeat: no-repeat
+                            background-size: contain
+                            border-color: $main
+                      input
+                        display: none!important
+                      label
+                        font-size: 16px!important
+                        font-family: $font!important
+                        color: $text!important
+                        line-height: 1!important
+                        cursor: pointer
+                        min-height: 24px
+                        display: flex
+                        justify-content: flex-start
+                        align-items: center
+                        padding: 0!important
+                        padding-left: 34px!important
+                        position: relative
+                        &:hover
+                          background-color: transparent!important
+                        &::after
+                          position: absolute
+                          content: ''
+                          height: 24px
+                          width: 24px
+                          border-radius: 6px
+                          border: 1px solid $gray_200
+                          left: 0
+                          top: 50%
+                          transform: translateY(-50%)
+                button
+                  height: 60px
+                  background-color: $gray_50
+                  border-radius: 12px!important
+                  margin: 0!important
+                  padding: 0!important
+                  border: none!important
+                  line-height: 1.2
+                  cursor: pointer
+                  padding-left: 20px!important
+                  font-size: 16px!important
+                  color: $text!important
+                  position: relative
+                  cursor: pointer
+                  transition: .2s
+                  &::after
+                    border: none
+                    height: 24px
+                    width: 24px
+                    background-repeat: no-repeat
+                    background-size: contain
+                    background-image: url(../img/icons/filter-arr.svg)
+                    right: 20px
+                    top: 50%
+                    bottom: auto
+                    transform: translateY(-50%)
+                    margin: 0
+                    padding: 0
+
+
+.overlay
+  display: block
+
+@media (min-width: 992px)
+  .shop-catalog-wrapper .shop-catalog-filters .wrap .wpfMainWrapper .wpfFilterButtons .wpfClearButton
+    &:hover
+      opacity: .5
+  .filters-popup
+    .close
+      transition: .2s
+      &:hover
+        transition: .2s
+        svg path 
+          stroke: $main
+
+.filters-popup
+  display: none
+  position: fixed
+  top: 0
+  right: 0
+  bottom: 0
+  height: 100dvh
+  width: 430px
+  background-color: $bg
+  z-index: 200
+  .close
+    cursor: pointer
+  .wrap
+    display: block
+    font-family: $font
+    padding: 40px
+    overflow-y: auto
+    height: 100%
+    width: 100%
+    position: relative
+    .buttons
+      display: block
+      width: 100%
+      .button
+        max-width: 100%
+        width: 100%
+        margin-top: 10px
+      .button-white
+        color: $gray_450
+    .close-row
+      width: 100%
+      display: flex
+      justify-content: space-between
+      align-items: center
+      margin-bottom: 30px
+    .mini-title
+      font-size: 48px
+      white-space: nowrap
+      display: block
+      margin: 0
+      line-height: 1
+      letter-spacing: -1.5px
+    .wpfMainWrapper
+      .wpfFilterWrapper[data-display-type="mul_dropdown"]
+        .wpfFilterContent
+          .wpfCheckboxHier
+            select
+              display: none
+            .ms-options-wrap
+              button
+                display: none
+              .ms-options
+                display: block!important
+                position: static
+                min-height: 0!important
+                width: 100%!important
+                max-height: unset!important
+                border: none
+                background-color: transparent
+                padding-top: 2px
+                padding-bottom: 2px
+                ul
+                  margin-bottom: 0
+                  li
+                    display: flex
+                    justify-content: flex-start
+                    align-items: center
+                    margin-bottom: 12px
+                    min-height: 24px
+                    &:last-child
+                      margin-bottom: 0
+                    &.selected
+                      label
+                        background-color: transparent
+                        &::after
+                          background-repeat: no-repeat
+                          background-size: contain
+                          background-position: center
+                          background-image: url(../img/icons/checked-filter.svg)
+                          background-color: $main
+                          border-color: $main
+                    label
+                      display: flex
+                      width: 100%
+                      justify-content: flex-start
+                      align-items: center
+                      font-family: $font
+                      font-size: 16px
+                      background-color: transparent!important
+                      color: $text
+                      cursor: pointer
+                      line-height: 1.2
+                      padding-left: 34px!important
+                      position: relative
+                      &::after
+                        position: absolute
+                        content: ''
+                        height: 24px
+                        width: 24px
+                        border-radius: 6px
+                        min-width: 24px
+                        left: 0
+                        top: 50%
+                        transform: translateY(-50%)
+                        background-color: #fff
+                        border: 1px solid $gray_200
+                      input
+                        display: none
+
+      .wpfFilterWrapper[data-filter-type="wpfPrice"]
+        margin-bottom: 30px
+      .wpfFilterWrapper 
+        margin: 0
+        padding: 0
+        width: 100%
+        display: block
+        margin-bottom: 10px
+        .wpfFilterContent
+          padding-right: 0
+          padding-left: 0
+          .wpfPriceInputs
+            display: flex
+            justify-content: space-between
+            align-items: center
+            margin-bottom: 20px
+            .wpfCurrencySymbol
+              display: none
+            input#wpfMaxPrice, input#wpfMinPrice
+              border-radius: 8px
+              border: none
+              background-color: #fff
+              height: 50px
+              width: 162px
+              padding-left: 20px
+              width: calc(50% - 10px)
+            
+            .wpfFilterDelimeter
+              display: none
+          .irs
+            margin-bottom: 20px!important
+            .irs-handle
+              background-color: $main
+              border-color: $main
+              cursor: pointer
+              i
+                display: none
+          ul
+            margin-bottom: 30px
+            li
+              display: flex
+              justify-content: flex-start
+              align-items: center
+              margin-bottom: 12px
+              &:last-child
+                margin-bottom: 0
+              .wpfDisplay
+                .wpfValue
+                  padding: 0
+                  margin: 0
+                  padding-left: 0!important
+                  .wpfFilterTaxNameWrapper
+                    font-size: 16px
+                    font-weight: 400
+                    font-family: $font
+                    color: $text
+              .wpfLiLabel
+                display: flex
+                justify-content: flex-start
+                align-items: center
+                cursor: pointer
+                .wpfCheckbox
+                  display: flex
+                  justify-content: center
+                  align-items: center
+                  input
+                    display: none
+                  label
+                    width: 24px
+                    min-height: 24px
+                    border-radius: 6px
+                    background-color: #fff
+                    background-repeat: no-repeat
+                    background-size: contain
+                    background-position: center
+                    border: 1px solid $gray_200
+                    min-width: 24px
+                    display: flex
+                    margin-right: 10px
+                    transition: .2s
+                    &::before
+                      display: none!important
+                  input:checked + label
+                    background-color: $main
+                    border-color: $main
+                    transition: .2s
+                    background-image: url(../img/icons/checked-filter.svg)
+        .wpfFilterTitle
+          margin-bottom: 20px
+          display: flex
+          justify-content: space-between
+          align-items: center
+          .wpfTitleToggle
+            height: 24px
+            width: 24px
+            display: flex
+            justify-content: center
+            align-items: center
+            min-width: 24px
+            font-size: 0
+            background-color: transparent
+            background-repeat: no-repeat
+            transition: .2s
+            background-size: contain
+            background-position: center
+            transform: none
+            background-image: url(../img/icons/filter-arr.svg)
+            &.fa-minus
+              transform: rotate(180deg)
+              transition: .2s
+          .wfpTitle
+            font-family: $font
+            font-size: 20px
+            display: flex
+            justify-content: flex-start
+            align-items: center
+            margin: 0
+            font-weight: 500
+            letter-spacing: -0.6px
+            color: $text
+
+
+.wpf-loader-decorator
+  .wpfPreviewLoader 
+    width: 300px
+    
+    
+
+@media (max-width: 992px)
+  .filters-popup .wrap .wpfMainWrapper .wpfFilterWrapper[data-display-type=mul_dropdown] .wpfFilterContent .wpfCheckboxHier .ms-options-wrap .ms-options ul li label
+    font-size: 14px
+  .wpf-loader-decorator
+    width: 100vw
+    .wpfPreviewLoader 
+      display: flex
+      justify-content: center
+      align-items: center
+      background-position: center
+      margin: 0
+      width: 100%
+      .woobewoo-filter-loader
+        width: 200px!important
+        height: 200px!important
+        background-size: contain
+        background-position: center
+  .shop-catalog-wrapper
+    .shop-catalog-filters
+      .wrap
+        .call-filters
+          min-width: 0
+          width: 100%
+          height: 50px
+          justify-content: center
+          position: relative
+          z-index: 10
+          &.active
+            margin-right: 126px
+          span
+            font-size: 14px
+        .wpfMainWrapper
+          width: max-content!important
+          .wpfFilterButtons
+            cursor: pointer
+            position: absolute
+            margin: 0
+            padding: 0
+            top: 50%
+            transform: translateY(-50%)
+            right: 0
+            width: 118px
+            max-width: 118px
+            min-width: 118px
+            height: 50px
+            .wpfClearButton
+              z-index: 2
+              width: 100%
+              height: 100%
+              font-size: 0
+              cursor: pointer
+              background-color: transparent
+              width: 118px
+              height: 50px
+              padding: 0
+              margin: 0
+              border-radius: 12px
+              background-color: $gray_100
+              display: flex
+              justify-content: center
+              align-items: center
+              font-size: 14px
+              font-weight: 500
+              color: $text
+              display: flex
+              justify-content: flex-end
+              text-transform: none
+              font-family: $font
+              font-weight: 500
+              align-items: center
+              padding-right: 20px
+              background-repeat: no-repeat
+              background-size: 24px 24px
+              background-position: 20px center
+              background-image: url(../img/icons/clear.svg)
+          .wpfFilterWrapper 
+            display: none!important
+  .filters-popup
+    top: auto
+    height: calc(100dvh - 30px)
+    border-radius: 24px 24px 0 0
+    width: 100%
+    .wrap
+      padding: 20px 15px
+      .buttons
+        .button
+          max-height: 50px
+      .close-row
+        margin-bottom: 25px
+      .close
+        svg
+          width: 24px
+          height: 24px
+      .mini-title
+        font-size: 24px
+        letter-spacing: -0.7px
+      .wpfMainWrapper
+        .wpfFilterWrapper 
+          .wpfFilterContent
+            ul
+              li
+                .wpfDisplay
+                  .wpfValue
+                    .wpfFilterTaxNameWrapper
+                      font-size: 14px
+                      font-weight: 400
+                      font-family: $font
+                      color: $text
+          .wpfFilterTitle
+            margin-bottom: 15px
+            .wfpTitle
+              font-size: 16px
+              letter-spacing: -0.5px
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  

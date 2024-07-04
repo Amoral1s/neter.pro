@@ -1,0 +1,268 @@
+@import "../reset/_vars"
+
+.related
+  width: 100%
+  .swiper
+    border-radius: 24px
+  .wrap.disabled-slider
+    min-width: calc(100% + 20px)
+    ul.products
+      .product
+        width: calc(25% - 20px)
+        margin-right: 20px
+  ul.products
+    display: flex
+    flex-wrap: nowrap
+    justify-content: flex-start
+    align-items: stretch
+    .product
+      background-color: #fff
+      padding: 20px
+      border-radius: 24px
+      display: flex
+      flex-direction: column
+      align-items: flex-start
+      justify-content: space-between
+      &-price
+        display: flex
+        align-items: center
+        flex-direction: row-reverse
+        justify-content: flex-end
+        del
+          display: block
+          color: $gray_400
+          text-decoration: none
+          position: relative
+          width: max-content
+          margin-left: 20px
+          &::after
+            position: absolute
+            content: ''
+            height: 1px
+            width: 100%
+            left: 50%
+            transform: translate(-50%, -50%)
+            top: 50%
+            background-color: $gray_400
+          span
+            bdi
+              color: $gray_400
+              font-weight: 400
+              font-size: 16px
+              span
+                font-weight: 400
+                color: $gray_400
+                font-size: 16px
+        ins
+          display: block
+          text-decoration: none
+          
+        span
+          bdi
+            font-size: 24px
+            color: $text
+            font-weight: 500
+            line-height: 1.2
+            span
+              font-size: 24px
+              font-weight: 500
+              line-height: 1.2
+              color: $text
+      &-attrs
+        display: flex
+        justify-content: flex-start
+        align-items: center
+        margin-top: 16px
+        .item
+          display: flex
+          align-items: center
+          justify-content: flex-start
+          margin-right: 20px
+          .icon
+            margin-right: 8px
+          p
+            line-height: 1.2
+            color: $text
+            font-size: 16px
+            white-space: nowrap
+            font-weight: 400
+      &-title
+        font-weight: 500
+        font-size: 16px
+        line-height: 1.2
+        white-space: 0
+        margin-bottom: 16px
+      &-rating
+        display: flex
+        justify-content: space-between
+        align-items: center
+        margin-bottom: 16px
+        .aviable
+          font-size: 16px
+          font-weight: 500
+          white-space: nowrap
+          line-height: 1.2
+          &-true
+            color: #0FBA00
+          &-false
+            color: $red
+      &-thumb
+        border-radius: 24px
+        display: block
+        margin-bottom: 15px
+        img
+          width: 100%
+          border-radius: 24px
+          object-fit: cover
+          aspect-ratio: 1 / 1
+          height: auto
+      &-bottom
+        width: 100%
+
+@media (max-width: 992px)
+  .related
+    width: 100%
+    .arr-prev
+      left: -25px
+    .arr-next
+      right: -25px
+    .wrap.disabled-slider
+      min-width: calc(100% + 20px)
+      ul.products
+        .product
+          width: calc(50% - 20px)
+          margin-right: 20px
+    .product-top
+      .product-title
+        color: $text
+        transition: 0
+      &:hover
+        .product-title
+          color: $text
+          transition: 0s
+
+@media (max-width: 767px)
+  .related
+    width: 100%
+    .arr-prev
+      left: -30px
+    .arr-next
+      right: -30px
+    .wrap.disabled-slider
+      min-width: 0
+      ul.products
+        .product
+          width: calc(50% - 8px)
+          margin-right: 8px
+    ul.products
+      .product
+        padding: 10px
+        border-radius: 24px
+        &-price
+          display: block
+          del
+            margin-left: 0
+            span
+              bdi
+                font-size: 12px
+                span
+                  font-size: 12px
+          span
+            bdi
+              font-size: 16px
+              span
+                font-size: 16px
+        &-attrs
+          margin-top: 8px
+          flex-wrap: wrap
+          .item
+            margin-right: 16px
+            &:last-child
+              margin-right: 0
+            .icon
+              svg
+                width: 16px
+                height: 16px
+            p
+              font-size: 12px
+        &-title
+          font-size: 12px
+          margin-bottom: 8px
+        &-rating
+          display: block
+          margin-bottom: 8px
+          .star-rating
+            font-size: 14px
+            margin-bottom: 8px
+          .aviable
+            font-size: 12px
+        &-thumb
+          border-radius: 14px
+          margin-bottom: 10px
+          img
+            border-radius: 14px
+
+@media (max-width: 578px)
+  .related
+    width: 100%
+    .swiper
+      position: relative
+      left: -15px
+      min-width: calc(100% + 30px)
+      padding-left: 15px
+      padding-right: 30px
+    .arr
+      display: none
+    
+
+//content related
+.content
+  .related
+    ul.products
+      list-style-type: none
+      margin: 0
+      &::after
+        display: none
+      li
+        margin-bottom: 0
+        border-radius: 24px
+        .product-attrs
+          .item
+            p
+              margin: 0
+        .product-top
+          b
+            margin-bottom: 15px
+        &::after
+          display: none
+        a
+          text-decoration: none
+          p,b
+            color: $text
+            margin: 0
+
+.content
+  .product-links .wrap .item
+    text-decoration: none
+    p
+      margin-bottom: 0!important
+
+@media (max-width: 578px)
+  .content .related ul.products li .product-top b
+    margin-bottom: 8px
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

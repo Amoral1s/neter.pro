@@ -156,6 +156,7 @@ function my_styles() {
 		/* wp_enqueue_style( 'header', get_template_directory_uri() . '/css/header.min.css' ); */
 		wp_enqueue_style( 'main', get_template_directory_uri() . '/css/main.min.css' );
 		wp_enqueue_style( 'pages', get_template_directory_uri() . '/css/pages.min.css' );
+		wp_enqueue_style( 'woo', get_template_directory_uri() . '/css/woo.min.css' );
 		wp_enqueue_style( 'stylecss', get_stylesheet_uri() ); 
 }
 //wp_register_script( 'jquery', 'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js', array(), '1.0', true );
@@ -166,7 +167,7 @@ function my_scripts() {
 	wp_register_script( 'jquery', get_template_directory_uri() . '/js/jquery-3.2.1.js', array(), '1.0', true );
 	wp_enqueue_script( 'jquery' );
 	wp_enqueue_script( 'main', get_template_directory_uri() . '/js/main.js', array('jquery'), null, true );
-	wp_enqueue_script( 'yandex-api', 'https://api-maps.yandex.ru/2.1/?apikey=09db6a00-2892-4c98-9c87-7fd13a357553&lang=ru_RU', array('jquery'), null, true );
+	//wp_enqueue_script( 'yandex-api', 'https://api-maps.yandex.ru/2.1/?apikey=09db6a00-2892-4c98-9c87-7fd13a357553&lang=ru_RU', array('jquery'), null, true );
 }
 
 @ini_set( 'upload_max_size' , '1164M' );

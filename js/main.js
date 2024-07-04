@@ -78,6 +78,7 @@ if (window.screen.width > 992) {
           }, 200);
       }
   });
+  
 
   $('.pc-catalog').hover(function() {
     clearTimeout(timer);
@@ -8432,6 +8433,50 @@ jQuery(document).ready(function ($) {
       }
 	}
 
+  const relatedSlider = document.querySelector('.related');
+	if (relatedSlider) {
+      const wrapper = relatedSlider.querySelector('.wrap');
+      const swiper = relatedSlider.querySelector('.swiper');
+      const arrNext = relatedSlider.querySelector('.arr-next');
+      const arrPrev = relatedSlider.querySelector('.arr-prev');
+      const itemsWrap = relatedSlider.querySelector('ul.products');
+      const items = relatedSlider.querySelectorAll('li.product');
+      itemsWrap.classList.add('swiper-wrapper');
+      function startSlider() {
+        new Swiper(swiper, {
+          lazy: false,
+          autoHeight: false,
+          navigation: {
+            nextEl: arrNext,
+            prevEl: arrPrev
+          },
+          breakpoints: {
+            300: {
+              slidesPerView: 2,
+              spaceBetween: 8,
+            },
+            768: {
+              spaceBetween: 10,
+              slidesPerView: 2,
+            },  
+            992: {
+              slidesPerView: 4,
+              spaceBetween: 20,
+            }
+          },
+        });
+      }
+      if (window.screen.width > 992 && items.length > 4) {
+        startSlider();
+      } else if (window.screen.width < 993 && items.length > 2) {
+        startSlider();
+      } else if (window.screen.width < 768 && items.length > 2) {
+        startSlider();
+      } else {
+        wrapper.classList.add('disabled-slider');
+      }
+	}
+
 	
 
 
@@ -8477,7 +8522,7 @@ jQuery(document).ready(function ($) {
         })
     }
 
-    const orderSlider = document.querySelectorAll('section.order');
+    const orderSlider = document.querySelectorAll('.order');
     if (orderSlider.length > 0) {
         orderSlider.forEach(elem => {
           const swiper = elem.querySelector('.swiper');
@@ -8513,7 +8558,7 @@ jQuery(document).ready(function ($) {
     
   } // mob end
 
-
+  
  
 
  
@@ -8630,9 +8675,11 @@ jQuery(document).ready(function ($) {
 
 	$('.overlay').on('click', function() {
 		$('.popup').fadeOut(300);
+		$('.mini-cart').fadeOut(300);
 		$('.overlay').fadeOut(300);
 		$('html').removeClass('fixed');
 		$('.popup').removeClass('popup-thx');
+    $('.product-tabs .wrapper-feed .right').fadeOut(200);
 		$('.popup.popup-video iframe').attr('src', '');
 		$('.popup.popup-service .service-pop-name').val('');
 		$('.popup.popup-service .serv-name').text('');
@@ -8651,6 +8698,18 @@ jQuery(document).ready(function ($) {
 		$('.popup').removeClass('popup-thx');
 		$('.popup.popup-video iframe').attr('src', '');
 	});
+
+	$('.call-review').on('click', function() {
+    $('.product-tabs .wrapper-feed .right').fadeIn(200);
+    $('.overlay').fadeIn(200);
+    $('html').addClass('fixed');
+  });
+
+  $('.product-tabs .wrapper-feed .right .close').on('click', function() {
+    $('.product-tabs .wrapper-feed .right').fadeOut(200);
+    $('.overlay').fadeOut(200);
+    $('html').removeClass('fixed');
+  });
 
 
 
@@ -8719,6 +8778,7 @@ jQuery(document).ready(function ($) {
 
 
 }); //end
+
 jQuery(document).ready(function ($) {
 
 	const singlePageRef = document.querySelector('.only-single-page');
@@ -8862,61 +8922,7 @@ jQuery(document).ready(function ($) {
 			$('.faq-page-offer .answers').eq(index).fadeIn(200);
     });
 	});
-	//MAG GALLERYS
-	const elemGallery = document.querySelectorAll('.magnific');
-	if (elemGallery.length > 0) {
-		elemGallery.forEach(elem => {
-			// Добавление атрибута data-src для каждого элемента галереи
-			const links = elem.querySelectorAll('a');
-			links.forEach(link => {
-					const imgSrc = link.getAttribute('href');
-					link.setAttribute('data-src', imgSrc);
-			});
-			console.log('Initializing LightGallery');
-			// Инициализация LightGallery
-			const gallery = lightGallery(elem, {
-					thumbnail: true,
-					animateThumb: false,
-					showThumbByDefault: false,
-					plugins: [lgThumbnail],
-					selector: 'a',
-					swipeThreshold: 50,
-					mode: 'lg-fade',
-					download: false,
-					mobileSettings: {
-							controls: true,
-							showCloseIcon: true
-					}
-			});
-		});
-	}
-	const contentGallery = document.querySelectorAll('.content .wp-block-gallery');
-	if (contentGallery.length > 0) {
-			contentGallery.forEach(elem => {
-				// Добавление атрибута data-src для каждого элемента галереи
-				const links = elem.querySelectorAll('a');
-				links.forEach(link => {
-						const imgSrc = link.getAttribute('href');
-						link.setAttribute('data-src', imgSrc);
-				});
-				console.log('Initializing LightGallery');
-				// Инициализация LightGallery
-				const gallery = lightGallery(elem, {
-						thumbnail: true,
-						animateThumb: false,
-						showThumbByDefault: false,
-						plugins: [lgThumbnail],
-						selector: 'a',
-						swipeThreshold: 50,
-						mode: 'lg-fade',
-						download: false,
-						mobileSettings: {
-								controls: true,
-								showCloseIcon: true
-						}
-				});
-			});
-	}
+
 
 	const pageTextFeed = document.querySelector('.text-feed.page-feed');
 
@@ -8940,105 +8946,162 @@ jQuery(document).ready(function ($) {
 		return false;
 	});
 
+	const html = document.querySelector('html');
+function disableScroll() {
+	html.classList.add('fixed');
+}
+function enableScroll() {
+	html.classList.remove('fixed');
+}
+// Инициализация LightGallery для всех элементов галереи
+function initializeGallery(selector) {
+const galleryElements = document.querySelectorAll(selector);
+if (galleryElements.length > 0) {
+		galleryElements.forEach(elem => {
+				// Добавление атрибута data-src для каждого элемента галереи
+				const links = elem.querySelectorAll('a');
+				if (links.length > 0) {
+						links.forEach(link => {
+								const imgSrc = link.getAttribute('href');
+								link.setAttribute('data-src', imgSrc);
+						});
+				}
+				const divs = elem.querySelectorAll('div');
+				if (divs.length > 0) {
+						divs.forEach(div => {
+								const imgSrc = div.getAttribute('href');
+								div.setAttribute('data-src', imgSrc);
+						});
+				}
+				lightGallery(elem, {
+						thumbnail: true,
+						animateThumb: false,
+						showThumbByDefault: false,
+						plugins: [lgThumbnail],
+						swipeThreshold: 50,
+						mode: 'lg-fade',
+						download: false,
+						mobileSettings: {
+								controls: true,
+								showCloseIcon: true
+						}
+				});
+				// Добавление обработчиков событий для открытия и закрытия галереи
+				elem.addEventListener('lgBeforeOpen', () => {
+						disableScroll();
+				});
+				elem.addEventListener('lgAfterClose', () => {
+						enableScroll();
+				});
+				console.log('Initialized LightGallery for', selector);
+		});
+	}
+}
+// Инициализация
+initializeGallery('.mag-toggle');
+initializeGallery('.content .gallery');
+initializeGallery('.content .wp-block-gallery');
+
 	
 }); //end
-jQuery(document).ready(function($) {
-  const map = document.querySelector('section.map');
-  if (map && !map.classList.contains('contacts-map')) {
-    setTimeout(() => {
-      ymaps.ready(init); 
-      function init(){
-        let center;
-        if (window.screen.width > 992) {
-          center = [55.816793, 49.146452];
+jQuery(document).ready(function ($) {
+  console.log('woocommerce JS')
+
+  $('.product-tabs .tabs .item').on('click', function() {
+      var index = $(this).index(); // Определяем индекс нажатого таба
+
+      $('.product-tabs .tabs .item').removeClass('active');
+      $(this).addClass('active');
+
+      $('.product-tabs .wrapper').fadeOut(0, function() {
+          $(this).css('display', 'none'); // Устанавливаем display: none после fadeOut
+      }).eq(index).fadeIn(0, function() {
+          $(this).css('display', 'flex'); // Устанавливаем display: flex после fadeIn
+      });
+  });
+
+  const catalogPage = document.querySelector('.shop-catalog-wrapper');
+
+  if (catalogPage) {
+
+    function renderFiltersBtns() {
+      const inputs = document.querySelectorAll('.filters-popup input[type="checkbox"');
+      const numberWrap = document.querySelector('.call-filters .numbers');
+      const filterBtn = document.querySelector('.call-filters');
+      let count = 0;
+      if (inputs.length > 0) {
+        inputs.forEach(elem => {
+          if (elem.checked) {
+              count++;
+          }
+        });
+        if (count == 0) {
+          numberWrap.style.display = 'none';
+          filterBtn.classList.remove('active');
+          numberWrap.textContent = 0;
         } else {
-          center = [55.817793, 49.146452]
+          numberWrap.style.display = 'flex';
+          filterBtn.classList.add('active');
+          numberWrap.textContent = count;
         }
-        var myMap = new ymaps.Map("map", {
-            center: center, // Центр карты (Казань)
-            zoom: 17,
-            controls: [],
-            theme: "islands#dark"
-        });
-        // Добавляем метку с кастомной иконкой
-        var myPlacemark = new ymaps.Placemark([55.816793, 49.146452], {
-            balloonContent: 'Офис "НЭТEР"'
-        }, {
-            iconLayout: 'default#image',
-            iconImageHref: '/wp-content/themes/main/img/icons/yandex.svg', // Замените на путь к вашей иконке
-            iconImageSize: [45, 56], // Размер иконки
-        });
-        myMap.geoObjects.add(myPlacemark);
+        console.log('woo filters rendered')
       }
-    }, 5000);
+    }
+
+    $('.call-filters').on('click', function() {
+      $('.overlay').fadeIn(200);
+      $('.filters-popup').fadeIn(200);
+      $('html').addClass('fixed');
+    });
+
+    $('.filters-popup .close').on('click', function() {
+      $('.overlay').fadeOut(200);
+      $('.filters-popup').fadeOut(200);
+      $('html').removeClass('fixed');
+      renderFiltersBtns();
+    });
+
+    $('.overlay').on('click', function() {
+      $('.overlay').fadeOut(200);
+      $('.filters-popup').fadeOut(200);
+      $('html').removeClass('fixed');
+      renderFiltersBtns();
+    });
+
+    $('.filters-popup .wrap .buttons .filters-popup-reset').on('click', function() {
+      $('.overlay').fadeOut(200);
+      $('.wpfClearButton').trigger('click');
+      $('.filters-popup').fadeOut(200);
+      $('html').removeClass('fixed');
+
+      renderFiltersBtns();
+    });
+    $('.filters-popup .wrap .buttons .filers-popup-confirm').on('click', function() {
+      $('.overlay').fadeOut(200);
+      $('.filters-popup').fadeOut(200);
+      $('html').removeClass('fixed');
+
+      renderFiltersBtns();
+    });
+
+    if (window.screen.width > 992) {
+      $('.shop-catalog-wrapper').on('mousemove', function() {
+        renderFiltersBtns();
+      });
+    
+    }
+    renderFiltersBtns();
   }
-  const mapDelivery = document.querySelector('section.delivery-map');
-  if (mapDelivery) {
-    setTimeout(() => {
-      ymaps.ready(init); 
-      function init(){
-        var myMap = new ymaps.Map("map", {
-            center: [55.834637, 49.041699], // Центр карты (Казань)
-            zoom: 14,
-            controls: [],
-            theme: "islands#dark"
-        });
-        // Добавляем метку с кастомной иконкой
-        var myPlacemark = new ymaps.Placemark([55.834637, 49.041699], {
-            balloonContent: 'Офис самовывоза'
-        }, {
-            iconLayout: 'default#image',
-            iconImageHref: '/wp-content/themes/main/img/icons/yandex.svg', // Замените на путь к вашей иконке
-            iconImageSize: [45, 56], // Размер иконки
-        });
-        myMap.geoObjects.add(myPlacemark);
-      }
-    }, 5000);
-  }
-  const mapContacts = document.querySelector('section.contacts-map');
-  if (mapContacts) {
-    setTimeout(() => {
-      ymaps.ready(init); 
-      function init(){
-        var myMap = new ymaps.Map("map", {
-            center: [55.833651, 39.051288], // Центр карты (Казань)
-            zoom: 6,
-            controls: [],
-            theme: "islands#dark"
-        });
-        // Добавляем метку с кастомной иконкой
-        var myPlacemark = new ymaps.Placemark([55.833651, 49.051288], {
-            balloonContent: 'Производство'
-        }, {
-            iconLayout: 'default#image',
-            iconImageHref: '/wp-content/themes/main/img/icons/yandex.svg', // Замените на путь к вашей иконке
-            iconImageSize: [45, 56], // Размер иконки
-        });
-        var myPlacemark2 = new ymaps.Placemark([55.816793, 49.146452], {
-            balloonContent: 'Офис продаж в Казани'
-        }, {
-            iconLayout: 'default#image',
-            iconImageHref: '/wp-content/themes/main/img/icons/yandex.svg', // Замените на путь к вашей иконке
-            iconImageSize: [45, 56], // Размер иконки
-        });
-        var myPlacemark3 = new ymaps.Placemark([55.766233, 37.581101], {
-            balloonContent: 'Офис продаж в Москве'
-        }, {
-            iconLayout: 'default#image',
-            iconImageHref: '/wp-content/themes/main/img/icons/yandex.svg', // Замените на путь к вашей иконке
-            iconImageSize: [45, 56], // Размер иконки
-        });
-        myMap.geoObjects.add(myPlacemark);
-        myMap.geoObjects.add(myPlacemark2);
-        myMap.geoObjects.add(myPlacemark3);
-      }
-    }, 5000);
-  }
+
+
+
+
   
-});
+
+ 
 
 
-
+}); //end
 
 jQuery(document).ready(function ($) {
 

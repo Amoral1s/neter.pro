@@ -13,18 +13,31 @@
       <link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri(); ?>/css/main.min.css">
   </noscript>
   <?php if (is_home()) { ?>
-    <link rel="preload" as="image" href="<?php echo get_field('offer_bg', 'options'); ?>" />
+    <link rel="preload" as="image" href="<?php echo esc_url(get_field('offer_bg', 'options')); ?>" />
   <?php } else { ?>
-    <?php if (get_field('offer_img')) :  ?>
-      <link rel="preload" as="image" href="<?php the_field('offer_img'); ?>" />
-    <?php endif; ?>
-    <?php if (get_field('offer_bg')) :  ?>
-      <link rel="preload" as="image" href="<?php the_field('offer_bg'); ?>" />
-    <?php endif; ?>
-    <?php if (get_the_post_thumbnail_url()) : ?>
-      <link rel="preload" as="image" href="<?php the_post_thumbnail_url(); ?>" />
-    <?php endif; ?>
-  <?php } ?>
+      <?php if (get_field('offer_img')) : ?>
+          <link rel="preload" as="image" href="<?php echo esc_url(get_field('offer_img')); ?>" />
+      <?php endif; ?>
+      <?php if (get_field('offer_bg')) : ?>
+          <link rel="preload" as="image" href="<?php echo esc_url(get_field('offer_bg')); ?>" />
+      <?php endif; ?>
+      <?php if ((is_singular('post') || is_singular('product')) && get_the_post_thumbnail_url()) : ?>
+          <link rel="preload" as="image" href="<?php echo esc_url(get_the_post_thumbnail_url()); ?>" />
+      <?php endif; ?>
+      <?php if (is_product_category()) {
+          $term = get_queried_object();
+          $term_id = $term->term_id;
+          $thumbnail_id = get_term_meta($term_id, 'thumbnail_id', true);
+          if ($thumbnail_id) {
+              $acf_image = wp_get_attachment_image_src($thumbnail_id, 'offer-size');
+              if ($acf_image && !empty($acf_image[0])) {
+                  ?>
+                  <link rel="preload" as="image" href="<?php echo esc_url($acf_image[0]); ?>" />
+                  <?php
+              }
+          }
+      } ?>
+<?php } ?>
   <meta charset="UTF-8">
   <meta name="viewport" id="myViewport" content="width=device-width, maximum-scale=1.0, user-scalable=no">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -41,7 +54,15 @@
 
 <body id="top">
 
-<div class="mob-header <?php if (!is_home() && !is_page(346) && !is_page(599)) { echo 'white not-home'; }?>">
+<div class="mob-header 
+  <?php 
+    if (!is_home() && !is_page(346) && !is_page(599) &&  !is_product_category() && is_search()) { 
+        echo 'white'; 
+    } else { 
+        echo 'mob-header-home'; 
+    } 
+  ?>
+">
   <div class="container">
     <div class="wrap">
       <?php if (is_home()) : ?>
@@ -66,7 +87,15 @@
   </div>
 </div> 
 
-<header itemscope itemtype="http://schema.org/WPHeader" class="header <?php if (!is_home() && !is_page(346) && !is_page(599)) { echo 'header-white'; } else { echo 'header-home'; } ?>" style="display: none"> 
+<header itemscope itemtype="http://schema.org/WPHeader" class="header 
+    <?php 
+    if (!is_home() && !is_page(346) && !is_page(599) &&  !is_product_category() && is_search()) { 
+        echo 'header-white'; 
+    } else { 
+        echo 'header-home'; 
+    } 
+    ?>
+  " style="display: none"> 
   <div class="container header-pc" style="display: block"> 
     <div class="wrap">
       <?php if (is_home()) : ?>

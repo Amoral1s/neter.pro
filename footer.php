@@ -586,9 +586,73 @@
 </div>
 <!-- Mob header menu's END -->
 
-<!-- Mob catalog's -->
+<!-- Cart -->
+  <div class="mini-cart" style="display: none">
+    <div class="wrapper">
+      <div class="close">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
+          <path d="M19 5.49995L5 19.5M5 5.49995L19 19.5" stroke="#141B34" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <b class="mini-title">Рассчитать стоимость</b>
+      <p class="mini-subtitle">
+        Мы отправим расчет на указанный электронный адрес и позвоним для уточнения деталей поставки
+      </p>
+      <div class="mini-cart-content">
+      </div>
+      <div class="form">
+        <b class="form-title">Контактные данные</b>
+        <?php echo do_shortcode('[contact-form-7 id="5865448" title="Корзина (popup)"]'); ?>
+      </div>
+    </div>
+  </div>
+  <div class="cart-toggle" style="display: none">
+    <div class="wrapper">
+      <div class="load-circle"></div>
+      <div class="icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
+          <path d="M8.39996 16L17.1201 15.2733C19.8486 15.046 20.4611 14.45 20.7635 11.7289L21.4 6" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M6.39996 6H22.4" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M6.39996 22C7.50453 22 8.39996 21.1046 8.39996 20C8.39996 18.8954 7.50453 18 6.39996 18C5.29539 18 4.39996 18.8954 4.39996 20C4.39996 21.1046 5.29539 22 6.39996 22Z" stroke="white" stroke-width="1.5"/>
+          <path d="M17.4 22C18.5045 22 19.4 21.1046 19.4 20C19.4 18.8954 18.5045 18 17.4 18C16.2954 18 15.4 18.8954 15.4 20C15.4 21.1046 16.2954 22 17.4 22Z" stroke="white" stroke-width="1.5"/>
+          <path d="M8.39996 20H15.4" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M2.39996 2H3.36596C4.31064 2 5.1341 2.62459 5.36322 3.51493L8.33848 15.0765C8.48883 15.6608 8.36016 16.2797 7.9882 16.7616L7.03209 18" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <p>Рассчитать стоимость</p>
+      <div class="cart-count">0</div>
+    </div>
+  </div>
+<!-- Cart END -->
 
-<!-- Mob catalog's END -->
+<!-- Filters popup -->
+<div class="filters-popup">
+  <div class="wrap">
+    <div class="close-row">
+      <b class="mini-title">
+        Фильтры
+      </b>
+      <div class="close">
+        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
+          <path d="M31.6663 8.33334L8.33301 31.6667M8.33301 8.33334L31.6663 31.6667" stroke="#141B34" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+    </div>
+    <div class="filters-wrapper">
+      <?php echo do_shortcode('[wpf-filters id=2]'); ?>
+    </div>
+    <div class="buttons">
+      <div class="button filers-popup-confirm">
+        Применить
+      </div>
+      <div class="button button-white filters-popup-reset">
+        Сбросить
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Filters popup END -->
+
 
 <?php wp_footer(); ?>
 

@@ -49,8 +49,9 @@ const paths = {
             source_folder + '/js/forms.js',
             source_folder + '/js/single_page.js',
             source_folder + '/js/scripts_main.js',
-            source_folder + '/js/yandex.js',
-            source_folder + '/js/calc.js'
+            source_folder + '/js/woo.js',
+            //source_folder + '/js/yandex.js',
+            source_folder + '/js/calc.js',
         ],
         img: source_folder + '/img/**/*.{jpg,png,svg,gif,ico,webp}',
         fonts: source_folder + '/fonts/*.ttf',

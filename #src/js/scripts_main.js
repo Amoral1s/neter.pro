@@ -40,61 +40,7 @@ jQuery(document).ready(function ($) {
 			$('.faq-page-offer .answers').eq(index).fadeIn(200);
     });
 	});
-	//MAG GALLERYS
-	const elemGallery = document.querySelectorAll('.magnific');
-	if (elemGallery.length > 0) {
-		elemGallery.forEach(elem => {
-			// Добавление атрибута data-src для каждого элемента галереи
-			const links = elem.querySelectorAll('a');
-			links.forEach(link => {
-					const imgSrc = link.getAttribute('href');
-					link.setAttribute('data-src', imgSrc);
-			});
-			console.log('Initializing LightGallery');
-			// Инициализация LightGallery
-			const gallery = lightGallery(elem, {
-					thumbnail: true,
-					animateThumb: false,
-					showThumbByDefault: false,
-					plugins: [lgThumbnail],
-					selector: 'a',
-					swipeThreshold: 50,
-					mode: 'lg-fade',
-					download: false,
-					mobileSettings: {
-							controls: true,
-							showCloseIcon: true
-					}
-			});
-		});
-	}
-	const contentGallery = document.querySelectorAll('.content .wp-block-gallery');
-	if (contentGallery.length > 0) {
-			contentGallery.forEach(elem => {
-				// Добавление атрибута data-src для каждого элемента галереи
-				const links = elem.querySelectorAll('a');
-				links.forEach(link => {
-						const imgSrc = link.getAttribute('href');
-						link.setAttribute('data-src', imgSrc);
-				});
-				console.log('Initializing LightGallery');
-				// Инициализация LightGallery
-				const gallery = lightGallery(elem, {
-						thumbnail: true,
-						animateThumb: false,
-						showThumbByDefault: false,
-						plugins: [lgThumbnail],
-						selector: 'a',
-						swipeThreshold: 50,
-						mode: 'lg-fade',
-						download: false,
-						mobileSettings: {
-								controls: true,
-								showCloseIcon: true
-						}
-				});
-			});
-	}
+
 
 	const pageTextFeed = document.querySelector('.text-feed.page-feed');
 
@@ -117,6 +63,62 @@ jQuery(document).ready(function ($) {
 		$("html:not(:animated),body:not(:animated)").animate({scrollTop: destination}, 500);
 		return false;
 	});
+
+	const html = document.querySelector('html');
+function disableScroll() {
+	html.classList.add('fixed');
+}
+function enableScroll() {
+	html.classList.remove('fixed');
+}
+// Инициализация LightGallery для всех элементов галереи
+function initializeGallery(selector) {
+const galleryElements = document.querySelectorAll(selector);
+if (galleryElements.length > 0) {
+		galleryElements.forEach(elem => {
+				// Добавление атрибута data-src для каждого элемента галереи
+				const links = elem.querySelectorAll('a');
+				if (links.length > 0) {
+						links.forEach(link => {
+								const imgSrc = link.getAttribute('href');
+								link.setAttribute('data-src', imgSrc);
+						});
+				}
+				const divs = elem.querySelectorAll('div');
+				if (divs.length > 0) {
+						divs.forEach(div => {
+								const imgSrc = div.getAttribute('href');
+								div.setAttribute('data-src', imgSrc);
+						});
+				}
+				lightGallery(elem, {
+						thumbnail: true,
+						animateThumb: false,
+						showThumbByDefault: false,
+						plugins: [lgThumbnail],
+						swipeThreshold: 50,
+						mode: 'lg-fade',
+						download: false,
+						mobileSettings: {
+								controls: true,
+								showCloseIcon: true
+						}
+				});
+				// Добавление обработчиков событий для открытия и закрытия галереи
+				elem.addEventListener('lgBeforeOpen', () => {
+						disableScroll();
+				});
+				elem.addEventListener('lgAfterClose', () => {
+						enableScroll();
+				});
+				console.log('Initialized LightGallery for', selector);
+		});
+	}
+}
+// Инициализация
+initializeGallery('.mag-toggle');
+initializeGallery('.content .gallery');
+initializeGallery('.content .wp-block-gallery');
 
 	
 }); //end

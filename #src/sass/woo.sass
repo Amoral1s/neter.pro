@@ -1,0 +1,40 @@
+@import "./woocommerce/_single"
+@import "./woocommerce/_related"
+@import "./woocommerce/_category"
+@import "./woocommerce/_mini-cart"
+@import "./woocommerce/_filters"
+@import "./woocommerce/_search"
+
+
+
+.load-circle
+  visibility: hidden
+  display: inline-block
+  background-color: $text
+  opacity: 0.75
+  width: 24px
+  height: 24px
+  border: none
+  border-radius: 100%
+  padding: 0
+  position: absolute
+  left: 50%
+  top: 50%
+  transform: translate(-50%, -50%)
+  &::after
+    content: ''
+    position: absolute
+    background-color: #fbfbfc
+    top: 4px
+    left: 4px
+    width: 6px
+    height: 6px
+    border: none
+    border-radius: 100%
+    transform-origin: 8px 8px
+    animation-name: spin
+    animation-duration: 1000ms
+    animation-timing-function: linear
+    animation-iteration-count: infinite
+
+

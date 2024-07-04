@@ -1,0 +1,187 @@
+@import "../reset/_vars"
+
+
+@media (min-width: 992px)
+    
+  .dgwt-wcas-open-pirx 
+    .dgwt-wcas-suggestions-wrapp
+      margin-top: 20px
+      a.dgwt-wcas-suggestion-more
+        display: flex
+        justify-content: center
+        align-items: center
+        width: 100%
+        padding-top: 20px
+        padding-bottom: 10px
+        color: $main
+        text-transform: none
+        font-size: 16px
+        font-weight: 500
+        font-family: $font
+        span
+          font-size: 16px
+          font-weight: 500
+          color: $main
+      .dgwt-wcas-suggestion-product
+        padding: 10px 0
+        margin: 0 30px
+        border-bottom: 1px solid $gray_200!important
+        display: flex
+        justify-content: flex-start
+        align-items: center
+        .dgwt-wcas-content-wrapp
+          width: 100%
+          max-width: 100%
+          display: block
+          span
+            display: block
+            font-size: 16px
+            font-family: $font
+            color: $text
+            &.dgwt-wcas-sku
+              font-size: 14px
+              font-family: $font
+              color: $gray_400
+              margin-top: 6px
+        .dgwt-wcas-si
+          border: none
+          img
+            border-radius: 16px
+            border: none
+
+@media (max-width: 992px)
+  .dgwt-wcas-open-pirx 
+    .dgwt-wcas-suggestions-wrapp
+      margin-top: 0px
+      a.dgwt-wcas-suggestion-more
+        display: flex
+        justify-content: center
+        align-items: center
+        width: 100%
+        padding-top: 20px
+        padding-bottom: 30px
+        color: $main
+        text-transform: none
+        font-size: 16px
+        font-weight: 500
+        font-family: $font
+        span
+          font-size: 14px
+          font-weight: 500
+          color: $main
+      .dgwt-wcas-suggestion-product
+        padding: 10px 15px
+        border-bottom: 1px solid $gray_200!important
+        display: flex
+        justify-content: flex-start
+        align-items: center
+        .dgwt-wcas-content-wrapp
+          width: 100%
+          max-width: 100%
+          display: block
+          span
+            display: block
+            font-size: 14px
+            font-family: $font
+            color: $text
+            &.dgwt-wcas-sku
+              font-size: 12px
+              font-family: $font
+              color: $gray_400
+              margin-top: 6px
+        .dgwt-wcas-si
+          border: none
+          img
+            border-radius: 16px
+            border: none
+
+
+//search-page
+.search-offer
+  margin-bottom: 40px
+  .wrap
+    display: flex
+    justify-content: space-between
+    align-items: center
+    h1
+      margin: 0
+      span
+        font-size: 32px
+        font-weight: 500
+        letter-spacing: -1.3px
+        font-weight: 500
+        line-height: 1
+        position: relative
+        top: -15px
+    .button
+      margin-left: 20px
+      min-width: 220px
+      width: 220px
+      height: 60px
+      justify-content: center
+      position: relative
+      z-index: 10
+      margin-left: 20px
+      .icon
+        margin-right: 10px
+      .numbers
+        display: none
+        justify-content: center
+        align-items: center
+        height: 24px
+        width: 24px
+        min-width: 24px
+        color: #fff
+        font-size: 14px
+        font-weight: 700
+        line-height: 1
+        margin-left: 10px
+        background-color: $dark
+        border-radius: 100%
+
+.search-page
+  margin-top: 0
+  padding: 0
+  background: transparent
+  .products 
+    .table-product
+      &:nth-child(even)
+        background-color: transparent
+      &:nth-child(odd)
+        background-color: $white_50
+
+@media (max-width: 992px)
+  .search-offer
+    .wrap
+      display: block
+      margin-bottom: 10px
+      h1
+        display: block
+      .button
+        margin-left: 0
+        height: 50px
+        margin-top: 20px
+  .search-page .products 
+    .table-product
+      &:nth-child(odd),
+      &:nth-child(even)
+        background-color: transparent
+
+@media (max-width: 767px)
+  .search-page
+    padding-top: 0
+  .search-offer
+    margin-bottom: 0
+    .wrap
+      .button
+        max-width: 100%
+        width: 100%
+      h1
+        font-size: 32px
+        line-height: 1
+        letter-spacing: -1px
+        span
+          font-size: 20px
+          top: -5px
+
+

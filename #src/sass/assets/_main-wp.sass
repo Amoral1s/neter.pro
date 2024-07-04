@@ -52,6 +52,9 @@
   color: #fff
   font-size: 16px
   font-weight: 500
+  &.button-white
+    background-color: #fff
+    color: $text
   &.button-border
     background-color: #fff
     border: 1px solid $gray_200
@@ -168,11 +171,7 @@
     width: 55px
     height: 55px
     z-index: 15
-    &:hover
-      transition: .2s
-      background-color: $main
-      svg path
-        stroke: #fff
+    
     &-prev
       left: -75px
     &-next
@@ -180,6 +179,15 @@
     &.swiper-button-disabled
       opacity: .3
       pointer-events: none
+
+@media (min-width: 992px)
+  .slider-wrap
+    .arr
+      &:hover
+        transition: .2s
+        background-color: $main
+        svg path
+          stroke: #fff
 
 .disabled-slider
   .arr

@@ -200,7 +200,7 @@ function custom_yoast_breadcrumb_catalog( $links) {
     return $links;
 }
 function add_page_number_to_title( $title ) {
-    if ( is_product_category() ) {
+    if ( is_product_category() && is_paged()) {
         $paged = get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1; 
         $title .= ' - Страница ' . $paged; // Добавление номера страницы к заголовку
     }

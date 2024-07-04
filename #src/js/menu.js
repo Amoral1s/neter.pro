@@ -78,6 +78,7 @@ if (window.screen.width > 992) {
           }, 200);
       }
   });
+  
 
   $('.pc-catalog').hover(function() {
     clearTimeout(timer);

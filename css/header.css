@@ -999,7 +999,7 @@ svg:hover rect {
     padding-left: 40px;
     padding-right: 40px;
     padding-top: 40px;
-    background-color: #F4F6F6;
+    background-color: transparent;
     height: auto;
     display: flex;
     color: #000;
