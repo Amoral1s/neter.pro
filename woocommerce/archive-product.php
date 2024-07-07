@@ -19,6 +19,19 @@ defined( 'ABSPATH' ) || exit;
 
 get_header();
 
+
+?>
+<?php
+if (is_shop() && !is_search()) {
+    // Получаем URL категории с ID 15
+    $category_link = get_term_link(15, 'product_cat');
+
+    if (!is_wp_error($category_link)) {
+        // Выполняем редирект на URL категории
+        wp_redirect($category_link);
+        exit;
+    }
+}
 ?>
 <?php if (!is_search()) : ?>
 	<?php 
@@ -54,25 +67,38 @@ get_header();
 					do_action( 'woocommerce_archive_description' );
 				?>
 				<?php
-					if (is_product_category()) {
-							$term = get_queried_object();
-							$term_id = $term->term_id;
+if (is_product_category() || is_tax()) {
+    $term = get_queried_object();
+    $term_id = $term->term_id;
 
-							// Получаем ID миниатюры термина
-							$thumbnail_id = get_term_meta($term_id, 'thumbnail_id', true);
+    // Получаем ID миниатюры термина
+    $thumbnail_id = get_term_meta($term_id, 'thumbnail_id', true);
 
-							if ($thumbnail_id) {
-									// Получаем URL изображения с заданным размером
-									$acf_image = wp_get_attachment_image_src($thumbnail_id, 'offer-size');
+    if ($thumbnail_id) {
+        // Получаем URL изображения с заданным размером
+        $acf_image = wp_get_attachment_image_src($thumbnail_id, 'offer-size');
 
-									if ($acf_image) : 
-									?>
-											<img class="offer-image" src="<?php echo esc_url($acf_image[0]); ?>" alt="<?php woocommerce_page_title(); ?>">
-									<?php
-									endif;
-							}
-					}
-				?>
+        if ($acf_image) : 
+        ?>
+            <img class="offer-image" src="<?php echo esc_url($acf_image[0]); ?>" alt="<?php woocommerce_page_title(); ?>">
+        <?php
+        endif;
+    } else {
+        // Если миниатюры нет, получаем изображение из поля ACF
+        $acf_image_url = get_field('izobrazhenie_dlya_kataloga', 'term_' . $term_id);
+
+        if ($acf_image_url) : 
+        ?>
+            <img class="offer-image" src="<?php echo esc_url($acf_image_url); ?>" alt="<?php woocommerce_page_title(); ?>">
+        <?php
+        else : 
+        ?>
+            <img class="offer-image" src="<?php echo esc_url(home_url('/wp-content/uploads/2024/06/liion_1-1-2.png')); ?>" alt="<?php woocommerce_page_title(); ?>">
+        <?php
+        endif;
+    }
+}
+?>
 				<div class="btns">
 					<div class="button callback">
 						Оставить заявку
@@ -160,6 +186,7 @@ get_header();
 			<div class="container">
 				<div class="wrap">
 					<?php echo do_shortcode('[wpf-filters id=1]'); ?>
+					<?php //echo do_shortcode('[wpf-filters id=5]'); ?>
 					<div class="button call-filters">
 						<div class="icon">
 							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -298,8 +325,7 @@ get_header();
 					<div class="scroll-wrapper">
 						<div class="wrap">
 							<?php 
-								$taxonomy_ids = get_field('sfery'); // Получаем массив ID таксономий
-
+								$taxonomy_ids = get_field('sfery', 'term_' . $term_id); // Получаем массив ID таксономий
 								if ($taxonomy_ids) {
 										foreach ($taxonomy_ids as $taxonomy_id) {
 												// Получаем данные поля ACF для таксономии
@@ -418,18 +444,36 @@ get_header();
 				<div class="our-row">
 					<div class="swiper">
 						<div class="swiper-wrapper our-row-wrap">
-							<?php if (have_rows('cat_row', 'options')) : while(have_rows('cat_row', 'options')) : the_row(); ?>
-								<a href="<?php echo get_sub_field('link'); ?>" class="item swiper-slide">
-									<div class="icon">
-										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-											<path d="M17 7L6 18" stroke="#2CB4C2" stroke-width="1.5" stroke-linecap="round"/>
-											<path d="M11 6H17C17.4714 6 17.7071 6 17.8536 6.14645C18 6.29289 18 6.5286 18 7V13" stroke="#2CB4C2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-										</svg>
-									</div>
-									<b><?php echo get_sub_field('title'); ?></b>
-									<img src="<?php echo get_sub_field('img'); ?>" alt="<?php echo get_sub_field('title'); ?>">
-								</a>
-							<?php endwhile; endif; ?>
+							<?php
+								$current_category_slug = '';
+								if (is_product_category() || is_tax()) {
+										$term = get_queried_object();
+										$current_category_slug = $term->slug;
+								}
+								?>
+
+								<?php if (have_rows('cat_row', 'options')) : ?>
+										<?php while (have_rows('cat_row', 'options')) : the_row(); ?>
+												<?php 
+												$link = get_sub_field('link');
+												$parsed_url = parse_url($link);
+												$path_segments = explode('/', trim($parsed_url['path'], '/'));
+												$link_slug = end($path_segments);
+
+												if ($link_slug !== $current_category_slug) : ?>
+														<a href="<?php echo esc_url($link); ?>" class="item swiper-slide">
+																<div class="icon">
+																		<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+																				<path d="M17 7L6 18" stroke="#2CB4C2" stroke-width="1.5" stroke-linecap="round"/>
+																				<path d="M11 6H17C17.4714 6 17.7071 6 17.8536 6.14645C18 6.29289 18 6.5286 18 7V13" stroke="#2CB4C2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+																		</svg>
+																</div>
+																<b><?php echo esc_html(get_sub_field('title')); ?></b>
+																<img src="<?php echo esc_url(get_sub_field('img')); ?>" alt="<?php echo esc_attr(get_sub_field('title')); ?>">
+														</a>
+												<?php endif; ?>
+										<?php endwhile; ?>
+								<?php endif; ?>
 						</div>
 					</div>
 					<div class="dots"></div>

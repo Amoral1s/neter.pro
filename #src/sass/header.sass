@@ -20,6 +20,16 @@
       background-color: #fff
       content: ''  
 
+@media (max-width: 992px)
+  .fixed
+    padding-right: 0
+    max-width: 100%
+    .header
+      &.scrolled
+        max-width: 100%
+        &::after
+          display: none
+
 .offer
   background-color: $text
   color: #fff

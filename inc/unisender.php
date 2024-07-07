@@ -1,5 +1,3 @@
-
-
 <?php
 // Функция для отправки данных в Unisender
 function send_to_unisender($data, $list_id) {

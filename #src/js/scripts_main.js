@@ -117,6 +117,7 @@ if (galleryElements.length > 0) {
 }
 // Инициализация
 initializeGallery('.mag-toggle');
+initializeGallery('.magnific');
 initializeGallery('.content .gallery');
 initializeGallery('.content .wp-block-gallery');
 

@@ -98,11 +98,12 @@ if ( post_password_required() ) {
 			// Список slug атрибутов, которые нужно отобразить
 			$attributes_to_display = [
 					'pa_model', 
+					'pa_tip-himii',
 					'pa_napryazhenie', 
-					'pa_emkost', 
-					'pa_korpus', 
+					'pa_emkost-mah', 
+					'pa_material-korpusa', 
 					'pa_zashhita-ot-perezaryada', 
-					'pa_sfery-primeneniya'
+					//'pa_sfery-primeneniya'
 			];
 
 			global $product;
@@ -139,10 +140,12 @@ if ( post_password_required() ) {
 					echo '</div>';
 			}
 		?>
-		<div class="single-price">
-			<?php woocommerce_template_single_price(); ?>
-			<div class="nds">Стоимость с НДС</div>
-		</div>
+		<?php if ((float)$product->get_price() != 1) : ?>
+    <div class="single-price">
+        <?php woocommerce_template_single_price(); ?>
+        <div class="nds">Стоимость с НДС</div>
+    </div>
+		<?php endif; ?>
 		<div class="single-btns">
 			<?php woocommerce_template_single_add_to_cart(); ?>
 			<div class="button button-white callback">
@@ -213,12 +216,19 @@ if ( post_password_required() ) {
 	<section class="product-tabs">
 			<h2 class="title"><?php echo get_field('title') ?></h2>
 			<div class="tabs">
+				<?php if (get_the_content()) : ?>
 				<div class="item active">
 					Описание
 				</div>
-				<div class="item ">
+				<div class="item">
 					Характеристики
 				</div>
+				<?php else : ?>
+				<div class="item active">
+					Характеристики
+				</div>
+				<?php endif; ?>
+				
 				<?php if (comments_open()) { ?>
 				<div class="item ">
 					Отзывы
@@ -234,6 +244,7 @@ if ( post_password_required() ) {
 					Доставка
 				</div>
 			</div>
+			<?php if (get_the_content()) : ?>
 			<div class="wrapper active wrapper-content content">
 				<?php if (get_field('content_title')) : ?>
 					<h2 class="title sub"><?php echo get_field('content_title'); ?></h2>
@@ -254,6 +265,10 @@ if ( post_password_required() ) {
 				<?php endif; ?>
 			</div>
 			<div class="wrapper wrapper-attrs">
+			<?php else : ?>
+			<div class="wrapper wrapper-attrs active">
+			<?php endif; ?>
+			
 				<h2 class="title sub">
 					Характеристики
 				</h2>

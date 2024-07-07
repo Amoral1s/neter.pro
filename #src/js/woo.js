@@ -22,7 +22,24 @@ jQuery(document).ready(function ($) {
       const inputs = document.querySelectorAll('.filters-popup input[type="checkbox"');
       const numberWrap = document.querySelector('.call-filters .numbers');
       const filterBtn = document.querySelector('.call-filters');
+      const inputSLiders = document.querySelectorAll('.filters-popup .wpfPriceInputs');
       let count = 0;
+
+      if (inputSLiders.length > 0) {
+        inputSLiders.forEach(range => {
+          const min = range.querySelector('#wpfMinPrice');
+          const max = range.querySelector('#wpfMaxPrice');
+          let minVal = min.min;
+          let maxVal = min.max;
+          if (min.value != minVal && max.value != maxVal) {
+            count++;
+          } else {
+            if (count > 0) {
+              count--;
+            }
+          }
+        });
+      }
       if (inputs.length > 0) {
         inputs.forEach(elem => {
           if (elem.checked) {
@@ -38,8 +55,10 @@ jQuery(document).ready(function ($) {
           filterBtn.classList.add('active');
           numberWrap.textContent = count;
         }
-        console.log('woo filters rendered')
       }
+      
+      console.log('woo filters rendered')
+
     }
 
     $('.call-filters').on('click', function() {

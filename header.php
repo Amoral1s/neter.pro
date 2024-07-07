@@ -56,10 +56,17 @@
 
 <div class="mob-header 
   <?php 
-    if (!is_home() && !is_page(346) && !is_page(599) &&  !is_product_category() && is_search()) { 
+    if (!is_home() && !is_page(346) && !is_page(599) &&  !is_product_category() && !is_tax()) { 
         echo 'white'; 
     } else { 
+      if (is_search()) {
+        echo 'white'; 
+
+        } else {
         echo 'mob-header-home'; 
+
+      }
+
     } 
   ?>
 ">
@@ -89,10 +96,14 @@
 
 <header itemscope itemtype="http://schema.org/WPHeader" class="header 
     <?php 
-    if (!is_home() && !is_page(346) && !is_page(599) &&  !is_product_category() && is_search()) { 
+    if (!is_home() && !is_page(346) && !is_page(599) &&  !is_product_category() && !is_tax()) { 
         echo 'header-white'; 
     } else { 
-        echo 'header-home'; 
+        if (is_search()) {
+          echo 'header-white'; 
+        } else {
+          echo 'header-home'; 
+        }
     } 
     ?>
   " style="display: none"> 

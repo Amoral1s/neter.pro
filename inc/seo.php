@@ -178,27 +178,6 @@ function redirect_lowercase_urls()
 add_action('template_redirect', 'redirect_lowercase_urls');
 
 
-//add_filter( 'wpseo_breadcrumb_links', 'custom_yoast_breadcrumb_catalog', 10, 2 );
-
-function custom_yoast_breadcrumb_catalog( $links) {
-   
-
-     // Проверяем, является ли текущая запись типом 'product'
-     if ( is_singular('post') ) {
-        // Получаем название текущей записи
-        $catalog_link = array(
-            array(
-                'url' => home_url( '/blog/' ), // Замените '/catalog/' на URL страницы каталога
-                'text' => 'Новости и статьи',
-            ),
-        );
-
-        // Заменяем первый элемент хлебных крошек на новый элемент "Каталог"
-        array_splice( $links, 1, 0, $catalog_link );
-    }
-
-    return $links;
-}
 function add_page_number_to_title( $title ) {
     if ( is_product_category() && is_paged()) {
         $paged = get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1; 

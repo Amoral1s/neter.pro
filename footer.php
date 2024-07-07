@@ -640,6 +640,7 @@
     </div>
     <div class="filters-wrapper">
       <?php echo do_shortcode('[wpf-filters id=2]'); ?>
+      <?php //echo do_shortcode('[wpf-filters id=6]'); ?>
     </div>
     <div class="buttons">
       <div class="button filers-popup-confirm">

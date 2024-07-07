@@ -1223,6 +1223,19 @@ svg:hover rect {
     max-width: 740px;
   }
 
+  .fixed {
+    padding-right: 0;
+    max-width: 100%;
+  }
+
+  .fixed .header.scrolled {
+    max-width: 100%;
+  }
+
+  .fixed .header.scrolled::after {
+    display: none;
+  }
+
   .offer .wrap {
     padding-top: 95px;
   }

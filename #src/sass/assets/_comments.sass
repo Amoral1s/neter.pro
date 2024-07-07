@@ -1013,3 +1013,33 @@
     padding-top: 55px    
   .single .comments #wpdcom #wpd-threads .wpd-thread-head .wpd-thread-info
     white-space: nowrap
+
+
+
+
+@media (max-width: 578px)
+  .faq-comments .comments #wpd-threads .wpd-thread-list .comment .wpd-comment-footer, .single .comments #wpd-threads .wpd-thread-list .comment .wpd-comment-footer
+    width: 100%
+    min-width: calc(100% + 75px)
+
+  .faq-comments .comments #wpdcom .wpd-form-wrap .wpd-form-foot .wpd-form-row, .faq-comments .comments #wpdcom .wpd_comm_form .wpd-form-foot .wpd-form-row, .single .comments #wpdcom .wpd-form-wrap .wpd-form-foot .wpd-form-row, .single .comments #wpdcom .wpd_comm_form .wpd-form-foot .wpd-form-row
+    display: block
+    .wpd-form-col-left
+      display: block
+      width: 100%
+      .wpdiscuz-item
+        width: 100%
+        margin-bottom: 10px
+    .wpd-form-col-right
+      display: flex
+      flex-direction: column-reverse
+      align-items: flex-start
+      justify-content: flex-start
+      .wc-field-submit
+        width: 100%
+        input
+          width: 100%
+          max-width: 100%
+  #wpdcom.wpd-layout-1 .wpd-reply.wpd_comment_level-2
+    max-width: calc(100% - 30px)
+ 

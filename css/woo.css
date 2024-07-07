@@ -907,6 +907,7 @@
   margin-bottom: 20px;
   width: calc(50% - 10px);
   position: relative;
+  min-height: 90px;
 }
 
 .product-cats .item .svg {
@@ -2866,6 +2867,7 @@
     margin-left: 10px;
     height: 30px;
     font-size: 12px;
+    display: none;
   }
 
   .woocommerce-pagination span.prev,
@@ -2878,11 +2880,12 @@
     padding: 0 15px;
     margin-right: 10px;
     font-size: 12px;
+    display: none;
   }
 
   .cart-toggle {
     right: 10px;
-    bottom: 10px;
+    bottom: 20px;
   }
 
   .cart-toggle .wrapper {
@@ -3864,5 +3867,9 @@
   .calc-offer.shop-offer .wrap .offer-image {
     margin-bottom: -30px;
     margin-top: -30px;
+  }
+
+  .product-links .wrap .item p {
+    white-space: nowrap;
   }
 }
