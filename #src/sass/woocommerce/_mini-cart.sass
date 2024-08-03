@@ -57,6 +57,19 @@
   max-height: calc(100dvh - 30px)
   overflow-y: auto
   border-radius: 24px
+  .clear-cart
+    display: block
+    font-size: 14px
+    font-weight: 600
+    color: $main
+    margin-bottom: 0px
+    cursor: pointer
+    width: max-content
+    margin-left: auto
+    margin-right: 0
+    transition: .2s
+    &:hover
+      color: $button_hover
   .wrapper
     display: block
     background: $bg
@@ -95,7 +108,7 @@
         padding: 20px 0
         transition: .5s
         &.loading
-          opacity: .5
+          opacity: 1
           pointer-events: none
           .load-circle
             visibility: visible

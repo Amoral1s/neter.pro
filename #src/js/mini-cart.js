@@ -1,5 +1,17 @@
 jQuery(document).ready(function($) {
 	let ajaxQueue = $({});
+
+        // Управление доступностью страницы каталога во время AJAX-запросов
+        $(document).ajaxStart(function() {
+            $('main.catalog-page').addClass('disabled');
+            $('.mini-cart-content').addClass('disabled');
+        }).ajaxStop(function() {
+            $('main.catalog-page').removeClass('disabled');
+            $('.mini-cart-content').removeClass('disabled');
+        });
+
+        
+
   // Получаем данные корзины и обновляем состояние кнопок и cart-toggle
 	function updateCartData() {
 		ajaxQueue.queue(function(next) {
@@ -24,7 +36,6 @@ jQuery(document).ready(function($) {
 					updateCartToggle();
 				},
 				complete: function() {
-					
 					next();
 				}
 			});
@@ -60,14 +71,14 @@ jQuery(document).ready(function($) {
 
 	// Обработчики для каталога
 	function initializeProductHandlers() {
-		$('li.table-product').off('click').on('click', function(event) {
+		$('main.catalog-page').on('click', 'li.table-product', function(event) {
 			if ($(event.target).closest('.table-product-title').length || $(event.target).closest('.button').length) {
 				return;
 			}
 			$(this).find('.button').trigger('click');
 		});
 	
-		$('li.table-product .button').off('click').on('click', function(event) {
+		$('main.catalog-page').on('click', 'li.table-product .button', function(event) {
 			event.preventDefault();
 			var $button = $(this);
 			var productId = $button.data('product_id');
@@ -144,6 +155,16 @@ jQuery(document).ready(function($) {
 					}
 			});
 	}, false);
+
+	$('.mini-cart .clear-cart').on('click', function() {
+        clearCart(function() {
+            updateMiniCart();
+            updateButtonStates();
+            $('li.table-product .button').removeClass('added');
+            $('button[type="submit"]').removeClass('added');
+            $('.cart-toggle').fadeOut(200);
+        });
+    }) 
 
   // Удаление товара из корзины
   function removeFromCart(productId, callback) {
@@ -400,10 +421,11 @@ jQuery(document).ready(function($) {
   updateCartData();
   initializeProductHandlers();
 
-	// Повторная инициализация обработчиков после AJAX-запроса
-	$(document).ajaxComplete(function() {
-		console.log('ajax complete');
-		initializeProductHandlers();
-	});
+    $(document).ajaxComplete(function(event, xhr, settings) {
+        if (settings.url.includes('some_specific_action')) {
+            console.log('Reinitializing handlers after specific AJAX completion');
+            initializeProductHandlers();
+        }
+    });
 
 });

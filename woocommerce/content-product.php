@@ -8,16 +8,55 @@ global $product;
 if ( empty( $product ) || ! $product->is_visible() ) {
 	return;
 }
-
-// Массив атрибутов, которые нужно вывести
 $attributes_to_display = array(
-	'pa_emkost', 
+	'pa_tip-himii', 
+	'pa_seriya', 
+	'pa_emkost-mah', 
 	'pa_napryazhenie', 
-	'pa_postoyannyy-tok', 
-	'pa_pikovyy-tok', 
-	'pa_tok-zaryada', 
-	'pa_razmery' 
+	'pa_gabarity-mm', 
+	'pa_ves-gr' 
 );
+
+if (is_product_category()) :
+	// Массив атрибутов, которые нужно вывести
+	if (is_product_category('akkumulyatornye-batarei')) :
+		$attributes_to_display = array(
+			'pa_tip-himii', 
+			'pa_seriya', 
+			'pa_emkost-mah', 
+			'pa_napryazhenie', 
+			'pa_gabarity-mm', 
+			'pa_ves-gr' 
+		);
+		elseif (is_product_category('bms-plata')) :
+			$attributes_to_display = array(
+				'pa_tip-himii', 
+				'pa_seriya', 
+				'pa_zashhita-ot-perezaryada', 
+				'pa_napryazhenie', 
+				'pa_tok-zaryada', 
+				'pa_ves-gr' 
+			);
+		elseif (is_product_category('akkumulyatornye-yacheyki')) :
+			$attributes_to_display = array(
+				'pa_tip-himii', 
+				'pa_tokootdacha', 
+				'pa_emkost-mah', 
+				'pa_napryazhenie', 
+				'pa_gabarity-mm', 
+				'pa_ves-gr' 
+			);
+		elseif (is_product_category('zaryadnye-ustrojstva-dlya-akkumulyatorov')) :
+			$attributes_to_display = array(
+				'pa_tip-himii', 
+				'pa_seriya', 
+				'pa_napryazhenie-zaryada', 
+				'pa_napryazhenie', 
+				'pa_tok-zaryada', 
+				'pa_ves-gr' 
+		);
+	endif;
+endif;
 
 // Получаем все атрибуты продукта
 $attributes = $product->get_attributes();
@@ -26,7 +65,7 @@ $attributes = $product->get_attributes();
 $regular_price = $product->get_regular_price();
 $sale_price = $product->get_sale_price();
 $price_to_display = $sale_price ? $sale_price : $regular_price;
-
+ 
 // Форматирование цены и удаление HTML-тегов
 $price_formatted = wp_strip_all_tags( wc_price( $price_to_display ) );
 

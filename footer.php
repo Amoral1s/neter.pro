@@ -598,6 +598,9 @@
       <p class="mini-subtitle">
         Мы отправим расчет на указанный электронный адрес и позвоним для уточнения деталей поставки
       </p>
+      <div class="clear-cart">
+        Очистить корзину
+      </div>
       <div class="mini-cart-content">
       </div>
       <div class="form">

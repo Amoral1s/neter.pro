@@ -9104,12 +9104,28 @@ jQuery(document).ready(function ($) {
       renderFiltersBtns();
     });
 
-    if (window.screen.width > 992) {
-      $('.shop-catalog-wrapper').on('mousemove', function() {
-        renderFiltersBtns();
-      });
-    
+    // Функция debounce
+    function debounce(func, delay) {
+      let timeoutId;
+      return function(...args) {
+        const context = this;
+        if (timeoutId) {
+          clearTimeout(timeoutId);
+        }
+        timeoutId = setTimeout(() => {
+          func.apply(context, args);
+        }, delay);
+      };
     }
+
+    // Обёртка renderFiltersBtns в debounce с задержкой 500ms
+    const debouncedRenderFiltersBtns = debounce(renderFiltersBtns, 500);
+
+    if (window.screen.width > 992) {
+      $('.shop-catalog-wrapper').on('mousemove', debouncedRenderFiltersBtns);
+    }
+
+
     renderFiltersBtns();
   }
 

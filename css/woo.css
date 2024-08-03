@@ -1361,7 +1361,7 @@
 
 .catalog-page .products .table-product.loading {
   pointer-events: none;
-  opacity: 0.5;
+  opacity: 1;
 }
 
 .catalog-page .products .table-product.loading .load-circle {
@@ -1573,6 +1573,23 @@
   border-radius: 24px;
 }
 
+.mini-cart .clear-cart {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: #2CB4C2;
+  margin-bottom: 0px;
+  cursor: pointer;
+  width: max-content;
+  margin-left: auto;
+  margin-right: 0;
+  transition: 0.2s;
+}
+
+.mini-cart .clear-cart:hover {
+  color: #40C8D6;
+}
+
 .mini-cart .wrapper {
   display: block;
   background: #F4F6F6;
@@ -1626,7 +1643,7 @@
 }
 
 .mini-cart .wrapper .mini-cart-content .item.loading {
-  opacity: 0.5;
+  opacity: 1;
   pointer-events: none;
 }
 
@@ -1965,7 +1982,7 @@
   top: 0;
   right: 0;
   bottom: 0;
-  height: 100dvh;
+  height: 100%;
   width: 430px;
   background-color: #F4F6F6;
   z-index: 200;
@@ -2270,6 +2287,24 @@
 
 .wpf-loader-decorator .wpfPreviewLoader {
   width: 300px;
+}
+
+.shop-catalog-filters.akkum .wpfFilterWrapper[data-get-attribute=wpf_filter_tokootdacha],
+.shop-catalog-filters.akkum .wpfFilterWrapper[data-get-attribute=wpf_filter_napryazhenie-zaryada],
+.shop-catalog-filters.akkum .wpfFilterWrapper[data-get-attribute=wpf_filter_tok-zaryada],
+.shop-catalog-filters.akkum .wpfFilterWrapper[data-get-attribute=wpf_filter_seriya] {
+  display: none !important;
+}
+
+.shop-catalog-filters.zaryad .wpfFilterWrapper[data-get-attribute=wpf_filter_seriya] {
+  display: none !important;
+}
+
+.shop-catalog-filters.all .wpfFilterWrapper[data-get-attribute=wpf_filter_material-korpusa],
+.shop-catalog-filters.all .wpfFilterWrapper[data-get-attribute=wpf_filter_tokootdacha],
+.shop-catalog-filters.all .wpfFilterWrapper[data-get-attribute=wpf_filter_napryazhenie-zaryada],
+.shop-catalog-filters.all .wpfFilterWrapper[data-get-attribute=wpf_filter_tok-zaryada-zaryada] {
+  display: none !important;
 }
 
 .search-offer {

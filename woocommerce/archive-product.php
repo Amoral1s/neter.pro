@@ -182,10 +182,34 @@ if (is_product_category() || is_tax()) {
 				<?php endif; ?>
 			</div>
 		</div>
-		<div class="shop-catalog-filters">
+		<?php $filter_class = 'all'; ?>
+		<?php if (is_product_category()) : 
+				$current_category = get_queried_object();
+				
+				// Определяем массив основных категорий и их фильтров
+				$categories_with_filters = array(
+						'akkumulyatornye-batarei' => 'akkum',
+						'bms-plata' => 'bms',
+						'akkumulyatornye-yacheyki' => 'yach',
+						'zaryadnye-ustrojstva-dlya-akkumulyatorov' => 'zaryad'
+				);
+
+				// Проверяем, является ли текущая категория одной из основных или её дочерней категорией
+				foreach ($categories_with_filters as $category_slug => $filter) {
+						$parent_category = get_term_by('slug', $category_slug, 'product_cat');
+						$child_categories = get_term_children($parent_category->term_id, 'product_cat');
+
+						if ($current_category->slug == $category_slug || in_array($current_category->term_id, $child_categories)) {
+								$filter_class = $filter;
+								break;
+						}
+				}
+		endif; 
+		?>
+		<div class="shop-catalog-filters <?php echo $filter_class; ?>">
 			<div class="container">
 				<div class="wrap">
-					<?php echo do_shortcode('[wpf-filters id=1]'); ?>
+					<?php echo do_shortcode('[wpf-filters id=3]'); ?>
 					<?php //echo do_shortcode('[wpf-filters id=5]'); ?>
 					<div class="button call-filters">
 						<div class="icon">
@@ -236,18 +260,91 @@ if (is_product_category() || is_tax()) {
 				 * @hooked woocommerce_catalog_ordering - 30
 				 */
 				do_action( 'woocommerce_before_shop_loop' ); ?>
-				<div class="table-header">
-					<div class="header-title"><?php esc_html_e( 'Модель аккумулятора', 'woocommerce' ); ?></div>
-					<div class="header-wrapper">
-						<div class="header-attribute">Номинальная <br>емкость&nbsp;(мАч)</div>
-						<div class="header-attribute">Напряжение&nbsp;(V)</div>
-						<div class="header-attribute">Габариты&nbsp;(мм)</div>
-						<div class="header-attribute">Вес&nbsp;(гр)</div>
-						<div class="header-attribute">Постоянный ток&nbsp;(C)</div>
-						<div class="header-attribute">Пиковый ток&nbsp;(C)</div>
-						<!-- <div class="header-attribute price">Стоимость</div> -->
-					</div>
-				</div>
+				
+				<?php
+					if (is_product_category()) :
+							$current_category = get_queried_object();
+
+							// Функция для проверки категории и её потомков
+							function is_category_or_child_of($slug, $current_category) {
+									$category = get_term_by('slug', $slug, 'product_cat');
+									if (!$category || !$current_category) {
+											return false;
+									}
+									$child_categories = get_term_children($category->term_id, 'product_cat');
+									return ($current_category->slug == $slug || in_array($current_category->term_id, $child_categories));
+							}
+
+							// Проверка текущей категории и её дочерних категорий
+							if ($current_category) {
+									if (is_category_or_child_of('akkumulyatornye-batarei', $current_category)) { ?>
+											<div class="table-header">
+													<div class="header-title"><?php esc_html_e('Наименование', 'woocommerce'); ?></div>
+													<div class="header-wrapper">
+															<div class="header-attribute">Тип химии</div>
+															<div class="header-attribute">Серия</div>
+															<div class="header-attribute">Номинальная <br>емкость&nbsp;(Ah)</div>
+															<div class="header-attribute">Напряжение&nbsp;(V)</div>
+															<div class="header-attribute">Габариты&nbsp;(мм)</div>
+															<div class="header-attribute">Вес&nbsp;(гр)</div>
+													</div>
+											</div>
+									<?php } elseif (is_category_or_child_of('bms-plata', $current_category)) { ?>
+											<div class="table-header">
+													<div class="header-title"><?php esc_html_e('Наименование', 'woocommerce'); ?></div>
+													<div class="header-wrapper">
+															<div class="header-attribute">Тип химии</div>
+															<div class="header-attribute">Серия</div>
+															<div class="header-attribute">Защита от перезаряда</div>
+															<div class="header-attribute">Напряжение&nbsp;(V)</div>
+															<div class="header-attribute">Ток заряда</div>
+															<div class="header-attribute">Вес&nbsp;(гр)</div>
+													</div>
+											</div>
+									<?php } elseif (is_category_or_child_of('akkumulyatornye-yacheyki', $current_category)) { ?>
+											<div class="table-header">
+													<div class="header-title"><?php esc_html_e('Наименование', 'woocommerce'); ?></div>
+													<div class="header-wrapper">
+															<div class="header-attribute">Тип химии</div>
+															<div class="header-attribute">Токоотдача</div>
+															<div class="header-attribute">Номинальная <br>емкость&nbsp;(mAh)</div>
+															<div class="header-attribute">Напряжение&nbsp;(V)</div>
+															<div class="header-attribute">Габариты&nbsp;(мм)</div>
+															<div class="header-attribute">Вес&nbsp;(гр)</div>
+													</div>
+											</div>
+									<?php } elseif (is_category_or_child_of('zaryadnye-ustrojstva-dlya-akkumulyatorov', $current_category)) { ?>
+											<div class="table-header">
+													<div class="header-title"><?php esc_html_e('Наименование', 'woocommerce'); ?></div>
+													<div class="header-wrapper">
+															<div class="header-attribute">Тип химии</div>
+															<div class="header-attribute">Серия</div>
+															<div class="header-attribute">Напряжение заряда</div>
+															<div class="header-attribute">Напряжение&nbsp;(V)</div>
+															<div class="header-attribute">Ток заряда</div>
+															<div class="header-attribute">Вес&nbsp;(гр)</div>
+													</div>
+											</div>
+									<?php } else { ?>
+											<p><?php esc_html_e('No matching category found.', 'woocommerce'); ?></p>
+									<?php }
+							} else { ?>
+									<p><?php esc_html_e('No current category.', 'woocommerce'); ?></p>
+							<?php }
+					elseif (is_tax()) : ?>
+						<div class="table-header">
+							<div class="header-title"><?php esc_html_e('Наименование', 'woocommerce'); ?></div>
+							<div class="header-wrapper">
+								<div class="header-attribute">Тип химии</div>
+								<div class="header-attribute">Серия</div>
+								<div class="header-attribute">Номинальная <br>емкость&nbsp;(Ah)</div>
+								<div class="header-attribute">Напряжение&nbsp;(V)</div>
+								<div class="header-attribute">Габариты&nbsp;(мм)</div>
+								<div class="header-attribute">Вес&nbsp;(гр)</div>
+							</div>
+						</div>
+				<?php endif; ?>
+				
 
 				<?php
 
