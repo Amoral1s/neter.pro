@@ -1,8 +1,25 @@
 <?php get_header(); ?>
 
 <?php if (get_field('offer_title', 'options')) : ?>
-<section class="offer" style="background-image: url(<?php echo get_field('offer_bg', 'options'); ?>); background-color: #0A3141; color: #fff;">
-  <div class="container">
+<section class="offer" style="background-color: #0A3141; color: #fff; position: relative;">
+  <?php 
+    $offer_bg_video = get_field('offer_bg_video', 'options');
+    $offer_bg_image = get_field('offer_bg', 'options');
+  ?>
+
+  <div class="offer-bg-image" style="background-image: url('<?php echo $offer_bg_image; ?>'); position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: cover; background-position: center;"></div>
+
+  <?php if ($offer_bg_video): ?>
+    <!-- Видеофон -->
+    <video class="offer-bg-video" autoplay loop muted playsinline style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;">
+      <source src="<?php echo $offer_bg_video; ?>" type="video/mp4">
+    </video>
+
+    <!-- Затемняющий слой для улучшения читаемости текста -->
+    <div class="offer-bg-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(10, 49, 65, 0.7); z-index: 1; display: block;"></div>
+  <?php endif; ?>
+
+  <div class="container" style="position: relative; z-index: 2;">
     <div class="wrap">
       <h1 style="color: #fff"><?php echo get_field('offer_title', 'options') ?></h1>
       <p style="color: #fff"><?php echo get_field('offer_subtitle', 'options'); ?></p>
@@ -28,6 +45,7 @@
       </div>
     </div>
   </div>
+
 </section>
 <?php endif; ?>
 
@@ -245,7 +263,7 @@
           <?php endif; ?>
         </a>
       <?php $post_index++; } }  wp_reset_postdata(); ?>
-      <a href="<?php echo get_field('projects_link', 'options'); ?>" class="item last">
+      <a href="<?php echo get_field('project_link', 'options'); ?>" class="item last">
         <div class="last-row">
           <div class="count">
             <?php echo $count_of_projects; ?> +
@@ -416,7 +434,7 @@
 <?php endif; ?>
 
 <?php if (get_field('faq_title', 'options')) : ?>
-<section class="faq">
+<section itemscope itemtype="https://schema.org/FAQPage" class="faq">
   <div class="container">
     <div class="wrap">
       <div class="left">
@@ -439,8 +457,8 @@
       </div>
       <div class="right">
         <?php if (have_rows('faq','options')) : while(have_rows('faq','options')) : the_row(); ?>
-          <div class="item">
-            <h3 class="item-title">
+          <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="item">
+            <h3 itemprop="name"  class="item-title">
               <?php echo get_sub_field('title'); ?>
               <div class="icon">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -448,7 +466,7 @@
                 </svg>
               </div>
             </h3>
-            <div class="item-content content">
+            <div itemscope itemprop="acceptedAnswer" class="item-content content">
               <?php echo get_sub_field('text'); ?>
             </div>
           </div>
@@ -594,6 +612,6 @@
   </div>
   Телефон: <span itemprop="telephone"><?php the_field('phone','options'); ?></span><br>
   Часы работы: <span itemprop="openingHours">09:00 - 18:00</span><br>
-  <span itemprop="description">Септики от производителя</span>
+  <span itemprop="description">Аккумуляторы от производителя</span>
 </div>
 <!-- Schema end -->

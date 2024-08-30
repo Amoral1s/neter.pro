@@ -100,4 +100,12 @@ function fix_month_abbrev(){
   ] + $wp_locale->month_abbrev;
 } 
 
-
+function custom_posts_per_page($query) {
+    if (!is_admin() && $query->is_main_query() && $query->is_archive()) {
+        $post_types = array('post', 'blog', 'projects'); // Типы постов, для которых нужно установить лимит
+        if (in_array($query->get('post_type'), $post_types) || (is_archive() && !isset($query->query_vars['post_type']))) {
+            $query->set('posts_per_page', 12);
+        }
+    }
+}
+add_action('pre_get_posts', 'custom_posts_per_page');

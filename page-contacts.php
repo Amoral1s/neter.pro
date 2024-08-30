@@ -74,7 +74,7 @@ get_header();
               <path fill-rule="evenodd" clip-rule="evenodd" d="M9.38746 7.47752C9.1883 7.03681 8.97875 7.02799 8.78933 7.02024C8.6343 7.01368 8.457 7.0141 8.2799 7.0141C8.10259 7.0141 7.81461 7.08034 7.57109 7.34515C7.32735 7.60998 6.64062 8.25013 6.64062 9.55207C6.64062 10.8541 7.59329 12.1122 7.72601 12.289C7.85897 12.4654 9.56502 15.2226 12.2667 16.2833C14.5123 17.1648 14.9692 16.9894 15.4566 16.9453C15.944 16.9012 17.0294 16.3053 17.2508 15.6874C17.4723 15.0695 17.4723 14.5399 17.4059 14.4293C17.3395 14.319 17.1622 14.2528 16.8964 14.1205C16.6305 13.9882 15.3236 13.3479 15.08 13.2596C14.8363 13.1714 14.6591 13.1273 14.4817 13.3923C14.3045 13.6569 13.7954 14.2528 13.6403 14.4293C13.4853 14.6061 13.3301 14.6282 13.0643 14.4958C12.7984 14.3631 11.9423 14.0839 10.9266 13.1825C10.1364 12.4811 9.60292 11.6149 9.44778 11.3499C9.29275 11.0853 9.43123 10.942 9.56451 10.81C9.68394 10.6914 9.83042 10.501 9.96338 10.3466C10.096 10.1921 10.1403 10.0818 10.2289 9.90526C10.3176 9.72863 10.2732 9.57409 10.2068 9.44172C10.1403 9.30936 9.62368 8.00072 9.3873 7.47744" fill="white"/>
             </svg>
           </div>
-        </a>
+        </a> 
       </div>
     </div>
   </div>
@@ -85,17 +85,17 @@ get_header();
   <div class="container">
     <div class="wrap">
       <b class="title">Адреса</b>
-      <div class="item">
+      <div class="item" data-coords="[55.833651, 49.051288]">
         <p>Производство</p>
         <address><?php echo get_field('addr_prod', 'options'); ?></address>
         <span><?php echo get_field('work_time','options'); ?></span>
       </div>
-      <div class="item">
+      <div class="item" data-coords="[55.816793, 49.146452]">
         <p>Офис продаж в Казани</p>
         <address><?php echo get_field('addr_office', 'options'); ?></address>
         <span><?php echo get_field('work_time','options'); ?></span>
       </div>
-      <div class="item">
+      <div class="item" data-coords="[55.766233, 37.581101]">
         <p>Офис продаж в Москве</p>
         <address><?php echo get_field('addr_office_msk', 'options'); ?></address>
         <span><?php echo get_field('work_time','options'); ?></span>
@@ -197,6 +197,27 @@ get_header();
     }
   }
 </script>
-
+<!-- Schema org -->
+<div itemscope itemtype="http://schema.org/Organization" style="display: none;">
+  <span itemprop="name">ООО «Источники питания»</span>
+  <div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+    <span itemprop="streetAddress">ул. Сибгата Хакима, д. 51, помещ. 1029, офис 2</span>,
+    <span itemprop="addressLocality">г. Казань</span>,
+    <span itemprop="postalCode">421001</span>
+  </div>
+  Телефон: <span itemprop="telephone"><?php the_field('phone','options'); ?></span>
+</div>
+<div itemscope itemtype="http://schema.org/LocalBusiness" style="display: none;">
+  <span itemprop="name">ООО «Источники питания»</span>
+  <div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+    <span itemprop="streetAddress">ул. Сибгата Хакима, д. 51, помещ. 1029, офис 2</span>,
+    <span itemprop="addressLocality">г. Казань</span>,
+    <span itemprop="postalCode">421001</span>
+  </div>
+  Телефон: <span itemprop="telephone"><?php the_field('phone','options'); ?></span><br>
+  Часы работы: <span itemprop="openingHours">09:00 - 18:00</span><br>
+  <span itemprop="description">Аккумуляторы от производителя</span>
+</div>
+<!-- Schema end -->
 <?php
 get_footer();

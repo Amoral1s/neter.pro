@@ -149,15 +149,30 @@ if (window.screen.width > 992) {
     event.preventDefault();
     $(this).next().next().slideDown(200);
   });
+  $('.mob-nav .menu-item-has-children > a').on('click', function(event) {
+    event.preventDefault();
+    $(this).next().next().slideDown(200);
+  });
   const mobNavChildrens = document.querySelectorAll('.mob-nav .menu-item-has-children ul');
   if (mobNavChildrens.length > 0) {
     mobNavChildrens.forEach(el => {
-      const newBackBtn = document.querySelector('.mob-menu .back-btn.main-btn').cloneNode(true);
+      const newBackBtn = document.createElement('div');
+      newBackBtn.innerHTML = `
+        <div class="icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M5 12L20 11.9998" stroke="#2CB4C2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M9.00001 7L4.70712 11.2929C4.37378 11.6262 4.20712 11.7929 4.20712 12C4.20712 12.2071 4.37378 12.3738 4.70712 12.7071L9.00001 17" stroke="#2CB4C2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <span>Назад</span>
+      `;
+      newBackBtn.classList.add('back-btn');
       newBackBtn.style.display = 'flex';
-      const navTitle = el.parentElement.querySelector('.main-nav-item').cloneNode(true);
+      $(newBackBtn).on('click', function() {
+        $('.mob-nav .menu-item-has-children ul').slideUp(200);
+      });
       const allLi = el.querySelectorAll('li');
       el.insertBefore(newBackBtn, allLi[0]);
-      el.insertBefore(navTitle, allLi[0]);
 
     })
   }

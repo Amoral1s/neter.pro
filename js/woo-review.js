@@ -30,6 +30,8 @@ jQuery(document).ready(function($) {
           type: 'POST',
           data: formData + '&action=submit_review',
           success: function(response) {
+            console.log(formData);
+            console.log(response)
               if (response.success) {
                   $form.before('<div class="woocommerce-message">' + response.data.message + '</div>');
                   $form.find('textarea, input[type="text"], input[type="email"]').val('');

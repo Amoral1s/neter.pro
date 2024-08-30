@@ -1,9 +1,11 @@
 jQuery(document).ready(function($) {
 	let ajaxQueue = $({});
-
+        const singlePage = document.querySelector('.single-product');
         // Управление доступностью страницы каталога во время AJAX-запросов
         $(document).ajaxStart(function() {
-            $('main.catalog-page').addClass('disabled');
+            if (!singlePage) {
+                $('main.catalog-page').addClass('disabled');
+            }
             $('.mini-cart-content').addClass('disabled');
         }).ajaxStop(function() {
             $('main.catalog-page').removeClass('disabled');

@@ -1,17 +1,17 @@
 <!doctype html>
 <html <?php language_attributes(); ?>>
 <head>
-  <meta name="robots" content="noindex">
-  <!-- Прелоад header.min.css -->
+  
+ 
   <link rel="preload" as="style" href="<?php echo get_stylesheet_directory_uri(); ?>/css/header.min.css" onload="this.onload=null;this.rel='stylesheet'">
     <noscript>
         <link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri(); ?>/css/header.min.css">
     </noscript>
-  <!-- Прелоад main.min.css -->
+  
   <link rel="preload" as="style" href="<?php echo get_stylesheet_directory_uri(); ?>/css/main.min.css" onload="this.onload=null;this.rel='stylesheet'">
   <noscript>
       <link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri(); ?>/css/main.min.css">
-  </noscript>
+  </noscript> 
   <?php if (is_home()) { ?>
     <link rel="preload" as="image" href="<?php echo esc_url(get_field('offer_bg', 'options')); ?>" />
   <?php } else { ?>
@@ -47,6 +47,7 @@
   <link rel="icon" href="<?php echo get_template_directory_uri(); ?>/img/favicon/icon.png" type="image/svg+xml">
   <link rel="apple-touch-icon" href="<?php echo get_template_directory_uri(); ?>/img/favicon/apple-touch-icon.png"><!-- 180×180 -->
   <link rel="manifest" href="<?php echo get_template_directory_uri(); ?>/manifest.webmanifest">
+  <link rel="yandex-tableau-widget" href="<?php echo get_template_directory_uri(); ?>/tableau.json">
   
   <?php wp_head(); ?>
   

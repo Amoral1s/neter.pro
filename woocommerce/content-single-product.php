@@ -100,7 +100,7 @@ if ( post_password_required() ) {
 					'pa_model', 
 					'pa_tip-himii',
 					'pa_napryazhenie', 
-					'pa_emkost-mah', 
+					'pa_emkost-ah', 
 					'pa_material-korpusa', 
 					'pa_zashhita-ot-perezaryada', 
 					//'pa_sfery-primeneniya'

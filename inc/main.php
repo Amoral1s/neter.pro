@@ -153,7 +153,7 @@ add_filter('site_transient_update_plugins', 'remove_plugin_updates_WBWPRO');
 add_action( 'wp_head', 'my_styles' );
 function my_styles() {
 		/* wp_enqueue_style( $handle, $src, $deps, $ver, $media ); */
-		/* wp_enqueue_style( 'header', get_template_directory_uri() . '/css/header.min.css' ); */
+		//wp_enqueue_style( 'header', get_template_directory_uri() . '/css/header.min.css' );
 		wp_enqueue_style( 'main', get_template_directory_uri() . '/css/main.min.css' );
 		wp_enqueue_style( 'pages', get_template_directory_uri() . '/css/pages.min.css' );
 		wp_enqueue_style( 'woo', get_template_directory_uri() . '/css/woo.min.css' );

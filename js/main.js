@@ -149,15 +149,30 @@ if (window.screen.width > 992) {
     event.preventDefault();
     $(this).next().next().slideDown(200);
   });
+  $('.mob-nav .menu-item-has-children > a').on('click', function(event) {
+    event.preventDefault();
+    $(this).next().next().slideDown(200);
+  });
   const mobNavChildrens = document.querySelectorAll('.mob-nav .menu-item-has-children ul');
   if (mobNavChildrens.length > 0) {
     mobNavChildrens.forEach(el => {
-      const newBackBtn = document.querySelector('.mob-menu .back-btn.main-btn').cloneNode(true);
+      const newBackBtn = document.createElement('div');
+      newBackBtn.innerHTML = `
+        <div class="icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M5 12L20 11.9998" stroke="#2CB4C2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M9.00001 7L4.70712 11.2929C4.37378 11.6262 4.20712 11.7929 4.20712 12C4.20712 12.2071 4.37378 12.3738 4.70712 12.7071L9.00001 17" stroke="#2CB4C2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <span>Назад</span>
+      `;
+      newBackBtn.classList.add('back-btn');
       newBackBtn.style.display = 'flex';
-      const navTitle = el.parentElement.querySelector('.main-nav-item').cloneNode(true);
+      $(newBackBtn).on('click', function() {
+        $('.mob-nav .menu-item-has-children ul').slideUp(200);
+      });
       const allLi = el.querySelectorAll('li');
       el.insertBefore(newBackBtn, allLi[0]);
-      el.insertBefore(navTitle, allLi[0]);
 
     })
   }
@@ -8122,7 +8137,7 @@ jQuery(document).ready(function ($) {
       const arrNext = mainCatsWrapper.querySelector('.arr-next');
       const arrPrev = mainCatsWrapper.querySelector('.arr-prev');
     
-      new Swiper(swiper, {
+      const swiperInstance = new Swiper(swiper, {
         spaceBetween: 20,
         lazy: false,
         loop: false,
@@ -8149,15 +8164,18 @@ jQuery(document).ready(function ($) {
           767: {
             slidesPerView: 2,
             spaceBetween: 20,
-
           },
           992: {
             slidesPerView: 3,
             spaceBetween: 20,
-
           } 
         }
       });
+      
+      // Устанавливаем начальный слайд после инициализации
+      if (window.screen.width > 992) {
+       // swiperInstance.slideTo(1, 0);
+      }
 	}
 
   const newsSlider = document.querySelector('section.news');
@@ -8331,6 +8349,8 @@ jQuery(document).ready(function ($) {
 	if (vacancySlider) {
       const swiper = vacancySlider.querySelector('.swiper');
       const pagination = vacancySlider.querySelector('.dots');
+      const arrNext = vacancySlider.querySelector('.arr-next');
+      const arrPrev = vacancySlider.querySelector('.arr-prev');
 
       let feedSwiper = new Swiper(swiper, {
         spaceBetween: 0,
@@ -8339,7 +8359,11 @@ jQuery(document).ready(function ($) {
         pagination: {
           el: pagination,
           clickable: true,
-        }
+        },
+        navigation: {
+          nextEl: arrNext,
+          prevEl: arrPrev
+        },
       });
 
 	}
@@ -8495,6 +8519,17 @@ jQuery(document).ready(function ($) {
               el: pagination,
               clickable: false,
             }
+          });
+        })
+    }
+    const catSliderPost = document.querySelectorAll('.content .block_category');
+    if (catSliderPost.length > 0) {
+        catSliderPost.forEach(elem => {
+          const swiper = elem.querySelector('.swiper');
+          new Swiper(swiper, {
+            spaceBetween: 8,
+            autoHeight: false,
+            slidesPerView: 2,
           });
         })
     }
@@ -8966,6 +9001,15 @@ if (galleryElements.length > 0) {
 								link.setAttribute('data-src', imgSrc);
 						});
 				}
+				const figures = elem.querySelectorAll('figure');
+				if (figures.length > 0) {
+						figures.forEach(figure => {
+							const imgSrc = figure.querySelector('a').getAttribute('href');
+							if (imgSrc) {
+								figure.setAttribute('data-src', imgSrc);
+							}
+						});
+				}
 				const divs = elem.querySelectorAll('div');
 				if (divs.length > 0) {
 						divs.forEach(div => {
@@ -9003,7 +9047,44 @@ initializeGallery('.magnific');
 initializeGallery('.content .gallery');
 initializeGallery('.content .wp-block-gallery');
 
-	
+const commLinks = document.querySelectorAll('.wpd-reply-to');
+if (commLinks.length > 0) {
+	commLinks.forEach(el => {
+		const link = el.querySelector('a');
+		if (link) {
+			link.remove();
+		}
+	})
+}
+const commLinks2 = document.querySelectorAll('.comment-reply-title');
+if (commLinks2.length > 0) {
+	commLinks2.forEach(el => {
+		const link = el.querySelector('a');
+		if (link) {
+			link.remove();
+		}
+	})
+}
+const props = document.querySelectorAll('.req .left .item b');
+if (props.length > 0) {
+	function copytext(el) {
+		var $tmp = $("<textarea>");
+		$("body").append($tmp);
+		$tmp.val($(el).text()).select();
+		document.execCommand("copy");
+		$tmp.remove();
+	}
+	props.forEach(e => {
+		e.addEventListener('click', () => {
+			copytext(e);
+			e.classList.add('active');
+			setTimeout(() => {
+				e.classList.remove('active');
+			}, 1500);
+		})
+	})
+}
+
 }); //end
 jQuery(document).ready(function ($) {
   console.log('woocommerce JS')
@@ -9143,7 +9224,7 @@ jQuery(document).ready(function($) {
   const map = document.querySelector('section.map');
   if (map && !map.classList.contains('contacts-map')) {
     setTimeout(() => {
-      ymaps.ready(init); 
+      ymaps.ready(init);
       function init(){
         let center;
         if (window.screen.width > 992) {
@@ -9157,7 +9238,7 @@ jQuery(document).ready(function($) {
             controls: [],
             theme: "islands#dark"
         });
-        // Добавляем метку с кастомной иконкой
+
         var myPlacemark = new ymaps.Placemark([55.816793, 49.146452], {
             balloonContent: 'Офис "НЭТEР"'
         }, {
@@ -9165,14 +9246,31 @@ jQuery(document).ready(function($) {
             iconImageHref: '/wp-content/themes/main/img/icons/yandex.svg', // Замените на путь к вашей иконке
             iconImageSize: [45, 56], // Размер иконки
         });
+
+        myPlacemark.events.add('click', function (e) {
+          if (confirm("Открыть Яндекс.Навигатор для построения маршрута?")) {
+            if (navigator.geolocation) {
+              navigator.geolocation.getCurrentPosition(function(position) {
+                const userCoords = [position.coords.latitude, position.coords.longitude];
+                const destination = [55.816793, 49.146452];
+                const navigatorUrl = `https://yandex.ru/maps/?rtext=${userCoords[0]},${userCoords[1]}~${destination[0]},${destination[1]}&rtt=auto`;
+                window.open(navigatorUrl, '_blank');
+              });
+            } else {
+              alert("Геолокация не поддерживается вашим браузером");
+            }
+          }
+        });
+
         myMap.geoObjects.add(myPlacemark);
       }
     }, 5000);
   }
+
   const mapDelivery = document.querySelector('section.delivery-map');
   if (mapDelivery) {
     setTimeout(() => {
-      ymaps.ready(init); 
+      ymaps.ready(init);
       function init(){
         var myMap = new ymaps.Map("map", {
             center: [55.834637, 49.041699], // Центр карты (Казань)
@@ -9180,7 +9278,7 @@ jQuery(document).ready(function($) {
             controls: [],
             theme: "islands#dark"
         });
-        // Добавляем метку с кастомной иконкой
+
         var myPlacemark = new ymaps.Placemark([55.834637, 49.041699], {
             balloonContent: 'Офис самовывоза'
         }, {
@@ -9188,14 +9286,31 @@ jQuery(document).ready(function($) {
             iconImageHref: '/wp-content/themes/main/img/icons/yandex.svg', // Замените на путь к вашей иконке
             iconImageSize: [45, 56], // Размер иконки
         });
+
+        myPlacemark.events.add('click', function (e) {
+          if (confirm("Открыть Яндекс.Навигатор для построения маршрута?")) {
+            if (navigator.geolocation) {
+              navigator.geolocation.getCurrentPosition(function(position) {
+                const userCoords = [position.coords.latitude, position.coords.longitude];
+                const destination = [55.834637, 49.041699];
+                const navigatorUrl = `https://yandex.ru/maps/?rtext=${userCoords[0]},${userCoords[1]}~${destination[0]},${destination[1]}&rtt=auto`;
+                window.open(navigatorUrl, '_blank');
+              });
+            } else {
+              alert("Геолокация не поддерживается вашим браузером");
+            }
+          }
+        });
+
         myMap.geoObjects.add(myPlacemark);
       }
     }, 5000);
   }
+
   const mapContacts = document.querySelector('section.contacts-map');
   if (mapContacts) {
     setTimeout(() => {
-      ymaps.ready(init); 
+      ymaps.ready(init);
       function init(){
         var myMap = new ymaps.Map("map", {
             center: [55.833651, 39.051288], // Центр карты (Казань)
@@ -9203,7 +9318,7 @@ jQuery(document).ready(function($) {
             controls: [],
             theme: "islands#dark"
         });
-        // Добавляем метку с кастомной иконкой
+
         var myPlacemark = new ymaps.Placemark([55.833651, 49.051288], {
             balloonContent: 'Производство'
         }, {
@@ -9211,6 +9326,7 @@ jQuery(document).ready(function($) {
             iconImageHref: '/wp-content/themes/main/img/icons/yandex.svg', // Замените на путь к вашей иконке
             iconImageSize: [45, 56], // Размер иконки
         });
+
         var myPlacemark2 = new ymaps.Placemark([55.816793, 49.146452], {
             balloonContent: 'Офис продаж в Казани'
         }, {
@@ -9218,6 +9334,7 @@ jQuery(document).ready(function($) {
             iconImageHref: '/wp-content/themes/main/img/icons/yandex.svg', // Замените на путь к вашей иконке
             iconImageSize: [45, 56], // Размер иконки
         });
+
         var myPlacemark3 = new ymaps.Placemark([55.766233, 37.581101], {
             balloonContent: 'Офис продаж в Москве'
         }, {
@@ -9225,18 +9342,42 @@ jQuery(document).ready(function($) {
             iconImageHref: '/wp-content/themes/main/img/icons/yandex.svg', // Замените на путь к вашей иконке
             iconImageSize: [45, 56], // Размер иконки
         });
+
+        function addRouteEvent(placemark, coords) {
+          placemark.events.add('click', function (e) {
+            if (confirm("Открыть Яндекс.Навигатор для построения маршрута?")) {
+              if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                  const userCoords = [position.coords.latitude, position.coords.longitude];
+                  const navigatorUrl = `https://yandex.ru/maps/?rtext=${userCoords[0]},${userCoords[1]}~${coords[0]},${coords[1]}&rtt=auto`;
+                  window.open(navigatorUrl, '_blank');
+                });
+              } else {
+                alert("Геолокация не поддерживается вашим браузером");
+              }
+            }
+          });
+        }
+
+        addRouteEvent(myPlacemark, [55.833651, 49.051288]);
+        addRouteEvent(myPlacemark2, [55.816793, 49.146452]);
+        addRouteEvent(myPlacemark3, [55.766233, 37.581101]);
+
         myMap.geoObjects.add(myPlacemark);
         myMap.geoObjects.add(myPlacemark2);
         myMap.geoObjects.add(myPlacemark3);
+
+        // Добавление обработчиков событий для изменения центра карты
+        $('.item').on('click', function() {
+          const coords = $(this).data('coords');
+          myMap.setCenter(coords, 17, {
+            checkZoomRange: true
+          });
+        });
       }
     }, 5000);
   }
-  
 });
-
-
-
-
 jQuery(document).ready(function ($) {
 
 const calc = document.querySelector('.calculation');

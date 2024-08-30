@@ -1,5 +1,14 @@
 @import "../reset/_vars"
-
+@media (min-width: 992px)
+  .content
+    .block_category
+      .item
+        transition: .2s
+        &:hover
+          transition: .2s
+          box-shadow: 0px 4px 50px 0px rgba(0, 70, 84, 0.10)
+          .icon
+            transform: rotate(45deg)
 .content
   .block
     &_important-text
@@ -43,37 +52,43 @@
       flex-wrap: wrap
       justify-content: flex-start
       align-items: stretch
-      min-width: calc(100% + 25px)
+      min-width: calc(100% + 16px)
       margin-bottom: 40px
+      .swiper-wrapper
+        flex-wrap: wrap
       .item
         display: flex
+        flex-direction: column
         align-items: center
         justify-content: flex-start
-        width: calc(25% - 25px)
-        margin-right: 25px
+        width: calc(33.3% - 16px)
+        margin-right: 16px  
+        background-color: #fff
         border-radius: 24px
-        background-color: $gray_50
-        padding: 10px
+        background-color: #fff
+        margin-bottom: 16px
+        padding: 20px
+        padding-bottom: 0
         text-decoration: none
-        color: $text
         img
-          display: block
-          margin-right: 20px
-          width: 90px
-          height: 90px
-          object-fit: contain
-          object-position: center
-        b
-          font-size: 20px
-          font-weight: 700
-          letter-spacing: -0.6px
-          margin: 0
-          color: $text
-          transition: .2s
-        &:hover
+          margin: auto
+          max-width: 170px
+          margin-bottom: 0
+
+        .top
+          display: flex
+          justify-content: space-between
+          align-items: flex-start
+          width: 100%
           b
-            color: $green
-            transition: .2s
+            text-decoration: none
+            color: $text
+            font-size: 18px
+            font-weight: 500
+            letter-spacing: -0.5px
+            display: block
+            margin: 0
+            padding-right: 20px
     &_services
       display: block
       margin-bottom: 40px
@@ -132,6 +147,8 @@
           width: calc(50% - 4px)
           margin-bottom: 8px
           margin-right: 0
+        .swiper-wrapper
+          justify-content: space-between
 
 @media (max-width: 767px)
   .content
@@ -177,16 +194,32 @@
       &_category
         margin-bottom: 30px
         .item
-          border-radius: 16px
-          padding: 10px
+          padding: 16px
+          .top
+            b
+              font-size: 14px
+        
+
+@media (max-width: 578px)
+  .content
+    .block_category
+      .swiper
+        min-width: calc(100% + 30px)
+        position: relative
+        left: -15px
+        padding-left: 15px
+        padding-right: 25px
+      .item
+        width: 100%
+        margin: 0
+        .top
           b
-            font-size: 12px
-          img
-            width: 40px
-            height: 40px
-            margin-right: 10px
-
-
+            padding-right: 5px
+        img
+          max-width: 110px
+      .swiper-wrapper
+        flex-wrap: nowrap
+        justify-content: flex-start
 
 
 

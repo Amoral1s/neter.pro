@@ -2898,6 +2898,7 @@ a.button.button-transparent {
 .dgwt-wcas-open-pirx .dgwt-wcas-suggestions-wrapp {
   border-radius: 12px;
   box-shadow: 0 2px 5px rgba(10, 49, 65, 0.1);
+  overflow-x: hidden;
 }
 
 .content {
@@ -6270,7 +6271,8 @@ a.button.button-transparent {
   margin-bottom: 8px;
 }
 
-.footer-feat .wrap .item .meta a {
+.footer-feat .wrap .item .meta a,
+.footer-feat .wrap .item .meta span {
   font-size: 16px;
   font-weight: 400;
   color: #9CA3AF;
@@ -6348,6 +6350,15 @@ a.button.button-transparent {
   width: 332px;
   display: block;
   margin-left: 25px;
+}
+
+.footer-subscribe .wrap .right small a {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.footer-subscribe .wrap .right small a:hover {
+  color: #2CB4C2;
 }
 
 .footer-subscribe .wrap .left {
@@ -8690,7 +8701,8 @@ a.button.button-transparent {
     margin-bottom: 4px;
   }
 
-  .footer-feat .wrap .item .meta a {
+  .footer-feat .wrap .item .meta a,
+  .footer-feat .wrap .item .meta span {
     font-size: 14px;
   }
 

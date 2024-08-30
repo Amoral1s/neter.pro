@@ -10,3 +10,36 @@ Requires PHP: 7.4
 License: GNU General Public License v2 or later
 License URI: LICENSE
 */
+.product-thumbnails-lightbox {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.product-thumbnails-lightbox .product-thumbnail {
+  margin: 0 5px;
+}
+
+.product-thumbnails-lightbox .product-thumbnail img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  cursor: pointer;
+}
+#up-arr {
+	display: none!important
+}
+.cart-toggle {
+	right: auto;
+	left: 15px;
+}
+.b24-widget-button-wrapper {
+	z-index: 100!important;
+}
+.b24-widget-button-shadow {
+	z-index: 90!important;
+}
+.b24-widget-button-position-bottom-right {
+	right: 15px!important;
+	bottom: 15px!important;
+}

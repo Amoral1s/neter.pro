@@ -155,15 +155,7 @@
 <section class="news">
   <div class="container">
     <h2 class="title">Читайте также</h2>
-    <a href="<?php the_permalink(4452); ?>" class="all-news" style="display: none">
-      <span>Все статьи</span>
-      <div class="icon">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-          <path d="M17 7L6 18" stroke="#24B642" stroke-width="1.5" stroke-linecap="round"/>
-          <path d="M11 6H17C17.4714 6 17.7071 6 17.8536 6.14645C18 6.29289 18 6.5286 18 7V13" stroke="#24B642" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </div>
-    </a>
+    
     <div class="wrap slider-wrap">
       <div class="arr arr-prev">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">

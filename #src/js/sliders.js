@@ -10,7 +10,7 @@ jQuery(document).ready(function ($) {
       const arrNext = mainCatsWrapper.querySelector('.arr-next');
       const arrPrev = mainCatsWrapper.querySelector('.arr-prev');
     
-      new Swiper(swiper, {
+      const swiperInstance = new Swiper(swiper, {
         spaceBetween: 20,
         lazy: false,
         loop: false,
@@ -37,15 +37,18 @@ jQuery(document).ready(function ($) {
           767: {
             slidesPerView: 2,
             spaceBetween: 20,
-
           },
           992: {
             slidesPerView: 3,
             spaceBetween: 20,
-
           } 
         }
       });
+      
+      // Устанавливаем начальный слайд после инициализации
+      if (window.screen.width > 992) {
+       // swiperInstance.slideTo(1, 0);
+      }
 	}
 
   const newsSlider = document.querySelector('section.news');
@@ -219,6 +222,8 @@ jQuery(document).ready(function ($) {
 	if (vacancySlider) {
       const swiper = vacancySlider.querySelector('.swiper');
       const pagination = vacancySlider.querySelector('.dots');
+      const arrNext = vacancySlider.querySelector('.arr-next');
+      const arrPrev = vacancySlider.querySelector('.arr-prev');
 
       let feedSwiper = new Swiper(swiper, {
         spaceBetween: 0,
@@ -227,7 +232,11 @@ jQuery(document).ready(function ($) {
         pagination: {
           el: pagination,
           clickable: true,
-        }
+        },
+        navigation: {
+          nextEl: arrNext,
+          prevEl: arrPrev
+        },
       });
 
 	}
@@ -383,6 +392,17 @@ jQuery(document).ready(function ($) {
               el: pagination,
               clickable: false,
             }
+          });
+        })
+    }
+    const catSliderPost = document.querySelectorAll('.content .block_category');
+    if (catSliderPost.length > 0) {
+        catSliderPost.forEach(elem => {
+          const swiper = elem.querySelector('.swiper');
+          new Swiper(swiper, {
+            spaceBetween: 8,
+            autoHeight: false,
+            slidesPerView: 2,
           });
         })
     }

@@ -69,40 +69,50 @@
   <div class="footer-menu">
     <div class="container">
       <nav class="wrap" itemscope itemtype="http://schema.org/SiteNavigationElement">
-        <?php if (have_rows('footer_menu_columns', 'options')) : while(have_rows('footer_menu_columns', 'options')) : the_row(); ?>
+        <?php if (have_rows('footer_menu_columns', 'options')) : while (have_rows('footer_menu_columns', 'options')) : the_row(); ?>
           <div class="column" itemprop="about" itemscope itemtype="http://schema.org/ItemList">
-              <?php if (have_rows('block')) : while(have_rows('block')) : the_row(); ?>
-                <?php if (get_sub_field('title_link')) : ?>
-                  <a class="list-title" href="<?php echo get_sub_field('title_link'); ?>">
-                   <span><?php echo get_sub_field('title'); ?></span>
-                   <meta itemprop="name" content="<?php the_sub_field('title'); ?>">
-                  </a>
-                <?php else : ?>
-                  <b class="list-title"><?php echo get_sub_field('title'); ?></b>
-                <?php endif; ?>
-                <?php if (have_rows('list')) : ?>
-                  <ul class="block">
-                    <?php 
-                      global $wp; 
-                      $current_path = $wp->request; // Получаем путь текущей страницы
-                      while(have_rows('list')) : the_row(); 
-                        $menu_url = get_sub_field('link'); // Получаем относительный URL из ACF
-                        $menu_path = trim(parse_url($menu_url, PHP_URL_PATH), '/'); // Убираем начальный и конечный слеши и получаем путь без домена
-                    ?>
-                      <?php if ($menu_path == $current_path) : ?>
-                        <li>
-                          <span><?php the_sub_field('nazvanie'); ?></span>
-                          <meta itemprop="name" content="<?php the_sub_field('nazvanie'); ?>">
-                        </li>
+              <?php if (have_rows('block')) : while (have_rows('block')) : the_row(); ?>
+                  <?php if (get_sub_field('title_link')) : ?>
+                      <?php 
+                          $title_link = get_sub_field('title_link');
+                          $title_path = trim(parse_url($title_link, PHP_URL_PATH), '/');
+                          $current_path = trim(parse_url(home_url($wp->request), PHP_URL_PATH), '/');
+                      ?>
+                      <?php if ($title_path == $current_path) : ?>
+                          <span class="list-title">
+                            <span><?php echo esc_html(get_sub_field('title')); ?></span>
+                            <meta itemprop="name" content="<?php echo esc_attr(get_sub_field('title')); ?>">
+                          </span>
                       <?php else : ?>
-                        <li>
-                          <a href="<?php echo esc_url($menu_url); ?>"><?php the_sub_field('nazvanie'); ?></a>
-                          <meta itemprop="name" content="<?php the_sub_field('nazvanie'); ?>">
-                        </li>
-                      <?php  endif; ?>
-                    <?php endwhile; ?>
-                  </ul>
-                <?php endif; ?>
+                          <a class="list-title" href="<?php echo esc_url($title_link); ?>">
+                              <span><?php echo esc_html(get_sub_field('title')); ?></span>
+                              <meta itemprop="name" content="<?php echo esc_attr(get_sub_field('title')); ?>">
+                          </a>
+                      <?php endif; ?>
+                  <?php else : ?>
+                      <b class="list-title"><?php echo esc_html(get_sub_field('title')); ?></b>
+                  <?php endif; ?>
+                  <?php if (have_rows('list')) : ?>
+                      <ul class="block">
+                          <?php 
+                              while (have_rows('list')) : the_row(); 
+                                  $menu_url = get_sub_field('link');
+                                  $menu_path = trim(parse_url($menu_url, PHP_URL_PATH), '/');
+                          ?>
+                              <?php if ($menu_path == $current_path) : ?>
+                                  <li>
+                                      <span><?php the_sub_field('nazvanie'); ?></span>
+                                      <meta itemprop="name" content="<?php the_sub_field('nazvanie'); ?>">
+                                  </li>
+                              <?php else : ?>
+                                  <li>
+                                      <a href="<?php echo esc_url($menu_url); ?>"><?php the_sub_field('nazvanie'); ?></a>
+                                      <meta itemprop="name" content="<?php the_sub_field('nazvanie'); ?>">
+                                  </li>
+                              <?php endif; ?>
+                          <?php endwhile; ?>
+                      </ul>
+                  <?php endif; ?>
               <?php endwhile; endif; ?>
           </div>
         <?php endwhile; endif; ?>
@@ -120,9 +130,15 @@
           </div>
           <div class="meta">
             <b>Производство</b>
-            <a href="<?php echo get_permalink(247); ?>" class="address">
-              <?php echo get_field('addr_prod', 'options'); ?>
-            </a>
+            <?php 
+              $prod_permalink = get_permalink(247); 
+              $prod_addr = get_field('addr_prod', 'options');
+              if (is_page(247)) {
+                echo '<span class="address">' . $prod_addr . '</span>';
+              } else {
+                echo '<a href="' . $prod_permalink . '" class="address">' . $prod_addr . '</a>';
+              }
+            ?>
           </div>
         </div>
         <div class="item">
@@ -133,9 +149,15 @@
           </div>
           <div class="meta">
             <b>Офис</b>
-            <a href="<?php echo get_permalink(247); ?>" class="address">
-              <?php echo get_field('addr_office', 'options'); ?>
-            </a>
+            <?php 
+              $prod_permalink = get_permalink(247); 
+              $prod_addr = get_field('addr_office', 'options');
+              if (is_page(247)) {
+                echo '<span class="address">' . $prod_addr . '</span>';
+              } else {
+                echo '<a href="' . $prod_permalink . '" class="address">' . $prod_addr . '</a>';
+              }
+            ?>
           </div>
         </div>
         <div class="dir">
@@ -165,9 +187,8 @@
           <div class="form">
             <?php echo do_shortcode('[contact-form-7 id="7a3df62" title="Подписка Unisender Подвал"]'); ?>
           </div>
-         
           <small>
-            Высылаем только самые полезные и интересные материалы не чаще одного раза в неделю
+            Вы даёте согласие на обработку <a href="/privacy-policy" target="blank">персональных данных</a> и получение рекламных сообщений
           </small>
         </div>
       </div>
@@ -622,7 +643,7 @@
           <path d="M2.39996 2H3.36596C4.31064 2 5.1341 2.62459 5.36322 3.51493L8.33848 15.0765C8.48883 15.6608 8.36016 16.2797 7.9882 16.7616L7.03209 18" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
         </svg>
       </div>
-      <p>Рассчитать стоимость</p>
+      <p>Узнать стоимость</p>
       <div class="cart-count">0</div>
     </div>
   </div>
@@ -643,7 +664,6 @@
     </div>
     <div class="filters-wrapper">
       <?php echo do_shortcode('[wpf-filters id=2]'); ?>
-      <?php //echo do_shortcode('[wpf-filters id=6]'); ?>
     </div>
     <div class="buttons">
       <div class="button filers-popup-confirm">
@@ -657,6 +677,11 @@
 </div>
 <!-- Filters popup END -->
 
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+   
+  });
+</script>
 
 <?php wp_footer(); ?>
 

@@ -39,6 +39,12 @@ if (is_shop() && !is_search()) {
 			$term = get_queried_object();
 			$term_id = $term->term_id;
 			// Ваш код здесь, используя $term_id
+			$term_tax = null;
+			if ($term && property_exists($term, 'taxonomy')) {
+				$term_tax = $term->taxonomy;
+			} else {
+					$term_tax = null;
+			}
 		}
 		$current_page = get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1;
 	?>
@@ -49,7 +55,11 @@ if (is_shop() && !is_search()) {
 			?>
 			<div class="wrap">
 				<h1 class="page-title sub">
-					<?php woocommerce_page_title(); ?>
+					<?php if (get_field('title', $term_tax.'_'. $term_id)) : ?>
+						<?php echo get_field('title', $term_tax .'_'. $term_id); ?>
+					<?php else : ?>
+						<?php woocommerce_page_title(); ?>
+					<?php endif; ?>
 					<?php 
 						if (is_paged()) {
 							echo ' - страница ' . $current_page; 
@@ -138,48 +148,62 @@ if (is_product_category() || is_tax()) {
 	<div class="shop-catalog-wrapper">
 		<div class="shop-catalog-top">
 			<div class="container">
-				<h2 class="title">Каталог товаров</h2>
-				<?php
-				// Получаем текущую категорию
-				$current_category = get_queried_object();
-				$current_category_id = $current_category->term_id;
+					<h2 class="title">Каталог товаров</h2>
+					<?php
+							// Получаем текущую категорию
+							$current_category = get_queried_object();
+							$current_category_id = $current_category->term_id;
+							$parent_category_id = $current_category->parent;
 
-				// Получаем дочерние категории
-				$args = array(
-						'child_of' => $current_category_id,
-						'taxonomy' => 'product_cat',
-						'hide_empty' => false,
-				);
-				$subcategories = get_terms($args);
+							// Получаем дочерние категории текущей категории или родительской категории
+							$args = array(
+									'child_of' => $parent_category_id ? $parent_category_id : $current_category_id,
+									'taxonomy' => 'product_cat',
+									'hide_empty' => false,
+							);
+							$categories = get_terms($args);
 
-				if (!empty($subcategories)) : ?>
-						<div class="shop-categories">
-								<?php foreach ($subcategories as $subcategory) :
-										$subcategory_id = $subcategory->term_id;
-										$subcategory_link = get_term_link($subcategory);
-										$subcategory_name = $subcategory->name;
-										
-										// Получаем изображение категории
-										$thumbnail_id = get_term_meta($subcategory_id, 'thumbnail_id', true);
-										$image_url = wp_get_attachment_image_src($thumbnail_id, 'woocommerce_thumbnail');
-										$image_alt = esc_attr($subcategory_name);
+							// Получаем родительскую категорию, если она существует
+							if ($parent_category_id) {
+									$parent_category = get_term($parent_category_id, 'product_cat');
+									if ($parent_category && !is_wp_error($parent_category)) {
+											$categories[] = $parent_category;
+									}
+							}
 
-										// Если изображение не найдено, используем стандартное изображение WooCommerce
-										if (!$image_url) {
-												$image_url = wc_placeholder_img_src('woocommerce_thumbnail');
-										} else {
-												$image_url = $image_url[0];
-										}
-										?>
-										<a href="<?php echo esc_url($subcategory_link); ?>" class="item">
-												<div class="icon">
-														<img src="<?php echo esc_url($image_url); ?>" alt="<?php echo $image_alt; ?>" />
-												</div>
-												<p><?php echo esc_html($subcategory_name); ?></p>
-										</a>
-								<?php endforeach; ?>
-						</div>
-				<?php endif; ?>
+							// Фильтруем категории, исключая текущую категорию
+							$categories = array_filter($categories, function($category) use ($current_category_id) {
+									return $category->term_id != $current_category_id;
+							});
+
+					if (!empty($categories)) : ?>
+							<div class="shop-categories">
+									<?php foreach ($categories as $category) :
+											$category_id = $category->term_id;
+											$category_link = get_term_link($category);
+											$category_name = $category->name;
+
+											// Получаем изображение категории
+											$thumbnail_id = get_term_meta($category_id, 'thumbnail_id', true);
+											$image_url = wp_get_attachment_image_src($thumbnail_id, 'woocommerce_thumbnail');
+											$image_alt = esc_attr($category_name);
+
+											// Если изображение не найдено, используем стандартное изображение WooCommerce
+											if (!$image_url) {
+													$image_url = wc_placeholder_img_src('woocommerce_thumbnail');
+											} else {
+													$image_url = $image_url[0];
+											}
+											?>
+											<a href="<?php echo esc_url($category_link); ?>" class="item">
+													<div class="icon">
+															<img src="<?php echo esc_url($image_url); ?>" alt="<?php echo $image_alt; ?>" />
+													</div>
+													<p><?php echo esc_html($category_name); ?></p>
+											</a>
+									<?php endforeach; ?>
+							</div>
+					<?php endif; ?>
 			</div>
 		</div>
 		<?php $filter_class = 'all'; ?>
@@ -210,7 +234,6 @@ if (is_product_category() || is_tax()) {
 			<div class="container">
 				<div class="wrap">
 					<?php echo do_shortcode('[wpf-filters id=3]'); ?>
-					<?php //echo do_shortcode('[wpf-filters id=5]'); ?>
 					<div class="button call-filters">
 						<div class="icon">
 							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -282,11 +305,11 @@ if (is_product_category() || is_tax()) {
 													<div class="header-title"><?php esc_html_e('Наименование', 'woocommerce'); ?></div>
 													<div class="header-wrapper">
 															<div class="header-attribute">Тип химии</div>
-															<div class="header-attribute">Серия</div>
-															<div class="header-attribute">Номинальная <br>емкость&nbsp;(Ah)</div>
 															<div class="header-attribute">Напряжение&nbsp;(V)</div>
+															<div class="header-attribute">Номинальная <br>емкость&nbsp;(Ah)</div>
+															<div class="header-attribute">Макс. ток <br>разряда АБ</div>
 															<div class="header-attribute">Габариты&nbsp;(мм)</div>
-															<div class="header-attribute">Вес&nbsp;(гр)</div>
+															<div class="header-attribute">Вес&nbsp;(кг)</div>
 													</div>
 											</div>
 									<?php } elseif (is_category_or_child_of('bms-plata', $current_category)) { ?>
@@ -294,11 +317,11 @@ if (is_product_category() || is_tax()) {
 													<div class="header-title"><?php esc_html_e('Наименование', 'woocommerce'); ?></div>
 													<div class="header-wrapper">
 															<div class="header-attribute">Тип химии</div>
-															<div class="header-attribute">Серия</div>
-															<div class="header-attribute">Защита от перезаряда</div>
 															<div class="header-attribute">Напряжение&nbsp;(V)</div>
+															<div class="header-attribute">Серия</div>
 															<div class="header-attribute">Ток заряда</div>
-															<div class="header-attribute">Вес&nbsp;(гр)</div>
+															<div class="header-attribute">Ток разряда</div>
+															<div class="header-attribute">Вес&nbsp;(кг)</div>
 													</div>
 											</div>
 									<?php } elseif (is_category_or_child_of('akkumulyatornye-yacheyki', $current_category)) { ?>
@@ -306,11 +329,11 @@ if (is_product_category() || is_tax()) {
 													<div class="header-title"><?php esc_html_e('Наименование', 'woocommerce'); ?></div>
 													<div class="header-wrapper">
 															<div class="header-attribute">Тип химии</div>
-															<div class="header-attribute">Токоотдача</div>
-															<div class="header-attribute">Номинальная <br>емкость&nbsp;(mAh)</div>
+															<div class="header-attribute">Номинальная <br>емкость&nbsp;(Ah)</div>
 															<div class="header-attribute">Напряжение&nbsp;(V)</div>
+															<div class="header-attribute">Токоотдача</div>
 															<div class="header-attribute">Габариты&nbsp;(мм)</div>
-															<div class="header-attribute">Вес&nbsp;(гр)</div>
+															<div class="header-attribute">Вес&nbsp;(кг)</div>
 													</div>
 											</div>
 									<?php } elseif (is_category_or_child_of('zaryadnye-ustrojstva-dlya-akkumulyatorov', $current_category)) { ?>
@@ -318,11 +341,10 @@ if (is_product_category() || is_tax()) {
 													<div class="header-title"><?php esc_html_e('Наименование', 'woocommerce'); ?></div>
 													<div class="header-wrapper">
 															<div class="header-attribute">Тип химии</div>
-															<div class="header-attribute">Серия</div>
 															<div class="header-attribute">Напряжение заряда</div>
-															<div class="header-attribute">Напряжение&nbsp;(V)</div>
+															<div class="header-attribute">Серия</div>
 															<div class="header-attribute">Ток заряда</div>
-															<div class="header-attribute">Вес&nbsp;(гр)</div>
+															<div class="header-attribute">Вес&nbsp;(кг)</div>
 													</div>
 											</div>
 									<?php } else { ?>
@@ -335,14 +357,14 @@ if (is_product_category() || is_tax()) {
 						<div class="table-header">
 							<div class="header-title"><?php esc_html_e('Наименование', 'woocommerce'); ?></div>
 							<div class="header-wrapper">
-								<div class="header-attribute">Тип химии</div>
-								<div class="header-attribute">Серия</div>
-								<div class="header-attribute">Номинальная <br>емкость&nbsp;(Ah)</div>
-								<div class="header-attribute">Напряжение&nbsp;(V)</div>
-								<div class="header-attribute">Габариты&nbsp;(мм)</div>
-								<div class="header-attribute">Вес&nbsp;(гр)</div>
+									<div class="header-attribute">Тип химии</div>
+									<div class="header-attribute">Напряжение&nbsp;(V)</div>
+									<div class="header-attribute">Номинальная <br>емкость&nbsp;(Ah)</div>
+									<div class="header-attribute">Макс. ток <br>разряда АБ</div>
+									<div class="header-attribute">Габариты&nbsp;(мм)</div>
+									<div class="header-attribute">Вес&nbsp;(кг)</div>
 							</div>
-						</div>
+					</div>
 				<?php endif; ?>
 				
 
@@ -356,7 +378,6 @@ if (is_product_category() || is_tax()) {
 				if ( wc_get_loop_prop( 'total' ) ) {
 					while ( have_posts() ) {
 						the_post();
-
 						/**
 						 * Hook: woocommerce_shop_loop.
 						 */
@@ -370,6 +391,7 @@ if (is_product_category() || is_tax()) {
 
 				<?php
 				woocommerce_product_loop_end();
+				
 
 				/**
 				 * Hook: woocommerce_after_shop_loop.
@@ -385,7 +407,8 @@ if (is_product_category() || is_tax()) {
 				 */
 				do_action( 'woocommerce_no_products_found' );
 			}
-
+			?>
+				<?php
 			/**
 			 * Hook: woocommerce_after_main_content.
 			 *
@@ -502,32 +525,57 @@ if (is_product_category() || is_tax()) {
 					</div>
 				</div>
 				<div class="wrap swiper">
-					<div class="swiper-wrapper">
-						<?php if (have_rows('cats','options')) : while(have_rows('cats','options')) : the_row(); ?>
-							<?php if (get_sub_field('view') == 'double') : ?>
-								<div class="item double swiper-slide">
-									<?php if (have_rows('double')) : while(have_rows('double')) : the_row(); ?>
-										<a href="<?php echo get_sub_field('link'); ?>" class="item-part" style="background-image: url(<?php echo get_sub_field('img'); ?>);">
-											<span><?php echo get_sub_field('subtitle'); ?></span>
-											<b <?php if (get_sub_field('img_place') == 'left') { echo 'class="left"'; } ?>>
-												<?php echo get_sub_field('title'); ?>
-											</b>
-										</a>
-									<?php endwhile; endif; ?>
-								</div>
-							<?php else : ?>
-								<?php if (have_rows('onest')) : while(have_rows('onest')) : the_row(); ?>
-								<a href="<?php echo get_sub_field('link'); ?>" class="item onest swiper-slide" style="background-image: url(<?php echo get_sub_field('img'); ?>);">
-									<span><?php echo get_sub_field('subtitle'); ?></span>
-									<b><?php echo get_sub_field('title'); ?></b>
-									<p>
-										<?php echo get_sub_field('content'); ?>
-									</p>
-								</a>
-								<?php endwhile; endif; ?>
-							<?php endif; ?>
+				<div class="swiper-wrapper">
+						<?php 
+							global $wp;
+							$current_path = trim(parse_url(home_url($wp->request), PHP_URL_PATH), '/'); // Получаем путь текущей страницы
+						?>
+						<?php if (have_rows('cats', 'options')) : while (have_rows('cats', 'options')) : the_row(); ?>
+								<?php if (get_sub_field('view') == 'double') : ?>
+										<div class="item double swiper-slide">
+												<?php if (have_rows('double')) : while (have_rows('double')) : the_row(); 
+														$link = get_sub_field('link');
+														$link_path = trim(parse_url($link, PHP_URL_PATH), '/');
+												?>
+														<?php if ($link_path == $current_path) : ?>
+																<span class="item-part" style="background-image: url(<?php echo esc_url(get_sub_field('img')); ?>);">
+																		<span><?php echo esc_html(get_sub_field('subtitle')); ?></span>
+																		<b <?php if (get_sub_field('img_place') == 'left') { echo 'class="left"'; } ?>>
+																				<?php echo esc_html(get_sub_field('title')); ?>
+																		</b>
+																</span>
+														<?php else : ?>
+																<a href="<?php echo esc_url($link); ?>" class="item-part" style="background-image: url(<?php echo esc_url(get_sub_field('img')); ?>);">
+																		<span><?php echo esc_html(get_sub_field('subtitle')); ?></span>
+																		<b <?php if (get_sub_field('img_place') == 'left') { echo 'class="left"'; } ?>>
+																				<?php echo esc_html(get_sub_field('title')); ?>
+																		</b>
+																</a>
+														<?php endif; ?>
+												<?php endwhile; endif; ?>
+										</div>
+								<?php else : ?>
+										<?php if (have_rows('onest')) : while (have_rows('onest')) : the_row(); 
+												$link = get_sub_field('link');
+												$link_path = trim(parse_url($link, PHP_URL_PATH), '/');
+										?>
+												<?php if ($link_path == $current_path) : ?>
+														<span class="item onest swiper-slide" style="background-image: url(<?php echo esc_url(get_sub_field('img')); ?>);">
+																<span><?php echo esc_html(get_sub_field('subtitle')); ?></span>
+																<b><?php echo esc_html(get_sub_field('title')); ?></b>
+																<p><?php echo esc_html(get_sub_field('content')); ?></p>
+														</span>
+												<?php else : ?>
+														<a href="<?php echo esc_url($link); ?>" class="item onest swiper-slide" style="background-image: url(<?php echo esc_url(get_sub_field('img')); ?>);">
+																<span><?php echo esc_html(get_sub_field('subtitle')); ?></span>
+																<b><?php echo esc_html(get_sub_field('title')); ?></b>
+																<p><?php echo esc_html(get_sub_field('content')); ?></p>
+														</a>
+												<?php endif; ?>
+										<?php endwhile; endif; ?>
+								<?php endif; ?>
 						<?php endwhile; endif; ?>
-					</div>
+				</div>
 				</div>
 				<div class="dots"></div>
 			</div>
@@ -656,7 +704,7 @@ if (is_product_category() || is_tax()) {
 
 		<?php if (get_field('off_faq', 'term_' . $term_id) == false) : ?>
 			<?php if (get_field('faq_uniq', 'term_' . $term_id) == false) : ?>
-			<section class="faq">
+			<section itemscope itemtype="https://schema.org/FAQPage" class="faq">
 				<div class="container">
 					<div class="wrap">
 						<div class="left">
@@ -679,8 +727,8 @@ if (is_product_category() || is_tax()) {
 						</div>
 						<div class="right">
 							<?php if (have_rows('faq','options')) : while(have_rows('faq','options')) : the_row(); ?>
-								<div class="item">
-									<h3 class="item-title">
+								<div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="item">
+									<h3 itemprop="name" class="item-title">
 										<?php echo get_sub_field('title'); ?>
 										<div class="icon">
 											<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -688,7 +736,7 @@ if (is_product_category() || is_tax()) {
 											</svg>
 										</div>
 									</h3>
-									<div class="item-content content">
+									<div itemscope itemprop="acceptedAnswer" class="item-content content">
 										<?php echo get_sub_field('text'); ?>
 									</div>
 								</div>
@@ -698,7 +746,7 @@ if (is_product_category() || is_tax()) {
 				</div>
 			</section>
 			<?php else : ?>
-			<section class="faq">
+			<section itemscope itemtype="https://schema.org/FAQPage" class="faq">
 				<div class="container">
 					<div class="wrap">
 						<div class="left">
@@ -721,8 +769,8 @@ if (is_product_category() || is_tax()) {
 						</div>
 						<div class="right">
 							<?php if (have_rows('faq', 'term_' . $term_id)) : while(have_rows('faq', 'term_' . $term_id)) : the_row(); ?>
-								<div class="item">
-									<h3 class="item-title">
+								<div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="item">
+									<h3 itemprop="name" class="item-title">
 										<?php echo get_sub_field('title'); ?>
 										<div class="icon">
 											<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -730,7 +778,7 @@ if (is_product_category() || is_tax()) {
 											</svg>
 										</div>
 									</h3>
-									<div class="item-content content">
+									<div itemscope itemprop="acceptedAnswer" class="item-content content">
 										<?php echo get_sub_field('text'); ?>
 									</div>
 								</div>
@@ -781,6 +829,7 @@ if (is_product_category() || is_tax()) {
 			}
 		});
 	</script>
+
 
 <?php endif; ?>
 
@@ -857,15 +906,14 @@ if (is_product_category() || is_tax()) {
 			 */
 			do_action( 'woocommerce_before_shop_loop' ); ?>
 			<div class="table-header">
-				<div class="header-title"><?php esc_html_e( 'Модель аккумулятора', 'woocommerce' ); ?></div>
+				<div class="header-title"><?php esc_html_e('Наименование', 'woocommerce'); ?></div>
 				<div class="header-wrapper">
-					<div class="header-attribute">Номинальная <br>емкость&nbsp;(мАч)</div>
+					<div class="header-attribute">Тип химии</div>
+					<div class="header-attribute">Серия</div>
+					<div class="header-attribute">Номинальная <br>емкость&nbsp;(Ah)</div>
 					<div class="header-attribute">Напряжение&nbsp;(V)</div>
 					<div class="header-attribute">Габариты&nbsp;(мм)</div>
-					<div class="header-attribute">Вес&nbsp;(гр)</div>
-					<div class="header-attribute">Постоянный ток&nbsp;(C)</div>
-					<div class="header-attribute">Пиковый ток&nbsp;(C)</div>
-					<!-- <div class="header-attribute price">Стоимость</div> -->
+					<div class="header-attribute">Вес&nbsp;(кг)</div>
 				</div>
 			</div>
 

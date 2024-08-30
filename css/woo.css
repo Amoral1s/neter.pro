@@ -319,7 +319,7 @@
 }
 
 .catalog-page .single-product-right .single-btns .single_add_to_cart_button {
-  width: 190px;
+  width: 240px;
   position: relative;
   margin-right: 16px;
 }
@@ -940,6 +940,11 @@
   letter-spacing: -0.5px;
   color: #0A3141;
   transition: 0.2s;
+}
+
+.pswp__caption {
+  opacity: 0;
+  pointer-events: none;
 }
 
 .related {
@@ -2300,10 +2305,11 @@
   display: none !important;
 }
 
-.shop-catalog-filters.all .wpfFilterWrapper[data-get-attribute=wpf_filter_material-korpusa],
 .shop-catalog-filters.all .wpfFilterWrapper[data-get-attribute=wpf_filter_tokootdacha],
 .shop-catalog-filters.all .wpfFilterWrapper[data-get-attribute=wpf_filter_napryazhenie-zaryada],
-.shop-catalog-filters.all .wpfFilterWrapper[data-get-attribute=wpf_filter_tok-zaryada-zaryada] {
+.shop-catalog-filters.all .wpfFilterWrapper[data-get-attribute=wpf_filter_tok-zaryada-zaryada],
+.shop-catalog-filters.all .wpfFilterWrapper[data-get-attribute=wpf_filter_tok-zaryada],
+.shop-catalog-filters.all .wpfFilterWrapper[data-get-attribute=wpf_filter_seriya] {
   display: none !important;
 }
 

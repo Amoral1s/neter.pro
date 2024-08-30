@@ -8,55 +8,94 @@ global $product;
 if ( empty( $product ) || ! $product->is_visible() ) {
 	return;
 }
+
+
+
+// Инициализируем переменную для хранения текущей категории
+$current_category = ''; 
+
+// Получаем текущий объект категории
+$queried_object = get_queried_object();
+
+// Проверяем, определена ли категория на основе текущего URL
+if ($queried_object && is_a($queried_object, 'WP_Term')) {
+    // Проверяем, есть ли родительская категория
+    if ($queried_object->parent) {
+        // Получаем основную (родительскую) категорию
+        $parent_category = get_term($queried_object->parent, 'product_cat');
+        $current_category = $parent_category->slug;
+    } else {
+        // Если родительской категории нет, используем текущую
+        $current_category = $queried_object->slug;
+    }
+}
+
+// Если категория не определена через текущий объект (например, при AJAX-запросе), проверяем HTTP_REFERER
+if (empty($current_category)) {
+    $current_url = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '';
+
+    if (strpos($current_url, 'akkumulyatornye-batarei') !== false) {
+        $current_category = 'akkumulyatornye-batarei';
+    } elseif (strpos($current_url, 'bms-plata') !== false) {
+        $current_category = 'bms-plata';
+    } elseif (strpos($current_url, 'akkumulyatornye-yacheyki') !== false) {
+        $current_category = 'akkumulyatornye-yacheyki';
+    } elseif (strpos($current_url, 'zaryadnye-ustrojstva-dlya-akkumulyatorov') !== false) {
+        $current_category = 'zaryadnye-ustrojstva-dlya-akkumulyatorov';
+    }
+}
+
+// Определяем атрибуты для отображения на основе текущей категории
 $attributes_to_display = array(
-	'pa_tip-himii', 
-	'pa_seriya', 
-	'pa_emkost-mah', 
-	'pa_napryazhenie', 
-	'pa_gabarity-mm', 
-	'pa_ves-gr' 
+    'pa_tip-himii', 
+    'pa_napryazhenie', 
+    'pa_emkost-ah', 
+    'pa_maks-tok-razryada-ab', 
+    'pa_gabarity-mm', 
+    'pa_ves-kg'  
 );
 
-if (is_product_category()) :
-	// Массив атрибутов, которые нужно вывести
-	if (is_product_category('akkumulyatornye-batarei')) :
-		$attributes_to_display = array(
-			'pa_tip-himii', 
-			'pa_seriya', 
-			'pa_emkost-mah', 
-			'pa_napryazhenie', 
-			'pa_gabarity-mm', 
-			'pa_ves-gr' 
-		);
-		elseif (is_product_category('bms-plata')) :
-			$attributes_to_display = array(
-				'pa_tip-himii', 
-				'pa_seriya', 
-				'pa_zashhita-ot-perezaryada', 
-				'pa_napryazhenie', 
-				'pa_tok-zaryada', 
-				'pa_ves-gr' 
-			);
-		elseif (is_product_category('akkumulyatornye-yacheyki')) :
-			$attributes_to_display = array(
-				'pa_tip-himii', 
-				'pa_tokootdacha', 
-				'pa_emkost-mah', 
-				'pa_napryazhenie', 
-				'pa_gabarity-mm', 
-				'pa_ves-gr' 
-			);
-		elseif (is_product_category('zaryadnye-ustrojstva-dlya-akkumulyatorov')) :
-			$attributes_to_display = array(
-				'pa_tip-himii', 
-				'pa_seriya', 
-				'pa_napryazhenie-zaryada', 
-				'pa_napryazhenie', 
-				'pa_tok-zaryada', 
-				'pa_ves-gr' 
-		);
-	endif;
-endif;
+if ($current_category) {
+    if ($current_category == 'akkumulyatornye-batarei') {
+        $attributes_to_display = array(
+            'pa_tip-himii', 
+            'pa_napryazhenie', 
+            'pa_emkost-ah', 
+            'pa_maks-tok-razryada-ab', 
+            'pa_gabarity-mm', 
+            'pa_ves-kg' 
+        );
+    } elseif ($current_category == 'bms-plata') {
+        $attributes_to_display = array(
+            'pa_tip-himii', 
+            'pa_napryazhenie', 
+            'pa_seriya', 
+            'pa_tok-zaryada', 
+            'pa_tok-razryada', 
+            'pa_ves-kg' 
+        );
+    } elseif ($current_category == 'akkumulyatornye-yacheyki') {
+        $attributes_to_display = array(
+            'pa_tip-himii', 
+            'pa_emkost-ah', 
+            'pa_napryazhenie', 
+            'pa_tokootdacha', 
+            'pa_gabarity-mm', 
+            'pa_ves-kg' 
+        );
+    } elseif ($current_category == 'zaryadnye-ustrojstva-dlya-akkumulyatorov') {
+        $attributes_to_display = array(
+            'pa_tip-himii', 
+            'pa_napryazhenie-zaryada', 
+            'pa_seriya', 
+            'pa_tok-zaryada', 
+            'pa_ves-kg' 
+        );
+    }
+}
+
+
+
 
 // Получаем все атрибуты продукта
 $attributes = $product->get_attributes();

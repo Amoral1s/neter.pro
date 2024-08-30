@@ -34,7 +34,12 @@ get_header();
           <?php endwhile; endif; ?>
         </div>
       </div>
-      <div class="right">
+      <div class="right slider-wrap">
+        <div class="arr arr-prev">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M14.9999 6L9.70703 11.2929C9.37369 11.6262 9.20703 11.7929 9.20703 12C9.20703 12.2071 9.37369 12.3738 9.70703 12.7071L14.9999 18" stroke="#2CB4C2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
         <div class="swiper">
           <div class="swiper-wrapper magnific">
             <?php $gallery = get_field('gallery'); if ($gallery) : ?>
@@ -48,6 +53,11 @@ get_header();
               </a>
             <?php endforeach; endif; ?>
           </div>
+        </div>
+        <div class="arr arr-next">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M9.00008 6L14.293 11.2929C14.6263 11.6262 14.793 11.7929 14.793 12C14.793 12.2071 14.6263 12.3738 14.293 12.7071L9.00008 18" stroke="#2CB4C2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
         </div>
         <div class="dots"></div>
       </div>

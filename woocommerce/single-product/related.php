@@ -75,13 +75,12 @@ if ( $all_products->have_posts() ) {
     }
 
     // Если недостаточно, добавляем записи до текущего в обратном порядке
-    if ( count( $related_products ) < 10 ) {
-        for ( $i = $current_index - 1; $i >= 0 && count( $related_products ) < 10; $i-- ) {
-            $related_products[] = $products_array[$i];
+    if ( count( $related_products ) < 20 ) {
+        for ( $i = $current_index - 1; $i >= 0 && count( $related_products ) < 20; $i-- ) {
+            array_unshift($related_products, $products_array[$i]);
         }
     }
 }
-
 if ( !empty( $related_products ) ) : ?>
 
 <section class="related">

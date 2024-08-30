@@ -82,12 +82,12 @@ class True_Walker_Nav_Menu extends Walker_Nav_Menu {
 	
 		// ссылка и околоссылочный текст
 		$item_output = $args->before;
-		if ($item->current == 1 || strlen($item->url) < 2) {
-			$item_output .= '<span class="main-nav-item">';
+		if ($item->current == 1 || $item->url == '#') {
+			$item_output .= '<span itemprop="url">';
 			$item_output .= $args->link_before . apply_filters( 'the_title', $item->title, $item->ID ) . $args->link_after;
 			$item_output .= '</span>';
 		} else {
-			$item_output .= '<a class="main-nav-item" itemprop="url"'. $attributes .'>';
+			$item_output .= '<a itemprop="url"'. $attributes .'>';
 			$item_output .= $args->link_before . apply_filters( 'the_title', $item->title, $item->ID ) . $args->link_after;
 			$item_output .= '</a>';
 		}
@@ -176,46 +176,3 @@ function redirect_lowercase_urls()
     }
 }
 add_action('template_redirect', 'redirect_lowercase_urls');
-
-
-function add_page_number_to_title( $title ) {
-    if ( is_product_category() && is_paged()) {
-        $paged = get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1; 
-        $title .= ' - Страница ' . $paged; // Добавление номера страницы к заголовку
-    }
-    return $title;
-}
-
-add_filter( 'wpseo_title', 'add_page_number_to_title' );
-
-function custom_archive_title($title) {
-		// Убираем слово "Архивы" из заголовка
-		$title = str_replace('Архивы: ', '', $title);
-    return $title;
-}
-add_filter('get_the_archive_title', 'custom_archive_title');
-
-function custom_yoast_title_for_projects($title) {
-    if (is_post_type_archive('projects')) {
-        // Получаем кастомный заголовок из ACF или заменяем слово "Архивы"
-        $custom_title = get_field('arch_projects_title', 'options');
-        if ($custom_title) {
-            $title = $custom_title;
-        } else {
-            $title = single_post_title('', false);
-        }
-
-        // Сохраняем остальные части шаблона заголовка Yoast
-        $yoast_title_template = get_option('wpseo_titles');
-        if (isset($yoast_title_template['title-ptarchive-projects'])) {
-            $archive_title_template = $yoast_title_template['title-ptarchive-projects'];
-            $title_template_with_custom_title = str_replace('%%title%%', $title, $archive_title_template);
-            
-            // Заменяем остальные переменные
-            $title = wpseo_replace_vars($title_template_with_custom_title, get_queried_object());
-        }
-    }
-    return $title;
-}
-add_filter('wpseo_title', 'custom_yoast_title_for_projects', 10, 1);
-add_filter('wpseo_opengraph_title', 'custom_yoast_title_for_projects', 10, 1);
