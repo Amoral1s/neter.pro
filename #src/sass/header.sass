@@ -170,7 +170,8 @@
     .wrap
       flex-wrap: nowrap
     .logo
-      margin-right: 15px
+      margin-right: 10px
+      min-width: 165px
     .search
       position: relative
       z-index: 15
@@ -200,13 +201,13 @@
       align-items: center
       backdrop-filter: blur(10px)
       cursor: pointer
-      margin: 0 15px
+      margin: 0 10px
     .catalog-toggle
       display: flex
       align-items: center
       justify-content: center
       cursor: pointer
-      margin: 0 15px
+      margin: 0 10px
       position: relative
       &.active
         span
@@ -236,14 +237,14 @@
         color: #fff
         font-size: 16px
         white-space: nowrap
-        margin: 0 15px
+        margin: 0 10px
     .lang
       display: flex
       justify-content: center
       align-items: center
       height: 24px
       width: 48px
-      margin-left: 30px
+      margin-left: 20px
       background-color: transparent
       .gtranslate_wrapper
         #gt_float_wrapper
@@ -326,7 +327,7 @@
                 img
                   display: none
     .button
-      margin-left: 30px
+      margin-left: 20px
     nav
       display: flex
       align-items: center
@@ -349,14 +350,14 @@
             &>a, &>span
               cursor: pointer
               position: relative
-              padding-right: calc(14px + 24px + 6px)
+              padding-right: 40px
               &::after
                 position: absolute
                 content: ''
                 height: 24px
                 transition: .2s
                 width: 24px
-                right: 14px
+                right: 10px
                 top: 50%
                 transform: translateY(-50%)
                 background-repeat: no-repeat
@@ -544,7 +545,7 @@
             margin-bottom: 24px
             width: 100%
             min-height: 24px
-          a
+          a, span
             display: block
             margin-bottom: 14px
             font-size: 16px
@@ -857,7 +858,7 @@
         .mt-top
           display: block
           margin-top: -15px
-        a.main-link
+        a.main-link, span.main-link
           color: $text
           font-size: 24px
           font-weight: 500

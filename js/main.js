@@ -8177,6 +8177,28 @@ jQuery(document).ready(function ($) {
        // swiperInstance.slideTo(1, 0);
       }
 	}
+	const devSlider = document.querySelector('.dev-gallery');
+
+	if (devSlider) {
+      const swiper = devSlider.querySelector('.swiper');
+      const arrNext = devSlider.querySelector('.arr-next');
+      const arrPrev = devSlider.querySelector('.arr-prev');
+    
+      const swiperInstance = new Swiper(swiper, {
+        spaceBetween: 20,
+        lazy: false,
+        loop: true,
+        speed: 500,
+        slidesPerView: 1,
+        navigation: {
+          nextEl: arrNext,
+          prevEl: arrPrev
+        },
+      });
+      
+      // Устанавливаем начальный слайд после инициализации
+      swiperInstance.slideTo(1, 0);
+	}
 
   const newsSlider = document.querySelector('section.news');
 	if (newsSlider) {
@@ -8341,8 +8363,6 @@ jQuery(document).ready(function ($) {
           wrapper.classList.add('disabled-slider');
         }
       });
-      
-      
 	}
 
   const vacancySlider = document.querySelector('.vac-offer');
@@ -8351,6 +8371,29 @@ jQuery(document).ready(function ($) {
       const pagination = vacancySlider.querySelector('.dots');
       const arrNext = vacancySlider.querySelector('.arr-next');
       const arrPrev = vacancySlider.querySelector('.arr-prev');
+
+      let feedSwiper = new Swiper(swiper, {
+        spaceBetween: 0,
+        slidesPerView: 1,
+        autoHeight: false,
+        pagination: {
+          el: pagination,
+          clickable: true,
+        },
+        navigation: {
+          nextEl: arrNext,
+          prevEl: arrPrev
+        },
+      });
+
+	}
+
+  const careProcessSlider = document.querySelector('.care-process');
+	if (careProcessSlider) {
+      const swiper = careProcessSlider.querySelector('.swiper');
+      const pagination = careProcessSlider.querySelector('.dots');
+      const arrNext = careProcessSlider.querySelector('.arr-next');
+      const arrPrev = careProcessSlider.querySelector('.arr-prev');
 
       let feedSwiper = new Swiper(swiper, {
         spaceBetween: 0,
@@ -8589,6 +8632,22 @@ jQuery(document).ready(function ($) {
         initialSlide: 1,
       });
     }
+    const careEthapsSlider = document.querySelector('.care-ethaps');
+    if (careEthapsSlider) {
+      const swiper = careEthapsSlider.querySelector('.swiper');
+      const pagination = careEthapsSlider.querySelector('.dots');
+
+      new Swiper(swiper, {
+        spaceBetween: 8,
+        autoHeight: false,
+        slidesPerView: 1,
+        initialSlide: 1,
+        pagination: {
+          el: pagination,
+          clickable: false,
+        }
+      });
+    }
 
     
   } // mob end
@@ -8675,6 +8734,12 @@ jQuery(document).ready(function ($) {
 
 
 
+	$('.call-gift').on('click', function() {
+		$('.popup.popup-gift').fadeIn(300);
+		$('.popup').removeClass('popup-thx');
+		$('.overlay').fadeIn(300);
+		$('html').addClass('fixed');
+	});
 	$('.call-tender').on('click', function() {
 		$('.popup.popup-tender').fadeIn(300);
 		$('.popup').removeClass('popup-thx');
@@ -8800,7 +8865,6 @@ jQuery(document).ready(function ($) {
     var fileInput = $(this);
     var fileName = fileInput.val().split('\\').pop();
     var fileTextDiv = $(this).closest('.input-file').find('.input-file-text');
-		console.log(fileTextDiv)
     if (fileName) {
       fileTextDiv.text('Загружен файл: "' + fileName + '"');
       fileTextDiv.show();
@@ -8808,8 +8872,26 @@ jQuery(document).ready(function ($) {
       fileTextDiv.hide();
     }
   });
-
 	
+	$('.files-row input[type="file"]').change(function() {
+    var fileInput = $(this);
+    var fileName = fileInput.val().split('\\').pop();
+    var fileTextDiv = $(this).closest('.input-file').find('p');
+		var textDefault = fileTextDiv.attr('data-text');
+    if (fileName) {
+      fileTextDiv.text('Загружен файл: "' + fileName + '"');
+    } else {
+      fileTextDiv.text(textDefault);
+    }
+  });
+
+	$('.reclam-offer .form-tabs .item').on('click', function() {
+    var index = $(this).index();
+    $('.reclam-offer .form-tabs .item').removeClass('active');
+    $(this).addClass('active');
+    $('.reclam-offer .forms-wrap .form').removeClass('active');
+    $('.reclam-offer .forms-wrap .form').eq(index).addClass('active'); 
+});
 
 
 }); //end
@@ -9082,6 +9164,15 @@ if (props.length > 0) {
 				e.classList.remove('active');
 			}, 1500);
 		})
+	})
+}
+
+const vacancyS = document.querySelectorAll('.vacancy-wrapper');
+if (vacancyS.length > 0) {
+	$('.vacancy-wrapper .title').on('click', function() {
+		$(this).toggleClass('active');
+		$(this).next().slideToggle(200);
+		$(this).prev().slideToggle(200);
 	})
 }
 

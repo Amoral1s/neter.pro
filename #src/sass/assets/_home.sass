@@ -386,7 +386,7 @@
     font-size: 16px
   .form
     .input
-      max-width: 240px
+      max-width: 190px
       input
         box-shadow: 0px 4px 55px 0px rgba(0, 0, 0, 0.05)
         background-color: #fff
@@ -1158,6 +1158,18 @@
     .wrap
       padding: 40px
       padding-top: 85px
+      .form
+        .form-row
+          flex-wrap: wrap
+          justify-content: space-between
+          .input
+            margin: 0
+            margin-bottom: 10px
+            max-width: calc(50% - 5px)
+          .submit
+            max-width: calc(50% - 5px)
+            margin: 0
+            margin-bottom: 10px
       .right
         width: 100%
         .title
@@ -1274,6 +1286,15 @@
   .tech-banner 
     margin-top: 100px
     margin-bottom: 40px
+    .form
+      .form-row
+        flex-wrap: wrap
+        justify-content: space-between
+        align-items: center
+        .input, .submit
+          margin: 0
+          margin-bottom: 10px
+          max-width: calc(50% - 5px)
     .wrap 
       padding: 20px
       padding-top: 90px
@@ -1591,6 +1612,11 @@
           font-size: 12px
           margin-bottom: 20px
         .form
+          .form-row
+            .input, .submit
+              max-width: 100%
+              input
+                max-height: 50px
           small
             margin-top: 15px
   .projects-row 
@@ -1813,6 +1839,15 @@
       .button
         width: 100%
         max-width: 100%
+  .tech-banner
+    .wrap
+      .form
+        .form-row
+          .input, .submit
+            max-width: 100%
+            input
+              max-height: 50px
+
 
 @media (max-width: 578px)
   .dots

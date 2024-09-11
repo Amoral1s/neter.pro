@@ -57,7 +57,7 @@
 
 <div class="mob-header 
   <?php 
-    if (!is_home() && !is_page(346) && !is_page(599) &&  !is_product_category() && !is_tax()) { 
+    if (!is_home() && !is_page(346) && !is_page(4620) && !is_page(4508) && !is_page(599) &&  !is_product_category() && !is_tax()) { 
         echo 'white'; 
     } else { 
       if (is_search()) {
@@ -97,7 +97,7 @@
 
 <header itemscope itemtype="http://schema.org/WPHeader" class="header 
     <?php 
-    if (!is_home() && !is_page(346) && !is_page(599) &&  !is_product_category() && !is_tax()) { 
+    if (!is_home() && !is_page(346) && !is_page(4620) && !is_page(4508) && !is_page(599) &&  !is_product_category() && !is_tax()) { 
         echo 'header-white'; 
     } else { 
         if (is_search()) {
@@ -148,7 +148,7 @@
         <?php  
           wp_nav_menu( array(
             'menu_class' => '',
-            'theme_location' => 'menu-1',
+            'theme_location' => 'menu-3',
             'container' => null,
             'walker'=> new True_Walker_Nav_Menu() // этот параметр нужно добавить
           )); 

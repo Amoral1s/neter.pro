@@ -3,7 +3,7 @@
 function enqueue_review_script() {
   if (is_product()) {
       wp_enqueue_script('recaptcha', 'https://www.google.com/recaptcha/api.js?render=6LeZlf8pAAAAALIprB1_PfRBJBKPfwXhT2IV3SWw', [], null, true);
-      wp_enqueue_script('woo-review', get_template_directory_uri() . '/js/woo-review.js', ['recaptcha'], null, true);
+      wp_enqueue_script('woo-review', get_template_directory_uri() . '/js/woo-review.min.js', ['recaptcha'], null, true);
       wp_localize_script('woo-review', 'woocommerce_params', array(
           'ajax_url' => admin_url('admin-ajax.php')
       ));

@@ -50,6 +50,28 @@ jQuery(document).ready(function ($) {
        // swiperInstance.slideTo(1, 0);
       }
 	}
+	const devSlider = document.querySelector('.dev-gallery');
+
+	if (devSlider) {
+      const swiper = devSlider.querySelector('.swiper');
+      const arrNext = devSlider.querySelector('.arr-next');
+      const arrPrev = devSlider.querySelector('.arr-prev');
+    
+      const swiperInstance = new Swiper(swiper, {
+        spaceBetween: 20,
+        lazy: false,
+        loop: true,
+        speed: 500,
+        slidesPerView: 1,
+        navigation: {
+          nextEl: arrNext,
+          prevEl: arrPrev
+        },
+      });
+      
+      // Устанавливаем начальный слайд после инициализации
+      swiperInstance.slideTo(1, 0);
+	}
 
   const newsSlider = document.querySelector('section.news');
 	if (newsSlider) {
@@ -214,8 +236,6 @@ jQuery(document).ready(function ($) {
           wrapper.classList.add('disabled-slider');
         }
       });
-      
-      
 	}
 
   const vacancySlider = document.querySelector('.vac-offer');
@@ -224,6 +244,29 @@ jQuery(document).ready(function ($) {
       const pagination = vacancySlider.querySelector('.dots');
       const arrNext = vacancySlider.querySelector('.arr-next');
       const arrPrev = vacancySlider.querySelector('.arr-prev');
+
+      let feedSwiper = new Swiper(swiper, {
+        spaceBetween: 0,
+        slidesPerView: 1,
+        autoHeight: false,
+        pagination: {
+          el: pagination,
+          clickable: true,
+        },
+        navigation: {
+          nextEl: arrNext,
+          prevEl: arrPrev
+        },
+      });
+
+	}
+
+  const careProcessSlider = document.querySelector('.care-process');
+	if (careProcessSlider) {
+      const swiper = careProcessSlider.querySelector('.swiper');
+      const pagination = careProcessSlider.querySelector('.dots');
+      const arrNext = careProcessSlider.querySelector('.arr-next');
+      const arrPrev = careProcessSlider.querySelector('.arr-prev');
 
       let feedSwiper = new Swiper(swiper, {
         spaceBetween: 0,
@@ -460,6 +503,22 @@ jQuery(document).ready(function ($) {
         autoHeight: false,
         slidesPerView: 1,
         initialSlide: 1,
+      });
+    }
+    const careEthapsSlider = document.querySelector('.care-ethaps');
+    if (careEthapsSlider) {
+      const swiper = careEthapsSlider.querySelector('.swiper');
+      const pagination = careEthapsSlider.querySelector('.dots');
+
+      new Swiper(swiper, {
+        spaceBetween: 8,
+        autoHeight: false,
+        slidesPerView: 1,
+        initialSlide: 1,
+        pagination: {
+          el: pagination,
+          clickable: false,
+        }
       });
     }
 

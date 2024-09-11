@@ -168,4 +168,13 @@ if (props.length > 0) {
 	})
 }
 
+const vacancyS = document.querySelectorAll('.vacancy-wrapper');
+if (vacancyS.length > 0) {
+	$('.vacancy-wrapper .title').on('click', function() {
+		$(this).toggleClass('active');
+		$(this).next().slideToggle(200);
+		$(this).prev().slideToggle(200);
+	})
+}
+
 }); //end

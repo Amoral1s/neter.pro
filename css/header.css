@@ -493,7 +493,8 @@ svg:hover rect {
   }
 
   .header .logo {
-    margin-right: 15px;
+    margin-right: 10px;
+    min-width: 165px;
   }
 
   .header .search {
@@ -530,7 +531,7 @@ svg:hover rect {
     align-items: center;
     backdrop-filter: blur(10px);
     cursor: pointer;
-    margin: 0 15px;
+    margin: 0 10px;
   }
 
   .header .catalog-toggle {
@@ -538,7 +539,7 @@ svg:hover rect {
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    margin: 0 15px;
+    margin: 0 10px;
     position: relative;
   }
 
@@ -581,7 +582,7 @@ svg:hover rect {
     color: #fff;
     font-size: 16px;
     white-space: nowrap;
-    margin: 0 15px;
+    margin: 0 10px;
   }
 
   .header .lang {
@@ -590,7 +591,7 @@ svg:hover rect {
     align-items: center;
     height: 24px;
     width: 48px;
-    margin-left: 30px;
+    margin-left: 20px;
     background-color: transparent;
   }
 
@@ -701,7 +702,7 @@ svg:hover rect {
   }
 
   .header .button {
-    margin-left: 30px;
+    margin-left: 20px;
   }
 
   .header nav {
@@ -737,7 +738,7 @@ svg:hover rect {
   .header nav ul > li.menu-item-has-children > span {
     cursor: pointer;
     position: relative;
-    padding-right: 44px;
+    padding-right: 40px;
   }
 
   .header nav ul > li.menu-item-has-children > a::after,
@@ -747,7 +748,7 @@ svg:hover rect {
     height: 24px;
     transition: 0.2s;
     width: 24px;
-    right: 14px;
+    right: 10px;
     top: 50%;
     transform: translateY(-50%);
     background-repeat: no-repeat;
@@ -1030,7 +1031,8 @@ svg:hover rect {
     min-height: 24px;
   }
 
-  .pc-catalog .wrap .sub-menu-wrap a {
+  .pc-catalog .wrap .sub-menu-wrap a,
+  .pc-catalog .wrap .sub-menu-wrap span {
     display: block;
     margin-bottom: 14px;
     font-size: 16px;
@@ -1498,7 +1500,8 @@ svg:hover rect {
     margin-top: -15px;
   }
 
-  .mob-menu .mob-cats .sub-menu a.main-link {
+  .mob-menu .mob-cats .sub-menu a.main-link,
+  .mob-menu .mob-cats .sub-menu span.main-link {
     color: #0A3141;
     font-size: 24px;
     font-weight: 500;

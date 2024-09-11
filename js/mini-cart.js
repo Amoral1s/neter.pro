@@ -148,12 +148,12 @@ jQuery(document).ready(function($) {
 	document.addEventListener('wpcf7mailsent', function(event) {
 			clearCart(function() {
 					if (event.detail.contactFormId == '787') {
-							//console.log('Корзина очищена после отправки формы');
-							updateMiniCart();
-							updateButtonStates();
-							$('li.table-product .button').removeClass('added');
-							$('button[type="submit"]').removeClass('added');
-							$('.cart-toggle').fadeOut(200);
+                        //console.log('Корзина очищена после отправки формы');
+                        updateMiniCart();
+                        updateButtonStates();
+                        $('li.table-product .button').removeClass('added');
+                        $('button[type="submit"]').removeClass('added');
+                        $('.cart-toggle').fadeOut(200);
 					}
 			});
 	}, false);
@@ -208,6 +208,7 @@ jQuery(document).ready(function($) {
                   console.error('Ошибка парсинга JSON:', e);
               }
               $('.cart-toggle').removeClass('loading');
+              
           },
           error: function(error) {
               console.error('Ошибка при получении данных мини-корзины:', error);
@@ -286,10 +287,10 @@ jQuery(document).ready(function($) {
             </div>`;
         $miniCartContent.append(productHtml);
     });
-    
     $('.cart-count').text(cartData.length);
     $('.mini-cart').fadeIn(200);
     $('.overlay').fadeIn(200);
+    productData();
 }
 
   // Обработчики для мини-корзины
@@ -306,49 +307,49 @@ jQuery(document).ready(function($) {
       });
   });
 
-	// Обработчики для мини-корзины
-	$(document).on('click', '.quantity .minus', function() {
-		var $item = $(this).closest('.item');
-		var productId = $item.data('product_id');
-		var $quantityInput = $item.find('input');
-		var quantity = parseInt($quantityInput.val()) - 1;
+    // Обработчики для мини-корзины
+    $(document).on('click', '.quantity .minus', function() {
+        var $item = $(this).closest('.item');
+        var productId = $item.data('product_id');
+        var $quantityInput = $item.find('input');
+        var quantity = parseInt($quantityInput.val()) - 1;
 
-		$item.addClass('loading');
-		if (quantity < 1) {
-				removeCartItem(productId, function() {
-						updateCartData(); // Обновляем данные корзины после удаления товара
-						$item.remove();
-						$('.cart-toggle').removeClass('loading');
-				});
-		} else {
-				updateCartItem(productId, quantity, function() {
-						$quantityInput.val(quantity);
-						updateCartData(); // Обновляем данные корзины после изменения количества товара
-						$item.removeClass('loading');
-				});
-		}
-	});
+        $item.addClass('loading');
+        if (quantity < 1) {
+                removeCartItem(productId, function() {
+                        updateCartData(); // Обновляем данные корзины после удаления товара
+                        $item.remove();
+                        $('.cart-toggle').removeClass('loading');
+                });
+        } else {
+                updateCartItem(productId, quantity, function() {
+                        $quantityInput.val(quantity);
+                        updateCartData(); // Обновляем данные корзины после изменения количества товара
+                        $item.removeClass('loading');
+                });
+        }
+    });
 
 
-	$(document).on('change', '.quantity input', function() {
-		var $item = $(this).closest('.item');
-		var productId = $item.data('product_id');
-		var quantity = parseInt($(this).val());
+    $(document).on('change', '.quantity input', function() {
+        var $item = $(this).closest('.item');
+        var productId = $item.data('product_id');
+        var quantity = parseInt($(this).val());
 
-		$item.addClass('loading');
-		if (quantity < 1) {
-				removeCartItem(productId, function() {
-						updateCartData(); // Обновляем данные корзины после удаления товара
-						$item.remove();
-						$('.cart-toggle').removeClass('loading');
-				});
-		} else {
-				updateCartItem(productId, quantity, function() {
-						updateCartData(); // Обновляем данные корзины после изменения количества товара
-						$item.removeClass('loading');
-				});
-		}
-	});
+        $item.addClass('loading');
+        if (quantity < 1) {
+                removeCartItem(productId, function() {
+                        updateCartData(); // Обновляем данные корзины после удаления товара
+                        $item.remove();
+                        $('.cart-toggle').removeClass('loading');
+                });
+        } else {
+                updateCartItem(productId, quantity, function() {
+                        updateCartData(); // Обновляем данные корзины после изменения количества товара
+                        $item.removeClass('loading');
+                });
+        }
+    });
 
   $(document).on('click', '.cart-toggle', function() {
       $(this).addClass('loading');
@@ -371,6 +372,7 @@ jQuery(document).ready(function($) {
               quantity: quantity
           },
           success: function(response) {
+                productData();
               if (callback) callback(response);
           }
       });
@@ -385,11 +387,14 @@ jQuery(document).ready(function($) {
 				data: { action: 'remove_mini_cart_item', product_id: productId },
 				success: function(response) {
 					updateMiniCart(); // Обновляем мини-корзину после удаления товара
+
 					if (callback) callback(response);
+
 				},
 				complete: function() {
 					
 					next();
+
 				}
 			});
 		});
@@ -409,6 +414,7 @@ jQuery(document).ready(function($) {
         $button.removeClass('loading').addClass('added');
         updateCartData();
         showMiniCart();
+
       });
   });
 
@@ -429,5 +435,61 @@ jQuery(document).ready(function($) {
             initializeProductHandlers();
         }
     });
+    //Отправка формы
 
+    
+
+    function productData() {
+        console.log('product data Start');
+        // Находим поле ProductData
+        var productDataField = document.querySelector('.mini-cart textarea[name="ProductData"]');
+        console.log(productDataField.value);
+        
+        if (!productDataField) {
+            console.error('Поле ProductData не найдено.');
+            return;
+        }
+    
+        // Получаем данные корзины через AJAX
+        jQuery.ajax({
+            url: '/wp-admin/admin-ajax.php',
+            type: 'POST',
+            data: {
+                action: 'get_mini_cart_data' // Используем существующую функцию для получения данных корзины
+            },
+            success: function(response) {
+                console.log('Данные корзины перед отправкой CF7:', response);
+    
+                if (response && Array.isArray(response)) {
+                    var productData = '';
+                    var totalSum = 0;
+    
+                    // Преобразуем данные корзины в текстовый формат
+                    response.forEach(function(item) {
+                        var itemTotal = item.price * item.quantity;
+                        totalSum += itemTotal;
+    
+                        productData += 'Товар: ' + item.product_name + '\n';
+                        productData += 'Артикул: ' + item.sku + '\n';
+                        productData += 'Ссылка: ' + item.product_link + '\n';
+                        //productData += 'Стоимость 1 ед.: ' + item.price + ' ₽\n';
+                        productData += 'Количество: ' + item.quantity + '\n';
+                        //productData += 'Сумма этих товаров: ' + itemTotal + ' ₽\n\n';
+                    });
+    
+                    //productData += 'Сумма корзины: ' + totalSum + ' ₽\n';
+    
+                    // Добавляем данные корзины в поле формы
+                    productDataField.value = productData;
+                    console.log('Поле ProductData заполнено:', productDataField.value);
+                } else {
+                    console.error('Данные корзины некорректны или пусты.');
+                }
+            },
+            error: function(error) {
+                console.error('Ошибка при получении данных корзины:', error);
+            }
+        });
+    };
+    
 });

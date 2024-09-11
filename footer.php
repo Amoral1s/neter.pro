@@ -268,6 +268,23 @@
         <?php echo do_shortcode('[contact-form-7 id="6ef74de" title="Заказать звонок (попап)"]'); ?>
       </div>
     </div>
+  </div>
+
+  <div class="popup popup-gift" style="display: none">
+    <div class="close">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
+        <path d="M18.9998 5.49995L4.99976 19.4999M4.99976 5.49995L18.9998 19.4999" stroke="#141B34" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <div class="wrapper">
+      <div class="form form-white">
+        <b>Оформить заказ</b>
+        <p class="subtitle">
+          Оставьте заявку и мы свяжемся с вами в ближайшее время
+        </p>
+        <?php echo do_shortcode('[contact-form-7 id="3137572" title="Розыгрыш призов (попап)"]'); ?>
+      </div>
+    </div>
     
   </div>
 
@@ -414,30 +431,51 @@
 <div class="pc-catalog" style="display: none">
   <div class="container">
     <div class="wrap">
-      <?php if (have_rows('menu_catalog', 'options')) : while(have_rows('menu_catalog', 'options')) : the_row(); ?>
+      <?php 
+      $current_url = untrailingslashit($_SERVER['REQUEST_URI']); // Текущий URL без конечного слеша
+
+      if (have_rows('menu_catalog', 'options')) : while(have_rows('menu_catalog', 'options')) : the_row(); 
+          $main_link_url = untrailingslashit(parse_url(get_sub_field('main_link'), PHP_URL_PATH)); // URL для основного пункта меню
+          ?>
         <div class="wrapper">
-          <a href="<?php echo get_sub_field('main_link'); ?>" class="item">
-            <div class="icon">
-              <img src="<?php echo get_sub_field('img'); ?>" alt="<?php echo get_sub_field('title'); ?>">
-            </div>
-            <p><?php echo get_sub_field('title'); ?></p>
-          </a>
+          <?php if ($current_url === $main_link_url) : ?>
+            <span class="item">
+              <div class="icon">
+                <img src="<?php echo get_sub_field('img'); ?>" alt="<?php echo get_sub_field('title'); ?>">
+              </div>
+              <p><?php echo get_sub_field('title'); ?></p>
+            </span>
+          <?php else : ?>
+            <a href="<?php echo esc_url($main_link_url); ?>" class="item">
+              <div class="icon">
+                <img src="<?php echo get_sub_field('img'); ?>" alt="<?php echo get_sub_field('title'); ?>">
+              </div>
+              <p><?php echo get_sub_field('title'); ?></p>
+            </a>
+          <?php endif; ?>
+          
           <?php if (have_rows('sub_menu')) : ?>
           <div class="sub-menu">
             <?php while(have_rows('sub_menu')) : the_row(); ?>
               <div class="sub-menu-wrap">
                 <b><?php echo get_sub_field('title_sub'); ?></b>
                 <ul>
-                  <?php if (have_rows('sub_links')) : while(have_rows('sub_links')) : the_row(); ?>
+                  <?php if (have_rows('sub_links')) : while(have_rows('sub_links')) : the_row(); 
+                      $sub_link_url = untrailingslashit(parse_url(get_sub_field('link'), PHP_URL_PATH)); // URL для подпункта меню
+                      ?>
                     <li>
-                      <a href="<?php echo get_sub_field('link'); ?>">
-                        <?php echo get_sub_field('name'); ?>
-                      </a>
+                      <?php if ($current_url === $sub_link_url) : ?>
+                        <span><?php echo get_sub_field('name'); ?></span>
+                      <?php else : ?>
+                        <a href="<?php echo esc_url($sub_link_url); ?>">
+                          <?php echo get_sub_field('name'); ?>
+                        </a>
+                      <?php endif; ?>
                     </li>
                   <?php endwhile; endif; ?>
                 </ul>
               </div>
-            <?php endwhile;  ?>
+            <?php endwhile; ?>
           </div>
           <?php endif; ?>
         </div>
@@ -455,7 +493,7 @@
         <div class="logo">
           <img class="dark" src="<?php echo get_template_directory_uri(); ?>/img/logo-dark.svg" alt="ООО «Источники питания»">
         </div>
-        <?php else : ?>
+      <?php else : ?>
         <a href="/" class="logo">
           <img class="dark" src="<?php echo get_template_directory_uri(); ?>/img/logo-dark.svg" alt="ООО «Источники питания»">
         </a>
@@ -478,20 +516,39 @@
         <?php echo do_shortcode('[fibosearch]'); ?>
       </div>
       <nav class="mob-cats">
-        <?php if (have_rows('menu_catalog', 'options')) : while(have_rows('menu_catalog', 'options')) : the_row(); ?>
+        <?php 
+        $current_url = untrailingslashit($_SERVER['REQUEST_URI']); // Текущий URL без конечного слеша
+
+        if (have_rows('menu_catalog', 'options')) : 
+          while(have_rows('menu_catalog', 'options')) : the_row(); 
+            $main_link_url = untrailingslashit(parse_url(get_sub_field('main_link'), PHP_URL_PATH)); // URL для основного пункта меню
+            ?>
           <div class="wrapper">
-            <a href="<?php echo get_sub_field('main_link'); ?>" class="item">
-              <img src="<?php echo get_sub_field('img'); ?>" alt="<?php echo get_sub_field('title'); ?>">
-              <p><?php echo get_sub_field('title'); ?></p>
-              <div class="icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                  <path d="M9.00014 6L14.293 11.2929C14.6264 11.6262 14.793 11.7929 14.793 12C14.793 12.2071 14.6264 12.3738 14.293 12.7071L9.00014 18" stroke="#2CB4C2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </div>
-            </a>
+            <?php if ($current_url === $main_link_url) : ?>
+              <span class="item">
+                <img src="<?php echo get_sub_field('img'); ?>" alt="<?php echo get_sub_field('title'); ?>">
+                <p><?php echo get_sub_field('title'); ?></p>
+                <div class="icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path d="M9.00014 6L14.293 11.2929C14.6264 11.6262 14.793 11.7929 14.793 12C14.793 12.2071 14.6264 12.3738 14.293 12.7071L9.00014 18" stroke="#2CB4C2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+              </span>
+            <?php else : ?>
+              <a href="<?php echo esc_url($main_link_url); ?>" class="item">
+                <img src="<?php echo get_sub_field('img'); ?>" alt="<?php echo get_sub_field('title'); ?>">
+                <p><?php echo get_sub_field('title'); ?></p>
+                <div class="icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path d="M9.00014 6L14.293 11.2929C14.6264 11.6262 14.793 11.7929 14.793 12C14.793 12.2071 14.6264 12.3738 14.293 12.7071L9.00014 18" stroke="#2CB4C2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+              </a>
+            <?php endif; ?>
+            
             <?php 
-              $main_link = get_sub_field('main_link');
-              $main_name = get_sub_field('title');
+            $main_link = get_sub_field('main_link');
+            $main_name = get_sub_field('title');
             ?>
             <?php if (have_rows('sub_menu')) : ?>
             <div class="sub-menu">
@@ -505,9 +562,13 @@
                   </div>
                   <span>Назад</span>
                 </div>
-                <a href="<?php echo $main_link; ?>" class="main-link">
-                  <?php echo $main_name; ?>
-                </a>
+                <?php if ($current_url === $main_link_url) : ?>
+                  <span class="main-link"><?php echo $main_name; ?></span>
+                <?php else : ?>
+                  <a href="<?php echo esc_url($main_link); ?>" class="main-link">
+                    <?php echo $main_name; ?>
+                  </a>
+                <?php endif; ?>
                 <?php while(have_rows('sub_menu')) : the_row(); ?>
                   <div class="sub-menu-wrap">
                     <?php if (get_sub_field('title_sub')) : ?>
@@ -516,16 +577,23 @@
                       <div class="mt-top"></div>
                     <?php endif; ?>
                     <ul>
-                      <?php if (have_rows('sub_links')) : while(have_rows('sub_links')) : the_row(); ?>
+                      <?php if (have_rows('sub_links')) : 
+                        while(have_rows('sub_links')) : the_row(); 
+                          $sub_link_url = untrailingslashit(parse_url(get_sub_field('link'), PHP_URL_PATH)); // URL для подпункта меню
+                          ?>
                         <li>
-                          <a href="<?php echo get_sub_field('link'); ?>">
-                            <?php echo get_sub_field('name'); ?>
-                          </a>
+                          <?php if ($current_url === $sub_link_url) : ?>
+                            <span><?php echo get_sub_field('name'); ?></span>
+                          <?php else : ?>
+                            <a href="<?php echo esc_url($sub_link_url); ?>">
+                              <?php echo get_sub_field('name'); ?>
+                            </a>
+                          <?php endif; ?>
                         </li>
                       <?php endwhile; endif; ?>
                     </ul>
                   </div>
-                <?php endwhile;  ?>
+                <?php endwhile; ?>
               </div>
             </div>
             <?php endif; ?>
@@ -537,7 +605,7 @@
         <?php  
           wp_nav_menu( array(
             'menu_class' => '',
-            'theme_location' => 'menu-1',
+            'theme_location' => 'menu-3',
             'container' => null,
             'walker'=> new True_Walker_Nav_Menu() // этот параметр нужно добавить
           )); 
@@ -676,12 +744,6 @@
   </div>
 </div>
 <!-- Filters popup END -->
-
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-   
-  });
-</script>
 
 <?php wp_footer(); ?>
 

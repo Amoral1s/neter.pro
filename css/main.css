@@ -5419,7 +5419,7 @@ a.button.button-transparent {
 }
 
 .tech-banner .form .input {
-  max-width: 240px;
+  max-width: 190px;
 }
 
 .tech-banner .form .input input {
@@ -6435,6 +6435,11 @@ a.button.button-transparent {
   stroke: #fff;
 }
 
+#carrotquest-messenger-collapsed-container.carrotquest-css-reset.carrotquest-messenger-right_bottom,
+.carrot-popup-frame#carrot-popup-frame {
+  z-index: 100 !important;
+}
+
 @media (min-width: 768px) {
   .lg-outer .lg-thumb {
     padding: 10px 0;
@@ -7173,6 +7178,23 @@ a.button.button-transparent {
     padding-top: 85px;
   }
 
+  .consult-banner .wrap .form .form-row {
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .consult-banner .wrap .form .form-row .input {
+    margin: 0;
+    margin-bottom: 10px;
+    max-width: calc(50% - 5px);
+  }
+
+  .consult-banner .wrap .form .form-row .submit {
+    max-width: calc(50% - 5px);
+    margin: 0;
+    margin-bottom: 10px;
+  }
+
   .consult-banner .wrap .right {
     width: 100%;
   }
@@ -7334,6 +7356,19 @@ a.button.button-transparent {
   .tech-banner {
     margin-top: 100px;
     margin-bottom: 40px;
+  }
+
+  .tech-banner .form .form-row {
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .tech-banner .form .form-row .input,
+  .tech-banner .form .form-row .submit {
+    margin: 0;
+    margin-bottom: 10px;
+    max-width: calc(50% - 5px);
   }
 
   .tech-banner .wrap {
@@ -8456,6 +8491,16 @@ a.button.button-transparent {
     margin-bottom: 20px;
   }
 
+  .consult-banner .wrap .right .form .form-row .input,
+  .consult-banner .wrap .right .form .form-row .submit {
+    max-width: 100%;
+  }
+
+  .consult-banner .wrap .right .form .form-row .input input,
+  .consult-banner .wrap .right .form .form-row .submit input {
+    max-height: 50px;
+  }
+
   .consult-banner .wrap .right .form small {
     margin-top: 15px;
   }
@@ -8800,6 +8845,16 @@ a.button.button-transparent {
   .footer-bottom .button {
     width: 100%;
     max-width: 100%;
+  }
+
+  .tech-banner .wrap .form .form-row .input,
+  .tech-banner .wrap .form .form-row .submit {
+    max-width: 100%;
+  }
+
+  .tech-banner .wrap .form .form-row .input input,
+  .tech-banner .wrap .form .form-row .submit input {
+    max-height: 50px;
   }
 }
 

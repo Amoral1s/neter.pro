@@ -75,6 +75,12 @@ jQuery(document).ready(function ($) {
 
 
 
+	$('.call-gift').on('click', function() {
+		$('.popup.popup-gift').fadeIn(300);
+		$('.popup').removeClass('popup-thx');
+		$('.overlay').fadeIn(300);
+		$('html').addClass('fixed');
+	});
 	$('.call-tender').on('click', function() {
 		$('.popup.popup-tender').fadeIn(300);
 		$('.popup').removeClass('popup-thx');
@@ -200,7 +206,6 @@ jQuery(document).ready(function ($) {
     var fileInput = $(this);
     var fileName = fileInput.val().split('\\').pop();
     var fileTextDiv = $(this).closest('.input-file').find('.input-file-text');
-		console.log(fileTextDiv)
     if (fileName) {
       fileTextDiv.text('Загружен файл: "' + fileName + '"');
       fileTextDiv.show();
@@ -208,8 +213,26 @@ jQuery(document).ready(function ($) {
       fileTextDiv.hide();
     }
   });
-
 	
+	$('.files-row input[type="file"]').change(function() {
+    var fileInput = $(this);
+    var fileName = fileInput.val().split('\\').pop();
+    var fileTextDiv = $(this).closest('.input-file').find('p');
+		var textDefault = fileTextDiv.attr('data-text');
+    if (fileName) {
+      fileTextDiv.text('Загружен файл: "' + fileName + '"');
+    } else {
+      fileTextDiv.text(textDefault);
+    }
+  });
+
+	$('.reclam-offer .form-tabs .item').on('click', function() {
+    var index = $(this).index();
+    $('.reclam-offer .form-tabs .item').removeClass('active');
+    $(this).addClass('active');
+    $('.reclam-offer .forms-wrap .form').removeClass('active');
+    $('.reclam-offer .forms-wrap .form').eq(index).addClass('active'); 
+});
 
 
 }); //end

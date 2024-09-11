@@ -541,14 +541,14 @@ if (is_product_category() || is_tax()) {
 																<span class="item-part" style="background-image: url(<?php echo esc_url(get_sub_field('img')); ?>);">
 																		<span><?php echo esc_html(get_sub_field('subtitle')); ?></span>
 																		<b <?php if (get_sub_field('img_place') == 'left') { echo 'class="left"'; } ?>>
-																				<?php echo esc_html(get_sub_field('title')); ?>
+																				<?php the_sub_field('title'); ?>
 																		</b>
 																</span>
 														<?php else : ?>
 																<a href="<?php echo esc_url($link); ?>" class="item-part" style="background-image: url(<?php echo esc_url(get_sub_field('img')); ?>);">
 																		<span><?php echo esc_html(get_sub_field('subtitle')); ?></span>
 																		<b <?php if (get_sub_field('img_place') == 'left') { echo 'class="left"'; } ?>>
-																				<?php echo esc_html(get_sub_field('title')); ?>
+																				<?php the_sub_field('title'); ?>
 																		</b>
 																</a>
 														<?php endif; ?>
@@ -562,13 +562,13 @@ if (is_product_category() || is_tax()) {
 												<?php if ($link_path == $current_path) : ?>
 														<span class="item onest swiper-slide" style="background-image: url(<?php echo esc_url(get_sub_field('img')); ?>);">
 																<span><?php echo esc_html(get_sub_field('subtitle')); ?></span>
-																<b><?php echo esc_html(get_sub_field('title')); ?></b>
+																<b><?php the_sub_field('title'); ?></b>
 																<p><?php echo esc_html(get_sub_field('content')); ?></p>
 														</span>
 												<?php else : ?>
 														<a href="<?php echo esc_url($link); ?>" class="item onest swiper-slide" style="background-image: url(<?php echo esc_url(get_sub_field('img')); ?>);">
 																<span><?php echo esc_html(get_sub_field('subtitle')); ?></span>
-																<b><?php echo esc_html(get_sub_field('title')); ?></b>
+																<b><?php the_sub_field('title'); ?></b>
 																<p><?php echo esc_html(get_sub_field('content')); ?></p>
 														</a>
 												<?php endif; ?>

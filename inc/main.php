@@ -8,7 +8,7 @@ if ( ! function_exists( 'main_theme_setup' ) ) :
 			array(
 				'menu-1' => esc_html__( 'Main menu', 'main-theme' ),
 				'menu-2' => esc_html__( 'Header secondary', 'main-theme' ),
-				'menu-3' => esc_html__( 'Footer 1', 'main-theme' ),
+				'menu-3' => esc_html__( 'mobile', 'main-theme' ),
 				'menu-4' => esc_html__( 'Footer 2', 'main-theme' ),
 				'menu-5' => esc_html__( 'Footer 3', 'main-theme' ),
 				'menu-6' => esc_html__( 'Mobile menu', 'main-theme' )
@@ -166,7 +166,7 @@ function my_scripts() {
 	wp_deregister_script( 'jquery' );
 	wp_register_script( 'jquery', get_template_directory_uri() . '/js/jquery-3.2.1.js', array(), '1.0', true );
 	wp_enqueue_script( 'jquery' );
-	wp_enqueue_script( 'main', get_template_directory_uri() . '/js/main.js', array('jquery'), null, true );
+	wp_enqueue_script( 'main', get_template_directory_uri() . '/js/main.min.js', array('jquery'), null, true );
 	wp_enqueue_script( 'yandex-api', 'https://api-maps.yandex.ru/2.1/?apikey=09db6a00-2892-4c98-9c87-7fd13a357553&lang=ru_RU', array('jquery'), null, true );
 }
 

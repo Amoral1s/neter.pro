@@ -77,7 +77,7 @@
                 <a href="<?php echo get_sub_field('link'); ?>" class="item-part" style="background-image: url(<?php echo get_sub_field('img'); ?>);">
                   <span><?php echo get_sub_field('subtitle'); ?></span>
                   <b <?php if (get_sub_field('img_place') == 'left') { echo 'class="left"'; } ?>>
-                    <?php echo get_sub_field('title'); ?>
+                    <?php echo the_sub_field('title'); ?>
                   </b>
                 </a>
               <?php endwhile; endif; ?>
@@ -86,7 +86,7 @@
             <?php if (have_rows('onest')) : while(have_rows('onest')) : the_row(); ?>
             <a href="<?php echo get_sub_field('link'); ?>" class="item onest swiper-slide" style="background-image: url(<?php echo get_sub_field('img'); ?>);">
               <span><?php echo get_sub_field('subtitle'); ?></span>
-              <b><?php echo get_sub_field('title'); ?></b>
+              <b><?php the_sub_field('title'); ?></b>
               <p>
                 <?php echo get_sub_field('content'); ?>
               </p>

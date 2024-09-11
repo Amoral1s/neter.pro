@@ -11,7 +11,7 @@ remove_action('woocommerce_before_shop_loop', 'woocommerce_catalog_ordering', 30
 remove_action('woocommerce_before_shop_loop', 'woocommerce_result_count', 20);
 
 function enqueue_mini_cart_script() {
-    wp_enqueue_script('mini-cart', get_template_directory_uri() . '/js/mini-cart.js', array('jquery'), null, true);
+    wp_enqueue_script('mini-cart', get_template_directory_uri() . '/js/mini-cart.min.js', array('jquery'), null, true);
     wp_localize_script('mini-cart', 'wc_add_to_cart_params', array(
     'wc_ajax_url' => WC_AJAX::get_endpoint('%%endpoint%%')
     ));
@@ -61,6 +61,7 @@ function get_cart_data() {
 function get_mini_cart_data() {
     $cart = WC()->cart->get_cart();
     $cart_data = [];
+
     foreach ($cart as $cart_item_key => $cart_item) {
         $product = $cart_item['data'];
         $product_id = $cart_item['product_id'];
@@ -70,7 +71,10 @@ function get_mini_cart_data() {
         $quantity = $cart_item['quantity'];
         $thumbnail = get_the_post_thumbnail_url($product_id, 'thumbnail');
         $napryazhenie = $product->get_attribute('pa_napryazhenie');
-        $emkost = $product->get_attribute('pa_emkost-mah');
+        $emkost = $product->get_attribute('pa_emkost-ah');
+
+        // Получаем цену продукта
+        $price = $product->get_price();
 
         $cart_data[] = [
             'product_id' => $product_id,
@@ -81,6 +85,7 @@ function get_mini_cart_data() {
             'thumbnail' => $thumbnail,
             'napryazhenie' => $napryazhenie,
             'emkost' => $emkost,
+            'price' => $price, // Добавляем цену
         ];
     }
 
@@ -141,7 +146,7 @@ function init_wc_cart() {
 add_action('woocommerce_before_calculate_totals', 'init_wc_cart', 10);
 
 // Заполнение поля ProductData перед отправкой формы CF7
-function fill_product_data_field($form) {
+/* function fill_product_data_field($form) {
     if (isset($_POST['ProductData'])) {
         $product_data = '';
         $total_sum = 0;
@@ -176,7 +181,7 @@ function fill_product_data_field($form) {
     return $form;
 }
 
-add_filter('wpcf7_posted_data', 'fill_product_data_field');
+add_filter('wpcf7_posted_data', 'fill_product_data_field'); */
 
 // Очистка корзины после отправки формы CF7
 function clear_cart_after_submission() {

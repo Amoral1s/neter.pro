@@ -176,3 +176,27 @@ function redirect_lowercase_urls()
     }
 }
 add_action('template_redirect', 'redirect_lowercase_urls');
+
+
+function add_page_number_to_title( $title ) {
+    if (is_paged()) {
+        $paged = get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1; 
+        $title .= ' - Страница ' . $paged; // Добавление номера страницы к заголовку
+    }
+    return $title;
+}
+
+add_filter( 'wpseo_title', 'add_page_number_to_title' );
+
+//добавление описания в декскрипшн YOAST SEO при пагинации
+function custom_pagination_meta_description($description) {
+    if (is_paged()) {
+        $paged = get_query_var('paged') ? get_query_var('paged') : 1;
+        $description .= ' - страница ' . $paged;
+    }
+    return $description;
+}
+add_filter('wpseo_metadesc', 'custom_pagination_meta_description'); // Для Yoast SEO
+add_filter('rank_math/frontend/description', 'custom_pagination_meta_description'); // Для Rank Math SEO
+
+
