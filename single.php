@@ -67,7 +67,7 @@
 				</div>
 				<div itemprop="author" class="name">
 					<p>Neter.pro</p>
-					<span>Проиозводитель аккумуляторов</span>
+					<span>Производитель аккумуляторов</span>
 				</div>
 				<?php endif; ?>
 			</div>

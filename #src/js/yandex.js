@@ -17,7 +17,7 @@ jQuery(document).ready(function($) {
             theme: "islands#dark"
         });
 
-        var myPlacemark = new ymaps.Placemark([55.816793, 49.146452], {
+        var myPlacemark = new ymaps.Placemark([55.816265, 49.145723], {
             balloonContent: 'Офис "НЭТEР"'
         }, {
             iconLayout: 'default#image',
@@ -51,13 +51,13 @@ jQuery(document).ready(function($) {
       ymaps.ready(init);
       function init(){
         var myMap = new ymaps.Map("map", {
-            center: [55.834637, 49.041699], // Центр карты (Казань)
+            center: [55.833424, 49.040046], // Центр карты (Казань)
             zoom: 14,
             controls: [],
             theme: "islands#dark"
         });
 
-        var myPlacemark = new ymaps.Placemark([55.834637, 49.041699], {
+        var myPlacemark = new ymaps.Placemark([55.833424, 49.040046], {
             balloonContent: 'Офис самовывоза'
         }, {
             iconLayout: 'default#image',
@@ -97,7 +97,7 @@ jQuery(document).ready(function($) {
             theme: "islands#dark"
         });
 
-        var myPlacemark = new ymaps.Placemark([55.833651, 49.051288], {
+        var myPlacemark = new ymaps.Placemark([55.833424, 49.040046], {
             balloonContent: 'Производство'
         }, {
             iconLayout: 'default#image',
@@ -105,8 +105,8 @@ jQuery(document).ready(function($) {
             iconImageSize: [45, 56], // Размер иконки
         });
 
-        var myPlacemark2 = new ymaps.Placemark([55.816793, 49.146452], {
-            balloonContent: 'Офис продаж в Казани'
+        var myPlacemark2 = new ymaps.Placemark([55.816265, 49.145723], {
+          balloonContent: 'Офис продаж в Казани'
         }, {
             iconLayout: 'default#image',
             iconImageHref: '/wp-content/themes/main/img/icons/yandex.svg', // Замените на путь к вашей иконке

@@ -85,12 +85,12 @@ get_header();
   <div class="container">
     <div class="wrap">
       <b class="title">Адреса</b>
-      <div class="item" data-coords="[55.833651, 49.051288]">
+      <div class="item" data-coords="[55.833424, 49.040046]">
         <p>Производство</p>
         <address><?php echo get_field('addr_prod', 'options'); ?></address>
         <span><?php echo get_field('work_time','options'); ?></span>
       </div>
-      <div class="item" data-coords="[55.816793, 49.146452]">
+      <div class="item" data-coords="[55.816265, 49.145723]">
         <p>Офис продаж в Казани</p>
         <address><?php echo get_field('addr_office', 'options'); ?></address>
         <span><?php echo get_field('work_time','options'); ?></span>

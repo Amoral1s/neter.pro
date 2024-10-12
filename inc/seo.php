@@ -200,3 +200,31 @@ add_filter('wpseo_metadesc', 'custom_pagination_meta_description'); // Для Yo
 add_filter('rank_math/frontend/description', 'custom_pagination_meta_description'); // Для Rank Math SEO
 
 
+add_filter('wpseo_breadcrumb_links', 'remove_duplicate_links_on_pagination');
+function remove_duplicate_links_on_pagination($links) {
+    // Проверяем, что мы на странице архива и это пагинация
+    if (is_archive() && is_paged()) {
+        $breadcrumb_count = count($links);
+
+        // Проверяем, что в крошках больше одной ссылки
+        if ($breadcrumb_count > 2) {
+            // Храним уже встреченные ссылки
+            $seen_links = [];
+
+            // Проходим по массиву хлебных крошек и удаляем дубликаты
+            foreach ($links as $key => $link) {
+                // Если текст текущей крошки уже встречался ранее, удаляем дубликат
+                if (in_array($link['text'], $seen_links)) {
+                    unset($links[$key]); // Удаляем дубликат
+                } else {
+                    $seen_links[] = $link['text']; // Добавляем ссылку в массив встреченных
+                }
+            }
+
+            // Пересобираем массив крошек, чтобы избежать пропусков в индексах массива
+            $links = array_values($links);
+        }
+    }
+    
+    return $links;
+}

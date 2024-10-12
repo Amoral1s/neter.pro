@@ -32,7 +32,52 @@ if ( post_password_required() ) {
 }
 ?>
 <?php
-	if ( function_exists('yoast_breadcrumb') ) { yoast_breadcrumb('<p class="breadcrumbs dark-crumbs">', '</p>'); }
+// Проверяем, находится ли пользователь на странице товара WooCommerce
+if (is_singular('product')) {
+    // Для страниц товаров выводим крошки с "Главная", категорией и подкатегорией (если есть)
+    if (function_exists('yoast_breadcrumb')) {
+        // Получаем хлебные крошки от Yoast
+        ob_start();
+        yoast_breadcrumb('<p class="breadcrumbs">', '</p>');
+        $breadcrumb = ob_get_clean();
+
+        // Получаем основную категорию товара
+        $product_id = get_the_ID();
+        $categories = wp_get_post_terms($product_id, 'product_cat');
+
+        // Найти основную категорию (первая категория в списке)
+        $main_category = !empty($categories) ? $categories[0] : null;
+
+        // Получаем подкатегорию, если она есть (вторая категория в списке)
+        $sub_category = !empty($categories[1]) ? $categories[1] : null;
+
+        // Создаем ссылки на основную категорию и подкатегорию, если они есть
+        $main_category_link = $main_category ? get_term_link($main_category) : '';
+        $sub_category_link = $sub_category ? get_term_link($sub_category) : '';
+
+        // Удаляем возможные дублирующие ссылки на "Главная" из хлебных крошек
+        $breadcrumb = preg_replace('/<a href="'.esc_url(home_url('/')).'">Главная<\/a>\s*\/?\s*/i', '', $breadcrumb);
+
+        // Получаем название товара
+        $product_name = get_the_title();
+
+        // Формируем новые хлебные крошки
+        $new_breadcrumbs = '<p class="breadcrumbs">'
+            . '<a href="' . esc_url(home_url('/')) . '">Главная</a> / '
+            . ($main_category_link ? '<a href="' . esc_url($main_category_link) . '">' . esc_html($main_category->name) . '</a> / ' : '')
+            . ($sub_category_link ? '<a href="' . esc_url($sub_category_link) . '">' . esc_html($sub_category->name) . '</a> / ' : '')
+            . esc_html($product_name)
+            . '</p>';
+
+        // Выводим модифицированные хлебные крошки
+        echo $new_breadcrumbs;
+    }
+} else {
+    // Для всех остальных страниц выводим стандартные крошки
+    if (function_exists('yoast_breadcrumb')) {
+        yoast_breadcrumb('<p class="breadcrumbs">', '</p>');
+    }
+}
 ?>
 <div id="product-<?php the_ID(); ?>" <?php wc_product_class( 'single-product', $product ); ?>>
 	<div class="back-btn"  onclick="history.back()">
@@ -285,18 +330,15 @@ if ( post_password_required() ) {
 											$attribute_name = wc_attribute_label( $attribute->get_name() );
 											$term = get_term_by('id', (int)$attribute->get_options()[0], $attribute->get_name());
 
-											if ( $term ) { // Добавляем проверку
+											// Проверяем, что в имени атрибута НЕТ "(переклиновка)"
+											if ( $term && strpos($attribute_name, '(переклиновка)') === false ) {
 													$attribute_value = $term->name;
 
 													if ( $attribute_value ) {
-															if ($attribute_name != 'Бренд септика' &&
-																	$attribute_name != 'Бренд кессона'
-															) {
-																	echo '<div class="item">';
-																	echo '<p>' . $attribute_name . '</p>';
-																	echo '<b>' . $attribute_value . '</b>';
-																	echo '</div>';
-															}
+															echo '<div class="item">';
+															echo '<p>' . $attribute_name . '</p>';
+															echo '<b>' . $attribute_value . '</b>';
+															echo '</div>';
 													}
 											}
 									}

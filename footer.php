@@ -179,9 +179,9 @@
       <div class="wrap">
         <div class="left">
           <div class="icon">
-            <img src="<?php echo get_template_directory_uri(); ?>/img/icons/email.png" alt="Узнавайте о новинках первым!">
+            <img src="<?php echo get_template_directory_uri(); ?>/img/icons/email.png" alt="Узнавайте о новинках первыми!">
           </div>
-          <b>Узнавайте о новинках первым!</b>
+          <b>Узнавайте о новинках первыми!</b>
         </div>
         <div class="right">
           <div class="form">

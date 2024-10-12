@@ -176,7 +176,7 @@ if (is_product_category() || is_tax()) {
 									return $category->term_id != $current_category_id;
 							});
 
-					if (!empty($categories)) : ?>
+					if (!empty($categories) && get_field('subcat_toggle', 'term_' . $term_id) == false) : ?>
 							<div class="shop-categories">
 									<?php foreach ($categories as $category) :
 											$category_id = $category->term_id;
@@ -202,6 +202,20 @@ if (is_product_category() || is_tax()) {
 													<p><?php echo esc_html($category_name); ?></p>
 											</a>
 									<?php endforeach; ?>
+							</div>
+					<?php endif; ?>
+					<?php if (get_field('subcat_toggle', 'term_' . $term_id) == true) : ?>
+							<div class="shop-categories">
+								<?php if (have_rows('subcats_row', 'term_' . $term_id)) : while(have_rows('subcats_row', 'term_' . $term_id)) : the_row(); ?>
+									<a href="<?php echo get_sub_field('link'); ?>" class="item">
+											<?php if (get_field('img')) : ?>
+												<div class="icon">
+													<img src="<?php echo get_sub_field('img'); ?>" alt="<?php echo get_sub_field('name'); ?>" />
+												</div>
+											<?php endif; ?>
+											<p><?php echo get_sub_field('name'); ?></p>
+									</a>
+								<?php endwhile; endif; ?>
 							</div>
 					<?php endif; ?>
 			</div>

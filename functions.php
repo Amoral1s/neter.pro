@@ -11,6 +11,22 @@
 @include('inc/woo_loop_item.php');
 @include('inc/woo_catalog.php');
 
+add_filter('wpseo_breadcrumb_links', 'customize_yoast_breadcrumbs_last_link');
+
+function customize_yoast_breadcrumbs_last_link($links) {
+    if (is_tax() || is_category() || is_tag()) {
+        $term = get_queried_object();
+        $custom_breadcrumb_title = get_term_meta($term->term_id, '_yoast_wpseo_bctitle', true);
+
+        if (!empty($custom_breadcrumb_title)) {
+            // Изменяем только последнюю крошку в массиве
+            $last_index = count($links) - 1;
+            $links[$last_index]['text'] = $custom_breadcrumb_title;
+        }
+    }
+
+    return $links;
+}
 
 add_filter('wpseo_breadcrumb_links', 'remove_shop_page_from_breadcrumbs');
 function remove_shop_page_from_breadcrumbs($links) {
@@ -34,7 +50,6 @@ function remove_shop_page_from_breadcrumbs($links) {
 
 
 //Сортировка каталога
-
 // 1. Добавляем страницу в админку с кнопкой для обновления мета-данных продуктов
 add_action('admin_menu', 'add_update_products_meta_page');
 
@@ -74,7 +89,7 @@ function run_update_all_products_meta_with_fallback_attributes() {
                         action: 'update_products_meta'
                     },
                     success: function(response) {
-                        $('#update-meta-status').html('<div class="updated"><p>' + response.data.message + '</p></div>');
+                        $('#update-meta-status').html('<div class="updated"><p>' + response.data.message + '</p><ul>' + response.data.details + '</ul></div>');
                         button.prop('disabled', false);
                     },
                     error: function(response) {
@@ -92,19 +107,21 @@ function run_update_all_products_meta_with_fallback_attributes() {
 add_action('wp_ajax_update_products_meta', 'update_all_products_meta_with_fallback_attributes_ajax');
 
 function update_all_products_meta_with_fallback_attributes_ajax() {
-    update_all_products_meta_with_fallback_attributes();
+    $result = update_all_products_meta_with_fallback_attributes(); // Возвращаем результат
 
-    wp_send_json_success(array('message' => 'Мета-данные продуктов обновлены!'));
+    wp_send_json_success(array(
+        'message' => 'Мета-данные продуктов обновлены!',
+        'details' => implode('<li>', $result) // Возвращаем список результатов
+    ));
 }
 
-// 4. Функция для обновления мета-данных с fallback на атрибуты
+// 4. Функция для обновления мета-данных с fallback на атрибуты и возвращение результатов
 function update_all_products_meta_with_fallback_attributes() {
-    // Определяем категории, для которых будем использовать `napryazhenie`
     $priority_category_slugs = array('zaryadnye-ustrojstva-dlya-akkumulyatorov', 'bms-plata');
-
-    // Определяем ключи атрибутов для сортировки
     $attribute_keys_priority = array('pa_napryazhenie');  // Напряжение для приоритетных категорий
-    $attribute_keys_default = array('pa_emkost-mah');     // Емкость для остальных категорий
+    $attribute_keys_default = array('pa_emkost-ah');     // Емкость для остальных категорий
+
+    $result_messages = array(); // Массив для хранения сообщений
 
     // Получаем все продукты
     $args = array(
@@ -122,9 +139,7 @@ function update_all_products_meta_with_fallback_attributes() {
             // Получаем объект продукта
             $product = wc_get_product($product_id);
 
-            // Проверка на успешное получение объекта продукта
             if ($product && is_a($product, 'WC_Product')) {
-                // Проверяем, находится ли товар в приоритетных категориях или их дочерних категориях
                 $product_categories = wp_get_post_terms($product_id, 'product_cat', array('fields' => 'slugs'));
                 $is_priority_category = false;
 
@@ -135,38 +150,37 @@ function update_all_products_meta_with_fallback_attributes() {
                     }
                 }
 
-                // Выбираем атрибуты для сортировки в зависимости от категории
                 $attribute_keys = $is_priority_category ? $attribute_keys_priority : $attribute_keys_default;
-
                 $meta_value = '';
+
                 foreach ($attribute_keys as $key) {
                     $attribute_value = $product->get_attribute($key);
 
                     if ($attribute_value) {
-                        // Преобразуем значение в десятичное число, заменив запятую на точку
                         $meta_value = str_replace(',', '.', $attribute_value);
-                        break; // Если нашли значение, выходим из цикла
+                        break;
                     }
                 }
 
-                // Если нашли значение, обновляем мета-данные
                 if ($meta_value) {
                     update_post_meta($product_id, 'product_sort_value', $meta_value);
-                    error_log("Продукт ID: $product_id обновлен с значением: $meta_value");
+                    $result_messages[] = "Продукт ID: $product_id обновлен с значением: $meta_value";
                 } else {
-                    // Если ни один из атрибутов не задан, устанавливаем дефолтное значение
                     $default_value = 0;
                     update_post_meta($product_id, 'product_sort_value', $default_value);
-                    error_log("Продукт ID: $product_id не имеет атрибутов, установлено дефолтное значение: $default_value");
+                    $result_messages[] = "Продукт ID: $product_id не имеет атрибутов, установлено дефолтное значение: $default_value";
                 }
             } else {
-                error_log("Не удалось получить объект продукта для ID: $product_id");
+                $result_messages[] = "Не удалось получить объект продукта для ID: $product_id";
             }
         }
         wp_reset_postdata();
     }
+
+    return $result_messages; // Возвращаем результат
 }
 
+// Проверяем дочерние категории
 function is_product_category_child_of_slug($product_id, $parent_category_slug) {
     $parent_term = get_term_by('slug', $parent_category_slug, 'product_cat');
     
@@ -181,46 +195,6 @@ function is_product_category_child_of_slug($product_id, $parent_category_slug) {
     
     return false;
 }
-
-// Сортировка товаров на основе обновленных мета-данных
-add_action('pre_get_posts', 'custom_sort_products_by_product_sort_value', 99);
-
-function custom_sort_products_by_product_sort_value($query) {
-    if (!is_admin() && $query->is_main_query() && is_woocommerce()) {
-        // Проверяем, находится ли запрос на категории `zaryadnye-ustrojstva-dlya-akkumulyatorov`, `bms-plata` или их дочерних категориях
-        if (
-            is_product_category('zaryadnye-ustrojstva-dlya-akkumulyatorov') || 
-            is_product_category_child_of('zaryadnye-ustrojstva-dlya-akkumulyatorov') ||
-            is_product_category('bms-plata') || 
-            is_product_category_child_of('bms-plata')
-        ) {
-            // Сортируем от меньшего к большему для этих категорий и их дочерних категорий
-            $query->set('meta_key', 'product_sort_value');
-            $query->set('orderby', 'meta_value_num');
-            $query->set('order', 'ASC');
-        } else {
-            // Сортируем от большего к меньшему для остальных категорий
-            $query->set('meta_key', 'product_sort_value');
-            $query->set('orderby', 'meta_value_num');
-            $query->set('order', 'DESC');
-        }
-    }
-}
-
-function is_product_category_child_of($parent_category_slug) {
-    $term = get_queried_object();
-
-    if (is_a($term, 'WP_Term') && $term->taxonomy === 'product_cat') {
-        $parent_term = get_term_by('slug', $parent_category_slug, 'product_cat');
-        
-        if ($parent_term && term_is_ancestor_of($parent_term->term_id, $term->term_id, 'product_cat')) {
-            return true;
-        }
-    }
-    
-    return false;
-}
-
 
 // Добавить код в футер
 

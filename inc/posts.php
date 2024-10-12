@@ -100,12 +100,29 @@ function fix_month_abbrev(){
   ] + $wp_locale->month_abbrev;
 } 
 
+// Устанавливаем количество постов для кастомных типов записей на 12
 function custom_posts_per_page($query) {
     if (!is_admin() && $query->is_main_query() && $query->is_archive()) {
-        $post_types = array('post', 'blog', 'projects'); // Типы постов, для которых нужно установить лимит
-        if (in_array($query->get('post_type'), $post_types) || (is_archive() && !isset($query->query_vars['post_type']))) {
-            $query->set('posts_per_page', 12);
+        // Проверяем, что это не архив магазина или товаров
+        if (!is_shop() && !is_post_type_archive('product')) {
+            // Если тип записи не установлен в запросе, используем по умолчанию 'post'
+            $post_type = $query->get('post_type') ? $query->get('post_type') : 'post';
+            
+            // Типы постов, для которых нужно установить лимит
+            $post_types = array('post', 'blog', 'projects'); 
+            
+            if (in_array($post_type, $post_types)) {
+                $query->set('posts_per_page', 12);
+            }
         }
     }
 }
 add_action('pre_get_posts', 'custom_posts_per_page');
+
+// Устанавливаем количество товаров для WooCommerce на 100
+function custom_wc_products_per_page( $query ) {
+    if (!is_admin() && $query->is_main_query() && (is_shop() || is_post_type_archive('product'))) {
+        $query->set('posts_per_page', 100); // Устанавливаем количество товаров на 100
+    }
+}
+add_action('pre_get_posts', 'custom_wc_products_per_page');

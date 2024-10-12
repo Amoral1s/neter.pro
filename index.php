@@ -527,7 +527,7 @@
                   $news_image_alt = get_the_title();
               }
 
-              echo wp_get_attachment_image(get_post_thumbnail_id(), 'medium', false, array('alt' => $news_image_alt));
+              echo wp_get_attachment_image(get_post_thumbnail_id(), 'large', false, array('alt' => $news_image_alt));
             ?>
             <div class="meta">
               <b><?php the_title(); ?></b>
@@ -557,39 +557,32 @@
   </div>
 </section>
 <?php endif; ?>
-
 <?php if (get_field('map_title', 'options')) : ?>
-<section class="map">
+<section class="map contacts-map">
   <div class="container">
     <div class="wrap">
       <b class="title"><?php echo get_field('map_title', 'options'); ?></b>
-      <div class="item">
+      <div class="item" data-coords="[55.833424, 49.040046]">
         <p>Производство</p>
         <address><?php echo get_field('addr_prod', 'options'); ?></address>
+        <span><?php echo get_field('work_time','options'); ?></span>
       </div>
-      <div class="item">
-        <p>Офис</p>
+      <div class="item" data-coords="[55.816265, 49.145723]">
+        <p>Офис продаж в Казани</p>
         <address><?php echo get_field('addr_office', 'options'); ?></address>
+        <span><?php echo get_field('work_time','options'); ?></span>
       </div>
-      <div class="item-last">
-        <div class="row">
-          <a target="blank" href="tel:<?php echo get_field('phone','options'); ?>" class="phone">
-            <?php echo get_field('phone','options'); ?>
-          </a>
-          <a target="blank" href="mailto:<?php echo get_field('email','options'); ?>" class="email">
-            <?php echo get_field('email','options'); ?>
-          </a>
-        </div>
-        <span><?php echo get_field('work_time', 'options'); ?></span>
-      </div>
-      <div class="button callback">
-        Заказать звонок
+      <div class="item" data-coords="[55.766233, 37.581101]">
+        <p>Офис продаж в Москве</p>
+        <address><?php echo get_field('addr_office_msk', 'options'); ?></address>
+        <span><?php echo get_field('work_time','options'); ?></span>
       </div>
     </div>
   </div>
   <div id="map"></div>
 </section>
 <?php endif; ?>
+
 
 <?php get_footer(); ?>
 
