@@ -284,6 +284,17 @@
       border-radius: 12px
       transition: .2s
       position: relative
+      &.onbackorder,
+      &.outofstock
+        cursor: auto
+        &:hover
+          box-shadow: none
+        .table-product-cart
+          opacity: 0
+          pointer-events: none
+          a.button
+            pointer-events: none
+            opacity: 0
       .load-circle
         border-radius: 6px
         background-color: $main
@@ -502,7 +513,14 @@
   .product-links .wrap .item p 
     white-space: nowrap
 
-
+.product-links
+  .button
+    margin: auto
+    margin-top: 20px
+    margin-bottom: 80px
+    width: max-content
+    height: 40px
+    border-radius: 40px
 
 
 

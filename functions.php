@@ -10,6 +10,7 @@
 @include('inc/woo_review.php');
 @include('inc/woo_loop_item.php');
 @include('inc/woo_catalog.php');
+@include('inc/vacancy.php');
 
 add_filter('wpseo_breadcrumb_links', 'customize_yoast_breadcrumbs_last_link');
 
@@ -118,12 +119,11 @@ function update_all_products_meta_with_fallback_attributes_ajax() {
 // 4. Функция для обновления мета-данных с fallback на атрибуты и возвращение результатов
 function update_all_products_meta_with_fallback_attributes() {
     $priority_category_slugs = array('zaryadnye-ustrojstva-dlya-akkumulyatorov', 'bms-plata');
-    $attribute_keys_priority = array('pa_napryazhenie');  // Напряжение для приоритетных категорий
-    $attribute_keys_default = array('pa_emkost-ah');     // Емкость для остальных категорий
+    $attribute_keys_priority = array('pa_napryazhenie');
+    $attribute_keys_default = array('pa_emkost-ah');
 
-    $result_messages = array(); // Массив для хранения сообщений
+    $result_messages = array();
 
-    // Получаем все продукты
     $args = array(
         'post_type' => 'product',
         'posts_per_page' => -1,
@@ -135,8 +135,7 @@ function update_all_products_meta_with_fallback_attributes() {
         while ($products->have_posts()) {
             $products->the_post();
             $product_id = get_the_ID();
-            
-            // Получаем объект продукта
+
             $product = wc_get_product($product_id);
 
             if ($product && is_a($product, 'WC_Product')) {
@@ -158,18 +157,30 @@ function update_all_products_meta_with_fallback_attributes() {
 
                     if ($attribute_value) {
                         $meta_value = str_replace(',', '.', $attribute_value);
+						$meta_value = floatval(trim($meta_value));
                         break;
                     }
                 }
 
                 if ($meta_value) {
-                    update_post_meta($product_id, 'product_sort_value', $meta_value);
-                    $result_messages[] = "Продукт ID: $product_id обновлен с значением: $meta_value";
+					// Если есть значение атрибута
+					update_post_meta($product_id, 'product_sort_value', $meta_value);
+					$result_messages[] = "Продукт ID: $product_id обновлен с значением: $meta_value (атрибут найден в ключе: {$key})";
+				} else {
+					// Если атрибуты не найдены, ставим заведомо большое значение
+					$default_value = 99999;
+					update_post_meta($product_id, 'product_sort_value', $default_value);
+					$result_messages[] = "Продукт ID: $product_id не имеет атрибутов, установлено дефолтное значение: $default_value";
+				}
+
+                // 👇 Добавляем проверку ACF поля new_product
+                $is_new_product = get_field('new_product', $product_id);
+                if ($is_new_product) {
+                    update_post_meta($product_id, 'new_product_sort_priority', 1);
                 } else {
-                    $default_value = 0;
-                    update_post_meta($product_id, 'product_sort_value', $default_value);
-                    $result_messages[] = "Продукт ID: $product_id не имеет атрибутов, установлено дефолтное значение: $default_value";
+                    update_post_meta($product_id, 'new_product_sort_priority', 0);
                 }
+
             } else {
                 $result_messages[] = "Не удалось получить объект продукта для ID: $product_id";
             }
@@ -177,7 +188,7 @@ function update_all_products_meta_with_fallback_attributes() {
         wp_reset_postdata();
     }
 
-    return $result_messages; // Возвращаем результат
+    return $result_messages;
 }
 
 // Проверяем дочерние категории
@@ -195,17 +206,36 @@ function is_product_category_child_of_slug($product_id, $parent_category_slug) {
     
     return false;
 }
+add_action('woocommerce_product_query', 'custom_sort_products_with_priority_and_fallback');
+function custom_sort_products_with_priority_and_fallback($query) {
+    if (is_admin() || !$query->is_main_query()) {
+        return;
+    }
 
-// Добавить код в футер
+    if (is_shop() || is_product_category() || is_tax('product_cat')) {
 
-function code_insert_footer() {
-    ?>
+        add_filter('posts_join', function($join) {
+            global $wpdb;
 
-    <!-- сюда перенесем код аналитики-->    
+            // JOIN на поле new_product_sort_priority
+            $join .= " LEFT JOIN {$wpdb->postmeta} AS new_priority 
+                        ON ({$wpdb->posts}.ID = new_priority.post_id 
+                        AND new_priority.meta_key = 'new_product_sort_priority') ";
 
-    <?php
+            // JOIN на поле product_sort_value
+            $join .= " LEFT JOIN {$wpdb->postmeta} AS sort_value 
+                        ON ({$wpdb->posts}.ID = sort_value.post_id 
+                        AND sort_value.meta_key = 'product_sort_value') ";
+
+            return $join;
+        }, 20, 1);
+
+        add_filter('posts_orderby', function($orderby) {
+            return " 
+                CAST(new_priority.meta_value AS UNSIGNED) DESC, 
+                CAST(sort_value.meta_value AS DECIMAL(10,2)) ASC
+            ";
+        }, 20, 1);
+    }
 }
-add_action( 'wp_head', 'code_insert_footer' );
-
-
 

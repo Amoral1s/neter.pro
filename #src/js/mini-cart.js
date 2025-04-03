@@ -79,7 +79,9 @@ jQuery(document).ready(function($) {
             if ($(event.target).closest('.table-product-title').length || $(event.target).closest('.button').length) {
                 return;
             }
-            $(this).find('.button').trigger('click');
+            if ($(event.target).closest('li.table-product').hasClass('instock')) {
+                $(this).find('.button').trigger('click');
+            }
         });
 
         $('main.catalog-page').on('click', 'li.table-product .button', function(event) {

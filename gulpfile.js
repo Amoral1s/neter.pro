@@ -76,7 +76,7 @@ function logPaths(done) {
 
 function browserSync() {
     browsersyncInstance.init({
-        proxy: 'http://neter.local', // Убедитесь, что этот прокси соответствует вашему серверу MAMP
+        proxy: 'http://neter.local:8888', // Убедитесь, что этот прокси соответствует вашему серверу MAMP
         notify: false,
         open: true, // Открыть новое окно браузера при запуске
         codeSync: true, // Включить синхронизацию кода

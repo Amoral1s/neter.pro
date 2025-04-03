@@ -56,8 +56,13 @@ if (is_singular('product')) {
         $sub_category_link = $sub_category ? get_term_link($sub_category) : '';
 
         // Удаляем возможные дублирующие ссылки на "Главная" из хлебных крошек
-        $breadcrumb = preg_replace('/<a href="'.esc_url(home_url('/')).'">Главная<\/a>\s*\/?\s*/i', '', $breadcrumb);
+        $home_url = preg_quote(esc_url(home_url('/')), '/');
 
+		$breadcrumb = preg_replace(
+			'/<a href="' . $home_url . '">Главная<\/a>\s*\/?\s*/i',
+			'',
+			$breadcrumb
+		);
         // Получаем название товара
         $product_name = get_the_title();
 
@@ -128,9 +133,14 @@ if (is_singular('product')) {
 			<span class="rating-count"><?php echo get_review_word($rating_count); ?></span>
 			<?php } ?>
 			<div class="aviable">
-				<?php if ($product->is_in_stock()) : ?>
+				<?php
+				if ( $product->is_in_stock() && !$product->is_on_backorder() ) : ?>
 					<div class="aviable-true" <?php if (!comments_open()) { echo 'style="margin-left: 0"'; } ?>>
 						В наличии
+					</div>
+				<?php elseif ( $product->is_on_backorder() ) : ?>
+					<div class="aviable-false" <?php if (!comments_open()) { echo 'style="margin-left: 0"'; } ?>>
+						Предзаказ
 					</div>
 				<?php else : ?>
 					<div class="aviable-false" <?php if (!comments_open()) { echo 'style="margin-left: 0"'; } ?>>
@@ -192,7 +202,11 @@ if (is_singular('product')) {
     </div>
 		<?php endif; ?>
 		<div class="single-btns">
-			<?php woocommerce_template_single_add_to_cart(); ?>
+			<?php if ($product->is_on_backorder()) : ?>
+				<div class="button call-pre-order " data-title="<?php echo get_the_title(); ?>">Предзаказ</div>
+			<?php else : ?>
+				<?php woocommerce_template_single_add_to_cart(); ?>
+			<?php endif; ?>
 			<div class="button button-white callback">
 				Консультация
 			</div>

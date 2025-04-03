@@ -113,7 +113,7 @@ jQuery(document).ready(function($) {
             iconImageSize: [45, 56], // Размер иконки
         });
 
-        var myPlacemark3 = new ymaps.Placemark([55.766233, 37.581101], {
+        var myPlacemark3 = new ymaps.Placemark([55.749792, 37.541889], {
             balloonContent: 'Офис продаж в Москве'
         }, {
             iconLayout: 'default#image',
@@ -139,7 +139,7 @@ jQuery(document).ready(function($) {
 
         addRouteEvent(myPlacemark, [55.833651, 49.051288]);
         addRouteEvent(myPlacemark2, [55.816793, 49.146452]);
-        addRouteEvent(myPlacemark3, [55.766233, 37.581101]);
+        addRouteEvent(myPlacemark3, [55.749792, 37.541889]);
 
         myMap.geoObjects.add(myPlacemark);
         myMap.geoObjects.add(myPlacemark2);

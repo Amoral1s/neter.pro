@@ -74,6 +74,15 @@ if ($current_category) {
             'pa_tok-razryada', 
             'pa_ves-kg' 
         );
+    } elseif ($current_category == 'specials') {
+        $attributes_to_display = array(
+            'pa_tip-himii', 
+            'pa_emkost-ah', 
+            'pa_napryazhenie', 
+            'pa_tokootdacha', 
+            'pa_gabarity-mm', 
+            'pa_ves-kg' 
+        );
     } elseif ($current_category == 'akkumulyatornye-yacheyki') {
         $attributes_to_display = array(
             'pa_tip-himii', 
@@ -107,9 +116,14 @@ $price_to_display = $sale_price ? $sale_price : $regular_price;
  
 // Форматирование цены и удаление HTML-тегов
 $price_formatted = wp_strip_all_tags( wc_price( $price_to_display ) );
-
+$new_product = get_field('new_product');
 ?>
 <li <?php wc_product_class( 'table-product', $product ); ?>>
+	<?php
+		if ($new_product == true) {
+			echo '<div class="label">Новинка</div>';
+		}
+	?>
 	<div class="table-product-cart">
 		<?php woocommerce_template_loop_add_to_cart(); ?>
 		<div class="load-circle"></div>

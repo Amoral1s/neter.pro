@@ -10,6 +10,27 @@ Requires PHP: 7.4
 License: GNU General Public License v2 or later
 License URI: LICENSE
 */
+.catalog-page .products .label {
+	background: #FF0D65;
+	color: #fff;
+	height: 20px;
+	font-size: 12px;
+	padding: 0 15px;
+	border-radius: 999px;
+	position: absolute;
+	left: 50px;
+	top: -5px;
+	font-weight: 500;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	line-height: 0;
+}
+@media (max-width: 578px) {
+	.catalog-page .products .label {
+		left: 30px;
+	}
+}
 .product-thumbnails-lightbox {
   display: flex;
   justify-content: center;
@@ -43,3 +64,11 @@ License URI: LICENSE
 	right: 15px!important;
 	bottom: 15px!important;
 }
+
+@media (max-width: 578px) {
+	.calc-offer.shop-offer .wrap .offer-image {
+		
+		margin-bottom: 0;
+	}
+}
+

@@ -123,6 +123,17 @@ get_header();
 </section>
 <?php endif; ?>
 
+<?php if (get_field('seo_title')) : ?>
+  <section class="seo">
+    <div class="container">
+      <h2 class="title"><?php echo get_field('seo_title') ?></h2>
+      <div class="content">
+        <?php echo get_field('seo'); ?>
+      </div>
+    </div>
+  </section>
+<?php endif; ?>
+
 
 <?php
 get_footer();

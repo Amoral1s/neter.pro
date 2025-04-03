@@ -64,8 +64,16 @@ $attributes = [
                 echo '<div class="star-rating"><span style="width:0%"></span></div>';
             }
             ?>
-            <div class="aviable <?php echo $product->is_in_stock() ? 'aviable-true' : 'aviable-false'; ?>">
-                <?php echo $product->is_in_stock() ? 'В наличии' : 'Нет в наличии'; ?>
+            <div class="aviable <?php echo $product->is_in_stock() && ! $product->is_on_backorder() ? 'aviable-true' : 'aviable-false'; ?>">
+                <?php
+                if ( $product->is_in_stock() && ! $product->is_on_backorder() ) {
+                    echo 'В наличии';
+                } elseif ( $product->is_on_backorder() ) {
+                    echo 'Предзаказ';
+                } else {
+                    echo 'Нет в наличии';
+                }
+                ?>
             </div>
         </div>
         <b class="product-title">

@@ -13,24 +13,34 @@
           </a>
         <?php endif; ?>
         <div class="center">
+          <?php if (!is_page(4617)) : ?>
           <div class="item">
             <a href="tel:<?php echo get_field('phone', 'options'); ?>" target="blank">
               <?php echo get_field('phone', 'options'); ?>
             </a>
             <span><?php echo get_field('work_time', 'options'); ?></span>
           </div>
+          <?php endif; ?>
           <div class="item">
+            <?php if (is_page(4617)) : ?>
+            <a target="blank" href="mailto:info@batareon.ru">
+              info@batareon.ru
+            </a>
+            <?php else : ?>
             <a href="mailto:<?php echo get_field('email_sales', 'options'); ?>" target="blank">
               <?php echo get_field('email_sales', 'options'); ?>
             </a>
-            <span>Отдел продаж</span>
+            <?php endif; ?>
+            <span>Свяжитесь с нами</span>
           </div>
+          <?php if (!is_page(4617)) : ?>
           <div class="item">
             <a href="mailto:<?php echo get_field('email_info', 'options'); ?>" target="blank">
               <?php echo get_field('email_info', 'options'); ?>
             </a>
             <span>Общие вопросы</span>
           </div>
+			    <?php endif; ?>
         </div>
         <div class="social">
           <a href="<?php echo get_field('tg', 'options'); ?>" target="blank">
@@ -270,6 +280,23 @@
     </div>
   </div>
 
+  <div class="popup popup-pre-order" style="display: none">
+    <div class="close">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
+        <path d="M18.9998 5.49995L4.99976 19.4999M4.99976 5.49995L18.9998 19.4999" stroke="#141B34" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <div class="wrapper">
+      <div class="form form-white">
+        <b>Предзаказ товара</b>
+        <p class="subtitle">
+          Оставьте заявку и мы свяжемся с вами в ближайшее время
+        </p>
+        <?php echo do_shortcode('[contact-form-7 id="2803d4d" title="Предзаказ товара"]'); ?>
+      </div>
+    </div>
+  </div>
+
   <div class="popup popup-gift" style="display: none">
     <div class="close">
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
@@ -413,7 +440,7 @@
 
   <div class="cookie" style="display: none">
     <b>Используем куки для улучшения работы сайта</b>
-    <p>Оставаясь с нами, вы соглашаетесь на использование файлов куки</p>
+    <p>Вы можете запретить обработку сookies в настройках браузера. Пожалуйста, ознакомьтесь с <a style="font-size: 14px;text-decoration:underline;" href="/politika-obrabotki-fajlov-cookie">политикой использования cookies</a></p>
     <div class="button"><span>Понятно</span></div>
   </div>
 <!-- Popup's END -->
@@ -613,22 +640,33 @@
         </ul>
       </nav> 
       <div class="mob-contacts">
+        <?php if (!is_page(4617)) : ?>
         <a class="link" target="blank" href="tel:<?php the_field('phone', 'options'); ?>">
           <span><?php the_field('phone', 'options'); ?></span>
           <p>Единый номер по России</p>
         </a>
+        <?php endif; ?>
         <div class="link">
           <span><?php the_field('work_time', 'options'); ?></span>
           <p>Режим работы</p>
         </div>
+        <?php if (!is_page(4617)) : ?>
         <a class="link" target="blank" href="mailto:<?php the_field('email_info', 'options'); ?>">
           <span><?php the_field('email_info', 'options'); ?></span>
           <p>Общие вопросы</p>
         </a>
+        <?php endif; ?>
+        <?php if (is_page(4617)) : ?>
+        <a class="link" target="blank" href="mailto:sales@batareon.ru">
+          <span>sales@batareon.ru</span>
+          <p>Отдел продаж</p>
+        </a>
+        <?php else : ?>
         <a class="link" target="blank" href="mailto:<?php the_field('email', 'options'); ?>">
           <span><?php the_field('email', 'options'); ?></span>
           <p>Отдел продаж</p>
         </a>
+        <?php endif; ?>
         <div class="social">
           <a href="<?php echo get_field('tg', 'options'); ?>" target="blank">
             <div class="icon">

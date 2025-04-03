@@ -7,10 +7,10 @@ get_header();
       if ( function_exists('yoast_breadcrumb') ) { yoast_breadcrumb('<p class="breadcrumbs">', '</p>'); }
     ?>
   </div>
-</div>
+</div> 
 <?php $current_page = get_query_var('paged') ? get_query_var('paged') : 1; ?>
 <section  itemscope itemtype="http://schema.org/Blog" class="blog">
-  <link itemprop="image" href="<?php echo get_template_directory_uri(); ?>/img/logo.svg">
+  <link itemprop="image" href="<?php echo get_template_directory_uri(); ?>/img/logo-dark.svg">
 	<link itemprop="url" href="<?php echo get_permalink(); ?>">
 	<meta itemprop="description" content="<?php the_excerpt(); ?>">
 	<meta itemprop="author" content="<?php the_author(); ?>">

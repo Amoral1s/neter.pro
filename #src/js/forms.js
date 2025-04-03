@@ -81,6 +81,14 @@ jQuery(document).ready(function ($) {
 		$('.overlay').fadeIn(300);
 		$('html').addClass('fixed');
 	});
+
+	$('.call-pre-order').on('click', function() {
+		$('.popup.popup-pre-order').fadeIn(300);
+		$('.popup').removeClass('popup-thx');
+		$('.overlay').fadeIn(300);
+		$('html').addClass('fixed');
+		$('.popup.popup-pre-order').find('input[name="Product"]').val($(this).attr('data-title'));
+	});
 	$('.call-tender').on('click', function() {
 		$('.popup.popup-tender').fadeIn(300);
 		$('.popup').removeClass('popup-thx');

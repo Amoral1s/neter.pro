@@ -8740,6 +8740,14 @@ jQuery(document).ready(function ($) {
 		$('.overlay').fadeIn(300);
 		$('html').addClass('fixed');
 	});
+
+	$('.call-pre-order').on('click', function() {
+		$('.popup.popup-pre-order').fadeIn(300);
+		$('.popup').removeClass('popup-thx');
+		$('.overlay').fadeIn(300);
+		$('html').addClass('fixed');
+		$('.popup.popup-pre-order').find('input[name="Product"]').val($(this).attr('data-title'));
+	});
 	$('.call-tender').on('click', function() {
 		$('.popup.popup-tender').fadeIn(300);
 		$('.popup').removeClass('popup-thx');
@@ -8966,7 +8974,9 @@ jQuery(document).ready(function ($) {
 							elem.closest('.product') || 
 							elem.classList.contains('wpcf7') || 
 							elem.classList.contains('awooc-custom-order') || 
-							elem.classList.contains('swiper-wrapper') 
+							elem.classList.contains('swiper-wrapper')  || 
+							elem.id.includes('datawrapper-script-embed') ||
+							elem.id.includes('datawrapper') 
 						) 
 					{
 					 return
@@ -9302,8 +9312,44 @@ jQuery(document).ready(function ($) {
   }
 
 
+  const productLinks = document.querySelector('.product-links');
 
-
+  if (productLinks && window.screen.width > 992) {
+    const wrapper = productLinks.querySelector('.scroll-wrapper .wrap');
+  
+    if (wrapper) {
+      const maxHeight = 210;
+  
+      // Проверка высоты элемента
+      if (wrapper.offsetHeight > maxHeight) {
+        // Ограничиваем высоту
+        wrapper.style.maxHeight = maxHeight + 'px';
+        wrapper.style.overflow = 'hidden';
+        wrapper.style.transition = 'max-height 0.3s ease';
+  
+        // Создаем кнопку
+        const toggleBtn = document.createElement('button');
+        toggleBtn.textContent = 'Показать ещё';
+        toggleBtn.classList.add('button');
+        toggleBtn.style.marginTop = '10px'; // кастомизируй под себя
+        toggleBtn.style.cursor = 'pointer';
+  
+        // Добавляем кнопку после .wrap
+        productLinks.querySelector('.scroll-wrapper').appendChild(toggleBtn);
+  
+        // Слушаем клик
+        toggleBtn.addEventListener('click', function() {
+          if (wrapper.style.maxHeight !== 'none') {
+            wrapper.style.maxHeight = 'none';
+            toggleBtn.textContent = 'Скрыть';
+          } else {
+            wrapper.style.maxHeight = maxHeight + 'px';
+            toggleBtn.textContent = 'Показать ещё';
+          }
+        });
+      }
+    }
+  }
   
 
  
@@ -9426,7 +9472,7 @@ jQuery(document).ready(function($) {
             iconImageSize: [45, 56], // Размер иконки
         });
 
-        var myPlacemark3 = new ymaps.Placemark([55.766233, 37.581101], {
+        var myPlacemark3 = new ymaps.Placemark([55.749792, 37.541889], {
             balloonContent: 'Офис продаж в Москве'
         }, {
             iconLayout: 'default#image',
@@ -9452,7 +9498,7 @@ jQuery(document).ready(function($) {
 
         addRouteEvent(myPlacemark, [55.833651, 49.051288]);
         addRouteEvent(myPlacemark2, [55.816793, 49.146452]);
-        addRouteEvent(myPlacemark3, [55.766233, 37.581101]);
+        addRouteEvent(myPlacemark3, [55.749792, 37.541889]);
 
         myMap.geoObjects.add(myPlacemark);
         myMap.geoObjects.add(myPlacemark2);

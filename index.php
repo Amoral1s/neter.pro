@@ -24,10 +24,10 @@
       <h1 style="color: #fff"><?php echo get_field('offer_title', 'options') ?></h1>
       <p style="color: #fff"><?php echo get_field('offer_subtitle', 'options'); ?></p>
       <div class="btns">
-        <div class="button callback">
+        <div class="button callback" style="width: 400px; max-width: 100%;">
           Оставить заявку
         </div>
-        <div target="blank" class="button button-transparent call-catalog">
+        <div target="blank" style="display: none" class="button button-transparent call-catalog">
           Скачать каталог
         </div>
       </div>
@@ -458,7 +458,7 @@
       <div class="right">
         <?php if (have_rows('faq','options')) : while(have_rows('faq','options')) : the_row(); ?>
           <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="item">
-            <h3 itemprop="name"  class="item-title">
+            <h3 itemprop="name" class="item-title">
               <?php echo get_sub_field('title'); ?>
               <div class="icon">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -466,8 +466,8 @@
                 </svg>
               </div>
             </h3>
-            <div itemscope itemprop="acceptedAnswer" class="item-content content">
-              <?php echo get_sub_field('text'); ?>
+            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer" class="item-content content">
+              <span itemprop="text"><?php echo get_sub_field('text'); ?></span>
             </div>
           </div>
         <?php endwhile; endif; ?>
@@ -572,7 +572,7 @@
         <address><?php echo get_field('addr_office', 'options'); ?></address>
         <span><?php echo get_field('work_time','options'); ?></span>
       </div>
-      <div class="item" data-coords="[55.766233, 37.581101]">
+      <div class="item" data-coords="[55.749792, 37.541889]">
         <p>Офис продаж в Москве</p>
         <address><?php echo get_field('addr_office_msk', 'options'); ?></address>
         <span><?php echo get_field('work_time','options'); ?></span>
@@ -589,6 +589,7 @@
 <!-- Schema org -->
 <div itemscope itemtype="http://schema.org/Organization" style="display: none;">
   <span itemprop="name">ООО «Источники питания»</span>
+  <img itemprop="image" src="<?php echo get_template_directory_uri(); ?>/img/logo-dark.svg" alt='ООО "НЭТЕР"' />
   <div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
     <span itemprop="streetAddress">ул. Сибгата Хакима, д. 51, помещ. 1029, офис 2</span>,
     <span itemprop="addressLocality">г. Казань</span>,
@@ -598,13 +599,16 @@
 </div>
 <div itemscope itemtype="http://schema.org/LocalBusiness" style="display: none;">
   <span itemprop="name">ООО «Источники питания»</span>
+  <img itemprop="image" src="<?php echo get_template_directory_uri(); ?>/img/logo-dark.svg" alt='ООО "НЭТЕР"' />
   <div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+    <span itemprop="addressCountry">RU</span>, <!-- Код страны в формате ISO -->
     <span itemprop="streetAddress">ул. Сибгата Хакима, д. 51, помещ. 1029, офис 2</span>,
     <span itemprop="addressLocality">г. Казань</span>,
     <span itemprop="postalCode">421001</span>
   </div>
-  Телефон: <span itemprop="telephone"><?php the_field('phone','options'); ?></span><br>
+  Телефон: <span itemprop="telephone"><?php the_field('phone', 'options'); ?></span><br>
   Часы работы: <span itemprop="openingHours">09:00 - 18:00</span><br>
-  <span itemprop="description">Аккумуляторы от производителя</span>
+  <span itemprop="description">Аккумуляторы от производителя</span><br>
+  <span itemprop="priceRange">$$</span> <!-- Ценовой диапазон -->
 </div>
 <!-- Schema end -->

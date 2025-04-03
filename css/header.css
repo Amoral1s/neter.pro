@@ -574,6 +574,8 @@ svg:hover rect {
     display: flex;
     align-items: center;
     justify-content: flex-end;
+    margin-left: auto;
+    margin-right: 0;
   }
 
   .header-contacts .link {

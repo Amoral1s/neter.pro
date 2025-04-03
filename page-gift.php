@@ -66,6 +66,17 @@ get_header();
   <img style="display: none" class="bg-mob" src="<?php echo get_template_directory_uri(); ?>/img/pages/prize-bg-mob.png" alt="Розыгрыш">
 </section>
 
+<?php if (get_the_content()) : ?>
+<section class="seo">
+  <div class="container">
+    <h2 class="title">Подведение итогов</h2>
+    <div class="content">
+      <?php the_content(); ?>
+    </div>
+  </div>
+</section>
+<?php endif; ?>
+
 <?php if (get_field('terms_title')) : ?>
 <section class="gift-steps">
   <div class="container">
@@ -115,6 +126,9 @@ get_header();
 </section>
 <?php endif; ?>
 
+
+
+
 <?php if (get_field('faq_title')) : ?>
 <section itemscope itemtype="https://schema.org/FAQPage" class="faq">
   <div class="container">
@@ -145,8 +159,10 @@ get_header();
                 </svg>
               </div>
             </h3>
-            <div itemscope itemprop="acceptedAnswer" class="item-content content">
-              <?php echo get_sub_field('text'); ?>
+            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer" class="item-content ">
+              <div itemprop="text" class="content">
+                <?php echo get_sub_field('text'); ?>
+              </div>
             </div>
           </div>
         <?php endwhile; endif; ?>

@@ -2,7 +2,38 @@
 <html <?php language_attributes(); ?>>
 <head>
   
- 
+   <?php
+    // Получаем текущий URL
+    $current_url = $_SERVER['REQUEST_URI'];
+    
+    // Список подстрок для проверки
+    $noindex_patterns = array(
+		'?s=',             
+        '/search',            
+        '?wpf_filter_',      
+        '?feed=',            
+        '?add-to-cart',         
+        '?yprqee',    
+        '?etext',
+    );
+
+    // Преобразуем текущий URL в нижний регистр (для исключения ошибок регистра)
+    $current_url_lower = strtolower($current_url);
+
+    // Проверяем наличие значений в URL
+    $add_noindex = false;
+    foreach ($noindex_patterns as $pattern) {
+        if (strpos($current_url_lower, strtolower($pattern)) !== false) {
+            $add_noindex = true;
+            break;
+        }
+    }
+
+    // Если условие выполнено, выводим meta-robots
+    if ($add_noindex) {
+        echo '<meta name="robots" content="noindex, nofollow"/>';
+    }
+  ?>
   <link rel="preload" as="style" href="<?php echo get_stylesheet_directory_uri(); ?>/css/header.min.css" onload="this.onload=null;this.rel='stylesheet'">
     <noscript>
         <link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri(); ?>/css/header.min.css">
@@ -57,19 +88,28 @@
 
 <div class="mob-header 
   <?php 
-    if (!is_home() && !is_page(346) && !is_page(4620) && !is_page(4508) && !is_page(599) &&  !is_product_category() && !is_tax()) { 
+    if (
+        is_page_template('page-development.php') // проверяем сначала шаблон
+    ) { 
+        echo 'mob-header-home'; 
+    } elseif (
+        !is_home() && 
+        !is_page(346) && 
+        !is_page(4620) && 
+        !is_page(4508) && 
+        !is_page(599) &&  
+        !is_product_category() && 
+        !is_tax()
+    ) { 
         echo 'white'; 
     } else { 
-      if (is_search()) {
-        echo 'white'; 
-
+        if (is_search()) {
+            echo 'white'; 
         } elseif (is_tax('blog-category')) {
-          echo 'white'; 
+            echo 'white'; 
         } else {
-        echo 'mob-header-home'; 
-
-      }
-
+            echo 'mob-header-home'; 
+        }
     } 
   ?>
 ">
@@ -98,19 +138,29 @@
 </div> 
 
 <header itemscope itemtype="http://schema.org/WPHeader" class="header 
-    <?php 
-      if (!is_home() && !is_page(346) && !is_page(4620) && !is_page(4508) && !is_page(599) &&  !is_product_category() && !is_tax()) { 
-          echo 'header-white'; 
-      } else { 
-          if (is_search()) {
+  <?php 
+    if (
+        !is_home() && 
+        !is_page(346) && 
+        !is_page(4620) && 
+        !is_page(4508) && 
+        !is_page(599) &&  
+        !is_product_category() && 
+        !is_tax() && 
+        !is_page_template('page-development.php') 
+    ) { 
+        echo 'header-white'; 
+    } else { 
+        // Дополнительные проверки
+        if (is_search()) {
             echo 'header-white'; 
-          } elseif (is_tax('blog-category')) {
+        } elseif (is_tax('blog-category')) {
             echo 'header-white'; 
-          } else {
+        } else {
             echo 'header-home'; 
-          }
-      } 
-    ?>
+        }
+    } 
+  ?>
   " style="display: none"> 
   <div class="container header-pc" style="display: block"> 
     <div class="wrap">
@@ -160,12 +210,20 @@
         </ul>
       </nav> 
       <div class="header-contacts">
+        <?php if (!is_page(4617)) : ?>
         <a class="link" target="blank" href="tel:<?php the_field('phone', 'options'); ?>">
           <?php the_field('phone', 'options'); ?>
         </a>
+        <?php endif; ?>
+        <?php if (is_page(4617)) : ?>
+        <a class="link" target="blank" href="mailto:info@batareon.ru">
+          info@batareon.ru
+        </a>
+        <?php else : ?>
         <a class="link" target="blank" href="mailto:<?php the_field('email', 'options'); ?>">
           <?php the_field('email', 'options'); ?>
         </a>
+        <?php endif; ?>
         <div class="button button-transparent callback">
           Заказать звонок
         </div>

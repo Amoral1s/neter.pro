@@ -53,7 +53,7 @@ get_header();
   </div>
 </section>
 
-<?php if (get_field('vyklyuchit_video_otzyvy') == false) : ?>
+<?php if (get_field('vyklyuchit_tekstovye_otzyvy') == false) : ?>
 <section class="text-feed page-feed">
   <div class="container">
     <h2 class="title">

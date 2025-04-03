@@ -68,7 +68,9 @@ jQuery(document).ready(function ($) {
 							elem.closest('.product') || 
 							elem.classList.contains('wpcf7') || 
 							elem.classList.contains('awooc-custom-order') || 
-							elem.classList.contains('swiper-wrapper') 
+							elem.classList.contains('swiper-wrapper')  || 
+							elem.id.includes('datawrapper-script-embed') ||
+							elem.id.includes('datawrapper') 
 						) 
 					{
 					 return

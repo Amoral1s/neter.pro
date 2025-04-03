@@ -123,8 +123,44 @@ jQuery(document).ready(function ($) {
   }
 
 
+  const productLinks = document.querySelector('.product-links');
 
-
+  if (productLinks && window.screen.width > 992) {
+    const wrapper = productLinks.querySelector('.scroll-wrapper .wrap');
+  
+    if (wrapper) {
+      const maxHeight = 210;
+  
+      // Проверка высоты элемента
+      if (wrapper.offsetHeight > maxHeight) {
+        // Ограничиваем высоту
+        wrapper.style.maxHeight = maxHeight + 'px';
+        wrapper.style.overflow = 'hidden';
+        wrapper.style.transition = 'max-height 0.3s ease';
+  
+        // Создаем кнопку
+        const toggleBtn = document.createElement('button');
+        toggleBtn.textContent = 'Показать ещё';
+        toggleBtn.classList.add('button');
+        toggleBtn.style.marginTop = '10px'; // кастомизируй под себя
+        toggleBtn.style.cursor = 'pointer';
+  
+        // Добавляем кнопку после .wrap
+        productLinks.querySelector('.scroll-wrapper').appendChild(toggleBtn);
+  
+        // Слушаем клик
+        toggleBtn.addEventListener('click', function() {
+          if (wrapper.style.maxHeight !== 'none') {
+            wrapper.style.maxHeight = 'none';
+            toggleBtn.textContent = 'Скрыть';
+          } else {
+            wrapper.style.maxHeight = maxHeight + 'px';
+            toggleBtn.textContent = 'Показать ещё';
+          }
+        });
+      }
+    }
+  }
   
 
  

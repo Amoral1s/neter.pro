@@ -110,10 +110,10 @@ if (is_product_category() || is_tax()) {
 }
 ?>
 				<div class="btns">
-					<div class="button callback">
+					<div class="button callback" style="width: 400px; max-width: 100%;">
 						Оставить заявку
 					</div>
-					<div target="blank" class="button button-transparent call-catalog">
+					<div target="blank" class="button button-transparent call-catalog" style="display: none">
 						Скачать каталог
 					</div>
 				</div>
@@ -362,7 +362,17 @@ if (is_product_category() || is_tax()) {
 													</div>
 											</div>
 									<?php } else { ?>
-											<p><?php esc_html_e('No matching category found.', 'woocommerce'); ?></p>
+										<div class="table-header" data-curr-cat="none">
+											<div class="header-title"><?php esc_html_e('Наименование', 'woocommerce'); ?></div>
+											<div class="header-wrapper">
+													<div class="header-attribute">Тип химии</div>
+													<div class="header-attribute">Номинальная <br>емкость&nbsp;(Ah)</div>
+													<div class="header-attribute">Напряжение&nbsp;(V)</div>
+													<div class="header-attribute">Токоотдача</div>
+													<div class="header-attribute">Габариты&nbsp;(мм)</div>
+													<div class="header-attribute">Вес&nbsp;(кг)</div>
+											</div>
+										</div>
 									<?php }
 							} else { ?>
 									<p><?php esc_html_e('No current category.', 'woocommerce'); ?></p>
@@ -459,35 +469,40 @@ if (is_product_category() || is_tax()) {
 					<div class="scroll-wrapper">
 						<div class="wrap">
 							<?php 
-								$taxonomy_ids = get_field('sfery', 'term_' . $term_id); // Получаем массив ID таксономий
-								if ($taxonomy_ids) {
-										foreach ($taxonomy_ids as $taxonomy_id) {
-												// Получаем данные поля ACF для таксономии
-												$icon = get_field('attr_img', 'term_' . $taxonomy_id);
-												$title = get_field('attr_title', 'term_' . $taxonomy_id);
-												$link = get_term_link($taxonomy_id);
+$taxonomy_ids = get_field('sfery', 'term_' . $term_id); // Получаем массив ID таксономий
+if ($taxonomy_ids) {
+    foreach ($taxonomy_ids as $taxonomy_id) {
+        // Получаем данные поля ACF для таксономии
+        $icon = get_field('attr_img', 'term_' . $taxonomy_id);
+        $title = get_field('attr_title', 'term_' . $taxonomy_id);
+        $link = get_term_link($taxonomy_id);
 
-												// Если заголовок таксономии пустой, используем название таксономии
-												if (empty($title)) {
-														$taxonomy = get_term($taxonomy_id);
-														$title = $taxonomy->name;
-												}
+        // Проверяем, что ссылка не вернула ошибку
+        if (is_wp_error($link)) {
+            continue; // Пропускаем итерацию цикла, если ошибка
+        }
 
-												// Проверяем, существует ли заголовок, и выводим элемент
-												if ($title) {
-														?>
-														<a href="<?php echo esc_url($link); ?>" class="item">
-																<?php if ($icon) : ?>
-																		<div class="icon">
-																				<img src="<?php echo esc_url($icon); ?>" alt="<?php echo esc_attr($title); ?>">
-																		</div>
-																<?php endif; ?>
-																<p><?php echo esc_html($title); ?></p>
-														</a>
-														<?php
-												}
-										}
-								}
+        // Если заголовок таксономии пустой, используем название таксономии
+        if (empty($title)) {
+            $taxonomy = get_term($taxonomy_id);
+            $title = $taxonomy ? $taxonomy->name : '';
+        }
+
+        // Проверяем, существует ли заголовок, и выводим элемент
+        if ($title) {
+            ?>
+            <a href="<?php echo esc_url($link); ?>" class="item">
+                <?php if ($icon) : ?>
+                    <div class="icon">
+                        <img src="<?php echo esc_url($icon); ?>" alt="<?php echo esc_attr($title); ?>">
+                    </div>
+                <?php endif; ?>
+                <p><?php echo esc_html($title); ?></p>
+            </a>
+            <?php
+        }
+    }
+}
 							?>
 						</div>
 					</div>
@@ -750,8 +765,10 @@ if (is_product_category() || is_tax()) {
 											</svg>
 										</div>
 									</h3>
-									<div itemscope itemprop="acceptedAnswer" class="item-content content">
-										<?php echo get_sub_field('text'); ?>
+									<div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer" class="item-content ">
+										<div itemprop="text" class="content">
+											<?php echo get_sub_field('text'); ?>
+										</div>
 									</div>
 								</div>
 							<?php endwhile; endif; ?>
@@ -792,8 +809,10 @@ if (is_product_category() || is_tax()) {
 											</svg>
 										</div>
 									</h3>
-									<div itemscope itemprop="acceptedAnswer" class="item-content content">
-										<?php echo get_sub_field('text'); ?>
+									<div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer" class="item-content ">
+										<div itemprop="text" class="content">
+											<?php echo get_sub_field('text'); ?>
+										</div>
 									</div>
 								</div>
 							<?php endwhile; endif; ?>
