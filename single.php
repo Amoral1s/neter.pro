@@ -106,12 +106,12 @@
 						<?php echo getPostViews(get_the_ID()); ?>
 					</div>
 				</div>
-				<div itemprop="aggregateRating" itemscope="" itemtype="http://schema.org/AggregateRating" class="rating top-rat">
-					<meta itemprop="bestRating" content="5">
-					<meta itemprop="ratingValue" content="5">
+				<div  class="rating top-rat">
+					<meta content="5">
+					<meta content="5">
 					<div class="new-rating">
 					</div>
-					<div itemprop="ratingCount" class="votes">
+					<divclass="votes">
 					</div>
 				</div>
 			</div>
@@ -139,6 +139,7 @@
 
 	
 </section>
+
 <?php if (get_field('news_toggle') == true) : ?>
 	<?php 
 		$post_ids = get_field('news_ids');
@@ -148,7 +149,7 @@
 
 			// Подготавливаем аргументы запроса
 			$args = array(
-				'post_type'      => 'post', // Или укажи свой тип поста
+				'post_type'      => array('post', 'blog'), // Или укажи свой тип поста
 				'post__in'       => $post_ids,
 				'orderby'        => 'post__in',
 				'posts_per_page' => -1,
@@ -161,7 +162,6 @@
 	<section class="news">
 		<div class="container">
 			<h2 class="title">Читайте также</h2>
-
 			<div class="wrap slider-wrap">
 				<div class="arr arr-prev">
 					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
@@ -179,7 +179,7 @@
 							}
 						?>
 						<a href="<?php the_permalink(); ?>" class="item swiper-slide">
-							<?php echo wp_get_attachment_image( get_post_thumbnail_id(), 'medium', false, array( 'alt' => $news_image_alt ) ); ?>
+							<?php echo wp_get_attachment_image( get_post_thumbnail_id(), 'large', false, array( 'alt' => $news_image_alt ) ); ?>
 							<div class="meta">
 								<b><?php the_title(); ?></b>
 								<div class="date"><?php echo get_the_date( 'd.m.Y' ); ?></div>
@@ -204,18 +204,63 @@
 <?php else : ?>
 	<?php 
 		$current_post_id = get_the_ID();
-		$current_post_type = get_post_type( $current_post_id ); // определяем тип текущего поста
+		$categories = get_the_category( $current_post_id );
+		$category_ids = array();
 
-		// Подготавливаем аргументы запроса
-		$args = array(
-			'post_type'      => $current_post_type, // используем текущий тип записи
-			'posts_per_page' => 10,
-			'post__not_in'   => array( $current_post_id ),
-			'orderby'        => 'rand'
+		if ( ! empty( $categories ) ) {
+				// Собираем ID категорий, если они есть
+				foreach ( $categories as $category ) {
+						$category_ids[] = $category->term_id;
+				}
+		}
+
+		// Если категории есть, делаем запрос по категориям, иначе берем все посты
+		$args_all = array(
+				'post_type'      => array('post', 'blog'),
+				'posts_per_page' => -1, // Получаем все записи
+				'orderby'        => 'date',
+				'order'          => 'DESC'
 		);
-		$query = new WP_Query( $args );
 
-		if ( $query->have_posts() ) {
+		if ( !empty( $category_ids ) ) {
+				$args_all['category__in'] = $category_ids; // Фильтруем по категориям
+		}
+
+		$all_posts = new WP_Query( $args_all );
+
+		// Ищем индекс текущей записи
+		$current_index = -1; 
+		if ( $all_posts->have_posts() ) {
+				$posts_array = $all_posts->posts;
+				foreach ( $posts_array as $index => $post ) {
+						if ( $post->ID == $current_post_id ) {
+								$current_index = $index;
+								break;
+						}
+				}
+		}
+
+		// Выводим 5 записей до текущей и 5 записей после текущей
+		if ( $current_index != -1 ) {
+				$related_posts = array();
+
+				// Добавляем 5 записей до текущей записи
+				for ( $i = $current_index - 15; $i < $current_index; $i++ ) {
+						if ( $i >= 0 && $posts_array[$i]->ID != $current_post_id ) {
+								$related_posts[] = $posts_array[$i];
+						}
+				}
+
+				// Добавляем 5 записей после текущей записи
+				for ( $i = $current_index + 1; $i <= $current_index + 15 && $i < count( $posts_array ); $i++ ) {
+						if ( $posts_array[$i]->ID != $current_post_id ) {
+								$related_posts[] = $posts_array[$i];
+						}
+				}
+		}
+
+		// Выводим только если есть найденные посты
+		if ( !empty( $related_posts ) ) {
 	?>
 	<section class="news">
 		<div class="container">
@@ -230,64 +275,11 @@
 				<div class="swiper">
 					<div class="swiper-wrapper">
 						<?php
-							// Получаем все записи текущего типа
-							$args_all = array(
-								'post_type'      => $current_post_type,
-								'posts_per_page' => -1,
-								'orderby'        => 'date',
-								'order'          => 'DESC'
-							);
-							$all_posts = new WP_Query( $args_all );
-
-							$current_index = -1;
-							if ( $all_posts->have_posts() ) {
-								$posts_array = $all_posts->posts;
-
-								// ищем индекс текущей записи
-								foreach ( $posts_array as $index => $post ) {
-									if ( $post->ID == $current_post_id ) {
-										$current_index = $index;
-										break;
-									}
-								}
-							}
-
-							if ( $current_index != -1 ) {
-								$related_posts = array();
-
-								// добавляем записи после текущей
-								for ( $i = $current_index + 1; $i < $current_index + 11 && $i < count( $posts_array ); $i++ ) {
-									if ( $posts_array[$i]->ID != $current_post_id ) {
-										$related_posts[] = $posts_array[$i];
-									}
-								}
-
-								// если недостаточно, добавляем записи до текущей в обратном порядке
-								if ( count( $related_posts ) < 10 ) {
-									for ( $i = $current_index - 1; $i >= 0 && count( $related_posts ) < 10; $i-- ) {
-										if ( $posts_array[$i]->ID != $current_post_id ) {
-											$related_posts[] = $posts_array[$i];
-										}
-									}
-								}
-
-								// если записей все равно меньше 10, добавляем сколько есть
-								if ( count( $related_posts ) < 10 ) {
-									foreach ( $posts_array as $post_item ) {
-										if ( $post_item->ID != $current_post_id && ! in_array( $post_item, $related_posts ) ) {
-											$related_posts[] = $post_item;
-										}
-										if ( count( $related_posts ) >= 10 ) {
-											break;
-										}
-									}
-								}
-
-								// выводим записи
-								if ( ! empty( $related_posts ) ) {
-									foreach ( $related_posts as $post ) {
-										setup_postdata( $post );
-										?>
+            // Выводим записи
+            if ( !empty( $related_posts ) ) {
+              foreach ( $related_posts as $post ) {
+                  setup_postdata( $post );
+              ?>
 										<a href="<?php the_permalink(); ?>" class="item swiper-slide">
 											<?php
 												$news_image_alt = get_post_meta( get_post_thumbnail_id(), '_wp_attachment_image_alt', true );
@@ -295,19 +287,18 @@
 													$news_image_alt = get_the_title();
 												}
 
-												echo wp_get_attachment_image( get_post_thumbnail_id(), 'medium', false, array( 'alt' => $news_image_alt ) );
+												echo wp_get_attachment_image( get_post_thumbnail_id(), 'large', false, array( 'alt' => $news_image_alt ) );
 											?>
 											<div class="meta">
 												<b><?php the_title(); ?></b>
 												<div class="date"><?php echo get_the_date( 'd.m.Y' ); ?></div>
 											</div>
 										</a>
-										<?php
-									}
-									wp_reset_postdata();
+									<?php
 								}
+								wp_reset_postdata();
 							}
-						?>
+						?>	
 					</div>
 				</div>
 				<div class="arr arr-next">

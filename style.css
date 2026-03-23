@@ -10,6 +10,22 @@ Requires PHP: 7.4
 License: GNU General Public License v2 or later
 License URI: LICENSE
 */
+.shop-catalog-wrapper .shop-catalog-filters .wrap .wpfMainWrapper .wpfFilterWrapper .wpfFilterContent .wpfCheckboxHier .ms-options-wrap button {
+	font-size: 14px;
+	padding-left: 12px;
+}
+.contacts-row {
+	align-items: stretch;
+}
+.contacts-row .item {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: center;
+}
+.content .block_category .item {
+	height: auto;
+}
 .catalog-page .products .label {
 	background: #FF0D65;
 	color: #fff;
@@ -71,4 +87,40 @@ License URI: LICENSE
 		margin-bottom: 0;
 	}
 }
-
+.about-feat {
+	flex-wrap: wrap;
+	justify-content: flex-start;
+	min-width: calc(100% + 20px);
+	margin-bottom: 20px;
+}
+.about-feat .item {
+	width: calc(25% - 20px);
+	margin-right: 20px;
+	margin-bottom: 20px;
+}
+@media (max-width: 992px) {
+	.about-feat {
+	flex-wrap: wrap;
+	justify-content: space-between;
+	min-width: 0;
+	margin-bottom: 10px;
+}
+.about-feat .item {
+	width: calc(50% - 10px);
+	margin-right: 0;
+	margin-bottom: 15px;
+}
+}
+@media (max-width: 578px) {
+	
+.about-feat .item {
+	width: 100%;
+	margin-bottom: 10px;
+	
+}
+	.our-row .swiper .swiper-wrapper .item {
+		height: 164px;
+		max-height: 164px;
+		min-height: 164px;
+	}
+}

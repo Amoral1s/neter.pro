@@ -204,6 +204,7 @@
 </section>
 <?php endif; ?>
 
+
 <?php if (get_field('projects_title', 'options')) : ?>
 <section class="projects-row">
   <div class="container">
@@ -460,11 +461,11 @@
           <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="item">
             <h3 itemprop="name" class="item-title">
               <?php echo get_sub_field('title'); ?>
-              <div class="icon">
+              <span class="icon">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                   <path d="M18 9.00008L12.7071 14.293C12.3738 14.6263 12.2071 14.793 12 14.793C11.7929 14.793 11.6262 14.6263 11.2929 14.293L6 9.00008" stroke="#2CB4C2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
-              </div>
+              </span>
             </h3>
             <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer" class="item-content content">
               <span itemprop="text"><?php echo get_sub_field('text'); ?></span>
@@ -562,7 +563,7 @@
   <div class="container">
     <div class="wrap">
       <b class="title"><?php echo get_field('map_title', 'options'); ?></b>
-      <div class="item" data-coords="[55.833424, 49.040046]">
+      <div class="item" data-coords="[55.402468, 49.543532]">
         <p>Производство</p>
         <address><?php echo get_field('addr_prod', 'options'); ?></address>
         <span><?php echo get_field('work_time','options'); ?></span>

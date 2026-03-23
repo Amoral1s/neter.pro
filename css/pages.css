@@ -202,13 +202,14 @@
 }
 
 .contacts-top {
-  margin-bottom: 40px;
+  margin-bottom: 80px;
 }
 
 .contacts-top .wrap {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 40px;
 }
 
 .contacts-top .social {
@@ -232,18 +233,29 @@
 }
 
 .contacts-top .left .item {
-  display: block;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
   margin-right: 50px;
 }
 
-.contacts-top .left .item div,
+.contacts-top .left .item .icon {
+  background-color: #fff;
+  height: 56px;
+  width: 56px;
+  min-width: 56px;
+  margin-right: 16px;
+  border-radius: 10px;
+}
+
+.contacts-top .left .item b,
 .contacts-top .left .item a {
   color: #0A3141;
   font-weight: 500;
   font-size: 20px;
   display: block;
   line-height: 1.2;
-  margin-bottom: 10px;
+  margin-bottom: 6px;
 }
 
 .contacts-top .left .item p {
@@ -253,6 +265,44 @@
   color: #818793;
   font-size: 16px;
   font-weight: 400;
+}
+
+.contacts-row {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+  min-width: calc(100% + 20px);
+}
+
+.contacts-row .item {
+  width: calc(25% - 20px);
+  margin-bottom: 20px;
+  margin-right: 20px;
+  background-color: #fff;
+  display: block;
+  padding: 24px;
+  border-radius: 24px;
+}
+
+.contacts-row .item span {
+  display: block;
+  color: #818793;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.contacts-row .item b {
+  font-size: 20px;
+  font-weight: 500;
+  color: #0A3141;
+  line-height: 1.2;
+  margin: 0;
+  transition: 0.3s;
+}
+
+.contacts-row .item:hover b {
+  color: #2CB4C2;
 }
 
 .contacts-map.map .wrap .item {
@@ -328,7 +378,7 @@
 
 .contacts-release .form small {
   width: 100%;
-  text-align: center;
+  text-align: left;
   margin-top: 30px;
   color: rgba(255, 255, 255, 0.7);
 }
@@ -3686,6 +3736,40 @@ a small small {
   line-height: 1.2;
 }
 
+.no-product-banner {
+  width: 100%;
+  margin-bottom: 100px;
+}
+
+.no-product-banner .wrap {
+  background-color: #2CB4C2;
+  border-radius: 24px;
+  padding: 40px;
+  color: #fff;
+  display: block;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: right bottom;
+  background-image: url(../img/no-product-pc.png);
+}
+
+.no-product-banner b {
+  font-size: 36px;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -1.08px;
+  margin-bottom: 8px;
+}
+
+.no-product-banner p {
+  font-size: 16px;
+  color: #fff;
+  line-height: 1.2;
+  margin-bottom: 24px;
+  display: block;
+  max-width: 600px;
+}
+
 @media (min-width: 992px) {
   .faq-page-offer .answers .answer-title:hover span {
     color: #2CB4C2;
@@ -3897,6 +3981,10 @@ a small small {
     overflow-y: hidden;
   }
 
+  .mob-bread {
+    display: flex !important;
+  }
+
   .contacts-release {
     padding-top: 40px;
     padding-bottom: 40px;
@@ -3950,9 +4038,45 @@ a small small {
     font-size: 14px;
   }
 
+  .contacts-row {
+    justify-content: space-between;
+    min-width: 0;
+    align-items: stretch;
+  }
+
+  .contacts-row .item {
+    width: calc(50% - 4px);
+    margin-right: 0;
+    margin-bottom: 8px;
+    padding: 16px;
+    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .contacts-row .item span {
+    font-size: 14px;
+  }
+
+  .contacts-row .item b {
+    font-size: 14px;
+  }
+
+  .contacts-top {
+    margin-bottom: 40px;
+  }
+
+  .contacts-top .page-title {
+    margin-bottom: 40px;
+  }
+
   .contacts-top .wrap {
     display: block;
     position: relative;
+    margin-bottom: 27px;
+    min-height: 101px;
   }
 
   .contacts-top .wrap .left {
@@ -3961,14 +4085,28 @@ a small small {
   }
 
   .contacts-top .wrap .left .item {
-    display: block;
-    margin-bottom: 20px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-right: 0;
+    margin-bottom: 17px;
+  }
+
+  .contacts-top .wrap .left .item .icon {
+    height: 42px;
+    width: 42px;
+    min-width: 42px;
+    margin-right: 16px;
+  }
+
+  .contacts-top .wrap .left .item:last-child {
+    margin-bottom: 0;
   }
 
   .contacts-top .wrap .left .item a,
-  .contacts-top .wrap .left .item div {
+  .contacts-top .wrap .left .item b {
     font-size: 18px;
-    margin-bottom: 6px;
+    margin-bottom: 2px;
   }
 
   .contacts-top .wrap .left .item p {
@@ -3978,13 +4116,15 @@ a small small {
   .contacts-top .wrap .social {
     position: absolute;
     display: block;
-    top: 0;
+    top: auto;
+    bottom: 0;
     right: 0;
   }
 
   .contacts-top .wrap .social a .icon {
     margin-left: 0;
-    margin-bottom: 10px;
+    margin-bottom: 0px;
+    margin-top: 10px;
   }
 
   .req .wrap {
@@ -5185,6 +5325,38 @@ a small small {
 
   .dev-cards .endless-item p {
     font-size: 14px;
+  }
+
+  .no-product-banner {
+    margin-bottom: 40px;
+  }
+
+  .no-product-banner .wrap {
+    display: block;
+    padding: 20px;
+    background-size: cover;
+    background-position: right top;
+    background-image: url(../img/no-product-mob.png);
+  }
+
+  .no-product-banner b {
+    font-size: 24px;
+    max-width: 160px;
+    margin-bottom: 10px;
+    letter-spacing: -0.7px;
+    line-height: 1;
+    font-weight: 500;
+  }
+
+  .no-product-banner p {
+    font-size: 12px;
+    max-width: 160px;
+    margin-bottom: 18px;
+  }
+
+  .no-product-banner .button {
+    width: 100%;
+    max-width: 100%;
   }
 }
 

@@ -1,7 +1,7 @@
 <?php 
 
 function custom_image_sizes() {
-    add_image_size('offer-size', 900, 0, false);
+    add_image_size('offer-size', 900, 0, false); 
 }
 add_action('after_setup_theme', 'custom_image_sizes');
 
@@ -207,4 +207,4 @@ function clear_cart() {
         echo json_encode(array('success' => false));
     }
     wp_die();
-}
+} 

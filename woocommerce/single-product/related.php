@@ -70,13 +70,13 @@ if ( $all_products->have_posts() ) {
     }
 
     // Добавляем записи после текущего
-    for ( $i = $current_index + 1; $i < $current_index + 11 && $i < count( $products_array ); $i++ ) {
+    for ( $i = $current_index + 1; $i < $current_index + 15 && $i < count( $products_array ); $i++ ) {
         $related_products[] = $products_array[$i];
     }
 
     // Если недостаточно, добавляем записи до текущего в обратном порядке
-    if ( count( $related_products ) < 20 ) {
-        for ( $i = $current_index - 1; $i >= 0 && count( $related_products ) < 20; $i-- ) {
+    if ( count( $related_products ) < 30 ) {
+        for ( $i = $current_index - 1; $i >= 0 && count( $related_products ) < 30; $i-- ) {
             array_unshift($related_products, $products_array[$i]);
         }
     }

@@ -1,4 +1,12 @@
 <?php
+
+add_filter('wpcf7_recaptcha_threshold', function($threshold) {
+    return 0.3; // Уменьшите порог (по умолчанию 0.5)
+});
+add_filter('wpcf7_spam', '__return_false'); // отключает внутреннюю проверку на спам
+//add_filter('wpcf7_recaptcha_verification', '__return_true'); // отключает reCAPTCHA
+//remove_filter('wpcf7_spam', 'wpcf7_akismet_check_spam', 10); // отключает Akismet (если установлен)
+//
 @include('inc/main.php');
 @include('inc/posts.php');
 @include('inc/seo.php');
@@ -11,6 +19,42 @@
 @include('inc/woo_loop_item.php');
 @include('inc/woo_catalog.php');
 @include('inc/vacancy.php');
+@include('inc/comments.php');
+
+// Remove default prefixes from archive titles like "Категория:".
+add_filter('get_the_archive_title', function($title) {
+    if (is_category()) {
+        return single_cat_title('', false);
+    }
+
+    if (is_tag()) {
+        return single_tag_title('', false);
+    }
+
+    if (is_author()) {
+        return get_the_author();
+    }
+
+    if (is_tax()) {
+        return single_term_title('', false);
+    }
+
+    if (is_post_type_archive()) {
+        return post_type_archive_title('', false);
+    }
+
+    return $title;
+});
+
+add_filter('wpseo_metadesc', function($desc) {
+  if (is_post_type_archive('blog')) {
+    return 'Блог компании НЭТЕР — всё о технологиях, разработках и опыте внедрения решений 🔋 Следите за новостями, историями и обновлениями от нашей команды, которая делает будущее уже сегодня.';
+  }
+  if (is_post_type_archive('projects')) {
+    return 'Примеры реализованных проектов от НЭТЕР 🧪 Как мы создаем решения для складской техники, электромобилей, ИБП и систем хранения энергии. Ознакомьтесь с кейсами, где технологии встречаются с реальным бизнесом.';
+  }
+  return $desc;
+});
 
 add_filter('wpseo_breadcrumb_links', 'customize_yoast_breadcrumbs_last_link');
 
@@ -168,7 +212,7 @@ function update_all_products_meta_with_fallback_attributes() {
 					$result_messages[] = "Продукт ID: $product_id обновлен с значением: $meta_value (атрибут найден в ключе: {$key})";
 				} else {
 					// Если атрибуты не найдены, ставим заведомо большое значение
-					$default_value = 99999;
+					$default_value = 0;
 					update_post_meta($product_id, 'product_sort_value', $default_value);
 					$result_messages[] = "Продукт ID: $product_id не имеет атрибутов, установлено дефолтное значение: $default_value";
 				}
@@ -212,7 +256,7 @@ function custom_sort_products_with_priority_and_fallback($query) {
         return;
     }
 
-    if (is_shop() || is_product_category() || is_tax('product_cat')) {
+    if (is_shop() || is_product_category() || is_tax()) {
 
         add_filter('posts_join', function($join) {
             global $wpdb;
@@ -233,9 +277,67 @@ function custom_sort_products_with_priority_and_fallback($query) {
         add_filter('posts_orderby', function($orderby) {
             return " 
                 CAST(new_priority.meta_value AS UNSIGNED) DESC, 
-                CAST(sort_value.meta_value AS DECIMAL(10,2)) ASC
+                CAST(sort_value.meta_value AS DECIMAL(10,2)) DESC
             ";
         }, 20, 1);
     }
 }
+
+add_filter('wpcf7_form_elements', function($content) {
+    if (is_page(3)) {
+        // Заменим ссылку на span
+        $content = preg_replace(
+            '#<a[^>]+href="[^"]*/privacy-policy[^"]*"[^>]*>(.*?)</a>#i',
+            '<span>$1</span>',
+            $content
+        );
+    }
+    return $content;
+});
+
+
+add_filter('wp_insert_post_data', function($data, $postarr) {
+    if ($data['post_type'] === 'product') {
+        $product_id = $postarr['ID'] ?? 0;
+        $sku = '';
+
+        if ($product_id) {
+            $sku = get_post_meta($product_id, '_sku', true);
+        } elseif (!empty($postarr['_sku'])) {
+            $sku = $postarr['_sku'];
+        }
+
+        if ($sku) {
+            $data['post_name'] = sanitize_title('product-' . $sku);
+        }
+    }
+    return $data;
+}, 10, 2);
+
+/* add_action('init', function() {
+    if (!current_user_can('manage_options')) return;
+    $args = [
+        'post_type'      => 'product',
+        'posts_per_page' => -1,
+        'post_status'    => 'publish',
+    ];
+
+    $query = new WP_Query($args);
+
+    foreach ($query->posts as $product) {
+        $sku = get_post_meta($product->ID, '_sku', true);
+        if ($sku) {
+            $new_slug = sanitize_title('product-' . $sku);
+            // Только если slug другой
+            if ($product->post_name !== $new_slug) {
+                wp_update_post([
+                    'ID'        => $product->ID,
+                    'post_name' => $new_slug,
+                ]);
+            }
+        }
+    }
+}); */
+
+
 

@@ -93,6 +93,114 @@
 
 <?php endwhile; ?>
 
+<?php 
+	$current_post_id = get_the_ID();
+	$categories = get_the_category( $current_post_id );
+	$category_ids = array();
+
+	if ( ! empty( $categories ) ) {
+			// Собираем ID категорий, если они есть
+			foreach ( $categories as $category ) {
+					$category_ids[] = $category->term_id;
+			}
+	}
+
+	// Если категории есть, делаем запрос по категориям, иначе берем все посты
+	$args_all = array(
+			'post_type'      => 'projects',
+			'posts_per_page' => -1, // Получаем все записи
+			'orderby'        => 'date',
+			'order'          => 'DESC'
+	);
+
+	if ( !empty( $category_ids ) ) {
+			$args_all['category__in'] = $category_ids; // Фильтруем по категориям
+	}
+
+	$all_posts = new WP_Query( $args_all );
+
+	// Ищем индекс текущей записи
+	$current_index = -1; 
+	if ( $all_posts->have_posts() ) {
+			$posts_array = $all_posts->posts;
+			foreach ( $posts_array as $index => $post ) {
+					if ( $post->ID == $current_post_id ) {
+							$current_index = $index;
+							break;
+					}
+			}
+	}
+
+	// Выводим 5 записей до текущей и 5 записей после текущей
+	if ( $current_index != -1 ) {
+			$related_posts = array();
+
+			// Добавляем 5 записей до текущей записи
+			for ( $i = $current_index - 15; $i < $current_index; $i++ ) {
+					if ( $i >= 0 && $posts_array[$i]->ID != $current_post_id ) {
+							$related_posts[] = $posts_array[$i];
+					}
+			}
+
+			// Добавляем 5 записей после текущей записи
+			for ( $i = $current_index + 1; $i <= $current_index + 15 && $i < count( $posts_array ); $i++ ) {
+					if ( $posts_array[$i]->ID != $current_post_id ) {
+							$related_posts[] = $posts_array[$i];
+					}
+			}
+	}
+
+	// Выводим только если есть найденные посты
+	if ( !empty( $related_posts ) ) {
+?>
+	<section class="news">
+		<div class="container">
+			<h2 class="title">Другие проекты</h2>
+			<div class="wrap slider-wrap">
+				<div class="arr arr-prev">
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
+						<path d="M15 6.5L9.7071 11.7929C9.3738 12.1262 9.2071 12.2929 9.2071 12.5C9.2071 12.7071 9.3738 12.8738 9.7071 13.2071L15 18.5" stroke="#9CA3AF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+					</svg>
+				</div>
+				<div class="swiper">
+					<div class="swiper-wrapper">
+						<?php
+						// Выводим записи
+						if ( !empty( $related_posts ) ) {
+							foreach ( $related_posts as $post ) {
+									setup_postdata( $post );
+							?>
+										<a href="<?php the_permalink(); ?>" class="item swiper-slide">
+											<?php
+												$news_image_alt = get_post_meta( get_post_thumbnail_id(), '_wp_attachment_image_alt', true );
+												if ( empty( $news_image_alt ) ) {
+													$news_image_alt = get_the_title();
+												}
+
+												echo wp_get_attachment_image( get_post_thumbnail_id(), 'medium', false, array( 'alt' => $news_image_alt ) );
+											?>
+											<div class="meta">
+												<b><?php the_title(); ?></b>
+												<div class="date"><?php echo get_the_date( 'd.m.Y' ); ?></div>
+											</div>
+										</a>
+									<?php
+								}
+								wp_reset_postdata();
+							}
+						?>	
+					</div>
+				</div>
+				<div class="arr arr-next">
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
+						<path d="M9 18.5L14.2929 13.2071C14.6262 12.8738 14.7929 12.7071 14.7929 12.5C14.7929 12.2929 14.6262 12.1262 14.2929 11.7929L9 6.5" stroke="#9CA3AF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+					</svg>
+				</div>
+			</div>
+		</div>
+	</section>
+<?php } wp_reset_postdata(); ?>
+
 <section class="contacts-release" style="margin-bottom: 0">
   <div class="container">
     <div class="wrap">
@@ -106,6 +214,8 @@
     </div>
   </div>
 </section>
+
+
 
 
 

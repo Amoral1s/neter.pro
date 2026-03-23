@@ -91,27 +91,7 @@ get_header();
           </div>
         </b>
         <div class="wrapper">
-          <p class="mini-text"><?php echo get_sub_field('text'); ?></p>
-          <?php if (get_sub_field('trebovaniya')) : ?>
-          <div class="list">
-            <b class="mini-title">Требования:</b>
-            <ul>
-              <?php if (have_rows('trebovaniya')) : while(have_rows('trebovaniya')) : the_row(); ?>
-                <li><?php echo get_sub_field('trebovanie'); ?></li>
-              <?php endwhile; endif; ?>
-            </ul>
-          </div>
-          <?php endif; ?>
-          <?php if (get_sub_field('obyazannosti')) : ?>
-          <div class="list">
-            <b class="mini-title">Обязанности:</b>
-            <ul>
-              <?php if (have_rows('obyazannosti')) : while(have_rows('obyazannosti')) : the_row(); ?>
-                <li><?php echo get_sub_field('obyazannost'); ?></li>
-              <?php endwhile; endif; ?>
-            </ul>
-          </div>
-          <?php endif; ?>
+          <div class="content"><?php echo get_sub_field('text'); ?></div>
           <div class="button call-vacancy" data-title="<?php echo get_sub_field('title'); ?>">
             Заполнить анкету
           </div>

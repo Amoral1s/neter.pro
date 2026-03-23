@@ -83,7 +83,7 @@ class True_Walker_Nav_Menu extends Walker_Nav_Menu {
 		// ссылка и околоссылочный текст
 		$item_output = $args->before;
 		if ($item->current == 1 || $item->url == '#') {
-			$item_output .= '<span itemprop="url">';
+			$item_output .= '<span>';
 			$item_output .= $args->link_before . apply_filters( 'the_title', $item->title, $item->ID ) . $args->link_after;
 			$item_output .= '</span>';
 		} else {
@@ -156,12 +156,12 @@ return $content;
 }
 
 //Устраняем ошибку Яндекс валидатора
-function artabr_opengraph_fix_yandex($lang) {
+/* function artabr_opengraph_fix_yandex($lang) {
 	$lang_prefix = 'prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article#  profile: http://ogp.me/ns/profile# fb: http://ogp.me/ns/fb#"';
 	$lang_fix = preg_replace('!prefix="(.*?)"!si', $lang_prefix, $lang);
 	return $lang_fix;
 	}
-add_filter( 'language_attributes', 'artabr_opengraph_fix_yandex',20,1);
+add_filter( 'language_attributes', 'artabr_opengraph_fix_yandex',20,1); */
 
 
 

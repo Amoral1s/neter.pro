@@ -1,5 +1,7 @@
 jQuery(document).ready(function($) {
+  console.log('ya-map')
   const map = document.querySelector('section.map');
+  
   if (map && !map.classList.contains('contacts-map')) {
     setTimeout(() => {
       ymaps.ready(init);
@@ -47,17 +49,18 @@ jQuery(document).ready(function($) {
 
   const mapDelivery = document.querySelector('section.delivery-map');
   if (mapDelivery) {
+    console.log('map-delivery')
     setTimeout(() => {
       ymaps.ready(init);
       function init(){
         var myMap = new ymaps.Map("map", {
-            center: [55.833424, 49.040046], // Центр карты (Казань)
+            center: [55.402468, 49.543532], // Центр карты (Казань)
             zoom: 14,
             controls: [],
             theme: "islands#dark"
         });
 
-        var myPlacemark = new ymaps.Placemark([55.833424, 49.040046], {
+        var myPlacemark = new ymaps.Placemark([55.402468, 49.543532], {
             balloonContent: 'Офис самовывоза'
         }, {
             iconLayout: 'default#image',
@@ -97,7 +100,7 @@ jQuery(document).ready(function($) {
             theme: "islands#dark"
         });
 
-        var myPlacemark = new ymaps.Placemark([55.833424, 49.040046], {
+        var myPlacemark = new ymaps.Placemark([55.402468, 49.543532], {
             balloonContent: 'Производство'
         }, {
             iconLayout: 'default#image',
@@ -138,7 +141,7 @@ jQuery(document).ready(function($) {
         }
 
         addRouteEvent(myPlacemark, [55.833651, 49.051288]);
-        addRouteEvent(myPlacemark2, [55.816793, 49.146452]);
+        addRouteEvent(myPlacemark2, [55.402468, 49.543532]);
         addRouteEvent(myPlacemark3, [55.749792, 37.541889]);
 
         myMap.geoObjects.add(myPlacemark);

@@ -177,6 +177,15 @@
       max-width: 240px
     small
       margin-top: 24px
+      &.privacy-item
+        color: #fff
+        a
+          color: #fff
+        &::after
+          background-color: #fff
+        &.active
+          &::after
+            background-color: $main
   .wrap
     background-color: $dark
     border-radius: 24px
@@ -724,9 +733,14 @@
     background-image: url(../img/banner-catalog.png)
   .form
     width: 350px
-    small
+    small.privacy-item
       margin-top: 20px
       color: $white_70
+      &::after
+        background-color: #fff
+      &.active
+        &::after
+          background-color: $text
       a
         color: $white_70
         &:hover
@@ -1003,6 +1017,15 @@
   &-subscribe
     padding-bottom: 30px
     border-bottom: 1px solid $white_15
+    .privacy-wrap
+      width: 100%
+      .privacy-item
+        font-size: 8px
+        a
+          font-size: 8px
+        &.active
+          &::after
+            background-color: $main
     .form
       background-color: transparent!important
       form
@@ -1074,7 +1097,7 @@
     padding: 30px 0
     .wrap
       display: flex
-      align-items: center
+      align-items: flex-start
       justify-content: space-between
       .button
         max-height: 50px
@@ -1083,12 +1106,14 @@
           display: flex
           align-items: center
           justify-content: flex-start
+          flex-wrap: wrap
+          max-width: 900px
           a, span
             font-size: 16px
             font-weight: 400
             display: block
-            margin-right: 40px
-            white-space: nowrap
+            margin-right: 20px
+            margin-bottom: 20px
             color: $gray_400
 
 #up-arr
@@ -1836,6 +1861,7 @@
       .left
         a, span
           font-size: 14px!important
+          white-space: normal
       .button
         width: 100%
         max-width: 100%

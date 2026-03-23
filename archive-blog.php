@@ -12,7 +12,7 @@ get_header();
 <section  itemscope itemtype="http://schema.org/Blog" class="blog">
   <link itemprop="image" href="<?php echo get_template_directory_uri(); ?>/img/logo-dark.svg">
 	<link itemprop="url" href="<?php echo get_permalink(); ?>">
-	<meta itemprop="description" content="<?php the_excerpt(); ?>">
+	<meta itemprop="description" content="<?php echo get_the_archive_title(); ?>">
 	<meta itemprop="author" content="<?php the_author(); ?>">
 	<meta itemprop="datePublished" content="<?php the_time('c'); ?>">
 	<meta itemprop="dateModified" content="<?php the_modified_date('c'); ?>">
@@ -94,7 +94,14 @@ get_header();
         'hide_title_if_empty' => false,
         'separator'          => '',
       );
-      echo '<ul>';
+      echo '<ul>'; ?>
+      <li class="cat-item">
+        <a href="/projects">Наши проекты</a>
+      </li>
+      <li class="cat-item">
+        <a href="/news">Новости компании</a>
+      </li>
+      <?php
       wp_list_categories($args);
       echo '</ul>';
       ?>
@@ -110,6 +117,7 @@ get_header();
                     <b><?php the_title(); ?></b>
                     <div class="date"><?php echo get_the_date('d M Y') ?></div>
                   </div>
+                  <meta itemprop="description" content="<?php echo get_the_title(); ?>">
               </a>
           <?php endwhile;
       endif;

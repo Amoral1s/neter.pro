@@ -335,30 +335,86 @@ if (is_singular('product')) {
 					global $product;
 
 					if ( $product ) {
-							$attributes = $product->get_attributes();
+						$all_attributes = $product->get_attributes();
 
-							if ( ! empty( $attributes ) ) {
-									echo '<div class="attrs">';
+						if ( ! empty( $all_attributes ) ) {
+							echo '<div class="attrs">';
 
-									foreach ( $attributes as $attribute ) {
-											$attribute_name = wc_attribute_label( $attribute->get_name() );
-											$term = get_term_by('id', (int)$attribute->get_options()[0], $attribute->get_name());
+							$preferred_order = [
+								'brand',
+								'model',
+								'tip-himii',
+								'forma-yachejki',
+								'form-faktor',
+								'emkost-ah',
+								'ud-energoemkost',
+								'napryazhenie',
+								'napryazhenie-zaryada',
+								'maks-tok-razryada-ab',
+								'maks-tok-zaryada',
+								'standartnyi-tok-razryada',
+								'standartnyi-tok-zaryada',
+								'tok-zaryada',
+								'tok-razryada',
+								'tokootdacha',
+								'zashhita-ot-perezaryada',
+								'material-korpusa',
+								'klass-zashhity',
+								'tip-sborki',
+								'gabarity-mm',
+								'ves-kg',
+								'rek-type-zaryada',
+								'chislo-cziklov-zaryada',
+								'temp-zaryada',
+								'temp-razryada',
+								'hranenie-t',
+								'morozostojkost',
+								'seriya',
+								'seriya-marine',
+								'sfery-primeneniya'
+							];
 
-											// Проверяем, что в имени атрибута НЕТ "(переклиновка)"
-											if ( $term && strpos($attribute_name, '(переклиновка)') === false ) {
-													$attribute_value = $term->name;
+							$rendered = [];
 
-													if ( $attribute_value ) {
-															echo '<div class="item">';
-															echo '<p>' . $attribute_name . '</p>';
-															echo '<b>' . $attribute_value . '</b>';
-															echo '</div>';
-													}
-											}
+							// Приоритетные атрибуты
+							foreach ( $preferred_order as $slug ) {
+								$attr_key = 'pa_' . $slug;
+
+								if ( isset( $all_attributes[$attr_key] ) ) {
+									$attribute = $all_attributes[$attr_key];
+									$attribute_name = wc_attribute_label( $attribute->get_name() );
+									$terms = wc_get_product_terms( $product->get_id(), $attribute->get_name(), array( 'fields' => 'names' ) );
+									$attribute_value = implode(', ', $terms);
+
+									if ( $attribute_value && strpos($attribute_name, '(переклиновка)') === false ) {
+										echo '<div class="item">';
+										echo '<p>' . esc_html( $attribute_name ) . '</p>';
+										echo '<b style="max-width: 80%">' . esc_html( $attribute_value ) . '</b>';
+										echo '</div>';
+
+										$rendered[] = $attr_key;
 									}
-
-									echo '</div>';
+								}
 							}
+
+							// Остальные атрибуты
+							foreach ( $all_attributes as $attr_key => $attribute ) {
+								if ( in_array( $attr_key, $rendered ) ) continue;
+
+								$attribute_name = wc_attribute_label( $attribute->get_name() );
+								$terms = wc_get_product_terms( $product->get_id(), $attribute->get_name(), array( 'fields' => 'names' ) );
+								$attribute_value = implode(', ', $terms);
+
+								if ( $attribute_value && strpos($attribute_name, '(переклиновка)') === false ) {
+									echo '<div class="item">';
+									echo '<p>' . esc_html( $attribute_name ) . '</p>';
+									echo '<b>' . esc_html( $attribute_value ) . '</b>';
+									echo '</div>';
+								}
+							}
+
+							echo '</div>';
+						}
 					}
 				?>
 			</div>
@@ -434,7 +490,7 @@ if (is_singular('product')) {
 
 			</div>
 			<?php endif; ?>
-			<div class="wrapper wrapper-delivery ">
+			<div class="wrapper wrapper-delivery">
 				<div class="delivery">
 					<h2 class="title sub"><?php echo get_the_title(535); ?></h2>
 					<p class="subtitle"><?php echo get_field('subtitle', 535); ?></p>
@@ -460,30 +516,32 @@ if (is_singular('product')) {
 				<?php endif; ?>
 
 				<?php if (get_field('del_title', 535)) : ?>
-				<div class="delivery-map">
-					<div class="wrap">
-						<div class="left">
-							<h3 class="title sub"><?php echo get_field('del_title', 535) ?></h3>
-							<div class="content">
-								<?php echo get_field('del_content', 535); ?>
-							</div>
-							<address>
-								<div class="top">
-									<div class="icon">
-										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-											<path fill-rule="evenodd" clip-rule="evenodd" d="M12.0015 1.25C8.17538 1.25 4.52505 3.51303 2.99714 7.08468C1.57518 10.4086 2.34496 13.2373 3.94771 15.6595C5.26177 17.6454 7.17835 19.4178 8.90742 21.0168L8.90824 21.0175C9.23768 21.3222 9.56031 21.6206 9.87066 21.9129L9.87231 21.9145C10.4473 22.4528 11.2112 22.75 12.0015 22.75C12.7919 22.75 13.5558 22.4528 14.1308 21.9144C14.4243 21.6396 14.7286 21.3592 15.039 21.0732C16.7869 19.4627 18.7304 17.672 20.0582 15.6609C21.6591 13.2362 22.4261 10.4045 21.0059 7.08468C19.478 3.51303 15.8277 1.25 12.0015 1.25ZM12 7C9.79086 7 8 8.79086 8 11C8 13.2091 9.79086 15 12 15C14.2091 15 16 13.2091 16 11C16 8.79086 14.2091 7 12 7Z" fill="#2CB4C2"/>
-										</svg>
-									</div>
-									<span>Адрес для самовывоза</span>
+				<section class="delivery-map">
+					<div class="container">
+						<div class="wrap">
+							<div class="left">
+								<h2 class="title sub"><?php echo get_field('del_title', 535) ?></h2>
+								<div class="content">
+									<?php echo get_field('del_content', 535); ?>
 								</div>
-								<p><?php echo get_field('adres_samovyvoza', 535); ?></p>
-							</address>
-						</div>
-						<div class="right">
-							<div id="map"></div>
+								<address>
+									<div class="top">
+										<div class="icon">
+											<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+												<path fill-rule="evenodd" clip-rule="evenodd" d="M12.0015 1.25C8.17538 1.25 4.52505 3.51303 2.99714 7.08468C1.57518 10.4086 2.34496 13.2373 3.94771 15.6595C5.26177 17.6454 7.17835 19.4178 8.90742 21.0168L8.90824 21.0175C9.23768 21.3222 9.56031 21.6206 9.87066 21.9129L9.87231 21.9145C10.4473 22.4528 11.2112 22.75 12.0015 22.75C12.7919 22.75 13.5558 22.4528 14.1308 21.9144C14.4243 21.6396 14.7286 21.3592 15.039 21.0732C16.7869 19.4627 18.7304 17.672 20.0582 15.6609C21.6591 13.2362 22.4261 10.4045 21.0059 7.08468C19.478 3.51303 15.8277 1.25 12.0015 1.25ZM12 7C9.79086 7 8 8.79086 8 11C8 13.2091 9.79086 15 12 15C14.2091 15 16 13.2091 16 11C16 8.79086 14.2091 7 12 7Z" fill="#2CB4C2"/>
+											</svg>
+										</div>
+										<span>Адрес для самовывоза</span>
+									</div>
+									<p><?php echo get_field('adres_samovyvoza', 535); ?></p>
+								</address>
+							</div>
+							<div class="right">
+								<div id="map"></div>
+							</div>
 						</div>
 					</div>
-				</div>
+				</section>
 				<?php endif; ?>
 			</div>
 	</section>
@@ -580,6 +638,9 @@ if (is_singular('product')) {
 	<?php endif; ?>
 
 	<?php woocommerce_output_related_products(); ?>
+
+	<?php echo do_shortcode('[no_product]'); ?>
+
 
 	<?php if (get_field('cat_row_title','options')) : ?>
 	<section class="cat-row">

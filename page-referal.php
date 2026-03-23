@@ -14,11 +14,9 @@ get_header();
     <h1 class="page-title sub">
       <?php the_title(); ?>
     </h1>
-    <p class="subtitle" style="text-align:left;margin-top:5px;">
-      Рекомендуйте нашу компанию своим партнёрам, делитесь уникальной реферальной ссылкой и получайте скидки. После поступления оплаты вашим рефералом вы получаете скидку на следующий заказ — до 10%<br><br>
-Программа действует с 9 января 2025 года, предоставляя вам и вашим партнёрам эксклюзивные условия сотрудничества. Делитесь ссылкой, приглашайте больше рефералов и получайте бонусы. Узнайте больше и присоединяйтесь уже сегодня.<br><br> 
-<a href="/referal/polozhenie.pdf" style="color:#fff;text-decoration: underline;">Положение о реферальной программе.</a><br>
-    </p>
+	<div class="content" style="margin-bottom: 20px">
+		 <?php the_content(); ?>
+	  </div>
     <div class="form form-white">
       <?php echo do_shortcode('[contact-form-7 id="f903b89" title="Стать рефералом"]'); ?>
     </div>

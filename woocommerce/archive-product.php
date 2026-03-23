@@ -319,9 +319,9 @@ if (is_product_category() || is_tax()) {
 													<div class="header-title"><?php esc_html_e('Наименование', 'woocommerce'); ?></div>
 													<div class="header-wrapper">
 															<div class="header-attribute">Тип химии</div>
-															<div class="header-attribute">Напряжение&nbsp;(V)</div>
 															<div class="header-attribute">Номинальная <br>емкость&nbsp;(Ah)</div>
 															<div class="header-attribute">Макс. ток <br>разряда АБ</div>
+															<div class="header-attribute">Напряжение&nbsp;(V)</div>
 															<div class="header-attribute">Габариты&nbsp;(мм)</div>
 															<div class="header-attribute">Вес&nbsp;(кг)</div>
 													</div>
@@ -344,8 +344,8 @@ if (is_product_category() || is_tax()) {
 													<div class="header-wrapper">
 															<div class="header-attribute">Тип химии</div>
 															<div class="header-attribute">Номинальная <br>емкость&nbsp;(Ah)</div>
-															<div class="header-attribute">Напряжение&nbsp;(V)</div>
 															<div class="header-attribute">Токоотдача</div>
+															<div class="header-attribute">Напряжение&nbsp;(V)</div>
 															<div class="header-attribute">Габариты&nbsp;(мм)</div>
 															<div class="header-attribute">Вес&nbsp;(кг)</div>
 													</div>
@@ -443,7 +443,7 @@ if (is_product_category() || is_tax()) {
 		</div>
 	</div> <!-- shop-catalog-wrapper -->
 
-
+	<?php echo do_shortcode('[no_product]'); ?>
 	<?php if (!is_paged()) : ?>
 
 		<?php if (get_field('links_title', 'term_' . $term_id)) : ?>
@@ -658,6 +658,8 @@ if ($taxonomy_ids) {
 
 	<?php endif; ?>
 
+	
+
 	<?php if (!is_paged()) : ?>
 		<?php if (get_field('off_how', 'term_' . $term_id) == false) : ?>
 		<section class="order">
@@ -759,11 +761,11 @@ if ($taxonomy_ids) {
 								<div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="item">
 									<h3 itemprop="name" class="item-title">
 										<?php echo get_sub_field('title'); ?>
-										<div class="icon">
+										<span class="icon">
 											<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
 												<path d="M18 9.00008L12.7071 14.293C12.3738 14.6263 12.2071 14.793 12 14.793C11.7929 14.793 11.6262 14.6263 11.2929 14.293L6 9.00008" stroke="#2CB4C2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 											</svg>
-										</div>
+										</span>
 									</h3>
 									<div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer" class="item-content ">
 										<div itemprop="text" class="content">
@@ -803,11 +805,11 @@ if ($taxonomy_ids) {
 								<div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="item">
 									<h3 itemprop="name" class="item-title">
 										<?php echo get_sub_field('title'); ?>
-										<div class="icon">
+										<span class="icon">
 											<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
 												<path d="M18 9.00008L12.7071 14.293C12.3738 14.6263 12.2071 14.793 12 14.793C11.7929 14.793 11.6262 14.6263 11.2929 14.293L6 9.00008" stroke="#2CB4C2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 											</svg>
-										</div>
+										</span>
 									</h3>
 									<div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer" class="item-content ">
 										<div itemprop="text" class="content">
@@ -942,9 +944,9 @@ if ($taxonomy_ids) {
 				<div class="header-title"><?php esc_html_e('Наименование', 'woocommerce'); ?></div>
 				<div class="header-wrapper">
 					<div class="header-attribute">Тип химии</div>
-					<div class="header-attribute">Серия</div>
-					<div class="header-attribute">Номинальная <br>емкость&nbsp;(Ah)</div>
 					<div class="header-attribute">Напряжение&nbsp;(V)</div>
+					<div class="header-attribute">Номинальная <br>емкость&nbsp;(Ah)</div>
+					<div class="header-attribute">Серия</div>
 					<div class="header-attribute">Габариты&nbsp;(мм)</div>
 					<div class="header-attribute">Вес&nbsp;(кг)</div>
 				</div>
@@ -1001,7 +1003,7 @@ if ($taxonomy_ids) {
 </div> <!-- shop-catalog-wrapper -->
 
 
-
+<?php echo do_shortcode('[no_product]'); ?>
 <section class="catalog-banner">
 	<div class="container">
 		<div class="wrap">

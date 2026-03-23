@@ -22,3 +22,10 @@ function product() {
 }
 add_shortcode('product', 'product');
 
+function no_product() {
+  ob_start();
+  get_template_part('shortcodes/no_product');
+  return ob_get_clean();
+}
+add_shortcode('no_product', 'no_product');
+

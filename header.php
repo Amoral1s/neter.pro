@@ -1,13 +1,14 @@
 <!doctype html>
 <html <?php language_attributes(); ?>>
 <head>
-  
+   <meta charset="UTF-8">
    <?php
     // Получаем текущий URL
     $current_url = $_SERVER['REQUEST_URI'];
     
     // Список подстрок для проверки
     $noindex_patterns = array(
+		'?calltouch_tm',
 		'?s=',             
         '/search',            
         '?wpf_filter_',      
@@ -43,6 +44,19 @@
   <noscript>
       <link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri(); ?>/css/main.min.css">
   </noscript> 
+	
+	 <link rel="preload" as="style" href="<?php echo get_stylesheet_directory_uri(); ?>/css/pages.min.css" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+      <link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri(); ?>/css/pages.min.css">
+  </noscript> 
+		
+	 <link rel="preload" as="style" href="<?php echo get_stylesheet_directory_uri(); ?>/css/woo.min.css" onload="this.onload=null;this.rel='stylesheet'">
+ <noscript>
+      <link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri(); ?>/css/woo.min.css">
+  </noscript> 
+
+  <link rel="preload" as="script" href="<?php echo get_template_directory_uri(); ?>/js/menu.min.js">
+	
   <?php if (is_home()) { ?>
     <link rel="preload" as="image" href="<?php echo esc_url(get_field('offer_bg', 'options')); ?>" />
   <?php } else { ?>
@@ -69,7 +83,7 @@
           }
       } ?>
 <?php } ?>
-  <meta charset="UTF-8">
+  
   <meta name="viewport" id="myViewport" content="width=device-width, maximum-scale=1.0, user-scalable=no">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <meta name="format-detection" content="telephone=no">
@@ -81,6 +95,25 @@
   <link rel="yandex-tableau-widget" href="<?php echo get_template_directory_uri(); ?>/tableau.json">
   
   <?php wp_head(); ?>
+
+  <!-- Yandex.Metrika counter 
+  <script type="text/javascript" >
+    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+    m[i].l=1*new Date();
+    for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+    k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+    (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+    ym(74565406, "init", {
+          clickmap:true,
+          trackLinks:true,
+          accurateTrackBounce:true,
+          webvisor:true
+    });
+  </script>
+
+  <noscript><div><img src="https://mc.yandex.ru/watch/74565406" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  /Yandex.Metrika counter -->
   
 </head>
 
@@ -211,7 +244,7 @@
       </nav> 
       <div class="header-contacts">
         <?php if (!is_page(4617)) : ?>
-        <a class="link" target="blank" href="tel:<?php the_field('phone', 'options'); ?>">
+        <a class="link" target="blank" href="tel:<?php echo get_field('phone', 'options'); ?>">
           <?php the_field('phone', 'options'); ?>
         </a>
         <?php endif; ?>
@@ -220,8 +253,8 @@
           info@batareon.ru
         </a>
         <?php else : ?>
-        <a class="link" target="blank" href="mailto:<?php the_field('email', 'options'); ?>">
-          <?php the_field('email', 'options'); ?>
+        <a class="link" target="blank" href="mailto:<?php echo get_field('email', 'options'); ?>">
+          <?php echo get_field('email', 'options'); ?>
         </a>
         <?php endif; ?>
         <div class="button button-transparent callback">
@@ -235,6 +268,63 @@
   </div>
 </header>
 
+<!-- PC catalog -->
+<div class="pc-catalog" style="display: none">
+  <div class="container">
+    <div class="wrap">
+      <?php 
+      $current_url = untrailingslashit($_SERVER['REQUEST_URI']); // Текущий URL без конечного слеша
+
+      if (have_rows('menu_catalog', 'options')) : while(have_rows('menu_catalog', 'options')) : the_row(); 
+          $main_link_url = untrailingslashit(parse_url(get_sub_field('main_link'), PHP_URL_PATH)); // URL для основного пункта меню
+          ?>
+        <div class="wrapper">
+          <?php if ($current_url === $main_link_url) : ?>
+            <span class="item">
+              <div class="icon">
+                <img src="<?php echo get_sub_field('img'); ?>" alt="<?php echo get_sub_field('title'); ?>">
+              </div>
+              <p><?php echo get_sub_field('title'); ?></p>
+            </span>
+          <?php else : ?>
+            <a href="<?php echo esc_url($main_link_url); ?>" class="item">
+              <div class="icon">
+                <img src="<?php echo get_sub_field('img'); ?>" alt="<?php echo get_sub_field('title'); ?>">
+              </div>
+              <p><?php echo get_sub_field('title'); ?></p>
+            </a>
+          <?php endif; ?>
+          
+          <?php if (have_rows('sub_menu')) : ?>
+          <div class="sub-menu">
+            <?php while(have_rows('sub_menu')) : the_row(); ?>
+              <div class="sub-menu-wrap">
+                <b><?php echo get_sub_field('title_sub'); ?></b>
+                <ul>
+                  <?php if (have_rows('sub_links')) : while(have_rows('sub_links')) : the_row(); 
+                      $sub_link_url = untrailingslashit(parse_url(get_sub_field('link'), PHP_URL_PATH)); // URL для подпункта меню
+                      ?>
+                    <li>
+                      <?php if ($current_url === $sub_link_url) : ?>
+                        <span><?php echo get_sub_field('name'); ?></span>
+                      <?php else : ?>
+                        <a href="<?php echo esc_url($sub_link_url); ?>">
+                          <?php echo get_sub_field('name'); ?>
+                        </a>
+                      <?php endif; ?>
+                    </li>
+                  <?php endwhile; endif; ?>
+                </ul>
+              </div>
+            <?php endwhile; ?>
+          </div>
+          <?php endif; ?>
+        </div>
+      <?php endwhile; endif; ?>
+    </div>
+  </div>
+</div>
+<!-- PC catalog END -->
 
 
 

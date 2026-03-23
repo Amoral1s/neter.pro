@@ -12,7 +12,7 @@ get_header();
 <section  itemscope itemtype="http://schema.org/Blog" class="projects-page">
   <link itemprop="image" href="<?php echo get_template_directory_uri(); ?>/img/logo-dark.svg">
 	<link itemprop="url" href="<?php echo get_permalink(); ?>">
-	<meta itemprop="description" content="<?php the_excerpt(); ?>">
+	<meta itemprop="description" content="<?php echo get_the_archive_title(); ?>">
 	<meta itemprop="author" content="<?php the_author(); ?>">
 	<meta itemprop="datePublished" content="<?php the_time('c'); ?>">
 	<meta itemprop="dateModified" content="<?php the_modified_date('c'); ?>">
@@ -58,6 +58,7 @@ get_header();
                       <?php endif; ?>
                     </div>
                   </div>
+                  <meta itemprop="description" content="<?php echo get_the_title(); ?>">
               </a>
           <?php endwhile;
       endif;

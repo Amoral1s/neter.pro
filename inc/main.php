@@ -146,28 +146,34 @@ function remove_plugin_updates_WBWPRO($value) {
 add_filter('site_transient_update_plugins', 'remove_plugin_updates_WBWPRO'); 
 
 
- 
 
 
 
-add_action( 'wp_head', 'my_styles' );
-function my_styles() {
-		/* wp_enqueue_style( $handle, $src, $deps, $ver, $media ); */
-		//wp_enqueue_style( 'header', get_template_directory_uri() . '/css/header.min.css' );
-		wp_enqueue_style( 'main', get_template_directory_uri() . '/css/main.min.css' );
-		wp_enqueue_style( 'pages', get_template_directory_uri() . '/css/pages.min.css' );
-		wp_enqueue_style( 'woo', get_template_directory_uri() . '/css/woo.min.css' );
-		wp_enqueue_style( 'stylecss', get_stylesheet_uri() ); 
-}
-//wp_register_script( 'jquery', 'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js', array(), '1.0', true );
 
-add_action( 'wp_footer', 'my_scripts' );
-function my_scripts() {
-	wp_deregister_script( 'jquery' );
-	wp_register_script( 'jquery', get_template_directory_uri() . '/js/jquery-3.2.1.js', array(), '1.0', true );
+add_action( 'wp_enqueue_scripts', 'main_theme_enqueue_assets' );
+function main_theme_enqueue_assets() {
+	$template_uri  = get_template_directory_uri();
+	$template_path = get_template_directory();
+	$theme_version = wp_get_theme()->get( 'Version' );
+
+	// Cache-bust assets when files change; fall back to theme version.
+	$get_version = static function ( $relative_path ) use ( $template_path, $theme_version ) {
+		$path = $template_path . $relative_path;
+		return file_exists( $path ) ? filemtime( $path ) : $theme_version;
+	};
+
+	wp_enqueue_style( 'header', $template_uri . '/css/header.min.css', array(), $get_version( '/css/header.min.css' ) );
+	wp_enqueue_style( 'main', $template_uri . '/css/main.min.css', array(), $get_version( '/css/main.min.css' ) );
+	wp_enqueue_style( 'pages', $template_uri . '/css/pages.min.css', array(), $get_version( '/css/pages.min.css' ) );
+	wp_enqueue_style( 'woo', $template_uri . '/css/woo.min.css', array(), $get_version( '/css/woo.min.css' ) );
+
+	$style_path = get_stylesheet_directory() . '/style.css';
+	wp_enqueue_style( 'stylecss', get_stylesheet_uri(), array(), file_exists( $style_path ) ? filemtime( $style_path ) : $theme_version );
+
 	wp_enqueue_script( 'jquery' );
-	wp_enqueue_script( 'main', get_template_directory_uri() . '/js/main.min.js', array('jquery'), null, true );
-	wp_enqueue_script( 'yandex-api', 'https://api-maps.yandex.ru/2.1/?apikey=09db6a00-2892-4c98-9c87-7fd13a357553&lang=ru_RU', array('jquery'), null, true );
+	wp_enqueue_script( 'menu', $template_uri . '/js/menu.min.js', array( 'jquery' ), $get_version( '/js/menu.min.js' ), true );
+	wp_enqueue_script( 'main', $template_uri . '/js/main.min.js', array( 'jquery' ), $get_version( '/js/main.min.js' ), true );
+	wp_enqueue_script( 'yandex-api', 'https://api-maps.yandex.ru/2.1/?apikey=09db6a00-2892-4c98-9c87-7fd13a357553&lang=ru_RU', array( 'jquery' ), null, true );
 }
 
 @ini_set( 'upload_max_size' , '1164M' );
@@ -203,5 +209,4 @@ function fix_svg_mime_type( $data, $file, $filename, $mimes, $real_mime = '' ){
 	}
 	return $data;
 }
-
 

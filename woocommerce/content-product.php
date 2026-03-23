@@ -9,7 +9,7 @@ if ( empty( $product ) || ! $product->is_visible() ) {
 	return;
 }
 
-
+ 
 
 // Инициализируем переменную для хранения текущей категории
 $current_category = ''; 
@@ -59,9 +59,9 @@ if ($current_category) {
     if ($current_category == 'akkumulyatornye-batarei') {
         $attributes_to_display = array(
             'pa_tip-himii', 
-            'pa_napryazhenie', 
             'pa_emkost-ah', 
-            'pa_maks-tok-razryada-ab', 
+            'pa_maks-tok-razryada-ab',
+            'pa_napryazhenie', 
             'pa_gabarity-mm', 
             'pa_ves-kg' 
         );
@@ -87,8 +87,8 @@ if ($current_category) {
         $attributes_to_display = array(
             'pa_tip-himii', 
             'pa_emkost-ah', 
-            'pa_napryazhenie', 
             'pa_tokootdacha', 
+            'pa_napryazhenie', 
             'pa_gabarity-mm', 
             'pa_ves-kg' 
         );

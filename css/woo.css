@@ -158,7 +158,7 @@
 }
 
 .catalog-page .single-product-right .rating-row .aviable-false {
-  color: #FF0D65;
+  color: #0FBA00;
 }
 
 .catalog-page .single-product-right .rating-row .aviable-true {
@@ -1099,7 +1099,7 @@
 }
 
 .related ul.products .product-rating .aviable-false {
-  color: #FF0D65;
+  color: #0FBA00;
 }
 
 .related ul.products .product-thumb {
@@ -2453,6 +2453,14 @@
   animation-iteration-count: infinite;
 }
 
+.form-text {
+  font-size: 14px;
+  display: block;
+  margin-bottom: 14px;
+  font-weight: 700;
+  margin-top: 20px;
+}
+
 @media (min-width: 992px) {
   .product-tabs .tabs .item:hover {
     color: #0A3141;
@@ -3225,6 +3233,12 @@
   .search-page .products .table-product:nth-child(odd),
   .search-page .products .table-product:nth-child(even) {
     background-color: transparent;
+  }
+
+  .form-text {
+    margin-bottom: 16px;
+    font-size: 14px;
+    margin-top: 16px;
   }
 }
 

@@ -1,8 +1,9 @@
 jQuery(document).ready(function ($) {
 
-
 		
   $(".wpcf7").on('wpcf7mailsent', function(event){
+			ym(74565406,'reachGoal','send_all_forms');
+			console.log('send_all_forms')
 
 		if (event.detail.contactFormId == '203' || event.detail.contactFormId == '326') {
 			$('#thx-catalog').fadeIn(200);
@@ -103,6 +104,12 @@ jQuery(document).ready(function ($) {
 	});
 	$('.call-catalog').on('click', function() {
 		$('.popup.popup-catalog').fadeIn(300);
+		$('.popup').removeClass('popup-thx');
+		$('.overlay').fadeIn(300);
+		$('html').addClass('fixed');
+	});
+	$('.call-no-product').on('click', function() {
+		$('.popup.popup-no-product').fadeIn(300);
 		$('.popup').removeClass('popup-thx');
 		$('.overlay').fadeIn(300);
 		$('html').addClass('fixed');
@@ -241,6 +248,59 @@ jQuery(document).ready(function ($) {
     $('.reclam-offer .forms-wrap .form').removeClass('active');
     $('.reclam-offer .forms-wrap .form').eq(index).addClass('active'); 
 });
+
+
+	const privacyWrappers = document.querySelectorAll('.privacy-wrap');
+
+	if (privacyWrappers.length > 0) {
+		privacyWrappers.forEach(form => {
+			const formWrap = form.closest('.form');
+			if (!formWrap) return;
+
+			const checkboxes = formWrap.querySelectorAll('.privacy-item');
+			const submitButtons = formWrap.querySelectorAll('[type="submit"]');
+
+			// Устанавливаем начальное состояние
+			checkboxes.forEach(checkbox => {
+				if (checkbox.getAttribute('data-active') === 'true') {
+					checkbox.classList.add('active');
+				} else {
+					checkbox.classList.remove('active');
+				}
+			});
+
+			// Проверка только обязательных чекбоксов (без data-optional="true")
+			function checkFormValidation() {
+				const requiredCheckboxes = Array.from(checkboxes).filter(cb => {
+					return !cb.hasAttribute('data-optional'); // участвуют только обязательные
+				});
+
+				const allActive = requiredCheckboxes.every(cb => cb.getAttribute('data-active') === 'true');
+
+				submitButtons.forEach(btn => {
+					if (allActive) {
+						btn.classList.remove('disabled');
+					} else {
+						btn.classList.add('disabled');
+					}
+				});
+			}
+
+			// Инициализируем проверку при загрузке
+			checkFormValidation();
+
+			// Слушатель клика по .privacy-item
+			form.addEventListener('click', function(event) {
+				const toggle = event.target.closest('.privacy-item');
+				if (toggle) {
+					const isActive = toggle.getAttribute('data-active') === 'true';
+					toggle.setAttribute('data-active', isActive ? 'false' : 'true');
+					toggle.classList.toggle('active');
+					checkFormValidation();
+				}
+			});
+		});
+	}
 
 
 }); //end

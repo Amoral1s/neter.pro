@@ -177,4 +177,43 @@ if (vacancyS.length > 0) {
 	})
 }
 
+
+const cf7Forms = document.querySelectorAll('.wpcf7 form');
+
+if (cf7Forms.length > 0) {
+	cf7Forms.forEach(form => {
+		const id = form.closest('.wpcf7').dataset.wpcf7Id;
+
+		const cf7TextEl = document.querySelector('.cf7-text.online');
+		if (!cf7TextEl) return;
+
+		const textContent = cf7TextEl.textContent.trim();
+		if (!textContent) return;
+
+		const importText = document.createElement('strong');
+		importText.classList.add('form-text');
+		importText.innerHTML = textContent;
+
+		if (id == 787) {
+			const insertAfter = form.closest('.form');
+			const insertElem = insertAfter.querySelector('.form-title').nextElementSibling;
+			insertAfter.insertBefore(importText, insertElem);
+		} else if (id == 327) {
+			return;
+		} else if (id == 518) {
+			const insertElem = form.querySelector('.submit');
+			importText.innerHTML = `Уточняющие вопросы вы можете задать по тел. <a style="font-weight: 700; font-size: 14px;" href="tel:+79196266351">+7 (919) 626-63-51</a>`;
+			form.insertBefore(importText, insertElem);
+		} else {
+			const insertElem = form.querySelector('.submit');
+			// если .submit не найден или не является дочерним — добавляем в конец
+			if (insertElem && insertElem.parentNode === form) {
+				form.insertBefore(importText, insertElem);
+			} else {
+				form.appendChild(importText);
+			}
+		}
+	});
+}
+
 }); //end

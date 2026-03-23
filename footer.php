@@ -1,4 +1,3 @@
-
 <footer itemscope itemtype="https://schema.org/WPFooter" class="footer bg-dark">
   <div class="footer-top">
     <div class="container">
@@ -193,13 +192,15 @@
           </div>
           <b>Узнавайте о новинках первыми!</b>
         </div>
-        <div class="right">
+        <div class="right form">
           <div class="form">
             <?php echo do_shortcode('[contact-form-7 id="7a3df62" title="Подписка Unisender Подвал"]'); ?>
           </div>
-          <small>
-            Вы даёте согласие на обработку <a href="/privacy-policy" target="blank">персональных данных</a> и получение рекламных сообщений
-          </small>
+          <div class="privacy-wrap" style="margin-top: 0">
+            <small class="privacy-item" data-active="false">
+              Нажимая кнопку, вы даете согласие на получение информационных и рекламных сообщений
+            </small>
+          </div>
         </div>
       </div>
     </div>
@@ -271,11 +272,29 @@
     </div>
     <div class="wrapper">
       <div class="form form-white">
-        <b>Есть заказ или вопросы?</b>
+        <b>Оставить заявку</b>
+        <p class="subtitle">
+          Оставьте заявку, и мы свяжемся с вами в ближайшее время
+        </p>
+        <?php echo do_shortcode('[contact-form-7 id="6ef74de" title="Заказать звонок (попап)"]'); ?>
+      </div>
+    </div>
+  </div>
+
+  <div class="popup popup-no-product" style="display: none">
+    <div class="close">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
+        <path d="M18.9998 5.49995L4.99976 19.4999M4.99976 5.49995L18.9998 19.4999" stroke="#141B34" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <div class="wrapper">
+      <div class="form form-white">
+        <b>Не нашли нужную модель?</b>
         <p class="subtitle">
           Оставьте заявку и мы свяжемся с вами в ближайшее время
         </p>
-        <?php echo do_shortcode('[contact-form-7 id="6ef74de" title="Заказать звонок (попап)"]'); ?>
+        <?php //echo do_shortcode('[contact-form-7 id="6ef74de" title="Заказать звонок (попап)"]'); ?>
+        <?php echo do_shortcode('[contact-form-7 id="1aa23c6" title="Не нашли подходящих моделей? (попап)"]'); ?>
       </div>
     </div>
   </div>
@@ -359,7 +378,7 @@
     </div>
     <div class="wrapper">
       <div class="form form-white">
-        <b>Анкета соискателя</b>
+        <b>Заполнить анкету</b>
         <p class="subtitle">
           Мы изучим вашу анкету и свяжемся в случае принятия положительного решения
         </p>
@@ -440,7 +459,20 @@
 
   <div class="cookie" style="display: none">
     <b>Используем куки для улучшения работы сайта</b>
-    <p>Вы можете запретить обработку сookies в настройках браузера. Пожалуйста, ознакомьтесь с <a style="font-size: 14px;text-decoration:underline;" href="/politika-obrabotki-fajlov-cookie">политикой использования cookies</a></p>
+    <p>
+      Вы можете запретить обработку сookies в настройках браузера. 
+      Пожалуйста, ознакомьтесь с 
+      <?php if (is_page(4814)) : ?>
+      <span>политикой использования cookies</span>
+      <?php else : ?>
+        <a style="font-size: 14px;text-decoration:underline;" href="/politika-obrabotki-fajlov-cookie">политикой использования cookies</a>
+      <?php endif; ?>
+      . <br><br>
+      К сайту подключен сервис Яндекс.Метрика, который также использует файлы cookie 
+      <?php if (!is_page(6893)) : ?>
+      (<a style="font-size: 14px;text-decoration:underline;" href="/yandex-agree">подробнее</a>)
+      <?php endif; ?>
+    </p>
     <div class="button"><span>Понятно</span></div>
   </div>
 <!-- Popup's END -->
@@ -454,263 +486,207 @@
   </div>
 </div>
 
-<!-- PC catalog -->
-<div class="pc-catalog" style="display: none">
-  <div class="container">
-    <div class="wrap">
-      <?php 
-      $current_url = untrailingslashit($_SERVER['REQUEST_URI']); // Текущий URL без конечного слеша
 
-      if (have_rows('menu_catalog', 'options')) : while(have_rows('menu_catalog', 'options')) : the_row(); 
-          $main_link_url = untrailingslashit(parse_url(get_sub_field('main_link'), PHP_URL_PATH)); // URL для основного пункта меню
-          ?>
-        <div class="wrapper">
-          <?php if ($current_url === $main_link_url) : ?>
-            <span class="item">
-              <div class="icon">
-                <img src="<?php echo get_sub_field('img'); ?>" alt="<?php echo get_sub_field('title'); ?>">
-              </div>
-              <p><?php echo get_sub_field('title'); ?></p>
-            </span>
-          <?php else : ?>
-            <a href="<?php echo esc_url($main_link_url); ?>" class="item">
-              <div class="icon">
-                <img src="<?php echo get_sub_field('img'); ?>" alt="<?php echo get_sub_field('title'); ?>">
-              </div>
-              <p><?php echo get_sub_field('title'); ?></p>
-            </a>
-          <?php endif; ?>
-          
-          <?php if (have_rows('sub_menu')) : ?>
-          <div class="sub-menu">
-            <?php while(have_rows('sub_menu')) : the_row(); ?>
-              <div class="sub-menu-wrap">
-                <b><?php echo get_sub_field('title_sub'); ?></b>
-                <ul>
-                  <?php if (have_rows('sub_links')) : while(have_rows('sub_links')) : the_row(); 
-                      $sub_link_url = untrailingslashit(parse_url(get_sub_field('link'), PHP_URL_PATH)); // URL для подпункта меню
-                      ?>
-                    <li>
-                      <?php if ($current_url === $sub_link_url) : ?>
-                        <span><?php echo get_sub_field('name'); ?></span>
-                      <?php else : ?>
-                        <a href="<?php echo esc_url($sub_link_url); ?>">
-                          <?php echo get_sub_field('name'); ?>
-                        </a>
-                      <?php endif; ?>
-                    </li>
-                  <?php endwhile; endif; ?>
-                </ul>
-              </div>
-            <?php endwhile; ?>
-          </div>
-          <?php endif; ?>
-        </div>
-      <?php endwhile; endif; ?>
-    </div>
-  </div>
-</div>
-<!-- PC catalog END -->
 
 <!-- Mob header menu's -->
-<div class="mob-menu" style="display: none">
-  <div class="top">
-    <div class="container">
-      <?php if (is_home()) : ?>
-        <div class="logo">
-          <img class="dark" src="<?php echo get_template_directory_uri(); ?>/img/logo-dark.svg" alt="ООО «Источники питания»">
-        </div>
-      <?php else : ?>
-        <a href="/" class="logo">
-          <img class="dark" src="<?php echo get_template_directory_uri(); ?>/img/logo-dark.svg" alt="ООО «Источники питания»">
-        </a>
-      <?php endif; ?> 
-      <div class="right">
-        <div class="lang">
-          <?php echo do_shortcode('[gtranslate]'); ?>
-        </div>
-        <div class="close icon">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-            <path d="M18.9998 5L4.9998 19M4.9998 5L18.9998 19" stroke="#2CB4C2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
+  <div class="mob-menu" style="display: none">
+    <div class="top">
+      <div class="container">
+        <?php if (is_home()) : ?>
+          <div class="logo">
+            <img class="dark" src="<?php echo get_template_directory_uri(); ?>/img/logo-dark.svg" alt="ООО «Источники питания»">
+          </div>
+        <?php else : ?>
+          <a href="/" class="logo">
+            <img class="dark" src="<?php echo get_template_directory_uri(); ?>/img/logo-dark.svg" alt="ООО «Источники питания»">
+          </a>
+        <?php endif; ?> 
+        <div class="right">
+          <div class="lang">
+            <?php echo do_shortcode('[gtranslate]'); ?>
+          </div>
+          <div class="close icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M18.9998 5L4.9998 19M4.9998 5L18.9998 19" stroke="#2CB4C2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="container">
-    <div class="menu">
-      <div class="search-wrap" style="display: block">
-        <?php echo do_shortcode('[fibosearch]'); ?>
-      </div>
-      <nav class="mob-cats">
-        <?php 
-        $current_url = untrailingslashit($_SERVER['REQUEST_URI']); // Текущий URL без конечного слеша
+    <div class="container">
+      <div class="menu">
+        <div class="search-wrap" style="display: block">
+          <?php echo do_shortcode('[fibosearch]'); ?>
+        </div>
+        <nav class="mob-cats">
+          <?php 
+          $current_url = untrailingslashit($_SERVER['REQUEST_URI']); // Текущий URL без конечного слеша
 
-        if (have_rows('menu_catalog', 'options')) : 
-          while(have_rows('menu_catalog', 'options')) : the_row(); 
-            $main_link_url = untrailingslashit(parse_url(get_sub_field('main_link'), PHP_URL_PATH)); // URL для основного пункта меню
-            ?>
-          <div class="wrapper">
-            <?php if ($current_url === $main_link_url) : ?>
-              <span class="item">
-                <img src="<?php echo get_sub_field('img'); ?>" alt="<?php echo get_sub_field('title'); ?>">
-                <p><?php echo get_sub_field('title'); ?></p>
-                <div class="icon">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                    <path d="M9.00014 6L14.293 11.2929C14.6264 11.6262 14.793 11.7929 14.793 12C14.793 12.2071 14.6264 12.3738 14.293 12.7071L9.00014 18" stroke="#2CB4C2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </div>
-              </span>
-            <?php else : ?>
-              <a href="<?php echo esc_url($main_link_url); ?>" class="item">
-                <img src="<?php echo get_sub_field('img'); ?>" alt="<?php echo get_sub_field('title'); ?>">
-                <p><?php echo get_sub_field('title'); ?></p>
-                <div class="icon">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                    <path d="M9.00014 6L14.293 11.2929C14.6264 11.6262 14.793 11.7929 14.793 12C14.793 12.2071 14.6264 12.3738 14.293 12.7071L9.00014 18" stroke="#2CB4C2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </div>
-              </a>
-            <?php endif; ?>
-            
-            <?php 
-            $main_link = get_sub_field('main_link');
-            $main_name = get_sub_field('title');
-            ?>
-            <?php if (have_rows('sub_menu')) : ?>
-            <div class="sub-menu">
-              <div class="container">
-                <div class="back-btn">
+          if (have_rows('menu_catalog', 'options')) : 
+            while(have_rows('menu_catalog', 'options')) : the_row(); 
+              $main_link_url = untrailingslashit(parse_url(get_sub_field('main_link'), PHP_URL_PATH)); // URL для основного пункта меню
+              ?>
+            <div class="wrapper">
+              <?php if ($current_url === $main_link_url) : ?>
+                <span class="item">
+                  <img src="<?php echo get_sub_field('img'); ?>" alt="<?php echo get_sub_field('title'); ?>">
+                  <p><?php echo get_sub_field('title'); ?></p>
                   <div class="icon">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                      <path d="M5 12L20 11.9998" stroke="#2CB4C2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                      <path d="M9.00001 7L4.70712 11.2929C4.37378 11.6262 4.20712 11.7929 4.20712 12C4.20712 12.2071 4.37378 12.3738 4.70712 12.7071L9.00001 17" stroke="#2CB4C2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M9.00014 6L14.293 11.2929C14.6264 11.6262 14.793 11.7929 14.793 12C14.793 12.2071 14.6264 12.3738 14.293 12.7071L9.00014 18" stroke="#2CB4C2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                   </div>
-                  <span>Назад</span>
-                </div>
-                <?php if ($current_url === $main_link_url) : ?>
-                  <span class="main-link"><?php echo $main_name; ?></span>
-                <?php else : ?>
-                  <a href="<?php echo esc_url($main_link); ?>" class="main-link">
-                    <?php echo $main_name; ?>
-                  </a>
-                <?php endif; ?>
-                <?php while(have_rows('sub_menu')) : the_row(); ?>
-                  <div class="sub-menu-wrap">
-                    <?php if (get_sub_field('title_sub')) : ?>
-                      <b><?php echo get_sub_field('title_sub'); ?></b>
-                    <?php else : ?>
-                      <div class="mt-top"></div>
-                    <?php endif; ?>
-                    <ul>
-                      <?php if (have_rows('sub_links')) : 
-                        while(have_rows('sub_links')) : the_row(); 
-                          $sub_link_url = untrailingslashit(parse_url(get_sub_field('link'), PHP_URL_PATH)); // URL для подпункта меню
-                          ?>
-                        <li>
-                          <?php if ($current_url === $sub_link_url) : ?>
-                            <span><?php echo get_sub_field('name'); ?></span>
-                          <?php else : ?>
-                            <a href="<?php echo esc_url($sub_link_url); ?>">
-                              <?php echo get_sub_field('name'); ?>
-                            </a>
-                          <?php endif; ?>
-                        </li>
-                      <?php endwhile; endif; ?>
-                    </ul>
+                </span>
+              <?php else : ?>
+                <a href="<?php echo esc_url($main_link_url); ?>" class="item">
+                  <img src="<?php echo get_sub_field('img'); ?>" alt="<?php echo get_sub_field('title'); ?>">
+                  <p><?php echo get_sub_field('title'); ?></p>
+                  <div class="icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                      <path d="M9.00014 6L14.293 11.2929C14.6264 11.6262 14.793 11.7929 14.793 12C14.793 12.2071 14.6264 12.3738 14.293 12.7071L9.00014 18" stroke="#2CB4C2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
                   </div>
-                <?php endwhile; ?>
+                </a>
+              <?php endif; ?>
+              
+              <?php 
+              $main_link = get_sub_field('main_link');
+              $main_name = get_sub_field('title');
+              ?>
+              <?php if (have_rows('sub_menu')) : ?>
+              <div class="sub-menu">
+                <div class="container">
+                  <div class="back-btn">
+                    <div class="icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M5 12L20 11.9998" stroke="#2CB4C2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M9.00001 7L4.70712 11.2929C4.37378 11.6262 4.20712 11.7929 4.20712 12C4.20712 12.2071 4.37378 12.3738 4.70712 12.7071L9.00001 17" stroke="#2CB4C2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                    </div>
+                    <span>Назад</span>
+                  </div>
+                  <?php if ($current_url === $main_link_url) : ?>
+                    <span class="main-link"><?php echo $main_name; ?></span>
+                  <?php else : ?>
+                    <a href="<?php echo esc_url($main_link); ?>" class="main-link">
+                      <?php echo $main_name; ?>
+                    </a>
+                  <?php endif; ?>
+                  <?php while(have_rows('sub_menu')) : the_row(); ?>
+                    <div class="sub-menu-wrap">
+                      <?php if (get_sub_field('title_sub')) : ?>
+                        <b><?php echo get_sub_field('title_sub'); ?></b>
+                      <?php else : ?>
+                        <div class="mt-top"></div>
+                      <?php endif; ?>
+                      <ul>
+                        <?php if (have_rows('sub_links')) : 
+                          while(have_rows('sub_links')) : the_row(); 
+                            $sub_link_url = untrailingslashit(parse_url(get_sub_field('link'), PHP_URL_PATH)); // URL для подпункта меню
+                            ?>
+                          <li>
+                            <?php if ($current_url === $sub_link_url) : ?>
+                              <span><?php echo get_sub_field('name'); ?></span>
+                            <?php else : ?>
+                              <a href="<?php echo esc_url($sub_link_url); ?>">
+                                <?php echo get_sub_field('name'); ?>
+                              </a>
+                            <?php endif; ?>
+                          </li>
+                        <?php endwhile; endif; ?>
+                      </ul>
+                    </div>
+                  <?php endwhile; ?>
+                </div>
               </div>
+              <?php endif; ?>
             </div>
-            <?php endif; ?>
+          <?php endwhile; endif; ?>
+        </nav>
+        <nav class="mob-nav" itemscope itemtype="http://schema.org/SiteNavigationElement"> 
+          <ul itemprop="about" itemscope itemtype="http://schema.org/ItemList">
+          <?php  
+            wp_nav_menu( array(
+              'menu_class' => '',
+              'theme_location' => 'menu-3',
+              'container' => null,
+              'walker'=> new True_Walker_Nav_Menu() // этот параметр нужно добавить
+            )); 
+          ?>
+          </ul>
+        </nav> 
+        <div class="mob-contacts">
+          <?php if (!is_page(4617)) : ?>
+          <a class="link" target="blank" href="tel:<?php the_field('phone', 'options'); ?>">
+            <span><?php the_field('phone', 'options'); ?></span>
+            <p>Единый номер по России</p>
+          </a>
+          <?php endif; ?>
+          <div class="link">
+            <span><?php the_field('work_time', 'options'); ?></span>
+            <p>Режим работы</p>
           </div>
-        <?php endwhile; endif; ?>
-      </nav>
-      <nav class="mob-nav" itemscope itemtype="http://schema.org/SiteNavigationElement"> 
-        <ul itemprop="about" itemscope itemtype="http://schema.org/ItemList">
-        <?php  
-          wp_nav_menu( array(
-            'menu_class' => '',
-            'theme_location' => 'menu-3',
-            'container' => null,
-            'walker'=> new True_Walker_Nav_Menu() // этот параметр нужно добавить
-          )); 
-        ?>
-        </ul>
-      </nav> 
-      <div class="mob-contacts">
-        <?php if (!is_page(4617)) : ?>
-        <a class="link" target="blank" href="tel:<?php the_field('phone', 'options'); ?>">
-          <span><?php the_field('phone', 'options'); ?></span>
-          <p>Единый номер по России</p>
-        </a>
-        <?php endif; ?>
-        <div class="link">
-          <span><?php the_field('work_time', 'options'); ?></span>
-          <p>Режим работы</p>
+          <?php if (!is_page(4617)) : ?>
+          <a class="link" target="blank" href="mailto:<?php the_field('email_info', 'options'); ?>">
+            <span><?php the_field('email_info', 'options'); ?></span>
+            <p>Общие вопросы</p>
+          </a>
+          <?php endif; ?>
+          <?php if (is_page(4617)) : ?>
+          <a class="link" target="blank" href="mailto:sales@batareon.ru">
+            <span>sales@batareon.ru</span>
+            <p>Отдел продаж</p>
+          </a>
+          <?php else : ?>
+          <a class="link" target="blank" href="mailto:<?php the_field('email', 'options'); ?>">
+            <span><?php the_field('email', 'options'); ?></span>
+            <p>Отдел продаж</p>
+          </a>
+          <?php endif; ?>
+          <div class="social">
+            <a href="<?php echo get_field('tg', 'options'); ?>" target="blank">
+              <div class="icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M2.95078 10.8534C8.2955 8.52476 11.8595 6.9896 13.6427 6.24789C18.7342 4.13015 19.7922 3.76228 20.4818 3.75013C20.6335 3.74746 20.9726 3.78504 21.1922 3.96329C21.3777 4.11379 21.4287 4.3171 21.4532 4.45979C21.4776 4.60248 21.508 4.92754 21.4838 5.18154C21.2079 8.08056 20.014 15.1157 19.4067 18.3627C19.1497 19.7366 18.6436 20.1972 18.1537 20.2423C17.089 20.3403 16.2806 19.5387 15.2494 18.8627C13.6357 17.805 12.7241 17.1465 11.1578 16.1144C9.34771 14.9215 10.5211 14.2659 11.5527 13.1945C11.8227 12.9141 16.5137 8.64722 16.6045 8.26015C16.6159 8.21174 16.6264 8.03129 16.5192 7.93601C16.412 7.84073 16.2538 7.87331 16.1396 7.89922C15.9778 7.93596 13.4 9.63977 8.40627 13.0107C7.67457 13.5131 7.01183 13.7579 6.41803 13.7451C5.76341 13.7309 4.50419 13.375 3.56809 13.0707C2.41993 12.6975 1.50739 12.5001 1.58685 11.8663C1.62824 11.5361 2.08289 11.1985 2.95078 10.8534Z" fill="#2CB4C2"/>
+                </svg>
+              </div>
+            </a>
+            <a href="<?php echo get_field('vk', 'options'); ?>" target="blank">
+              <div class="icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M12.9403 18.432C5.74791 18.432 1.64554 13.603 1.47461 5.56738H5.07739C5.19573 11.4653 7.85172 13.9635 9.95554 14.4786V5.56738H13.3481V10.654C15.4256 10.4351 17.608 8.11714 18.3444 5.56738H21.7368C21.1714 8.7095 18.8046 11.0275 17.1216 11.9804C18.8046 12.7531 21.5003 14.7748 22.5259 18.432H18.7915C17.9894 15.9853 15.991 14.0923 13.3481 13.8348V18.432H12.9403Z" fill="#2CB4C2"/>
+                </svg>
+              </div>
+            </a>
+            <a href="<?php echo get_field('ok', 'options'); ?>" target="blank">
+              <div class="icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M12.0006 1.36523C8.86486 1.36523 6.31395 3.82768 6.31395 6.85489C6.31395 9.88186 8.86486 12.3432 12.0006 12.3432C15.1362 12.3432 17.6859 9.88186 17.6859 6.85489C17.6859 3.82768 15.1363 1.36523 12.0006 1.36523ZM12.0006 4.58166C13.2984 4.58166 14.3538 5.60191 14.3538 6.85489C14.3538 8.10733 13.2984 9.1268 12.0006 9.1268C10.7025 9.1268 9.64608 8.10735 9.64608 6.85489C9.64608 5.60191 10.7025 4.58166 12.0006 4.58166ZM7.31223 12.53C6.74961 12.5215 6.19636 12.7893 5.87541 13.2831C5.38495 14.0353 5.6199 15.028 6.39727 15.5011C7.42553 16.1239 8.54131 16.5658 9.69843 16.8205L6.52051 19.89C5.86995 20.5184 5.8705 21.5362 6.5212 22.1646C6.84734 22.4782 7.2727 22.6352 7.69915 22.6352C8.12516 22.6352 8.55195 22.478 8.8771 22.1639L11.9993 19.1483L15.1242 22.1639C15.7742 22.7922 16.8282 22.7922 17.4794 22.1639C18.1302 21.536 18.1302 20.5171 17.4794 19.8901L14.3001 16.8212C15.4575 16.5665 16.5737 16.1244 17.6012 15.5011C18.3801 15.028 18.6154 14.0342 18.1251 13.2831C17.6343 12.5307 16.6065 12.304 15.8271 12.7779C13.499 14.1917 10.4994 14.1908 8.1721 12.7779C7.90421 12.615 7.60693 12.5344 7.31223 12.53V12.53Z" fill="#2CB4C2"/>
+                </svg>
+              </div>
+            </a>
+            <a href="<?php echo get_field('wa', 'options'); ?>" target="blank">
+              <div class="icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M1.77361 11.9073C1.77297 13.7084 2.24571 15.4669 3.14462 17.0171L1.6875 22.3134L7.13193 20.8922C8.63198 21.706 10.3209 22.1356 12.0397 22.1361H12.0441C17.7045 22.1361 22.3117 17.5508 22.3142 11.9153C22.3152 9.18422 21.2479 6.61652 19.3087 4.68439C17.3699 2.75254 14.7913 1.68805 12.0437 1.68677C6.38306 1.68677 1.77581 6.27149 1.77335 11.9073L1.77361 11.9073ZM12.044 22.1361H12.0441H12.044C12.0439 22.1361 12.0438 22.1361 12.044 22.1361Z" fill="#2CB4C2"/>
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M9.38746 7.47758C9.1883 7.03688 8.97875 7.02805 8.78933 7.0203C8.6343 7.01374 8.457 7.01417 8.2799 7.01417C8.10259 7.01417 7.81461 7.0804 7.57109 7.34521C7.32735 7.61004 6.64062 8.25019 6.64062 9.55213C6.64062 10.8542 7.59329 12.1123 7.72601 12.289C7.85897 12.4654 9.56502 15.2227 12.2667 16.2833C14.5123 17.1648 14.9692 16.9895 15.4566 16.9453C15.944 16.9013 17.0294 16.3054 17.2508 15.6874C17.4723 15.0696 17.4723 14.5399 17.4059 14.4293C17.3395 14.3191 17.1622 14.2528 16.8964 14.1206C16.6305 13.9882 15.3236 13.348 15.08 13.2597C14.8363 13.1715 14.6591 13.1274 14.4817 13.3923C14.3045 13.6569 13.7954 14.2528 13.6403 14.4293C13.4853 14.6062 13.3301 14.6283 13.0643 14.4959C12.7984 14.3631 11.9423 14.084 10.9266 13.1825C10.1364 12.4811 9.60292 11.6149 9.44778 11.35C9.29275 11.0854 9.43123 10.942 9.56451 10.8101C9.68394 10.6915 9.83042 10.5011 9.96338 10.3467C10.096 10.1921 10.1403 10.0818 10.2289 9.90532C10.3176 9.72869 10.2732 9.57415 10.2068 9.44178C10.1403 9.30942 9.62368 8.00079 9.3873 7.4775" fill="white"/>
+                </svg>
+              </div>
+            </a>
+          </div>
         </div>
-        <?php if (!is_page(4617)) : ?>
-        <a class="link" target="blank" href="mailto:<?php the_field('email_info', 'options'); ?>">
-          <span><?php the_field('email_info', 'options'); ?></span>
-          <p>Общие вопросы</p>
-        </a>
-        <?php endif; ?>
-        <?php if (is_page(4617)) : ?>
-        <a class="link" target="blank" href="mailto:sales@batareon.ru">
-          <span>sales@batareon.ru</span>
-          <p>Отдел продаж</p>
-        </a>
-        <?php else : ?>
-        <a class="link" target="blank" href="mailto:<?php the_field('email', 'options'); ?>">
-          <span><?php the_field('email', 'options'); ?></span>
-          <p>Отдел продаж</p>
-        </a>
-        <?php endif; ?>
-        <div class="social">
-          <a href="<?php echo get_field('tg', 'options'); ?>" target="blank">
-            <div class="icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M2.95078 10.8534C8.2955 8.52476 11.8595 6.9896 13.6427 6.24789C18.7342 4.13015 19.7922 3.76228 20.4818 3.75013C20.6335 3.74746 20.9726 3.78504 21.1922 3.96329C21.3777 4.11379 21.4287 4.3171 21.4532 4.45979C21.4776 4.60248 21.508 4.92754 21.4838 5.18154C21.2079 8.08056 20.014 15.1157 19.4067 18.3627C19.1497 19.7366 18.6436 20.1972 18.1537 20.2423C17.089 20.3403 16.2806 19.5387 15.2494 18.8627C13.6357 17.805 12.7241 17.1465 11.1578 16.1144C9.34771 14.9215 10.5211 14.2659 11.5527 13.1945C11.8227 12.9141 16.5137 8.64722 16.6045 8.26015C16.6159 8.21174 16.6264 8.03129 16.5192 7.93601C16.412 7.84073 16.2538 7.87331 16.1396 7.89922C15.9778 7.93596 13.4 9.63977 8.40627 13.0107C7.67457 13.5131 7.01183 13.7579 6.41803 13.7451C5.76341 13.7309 4.50419 13.375 3.56809 13.0707C2.41993 12.6975 1.50739 12.5001 1.58685 11.8663C1.62824 11.5361 2.08289 11.1985 2.95078 10.8534Z" fill="#2CB4C2"/>
-              </svg>
-            </div>
-          </a>
-          <a href="<?php echo get_field('vk', 'options'); ?>" target="blank">
-            <div class="icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                <path d="M12.9403 18.432C5.74791 18.432 1.64554 13.603 1.47461 5.56738H5.07739C5.19573 11.4653 7.85172 13.9635 9.95554 14.4786V5.56738H13.3481V10.654C15.4256 10.4351 17.608 8.11714 18.3444 5.56738H21.7368C21.1714 8.7095 18.8046 11.0275 17.1216 11.9804C18.8046 12.7531 21.5003 14.7748 22.5259 18.432H18.7915C17.9894 15.9853 15.991 14.0923 13.3481 13.8348V18.432H12.9403Z" fill="#2CB4C2"/>
-              </svg>
-            </div>
-          </a>
-          <a href="<?php echo get_field('ok', 'options'); ?>" target="blank">
-            <div class="icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                <path d="M12.0006 1.36523C8.86486 1.36523 6.31395 3.82768 6.31395 6.85489C6.31395 9.88186 8.86486 12.3432 12.0006 12.3432C15.1362 12.3432 17.6859 9.88186 17.6859 6.85489C17.6859 3.82768 15.1363 1.36523 12.0006 1.36523ZM12.0006 4.58166C13.2984 4.58166 14.3538 5.60191 14.3538 6.85489C14.3538 8.10733 13.2984 9.1268 12.0006 9.1268C10.7025 9.1268 9.64608 8.10735 9.64608 6.85489C9.64608 5.60191 10.7025 4.58166 12.0006 4.58166ZM7.31223 12.53C6.74961 12.5215 6.19636 12.7893 5.87541 13.2831C5.38495 14.0353 5.6199 15.028 6.39727 15.5011C7.42553 16.1239 8.54131 16.5658 9.69843 16.8205L6.52051 19.89C5.86995 20.5184 5.8705 21.5362 6.5212 22.1646C6.84734 22.4782 7.2727 22.6352 7.69915 22.6352C8.12516 22.6352 8.55195 22.478 8.8771 22.1639L11.9993 19.1483L15.1242 22.1639C15.7742 22.7922 16.8282 22.7922 17.4794 22.1639C18.1302 21.536 18.1302 20.5171 17.4794 19.8901L14.3001 16.8212C15.4575 16.5665 16.5737 16.1244 17.6012 15.5011C18.3801 15.028 18.6154 14.0342 18.1251 13.2831C17.6343 12.5307 16.6065 12.304 15.8271 12.7779C13.499 14.1917 10.4994 14.1908 8.1721 12.7779C7.90421 12.615 7.60693 12.5344 7.31223 12.53V12.53Z" fill="#2CB4C2"/>
-              </svg>
-            </div>
-          </a>
-          <a href="<?php echo get_field('wa', 'options'); ?>" target="blank">
-            <div class="icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                <path d="M1.77361 11.9073C1.77297 13.7084 2.24571 15.4669 3.14462 17.0171L1.6875 22.3134L7.13193 20.8922C8.63198 21.706 10.3209 22.1356 12.0397 22.1361H12.0441C17.7045 22.1361 22.3117 17.5508 22.3142 11.9153C22.3152 9.18422 21.2479 6.61652 19.3087 4.68439C17.3699 2.75254 14.7913 1.68805 12.0437 1.68677C6.38306 1.68677 1.77581 6.27149 1.77335 11.9073L1.77361 11.9073ZM12.044 22.1361H12.0441H12.044C12.0439 22.1361 12.0438 22.1361 12.044 22.1361Z" fill="#2CB4C2"/>
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M9.38746 7.47758C9.1883 7.03688 8.97875 7.02805 8.78933 7.0203C8.6343 7.01374 8.457 7.01417 8.2799 7.01417C8.10259 7.01417 7.81461 7.0804 7.57109 7.34521C7.32735 7.61004 6.64062 8.25019 6.64062 9.55213C6.64062 10.8542 7.59329 12.1123 7.72601 12.289C7.85897 12.4654 9.56502 15.2227 12.2667 16.2833C14.5123 17.1648 14.9692 16.9895 15.4566 16.9453C15.944 16.9013 17.0294 16.3054 17.2508 15.6874C17.4723 15.0696 17.4723 14.5399 17.4059 14.4293C17.3395 14.3191 17.1622 14.2528 16.8964 14.1206C16.6305 13.9882 15.3236 13.348 15.08 13.2597C14.8363 13.1715 14.6591 13.1274 14.4817 13.3923C14.3045 13.6569 13.7954 14.2528 13.6403 14.4293C13.4853 14.6062 13.3301 14.6283 13.0643 14.4959C12.7984 14.3631 11.9423 14.084 10.9266 13.1825C10.1364 12.4811 9.60292 11.6149 9.44778 11.35C9.29275 11.0854 9.43123 10.942 9.56451 10.8101C9.68394 10.6915 9.83042 10.5011 9.96338 10.3467C10.096 10.1921 10.1403 10.0818 10.2289 9.90532C10.3176 9.72869 10.2732 9.57415 10.2068 9.44178C10.1403 9.30942 9.62368 8.00079 9.3873 7.4775" fill="white"/>
-              </svg>
-            </div>
-          </a>
+        <div class="back-btn main-btn" style="display: none">
+          <div class="icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M5 12L20 11.9998" stroke="#2CB4C2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M9.00001 7L4.70712 11.2929C4.37378 11.6262 4.20712 11.7929 4.20712 12C4.20712 12.2071 4.37378 12.3738 4.70712 12.7071L9.00001 17" stroke="#2CB4C2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <span>Назад</span>
         </div>
-      </div>
-      <div class="back-btn main-btn" style="display: none">
-        <div class="icon">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-            <path d="M5 12L20 11.9998" stroke="#2CB4C2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M9.00001 7L4.70712 11.2929C4.37378 11.6262 4.20712 11.7929 4.20712 12C4.20712 12.2071 4.37378 12.3738 4.70712 12.7071L9.00001 17" stroke="#2CB4C2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </div>
-        <span>Назад</span>
       </div>
     </div>
   </div>
-</div>
 <!-- Mob header menu's END -->
 
 <!-- Cart -->
@@ -756,35 +732,59 @@
 <!-- Cart END -->
 
 <!-- Filters popup -->
-<div class="filters-popup">
-  <div class="wrap">
-    <div class="close-row">
-      <b class="mini-title">
-        Фильтры
-      </b>
-      <div class="close">
-        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
-          <path d="M31.6663 8.33334L8.33301 31.6667M8.33301 8.33334L31.6663 31.6667" stroke="#141B34" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
+  <div class="filters-popup">
+    <div class="wrap">
+      <div class="close-row">
+        <b class="mini-title">
+          Фильтры
+        </b>
+        <div class="close">
+          <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
+            <path d="M31.6663 8.33334L8.33301 31.6667M8.33301 8.33334L31.6663 31.6667" stroke="#141B34" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
       </div>
-    </div>
-    <div class="filters-wrapper">
-      <?php echo do_shortcode('[wpf-filters id=2]'); ?>
-    </div>
-    <div class="buttons">
-      <div class="button filers-popup-confirm">
-        Применить
+      <div class="filters-wrapper">
+        <?php echo do_shortcode('[wpf-filters id=2]'); ?>
       </div>
-      <div class="button button-white filters-popup-reset">
-        Сбросить
+      <div class="buttons">
+        <div class="button filers-popup-confirm">
+          Применить
+        </div>
+        <div class="button button-white filters-popup-reset">
+          Сбросить
+        </div>
       </div>
     </div>
   </div>
-</div>
 <!-- Filters popup END -->
 
 <?php wp_footer(); ?>
 
+<script>
+	jQuery('.button').on('click', function(event) {
+		let target = event.target;
+		if (
+			target.classList.contains('callback') ||
+			target.classList.contains('call-faq') ||
+			target.classList.contains('call-no-product') ||
+			target.classList.contains('call-pre-order') ||
+			target.classList.contains('single_add_to_cart_button') ||
+			target.classList.contains('anchor')
+		) {
+			ym(74565406,'reachGoal','open_form')
+			console.log('open_form')
+		}
+	});
+	jQuery('.cart-toggle').on('click', function(event) { 
+		ym(74565406,'reachGoal','open_form')
+		console.log('open_form')
+	});
+</script>
+
+<?php if (get_field('form_toggle', 'options') == true) : ?>
+<div class="cf7-text online" style="display: none"><?php echo get_field('form_text', 'options'); ?></div>
+<?php endif; ?>
 
 </body>
 </html>

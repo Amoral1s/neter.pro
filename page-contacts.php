@@ -9,9 +9,8 @@ get_header();
 <div class="page-top">
   <div class="container">
     <?php
-      if ( function_exists('yoast_breadcrumb') ) { yoast_breadcrumb('<p class="breadcrumbs">', '</p>'); }
+      if ( function_exists('yoast_breadcrumb') ) { yoast_breadcrumb('<p class="breadcrumbs mob-bread">', '</p>'); }
     ?>
-    
   </div>
 </div>
 
@@ -21,28 +20,32 @@ get_header();
     <div class="wrap">
       <div class="left">
         <div class="item">
-          <a target="blank" href="tel:<?php echo get_field('phone', 'options'); ?>">
-            <?php echo get_field('phone', 'options'); ?>
-          </a>
-          <p>Единый номер по России</p>
-        </div>
-        <div class="item">
-          <div>
-            <?php echo get_field('work_time', 'options'); ?>
+          <div class="icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M3.77762 11.9424C2.8296 10.2893 2.37185 8.93948 2.09584 7.57121C1.68762 5.54758 2.62181 3.57081 4.16938 2.30947C4.82345 1.77638 5.57323 1.95852 5.96 2.6524L6.83318 4.21891C7.52529 5.46057 7.87134 6.08139 7.8027 6.73959C7.73407 7.39779 7.26737 7.93386 6.33397 9.00601L3.77762 11.9424ZM3.77762 11.9424C5.69651 15.2883 8.70784 18.3013 12.0576 20.2224M12.0576 20.2224C13.7107 21.1704 15.0605 21.6282 16.4288 21.9042C18.4524 22.3124 20.4292 21.3782 21.6905 19.8306C22.2236 19.1766 22.0415 18.4268 21.3476 18.04L19.7811 17.1668C18.5394 16.4747 17.9186 16.1287 17.2604 16.1973C16.6022 16.2659 16.0661 16.7326 14.994 17.666L12.0576 20.2224Z" stroke="#2CB4C2" stroke-width="1.5" stroke-linejoin="round"/>
+              <path d="M14 6.83185C15.4232 7.43624 16.5638 8.57677 17.1682 10M14.654 2C18.1912 3.02076 20.9791 5.80852 22 9.34563" stroke="#2CB4C2" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
           </div>
-          <p>Режим работы</p>
+          <div class="meta">
+            <a target="blank" href="tel:<?php echo get_field('phone', 'options'); ?>">
+              <?php echo get_field('phone', 'options'); ?>
+            </a>
+            <p>Единый номер по России</p>
+          </div>
         </div>
         <div class="item">
-          <a target="blank" href="mailto:<?php echo get_field('email_info', 'options'); ?>">
-            <?php echo get_field('email_info', 'options'); ?>
-          </a>
-          <p>Общие вопросы</p>
-        </div>
-        <div class="item">
-          <a target="blank" href="mailto:<?php echo get_field('email', 'options'); ?>">
-            <?php echo get_field('email', 'options'); ?>
-          </a>
-          <p>Отдел продаж</p>
+          <div class="icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#2CB4C2" stroke-width="1.5"/>
+              <path d="M9.5 9.5L12.9999 12.9996M16 8L11 13" stroke="#2CB4C2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="meta">
+            <b>
+              <?php echo get_field('work_time', 'options'); ?>
+            </b>
+            <p>Режим работы</p>
+          </div>
         </div>
       </div>
       <div class="social">
@@ -77,6 +80,14 @@ get_header();
         </a> 
       </div>
     </div>
+    <div class="contacts-row">
+      <?php if (have_rows('contacts_emails', 'options')) : while(have_rows('contacts_emails', 'options')) : the_row(); ?>
+        <a href="mailto:<?php echo get_sub_field('email'); ?>" target="blank" class="item">
+          <span><?php echo get_sub_field('name'); ?></span>
+          <b><?php echo get_sub_field('email'); ?></b>
+        </a>
+      <?php endwhile; endif; ?>
+    </div>
   </div>
 </section>
 
@@ -85,7 +96,7 @@ get_header();
   <div class="container">
     <div class="wrap">
       <b class="title">Адреса</b>
-      <div class="item" data-coords="[55.833424, 49.040046]">
+      <div class="item" data-coords="[55.402468, 49.543532]">
         <p>Производство</p>
         <address><?php echo get_field('addr_prod', 'options'); ?></address>
         <span><?php echo get_field('work_time','options'); ?></span>
