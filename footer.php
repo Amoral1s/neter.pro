@@ -762,6 +762,13 @@
 <?php wp_footer(); ?>
 
 <script>
+	function trackOpenFormGoal() {
+		if (typeof window.ym === 'function') {
+			window.ym(74565406, 'reachGoal', 'open_form');
+			console.log('open_form');
+		}
+	}
+
 	jQuery('.button').on('click', function(event) {
 		let target = event.target;
 		if (
@@ -772,13 +779,11 @@
 			target.classList.contains('single_add_to_cart_button') ||
 			target.classList.contains('anchor')
 		) {
-			ym(74565406,'reachGoal','open_form')
-			console.log('open_form')
+			trackOpenFormGoal();
 		}
 	});
 	jQuery('.cart-toggle').on('click', function(event) { 
-		ym(74565406,'reachGoal','open_form')
-		console.log('open_form')
+		trackOpenFormGoal();
 	});
 </script>
 

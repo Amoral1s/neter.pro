@@ -27,17 +27,7 @@ function verify_recaptcha_comment($recaptcha_response) {
     return !empty($result->success);
 }
 
-function enqueue_comment_scripts() {
-    global $comment_RECAPTCHA_SITE_KEY;
-    wp_enqueue_script('comment-comment', get_template_directory_uri() . '/js/comments.js', ['jquery'], null, true);
-
-    wp_localize_script('comment-comment', 'comment_params', [
-        'ajax_url'  => admin_url('admin-ajax.php'),
-        'is_local'  => is_local_comment(),
-        'recaptcha_site_key' => $comment_RECAPTCHA_SITE_KEY,
-    ]);
-}
-add_action('wp_enqueue_scripts', 'enqueue_comment_scripts');
+// JS комментариев теперь подключается в составе main.js.
 
 // AJAX handlers
 add_action('wp_ajax_submit_comment', 'handle_ajax_comment_submission');

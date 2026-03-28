@@ -55,8 +55,6 @@
       <link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri(); ?>/css/woo.min.css">
   </noscript> 
 
-  <link rel="preload" as="script" href="<?php echo get_template_directory_uri(); ?>/js/menu.min.js">
-	
   <?php if (is_home()) { ?>
     <link rel="preload" as="image" href="<?php echo esc_url(get_field('offer_bg', 'options')); ?>" />
   <?php } else { ?>

@@ -1,4 +1,8 @@
 jQuery(document).ready(function($) {
+	const mainThemeData = window.mainThemeData || {};
+	const ajaxUrl = mainThemeData.ajax_url || '/wp-admin/admin-ajax.php';
+	const isLocalComment = Boolean(mainThemeData.is_local_comment);
+	const commentRecaptchaSiteKey = mainThemeData.comment_recaptcha_site_key || '';
 
 	$('.faq-comments .comment-respond .mini-title').text('Задать вопрос');
 	$('.faq-comments .comment-respond #comment').attr('placeholder', 'Ваш вопрос');
@@ -41,7 +45,7 @@ jQuery(document).ready(function($) {
 			callback();
 		} else {
 			console.log("🔄 Загружаем reCAPTCHA...");
-			$.getScript("https://www.google.com/recaptcha/api.js?render=" + comment_params.recaptcha_site_key)
+			$.getScript("https://www.google.com/recaptcha/api.js?render=" + commentRecaptchaSiteKey)
 				.done(function() {
 					console.log("✅ reCAPTCHA загружена.");
 					callback();
@@ -56,15 +60,12 @@ jQuery(document).ready(function($) {
 			const form = $(formSelector);
 			if (!form.length) return;
 
-			var isLocal = comment_params.is_local;
-			var recaptchaKey = comment_params.recaptcha_site_key;
-
 			form.on('submit', function(e) {
 					e.preventDefault();
 					var $form = $(this);
 					$('.comment-error, .comment-success').remove();
 
-					if (isLocal || !recaptchaKey || recaptchaKey === 'YOUR_SITE_KEY') {
+					if (isLocalComment || !commentRecaptchaSiteKey || commentRecaptchaSiteKey === 'YOUR_SITE_KEY') {
 							console.warn("⚠️ reCAPTCHA отключена (локальный сервер или отсутствует ключ).");
 							submitCommentForm($form, action);
 							return;
@@ -72,7 +73,7 @@ jQuery(document).ready(function($) {
 
 					loadRecaptcha(function() {
 							grecaptcha.ready(function() {
-									grecaptcha.execute(recaptchaKey, { action: 'submit' }).then(function(token) {
+									grecaptcha.execute(commentRecaptchaSiteKey, { action: 'submit' }).then(function(token) {
 											console.log("✅ reCAPTCHA выполнена. Токен:", token);
 											$form.prepend('<input type="hidden" name="recaptcha_response" value="' + token + '">');
 											submitCommentForm($form, action);
@@ -90,7 +91,7 @@ jQuery(document).ready(function($) {
 			$('input#submit').addClass('disabled');
 
 			$.ajax({
-					url: comment_params.ajax_url,
+					url: ajaxUrl,
 					type: 'POST',
 					data: formData + '&action=' + action,
 					success: function(response) {

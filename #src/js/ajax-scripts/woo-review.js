@@ -1,5 +1,10 @@
 jQuery(document).ready(function($) {
-  var isLocal = ['localhost', '127.0.0.1', 'neter.local', 'localhost:3000'].includes(window.location.hostname) || window.location.hostname.endsWith('.local');
+  const mainThemeData = window.mainThemeData || {};
+  const ajaxUrl = mainThemeData.ajax_url || '/wp-admin/admin-ajax.php';
+  const reviewRecaptchaSiteKey = mainThemeData.review_recaptcha_site_key || '6LeZlf8pAAAAALIprB1_PfRBJBKPfwXhT2IV3SWw';
+  const isLocal = typeof mainThemeData.is_local_environment !== 'undefined'
+    ? Boolean(mainThemeData.is_local_environment)
+    : (['localhost', '127.0.0.1', 'neter.local', 'localhost:3000'].includes(window.location.hostname) || window.location.hostname.endsWith('.local'));
 
   $('#review_form').on('submit', 'form', function(e) {
       e.preventDefault();
@@ -11,7 +16,7 @@ jQuery(document).ready(function($) {
 
       if (typeof grecaptcha !== 'undefined' && !isLocal) {
           grecaptcha.ready(function() {
-              grecaptcha.execute('6LeZlf8pAAAAALIprB1_PfRBJBKPfwXhT2IV3SWw', { action: 'submit' }).then(function(token) {
+              grecaptcha.execute(reviewRecaptchaSiteKey, { action: 'submit' }).then(function(token) {
                   console.log('reCAPTCHA token received:', token); // Отладочный вывод
                   $form.prepend('<input type="hidden" name="recaptcha_response" value="' + token + '">');
                   submitForm($form);
@@ -26,7 +31,7 @@ jQuery(document).ready(function($) {
       var formData = $form.serialize();
       $('input.submit').addClass('disabled');
       $.ajax({
-          url: woocommerce_params.ajax_url,
+          url: ajaxUrl,
           type: 'POST',
           data: formData + '&action=submit_review',
           success: function(response) {

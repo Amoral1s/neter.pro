@@ -39,7 +39,6 @@ const paths = {
         ],
         cssAll: source_folder + '/sass/**/*.sass', // Все SASS файлы, включая префиксы
         js: [
-            //source_folder + '/js/menu.js',
             source_folder + '/js/swiper.js',
             source_folder + '/js/lightgallery.js',
             source_folder + '/js/lg-thumbnail.js',
@@ -48,11 +47,13 @@ const paths = {
             source_folder + '/js/sliders.js',
             source_folder + '/js/forms.js',
             source_folder + '/js/single_page.js',
-            source_folder + '/js/scripts_main.js',
             source_folder + '/js/woo.js',
             source_folder + '/js/yandex.js',
             source_folder + '/js/calc.js',
+            source_folder + '/js/ajax-scripts/*.js',
         ],
+        jsMain: source_folder + '/js/scripts_main.js',
+        jsHeaderMenu: source_folder + '/js/assets/header-menu.js',
         img: source_folder + '/img/**/*.{jpg,png,svg,gif,ico,webp}',
         fonts: source_folder + '/fonts/*.ttf',
     },
@@ -71,6 +72,8 @@ const gulpSassInstance = gulpSass(sass);
 function logPaths(done) {
     console.log('CSS Source Paths:', paths.src.css);
     console.log('JS Source Paths:', paths.src.js);
+    console.log('Main JS File:', paths.src.jsMain);
+    console.log('Header Menu JS File:', paths.src.jsHeaderMenu);
     done();
 }
 
@@ -104,29 +107,23 @@ function css() {
 }
 
 function js() {
-    const includedJsFiles = paths.src.js.map(jsFile => path.join(source_folder, 'js', path.basename(jsFile)));
-    
-    // Конкатенация и минификация включенных файлов
-    const includedStream = src(includedJsFiles)
+    const mainStream = src([...paths.src.js, paths.src.jsMain], { allowEmpty: false })
         .pipe(concat('main.js'))
         .pipe(dest(paths.build.js))
         .pipe(uglify.default())
         .pipe(rename({ extname: '.min.js' }))
         .pipe(dest(paths.build.js))
         .pipe(browsersyncInstance.stream());
-    
-    // Копирование остальных файлов
-    const allJsFilesGlob = path.join(source_folder, 'js', '*.js');
-    const excludedJsFilesGlob = includedJsFiles.map(file => `!${file}`);
-    
-    const remainingStream = src([allJsFilesGlob, ...excludedJsFilesGlob])
+
+    const headerMenuStream = src(paths.src.jsHeaderMenu, { allowEmpty: false })
+        .pipe(concat('header-menu.js'))
         .pipe(dest(paths.build.js))
         .pipe(uglify.default())
         .pipe(rename({ extname: '.min.js' }))
         .pipe(dest(paths.build.js))
         .pipe(browsersyncInstance.stream());
-    
-    return mergeStream(includedStream, remainingStream);
+
+    return mergeStream(mainStream, headerMenuStream);
 }
 
 function images() {
@@ -191,4 +188,5 @@ const watcher = series(logPaths, buildDev, parallel(watchFiles, browserSync));
 
 export { fontsBuild as fonts };
 export { watcher as watch };
+export { js as buildJs };
 export default watcher;

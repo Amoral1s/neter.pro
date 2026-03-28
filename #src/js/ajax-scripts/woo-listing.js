@@ -1,11 +1,13 @@
 jQuery(document).ready(function($) {
+    const ajaxUrl = (window.mainThemeData && window.mainThemeData.ajax_url) || window.ajaxurl || '/wp-admin/admin-ajax.php';
+
         $('.view-switcher').on('click', 'button', function() {
         $('.catalog-main .wrap .right').addClass('loading');
         var view = $(this).data('view');
         var $button = $(this); // Сохраняем ссылку на текущий элемент
 
         $.ajax({
-            url: ajaxurl,
+            url: ajaxUrl,
             type: 'POST',
             data: {
                 action: 'update_product_view',
