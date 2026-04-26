@@ -218,7 +218,7 @@ function update_all_products_meta_with_fallback_attributes() {
 				}
 
                 // 👇 Добавляем проверку ACF поля new_product
-                $is_new_product = get_field('new_product', $product_id);
+                $is_new_product = (bool) get_post_meta($product_id, 'new_product', true);
                 if ($is_new_product) {
                     update_post_meta($product_id, 'new_product_sort_priority', 1);
                 } else {
@@ -256,30 +256,89 @@ function custom_sort_products_with_priority_and_fallback($query) {
         return;
     }
 
-    if (is_shop() || is_product_category() || is_tax()) {
+    if (
+        $query->is_post_type_archive('product') ||
+        $query->is_tax('product_cat') ||
+        $query->is_tax('product_tag')
+    ) {
+        $GLOBALS['main_theme_catalog_sort_query'] = $query;
+        $query->set('suppress_filters', false);
+    }
+}
 
-        add_filter('posts_join', function($join) {
-            global $wpdb;
+function main_theme_should_apply_catalog_sort($query) {
+    if (is_admin() || !($query instanceof WP_Query) || !$query->is_main_query()) {
+        return false;
+    }
 
-            // JOIN на поле new_product_sort_priority
-            $join .= " LEFT JOIN {$wpdb->postmeta} AS new_priority 
-                        ON ({$wpdb->posts}.ID = new_priority.post_id 
-                        AND new_priority.meta_key = 'new_product_sort_priority') ";
+    if (empty($GLOBALS['main_theme_catalog_sort_query'])) {
+        return false;
+    }
 
-            // JOIN на поле product_sort_value
-            $join .= " LEFT JOIN {$wpdb->postmeta} AS sort_value 
-                        ON ({$wpdb->posts}.ID = sort_value.post_id 
-                        AND sort_value.meta_key = 'product_sort_value') ";
+    return $GLOBALS['main_theme_catalog_sort_query'] === $query;
+}
 
-            return $join;
-        }, 20, 1);
+function main_theme_catalog_sort_posts_join($join, $query) {
+    if (!main_theme_should_apply_catalog_sort($query)) {
+        return $join;
+    }
 
-        add_filter('posts_orderby', function($orderby) {
-            return " 
-                CAST(new_priority.meta_value AS UNSIGNED) DESC, 
-                CAST(sort_value.meta_value AS DECIMAL(10,2)) DESC
-            ";
-        }, 20, 1);
+    global $wpdb;
+
+    if (strpos($join, "new_priority.meta_key = 'new_product_sort_priority'") === false) {
+        $join .= " LEFT JOIN {$wpdb->postmeta} AS new_priority
+            ON ({$wpdb->posts}.ID = new_priority.post_id
+            AND new_priority.meta_key = 'new_product_sort_priority') ";
+    }
+
+    if (strpos($join, "sort_value.meta_key = 'product_sort_value'") === false) {
+        $join .= " LEFT JOIN {$wpdb->postmeta} AS sort_value
+            ON ({$wpdb->posts}.ID = sort_value.post_id
+            AND sort_value.meta_key = 'product_sort_value') ";
+    }
+
+    return $join;
+}
+add_filter('posts_join', 'main_theme_catalog_sort_posts_join', 20, 2);
+
+function main_theme_catalog_sort_posts_orderby($orderby, $query) {
+    if (!main_theme_should_apply_catalog_sort($query)) {
+        return $orderby;
+    }
+
+    return "CAST(new_priority.meta_value AS UNSIGNED) DESC, CAST(sort_value.meta_value AS DECIMAL(10,2)) DESC";
+}
+add_filter('posts_orderby', 'main_theme_catalog_sort_posts_orderby', 20, 2);
+
+if (!function_exists('main_theme_get_random_product_ids')) {
+    function main_theme_get_random_product_ids($limit = 10, $ttl = 600) {
+        $limit = max(1, (int) $limit);
+        $cache_key = 'main_theme_random_products_' . $limit;
+        $cached_ids = get_transient($cache_key);
+
+        if (is_array($cached_ids) && !empty($cached_ids)) {
+            return array_map('intval', $cached_ids);
+        }
+
+        $query = new WP_Query(array(
+            'post_type'              => 'product',
+            'post_status'            => 'publish',
+            'posts_per_page'         => $limit,
+            'orderby'                => 'rand',
+            'fields'                 => 'ids',
+            'no_found_rows'          => true,
+            'ignore_sticky_posts'    => true,
+            'update_post_meta_cache' => false,
+            'update_post_term_cache' => false,
+        ));
+
+        $product_ids = array_map('intval', $query->posts);
+
+        if (!empty($product_ids)) {
+            set_transient($cache_key, $product_ids, max(60, (int) $ttl));
+        }
+
+        return $product_ids;
     }
 }
 
@@ -338,6 +397,3 @@ add_filter('wp_insert_post_data', function($data, $postarr) {
         }
     }
 }); */
-
-
-

@@ -11,7 +11,7 @@
 
   <?php if ($offer_bg_video): ?>
     <!-- Видеофон -->
-    <video class="offer-bg-video" autoplay loop muted playsinline style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;">
+    <video class="offer-bg-video" autoplay loop muted playsinline preload="metadata" poster="<?php echo esc_url($offer_bg_image); ?>" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;">
       <source src="<?php echo $offer_bg_video; ?>" type="video/mp4">
     </video>
 
@@ -218,23 +218,14 @@
         <div class="num"><?php echo get_field('projects_years', 'options'); ?></div>
       </div>
       <?php
-          $count_args = array(
-            'post_type'      => 'projects',
-            'posts_per_page' => -1
-          );
-          $count_query = new WP_Query( $count_args );
-          $count_of_projects = 0;
-          if ( $count_query->have_posts() ) {
-            while ( $count_query->have_posts() ) {
-              $count_query->the_post(); 
-              $count_of_projects++;
-            } 
-          }
-          wp_reset_postdata();
+          $count_of_projects_obj = wp_count_posts('projects');
+          $count_of_projects = isset($count_of_projects_obj->publish) ? (int) $count_of_projects_obj->publish : 0;
           //main query
           $args = array(
             'post_type'      => 'projects',
-            'posts_per_page' => 3
+            'posts_per_page' => 3,
+            'no_found_rows'  => true,
+            'ignore_sticky_posts' => true,
           );
           $query = new WP_Query( $args );
           $post_index = 1;
@@ -410,7 +401,7 @@
           </defs>
         </svg>
       </div>
-      <iframe data-link="<?php echo get_field('about_video', 'options'); ?>?rel=0" src="" frameborder="0"></iframe>
+      <iframe data-link="<?php echo get_field('about_video', 'options'); ?>?rel=0" src="" frameborder="0" loading="lazy" title="Видео о компании"></iframe>
     </div>
     <div class="about-circle">
       <h3 class="title center"><?php echo get_field('about_circle_title', 'options'); ?></h3>
@@ -512,7 +503,9 @@
           <?php
             $args = array(
               'post_type'      => 'post',
-              'posts_per_page' => 10
+              'posts_per_page' => 10,
+              'no_found_rows'  => true,
+              'ignore_sticky_posts' => true,
             );
             $query = new WP_Query( $args );
 

@@ -35,7 +35,7 @@
         echo '<meta name="robots" content="noindex, nofollow"/>';
     }
   ?>
-<!--   <link rel="preload" as="style" href="<?php echo get_stylesheet_directory_uri(); ?>/css/header.min.css" onload="this.onload=null;this.rel='stylesheet'">
+<link rel="preload" as="style" href="<?php echo get_stylesheet_directory_uri(); ?>/css/header.min.css" onload="this.onload=null;this.rel='stylesheet'">
     <noscript>
         <link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri(); ?>/css/header.min.css">
     </noscript>
@@ -48,7 +48,7 @@
 	 <link rel="preload" as="style" href="<?php echo get_stylesheet_directory_uri(); ?>/css/pages.min.css" onload="this.onload=null;this.rel='stylesheet'">
   <noscript>
       <link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri(); ?>/css/pages.min.css">
-  </noscript>  -->
+  </noscript>
 		
 	 <link rel="preload" as="style" href="<?php echo get_stylesheet_directory_uri(); ?>/css/woo.min.css" onload="this.onload=null;this.rel='stylesheet'">
  <noscript>
@@ -94,7 +94,7 @@
   
   <?php wp_head(); ?>
 
-  <!-- Yandex.Metrika counter 
+
   <script type="text/javascript" >
     (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
     m[i].l=1*new Date();
@@ -111,7 +111,7 @@
   </script>
 
   <noscript><div><img src="https://mc.yandex.ru/watch/74565406" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-  /Yandex.Metrika counter -->
+
   
 </head>
 

@@ -6,14 +6,21 @@
     <div class="services-wrap service-block">
       <?php
        $slider_posts_id = get_field('serv_ids');
+       $query = null;
+
+       if (!empty($slider_posts_id) && is_array($slider_posts_id)) {
         $args = array(
-          'post_type'      => 'service',
-          'post__in'       => $slider_posts_id,
-          'orderby'        => 'post__in',
-          'posts_per_page' => -1
+          'post_type'           => 'service',
+          'post__in'            => array_map('intval', $slider_posts_id),
+          'orderby'             => 'post__in',
+          'posts_per_page'      => count($slider_posts_id),
+          'no_found_rows'       => true,
+          'ignore_sticky_posts' => true,
         );
-        $query = new WP_Query( $args );
-        if ( $query->have_posts() ) {
+        $query = new WP_Query($args);
+       }
+
+       if ($query && $query->have_posts()) {
           while ( $query->have_posts() ) {
             $query->the_post();
       ?>

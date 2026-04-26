@@ -8471,8 +8471,10 @@ jQuery(document).ready(function ($) {
 
 		
   $(".wpcf7").on('wpcf7mailsent', function(event){
-			ym(74565406,'reachGoal','send_all_forms');
-			console.log('send_all_forms')
+			if (typeof window.ym === 'function') {
+				window.ym(74565406,'reachGoal','send_all_forms');
+				console.log('send_all_forms');
+			}
 
 		if (event.detail.contactFormId == '203' || event.detail.contactFormId == '326') {
 			$('#thx-catalog').fadeIn(200);
@@ -9048,166 +9050,239 @@ jQuery(document).ready(function ($) {
 }); //end
 
 jQuery(document).ready(function($) {
-  console.log('ya-map')
-  const map = document.querySelector('section.map');
-  
-  if (map && !map.classList.contains('contacts-map')) {
-    setTimeout(() => {
-      ymaps.ready(init);
-      function init(){
-        let center;
-        if (window.screen.width > 992) {
-          center = [55.816793, 49.146452];
-        } else {
-          center = [55.817793, 49.146452]
+  const settings = window.mainThemeData || {};
+
+  if (!settings.has_yandex_map) {
+    return;
+  }
+
+  if (typeof window.ymaps === 'undefined' || typeof window.ymaps.ready !== 'function') {
+    return;
+  }
+
+  const mapTargets = [];
+  const officeMapSection = document.querySelector('section.map:not(.contacts-map)');
+  const deliveryMapSection = document.querySelector('section.delivery-map');
+  const contactsMapSection = document.querySelector('section.contacts-map');
+
+  if (officeMapSection) {
+    mapTargets.push({ section: officeMapSection, type: 'office' });
+  }
+
+  if (deliveryMapSection) {
+    mapTargets.push({ section: deliveryMapSection, type: 'delivery' });
+  }
+
+  if (contactsMapSection) {
+    mapTargets.push({ section: contactsMapSection, type: 'contacts' });
+  }
+
+  if (!mapTargets.length) {
+    return;
+  }
+
+  function openNavigatorRoute(destinationCoords) {
+    if (!confirm("Открыть Яндекс.Навигатор для построения маршрута?")) {
+      return;
+    }
+
+    if (!navigator.geolocation) {
+      alert("Геолокация не поддерживается вашим браузером");
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(function(position) {
+      const userCoords = [position.coords.latitude, position.coords.longitude];
+      const navigatorUrl = 'https://yandex.ru/maps/?rtext=' +
+        userCoords[0] + ',' + userCoords[1] + '~' +
+        destinationCoords[0] + ',' + destinationCoords[1] +
+        '&rtt=auto';
+      window.open(navigatorUrl, '_blank');
+    });
+  }
+
+  function createPlacemark(coords, balloonContent) {
+    return new ymaps.Placemark(coords, {
+      balloonContent: balloonContent,
+    }, {
+      iconLayout: 'default#image',
+      iconImageHref: '/wp-content/themes/main/img/icons/yandex.svg',
+      iconImageSize: [45, 56],
+    });
+  }
+
+  function initOfficeMap() {
+    const center = window.screen.width > 992 ? [55.816793, 49.146452] : [55.817793, 49.146452];
+    const myMap = new ymaps.Map('map', {
+      center: center,
+      zoom: 17,
+      controls: [],
+      theme: 'islands#dark',
+    });
+
+    const officePlacemark = createPlacemark([55.816265, 49.145723], 'Офис "НЭТEР"');
+    officePlacemark.events.add('click', function() {
+      openNavigatorRoute([55.816793, 49.146452]);
+    });
+
+    myMap.geoObjects.add(officePlacemark);
+  }
+
+  function initDeliveryMap() {
+    const myMap = new ymaps.Map('map', {
+      center: [55.402468, 49.543532],
+      zoom: 14,
+      controls: [],
+      theme: 'islands#dark',
+    });
+
+    const deliveryPlacemark = createPlacemark([55.402468, 49.543532], 'Офис самовывоза');
+    deliveryPlacemark.events.add('click', function() {
+      openNavigatorRoute([55.834637, 49.041699]);
+    });
+
+    myMap.geoObjects.add(deliveryPlacemark);
+  }
+
+  function normalizeCoords(value) {
+    if (Array.isArray(value)) {
+      return value;
+    }
+
+    if (typeof value === 'string') {
+      try {
+        const parsed = JSON.parse(value);
+        if (Array.isArray(parsed)) {
+          return parsed;
         }
-        var myMap = new ymaps.Map("map", {
-            center: center, // Центр карты (Казань)
-            zoom: 17,
-            controls: [],
-            theme: "islands#dark"
+      } catch (error) {
+        const parts = value.split(',').map(function(item) {
+          return parseFloat(item.trim());
         });
 
-        var myPlacemark = new ymaps.Placemark([55.816265, 49.145723], {
-            balloonContent: 'Офис "НЭТEР"'
-        }, {
-            iconLayout: 'default#image',
-            iconImageHref: '/wp-content/themes/main/img/icons/yandex.svg', // Замените на путь к вашей иконке
-            iconImageSize: [45, 56], // Размер иконки
-        });
-
-        myPlacemark.events.add('click', function (e) {
-          if (confirm("Открыть Яндекс.Навигатор для построения маршрута?")) {
-            if (navigator.geolocation) {
-              navigator.geolocation.getCurrentPosition(function(position) {
-                const userCoords = [position.coords.latitude, position.coords.longitude];
-                const destination = [55.816793, 49.146452];
-                const navigatorUrl = `https://yandex.ru/maps/?rtext=${userCoords[0]},${userCoords[1]}~${destination[0]},${destination[1]}&rtt=auto`;
-                window.open(navigatorUrl, '_blank');
-              });
-            } else {
-              alert("Геолокация не поддерживается вашим браузером");
-            }
-          }
-        });
-
-        myMap.geoObjects.add(myPlacemark);
-      }
-    }, 5000);
-  }
-
-  const mapDelivery = document.querySelector('section.delivery-map');
-  if (mapDelivery) {
-    console.log('map-delivery')
-    setTimeout(() => {
-      ymaps.ready(init);
-      function init(){
-        var myMap = new ymaps.Map("map", {
-            center: [55.402468, 49.543532], // Центр карты (Казань)
-            zoom: 14,
-            controls: [],
-            theme: "islands#dark"
-        });
-
-        var myPlacemark = new ymaps.Placemark([55.402468, 49.543532], {
-            balloonContent: 'Офис самовывоза'
-        }, {
-            iconLayout: 'default#image',
-            iconImageHref: '/wp-content/themes/main/img/icons/yandex.svg', // Замените на путь к вашей иконке
-            iconImageSize: [45, 56], // Размер иконки
-        });
-
-        myPlacemark.events.add('click', function (e) {
-          if (confirm("Открыть Яндекс.Навигатор для построения маршрута?")) {
-            if (navigator.geolocation) {
-              navigator.geolocation.getCurrentPosition(function(position) {
-                const userCoords = [position.coords.latitude, position.coords.longitude];
-                const destination = [55.834637, 49.041699];
-                const navigatorUrl = `https://yandex.ru/maps/?rtext=${userCoords[0]},${userCoords[1]}~${destination[0]},${destination[1]}&rtt=auto`;
-                window.open(navigatorUrl, '_blank');
-              });
-            } else {
-              alert("Геолокация не поддерживается вашим браузером");
-            }
-          }
-        });
-
-        myMap.geoObjects.add(myPlacemark);
-      }
-    }, 5000);
-  }
-
-  const mapContacts = document.querySelector('section.contacts-map');
-  if (mapContacts) {
-    setTimeout(() => {
-      ymaps.ready(init);
-      function init(){
-        var myMap = new ymaps.Map("map", {
-            center: [55.833651, 39.051288], // Центр карты (Казань)
-            zoom: 6,
-            controls: [],
-            theme: "islands#dark"
-        });
-
-        var myPlacemark = new ymaps.Placemark([55.402468, 49.543532], {
-            balloonContent: 'Производство'
-        }, {
-            iconLayout: 'default#image',
-            iconImageHref: '/wp-content/themes/main/img/icons/yandex.svg', // Замените на путь к вашей иконке
-            iconImageSize: [45, 56], // Размер иконки
-        });
-
-        var myPlacemark2 = new ymaps.Placemark([55.816265, 49.145723], {
-          balloonContent: 'Офис продаж в Казани'
-        }, {
-            iconLayout: 'default#image',
-            iconImageHref: '/wp-content/themes/main/img/icons/yandex.svg', // Замените на путь к вашей иконке
-            iconImageSize: [45, 56], // Размер иконки
-        });
-
-        var myPlacemark3 = new ymaps.Placemark([55.749792, 37.541889], {
-            balloonContent: 'Офис продаж в Москве'
-        }, {
-            iconLayout: 'default#image',
-            iconImageHref: '/wp-content/themes/main/img/icons/yandex.svg', // Замените на путь к вашей иконке
-            iconImageSize: [45, 56], // Размер иконки
-        });
-
-        function addRouteEvent(placemark, coords) {
-          placemark.events.add('click', function (e) {
-            if (confirm("Открыть Яндекс.Навигатор для построения маршрута?")) {
-              if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(function(position) {
-                  const userCoords = [position.coords.latitude, position.coords.longitude];
-                  const navigatorUrl = `https://yandex.ru/maps/?rtext=${userCoords[0]},${userCoords[1]}~${coords[0]},${coords[1]}&rtt=auto`;
-                  window.open(navigatorUrl, '_blank');
-                });
-              } else {
-                alert("Геолокация не поддерживается вашим браузером");
-              }
-            }
-          });
+        if (parts.length === 2 && parts.every(Number.isFinite)) {
+          return parts;
         }
-
-        addRouteEvent(myPlacemark, [55.833651, 49.051288]);
-        addRouteEvent(myPlacemark2, [55.402468, 49.543532]);
-        addRouteEvent(myPlacemark3, [55.749792, 37.541889]);
-
-        myMap.geoObjects.add(myPlacemark);
-        myMap.geoObjects.add(myPlacemark2);
-        myMap.geoObjects.add(myPlacemark3);
-
-        // Добавление обработчиков событий для изменения центра карты
-        $('.item').on('click', function() {
-          const coords = $(this).data('coords');
-          myMap.setCenter(coords, 17, {
-            checkZoomRange: true
-          });
-        });
       }
-    }, 5000);
+    }
+
+    return null;
   }
+
+  function initContactsMap(section) {
+    const myMap = new ymaps.Map('map', {
+      center: [55.833651, 39.051288],
+      zoom: 6,
+      controls: [],
+      theme: 'islands#dark',
+    });
+
+    const productionPlacemark = createPlacemark([55.402468, 49.543532], 'Производство');
+    const kazanPlacemark = createPlacemark([55.816265, 49.145723], 'Офис продаж в Казани');
+    const moscowPlacemark = createPlacemark([55.749792, 37.541889], 'Офис продаж в Москве');
+
+    productionPlacemark.events.add('click', function() {
+      openNavigatorRoute([55.833651, 49.051288]);
+    });
+    kazanPlacemark.events.add('click', function() {
+      openNavigatorRoute([55.402468, 49.543532]);
+    });
+    moscowPlacemark.events.add('click', function() {
+      openNavigatorRoute([55.749792, 37.541889]);
+    });
+
+    myMap.geoObjects.add(productionPlacemark);
+    myMap.geoObjects.add(kazanPlacemark);
+    myMap.geoObjects.add(moscowPlacemark);
+
+    $(section).find('.item').on('click', function() {
+      const coords = normalizeCoords($(this).data('coords'));
+
+      if (!coords) {
+        return;
+      }
+
+      myMap.setCenter(coords, 17, {
+        checkZoomRange: true,
+      });
+    });
+  }
+
+  function initMapByType(target) {
+    if (target.type === 'office') {
+      initOfficeMap();
+      return;
+    }
+
+    if (target.type === 'delivery') {
+      initDeliveryMap();
+      return;
+    }
+
+    initContactsMap(target.section);
+  }
+
+  const initializedSections = new WeakSet();
+
+  function initTarget(target) {
+    if (initializedSections.has(target.section)) {
+      return;
+    }
+
+    initializedSections.add(target.section);
+
+    window.ymaps.ready(function() {
+      initMapByType(target);
+    });
+  }
+
+  function addInteractionFallback(target) {
+    const initOnInteraction = function() {
+      initTarget(target);
+    };
+
+    window.addEventListener('scroll', initOnInteraction, { passive: true, once: true });
+    window.addEventListener('touchstart', initOnInteraction, { passive: true, once: true });
+    window.addEventListener('mousemove', initOnInteraction, { passive: true, once: true });
+  }
+
+  if (typeof IntersectionObserver === 'undefined') {
+    setTimeout(function() {
+      mapTargets.forEach(function(target) {
+        initTarget(target);
+      });
+    }, 800);
+    return;
+  }
+
+  const observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (!entry.isIntersecting) {
+        return;
+      }
+
+      const target = mapTargets.find(function(item) {
+        return item.section === entry.target;
+      });
+
+      if (!target) {
+        return;
+      }
+
+      initTarget(target);
+      observer.unobserve(entry.target);
+    });
+  }, {
+    rootMargin: '300px 0px',
+    threshold: 0.01,
+  });
+
+  mapTargets.forEach(function(target) {
+    observer.observe(target.section);
+    addInteractionFallback(target);
+  });
 });
+
 jQuery(document).ready(function ($) {
 
 const calc = document.querySelector('.calculation');

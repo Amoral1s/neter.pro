@@ -14,7 +14,7 @@
         <div class="center">
           <?php if (!is_page(4617)) : ?>
           <div class="item">
-            <a href="tel:<?php echo get_field('phone', 'options'); ?>" target="blank">
+            <a href="tel:<?php echo get_field('phone', 'options'); ?>" target="_blank">
               <?php echo get_field('phone', 'options'); ?>
             </a>
             <span><?php echo get_field('work_time', 'options'); ?></span>
@@ -22,11 +22,11 @@
           <?php endif; ?>
           <div class="item">
             <?php if (is_page(4617)) : ?>
-            <a target="blank" href="mailto:info@batareon.ru">
+            <a target="_blank" href="mailto:info@batareon.ru">
               info@batareon.ru
             </a>
             <?php else : ?>
-            <a href="mailto:<?php echo get_field('email_sales', 'options'); ?>" target="blank">
+            <a href="mailto:<?php echo get_field('email_sales', 'options'); ?>" target="_blank">
               <?php echo get_field('email_sales', 'options'); ?>
             </a>
             <?php endif; ?>
@@ -34,7 +34,7 @@
           </div>
           <?php if (!is_page(4617)) : ?>
           <div class="item">
-            <a href="mailto:<?php echo get_field('email_info', 'options'); ?>" target="blank">
+            <a href="mailto:<?php echo get_field('email_info', 'options'); ?>" target="_blank">
               <?php echo get_field('email_info', 'options'); ?>
             </a>
             <span>Общие вопросы</span>
@@ -42,32 +42,39 @@
 			    <?php endif; ?>
         </div>
         <div class="social">
-          <a href="<?php echo get_field('tg', 'options'); ?>" target="blank">
+          <a href="<?php echo get_field('tg', 'options'); ?>" target="_blank">
             <div class="icon">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                 <path fill-rule="evenodd" clip-rule="evenodd" d="M2.95103 10.8534C8.29574 8.52476 11.8597 6.9896 13.643 6.24789C18.7345 4.13015 19.7925 3.76228 20.482 3.75013C20.6337 3.74746 20.9728 3.78504 21.1925 3.96329C21.378 4.11379 21.429 4.3171 21.4534 4.45979C21.4778 4.60248 21.5082 4.92754 21.4841 5.18154C21.2082 8.08056 20.0143 15.1157 19.4069 18.3627C19.1499 19.7366 18.6439 20.1972 18.154 20.2423C17.0893 20.3403 16.2808 19.5387 15.2496 18.8627C13.636 17.805 12.7244 17.1465 11.1581 16.1144C9.34796 14.9215 10.5214 14.2659 11.553 13.1945C11.823 12.9141 16.514 8.64722 16.6048 8.26015C16.6161 8.21174 16.6267 8.03129 16.5195 7.93601C16.4123 7.84073 16.254 7.87331 16.1399 7.89922C15.978 7.93596 13.4002 9.63977 8.40651 13.0107C7.67482 13.5131 7.01207 13.7579 6.41827 13.7451C5.76366 13.7309 4.50444 13.375 3.56834 13.0707C2.42017 12.6975 1.50764 12.5001 1.5871 11.8663C1.62849 11.5361 2.08313 11.1985 2.95103 10.8534Z" fill="white"/>
               </svg>
             </div>
           </a>
-          <a href="<?php echo get_field('vk', 'options'); ?>" target="blank">
+          <a href="<?php echo get_field('vk', 'options'); ?>" target="_blank">
             <div class="icon">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                 <path d="M12.9401 18.432C5.74767 18.432 1.6453 13.603 1.47437 5.56738H5.07714C5.19548 11.4653 7.85148 13.9635 9.95529 14.4786V5.56738H13.3478V10.654C15.4253 10.4351 17.6078 8.11714 18.3441 5.56738H21.7366C21.1712 8.7095 18.8044 11.0275 17.1213 11.9804C18.8044 12.7531 21.5 14.7748 22.5256 18.432H18.7912C17.9892 15.9853 15.9907 14.0923 13.3478 13.8348V18.432H12.9401Z" fill="white"/>
               </svg>
             </div>
           </a>
-          <a href="<?php echo get_field('ok', 'options'); ?>" target="blank">
+          <a href="<?php echo get_field('ok', 'options'); ?>" target="_blank">
             <div class="icon">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                 <path d="M12.0006 1.36523C8.86486 1.36523 6.31395 3.82768 6.31395 6.85489C6.31395 9.88186 8.86486 12.3432 12.0006 12.3432C15.1362 12.3432 17.6859 9.88186 17.6859 6.85489C17.6859 3.82768 15.1363 1.36523 12.0006 1.36523ZM12.0006 4.58166C13.2984 4.58166 14.3538 5.60191 14.3538 6.85489C14.3538 8.10733 13.2984 9.1268 12.0006 9.1268C10.7025 9.1268 9.64608 8.10735 9.64608 6.85489C9.64608 5.60191 10.7025 4.58166 12.0006 4.58166ZM7.31223 12.53C6.74961 12.5215 6.19636 12.7893 5.87541 13.2831C5.38495 14.0353 5.6199 15.028 6.39727 15.5011C7.42553 16.1239 8.54131 16.5658 9.69843 16.8205L6.52051 19.89C5.86995 20.5184 5.8705 21.5362 6.5212 22.1646C6.84734 22.4782 7.2727 22.6352 7.69915 22.6352C8.12516 22.6352 8.55195 22.478 8.8771 22.1639L11.9993 19.1483L15.1242 22.1639C15.7742 22.7922 16.8282 22.7922 17.4794 22.1639C18.1302 21.536 18.1302 20.5171 17.4794 19.8901L14.3001 16.8212C15.4575 16.5665 16.5737 16.1244 17.6012 15.5011C18.3801 15.028 18.6154 14.0342 18.1251 13.2831C17.6343 12.5307 16.6065 12.304 15.8271 12.7779C13.499 14.1917 10.4994 14.1908 8.1721 12.7779C7.90421 12.615 7.60693 12.5344 7.31223 12.53V12.53Z" fill="white"/>
               </svg>
             </div>
           </a>
-          <a href="<?php echo get_field('wa', 'options'); ?>" target="blank">
+          <a href="<?php echo get_field('wa', 'options'); ?>" target="_blank">
             <div class="icon">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                 <path d="M1.77263 11.907C1.77199 13.7082 2.24474 15.4666 3.14365 17.0168L1.68652 22.3132L7.13095 20.892C8.63101 21.7058 10.3199 22.1354 12.0387 22.1359H12.0432C17.7035 22.1359 22.3107 17.5506 22.3132 11.9151C22.3143 9.18398 21.2469 6.61628 19.3078 4.68415C17.3689 2.75229 14.7904 1.68781 12.0427 1.68652C6.38208 1.68652 1.77483 6.27125 1.77238 11.9071L1.77263 11.907ZM12.043 22.1358H12.0431H12.043C12.0429 22.1358 12.0428 22.1358 12.043 22.1358Z" fill="white"/>
                 <path fill-rule="evenodd" clip-rule="evenodd" d="M9.38575 7.47709C9.18659 7.03639 8.97704 7.02757 8.78762 7.01981C8.63259 7.01325 8.45529 7.01368 8.27819 7.01368C8.10088 7.01368 7.8129 7.07991 7.56938 7.34472C7.32565 7.60955 6.63892 8.2497 6.63892 9.55164C6.63892 10.8537 7.59158 12.1118 7.72431 12.2885C7.85726 12.4649 9.56331 15.2222 12.265 16.2828C14.5106 17.1643 14.9675 16.989 15.4549 16.9448C15.9423 16.9008 17.0276 16.3049 17.2491 15.687C17.4706 15.0691 17.4706 14.5395 17.4042 14.4289C17.3378 14.3186 17.1605 14.2523 16.8947 14.1201C16.6288 13.9877 15.3219 13.3475 15.0783 13.2592C14.8346 13.171 14.6573 13.1269 14.48 13.3918C14.3028 13.6565 13.7937 14.2523 13.6386 14.4289C13.4836 14.6057 13.3284 14.6278 13.0626 14.4954C12.7967 14.3626 11.9406 14.0835 10.9249 13.1821C10.1347 12.4806 9.60121 11.6144 9.44607 11.3495C9.29104 11.0849 9.42952 10.9415 9.5628 10.8096C9.68223 10.691 9.82871 10.5006 9.96167 10.3462C10.0943 10.1916 10.1385 10.0814 10.2272 9.90483C10.3159 9.72821 10.2715 9.57366 10.2051 9.44129C10.1385 9.30893 9.62197 8.0003 9.3856 7.47701" fill="#0A3141"/>
+              </svg>
+            </div>
+          </a>
+          <a href="<?php echo get_field('max', 'options'); ?>" target="_blank">
+            <div class="icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M12.2149 21.9429C10.2521 21.9429 9.33999 21.6551 7.75453 20.504C6.75166 21.799 3.57594 22.8111 3.43743 21.0796C3.43743 19.7798 3.1509 18.6815 2.82616 17.4824C2.43935 16.0051 2 14.36 2 11.9763C2 6.28308 6.65138 2 12.1623 2C17.6781 2 21.9999 6.49411 21.9999 12.029C22.0184 17.4783 17.6406 21.9139 12.2149 21.9429ZM12.2961 6.92097C9.61221 6.78189 7.52051 8.64765 7.05729 11.5734C6.67525 13.9955 7.35338 16.9452 7.93121 17.0987C8.20819 17.1658 8.90543 16.5999 9.33999 16.1634C10.0586 16.662 10.8954 16.9614 11.766 17.0315C14.5469 17.1659 16.9231 15.0396 17.1098 12.2497C17.2185 9.45383 15.0773 7.08578 12.2961 6.92578V6.92097Z" fill="white"></path>
               </svg>
             </div>
           </a>
@@ -172,7 +179,7 @@
         <div class="dir">
           <div class="dir-top">
             <b>Написать директору</b>
-            <a href="mailto:<?php echo get_field('email_dir', 'options'); ?>" target="blank">
+            <a href="mailto:<?php echo get_field('email_dir', 'options'); ?>" target="_blank">
               <?php echo get_field('email_dir', 'options'); ?>
             </a>
           </div>
@@ -243,7 +250,7 @@
         <path d="M18.9998 5.49995L4.99976 19.4999M4.99976 5.49995L18.9998 19.4999" stroke="#141B34" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
     </div>
-    <iframe width="860" height="515" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    <iframe width="860" height="515" src="" title="YouTube video player" frameborder="0" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
   </div>
 
   <div class="popup popup-catalog" style="display: none">
@@ -405,7 +412,7 @@
       <b>Каталог аккумуляторов НЭТЕР</b>
       <p>Скачать полный каталог литиевых аккумуляторных ячеек и батарей Вы можете по ссылке ниже. Так же ссылка будет продублирована на указанную Вами электронную почту.</p>
       <div class="btns">
-        <a class="button" target="blank" href="<?php echo get_field('cat_file','options'); ?>" download>
+        <a class="button" target="_blank" href="<?php echo get_field('cat_file','options'); ?>" download>
           Скачать каталог
         </a>
         <div class="button button-border callback">
@@ -617,7 +624,7 @@
         </nav> 
         <div class="mob-contacts">
           <?php if (!is_page(4617)) : ?>
-          <a class="link" target="blank" href="tel:<?php the_field('phone', 'options'); ?>">
+          <a class="link" target="_blank" href="tel:<?php the_field('phone', 'options'); ?>">
             <span><?php the_field('phone', 'options'); ?></span>
             <p>Единый номер по России</p>
           </a>
@@ -627,45 +634,45 @@
             <p>Режим работы</p>
           </div>
           <?php if (!is_page(4617)) : ?>
-          <a class="link" target="blank" href="mailto:<?php the_field('email_info', 'options'); ?>">
+          <a class="link" target="_blank" href="mailto:<?php the_field('email_info', 'options'); ?>">
             <span><?php the_field('email_info', 'options'); ?></span>
             <p>Общие вопросы</p>
           </a>
           <?php endif; ?>
           <?php if (is_page(4617)) : ?>
-          <a class="link" target="blank" href="mailto:sales@batareon.ru">
+          <a class="link" target="_blank" href="mailto:sales@batareon.ru">
             <span>sales@batareon.ru</span>
             <p>Отдел продаж</p>
           </a>
           <?php else : ?>
-          <a class="link" target="blank" href="mailto:<?php the_field('email', 'options'); ?>">
+          <a class="link" target="_blank" href="mailto:<?php the_field('email', 'options'); ?>">
             <span><?php the_field('email', 'options'); ?></span>
             <p>Отдел продаж</p>
           </a>
           <?php endif; ?>
           <div class="social">
-            <a href="<?php echo get_field('tg', 'options'); ?>" target="blank">
+            <a href="<?php echo get_field('tg', 'options'); ?>" target="_blank">
               <div class="icon">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                   <path fill-rule="evenodd" clip-rule="evenodd" d="M2.95078 10.8534C8.2955 8.52476 11.8595 6.9896 13.6427 6.24789C18.7342 4.13015 19.7922 3.76228 20.4818 3.75013C20.6335 3.74746 20.9726 3.78504 21.1922 3.96329C21.3777 4.11379 21.4287 4.3171 21.4532 4.45979C21.4776 4.60248 21.508 4.92754 21.4838 5.18154C21.2079 8.08056 20.014 15.1157 19.4067 18.3627C19.1497 19.7366 18.6436 20.1972 18.1537 20.2423C17.089 20.3403 16.2806 19.5387 15.2494 18.8627C13.6357 17.805 12.7241 17.1465 11.1578 16.1144C9.34771 14.9215 10.5211 14.2659 11.5527 13.1945C11.8227 12.9141 16.5137 8.64722 16.6045 8.26015C16.6159 8.21174 16.6264 8.03129 16.5192 7.93601C16.412 7.84073 16.2538 7.87331 16.1396 7.89922C15.9778 7.93596 13.4 9.63977 8.40627 13.0107C7.67457 13.5131 7.01183 13.7579 6.41803 13.7451C5.76341 13.7309 4.50419 13.375 3.56809 13.0707C2.41993 12.6975 1.50739 12.5001 1.58685 11.8663C1.62824 11.5361 2.08289 11.1985 2.95078 10.8534Z" fill="#2CB4C2"/>
                 </svg>
               </div>
             </a>
-            <a href="<?php echo get_field('vk', 'options'); ?>" target="blank">
+            <a href="<?php echo get_field('vk', 'options'); ?>" target="_blank">
               <div class="icon">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                   <path d="M12.9403 18.432C5.74791 18.432 1.64554 13.603 1.47461 5.56738H5.07739C5.19573 11.4653 7.85172 13.9635 9.95554 14.4786V5.56738H13.3481V10.654C15.4256 10.4351 17.608 8.11714 18.3444 5.56738H21.7368C21.1714 8.7095 18.8046 11.0275 17.1216 11.9804C18.8046 12.7531 21.5003 14.7748 22.5259 18.432H18.7915C17.9894 15.9853 15.991 14.0923 13.3481 13.8348V18.432H12.9403Z" fill="#2CB4C2"/>
                 </svg>
               </div>
             </a>
-            <a href="<?php echo get_field('ok', 'options'); ?>" target="blank">
+            <a href="<?php echo get_field('ok', 'options'); ?>" target="_blank">
               <div class="icon">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                   <path d="M12.0006 1.36523C8.86486 1.36523 6.31395 3.82768 6.31395 6.85489C6.31395 9.88186 8.86486 12.3432 12.0006 12.3432C15.1362 12.3432 17.6859 9.88186 17.6859 6.85489C17.6859 3.82768 15.1363 1.36523 12.0006 1.36523ZM12.0006 4.58166C13.2984 4.58166 14.3538 5.60191 14.3538 6.85489C14.3538 8.10733 13.2984 9.1268 12.0006 9.1268C10.7025 9.1268 9.64608 8.10735 9.64608 6.85489C9.64608 5.60191 10.7025 4.58166 12.0006 4.58166ZM7.31223 12.53C6.74961 12.5215 6.19636 12.7893 5.87541 13.2831C5.38495 14.0353 5.6199 15.028 6.39727 15.5011C7.42553 16.1239 8.54131 16.5658 9.69843 16.8205L6.52051 19.89C5.86995 20.5184 5.8705 21.5362 6.5212 22.1646C6.84734 22.4782 7.2727 22.6352 7.69915 22.6352C8.12516 22.6352 8.55195 22.478 8.8771 22.1639L11.9993 19.1483L15.1242 22.1639C15.7742 22.7922 16.8282 22.7922 17.4794 22.1639C18.1302 21.536 18.1302 20.5171 17.4794 19.8901L14.3001 16.8212C15.4575 16.5665 16.5737 16.1244 17.6012 15.5011C18.3801 15.028 18.6154 14.0342 18.1251 13.2831C17.6343 12.5307 16.6065 12.304 15.8271 12.7779C13.499 14.1917 10.4994 14.1908 8.1721 12.7779C7.90421 12.615 7.60693 12.5344 7.31223 12.53V12.53Z" fill="#2CB4C2"/>
                 </svg>
               </div>
             </a>
-            <a href="<?php echo get_field('wa', 'options'); ?>" target="blank">
+            <a href="<?php echo get_field('wa', 'options'); ?>" target="_blank">
               <div class="icon">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                   <path d="M1.77361 11.9073C1.77297 13.7084 2.24571 15.4669 3.14462 17.0171L1.6875 22.3134L7.13193 20.8922C8.63198 21.706 10.3209 22.1356 12.0397 22.1361H12.0441C17.7045 22.1361 22.3117 17.5508 22.3142 11.9153C22.3152 9.18422 21.2479 6.61652 19.3087 4.68439C17.3699 2.75254 14.7913 1.68805 12.0437 1.68677C6.38306 1.68677 1.77581 6.27149 1.77335 11.9073L1.77361 11.9073ZM12.044 22.1361H12.0441H12.044C12.0439 22.1361 12.0438 22.1361 12.044 22.1361Z" fill="#2CB4C2"/>

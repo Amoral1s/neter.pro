@@ -154,11 +154,34 @@ if ( ! function_exists( 'main_theme_is_local_environment' ) ) {
 	}
 }
 
+if ( ! function_exists( 'main_theme_should_enqueue_yandex_map' ) ) {
+	function main_theme_should_enqueue_yandex_map() {
+		if ( is_admin() ) {
+			return false;
+		}
+
+		if ( is_front_page() ) {
+			return true;
+		}
+
+		if (
+			is_page_template( 'page-contacts.php' ) ||
+			is_page_template( 'page-delivery.php' ) ||
+			is_page( array( 'contacts', 'delivery', 'kontakty', 'dostavka' ) )
+		) {
+			return true;
+		}
+
+		return is_singular( 'product' );
+	}
+}
+
 add_action( 'wp_enqueue_scripts', 'main_theme_enqueue_assets' );
 function main_theme_enqueue_assets() {
 	$template_uri  = get_template_directory_uri();
 	$template_path = get_template_directory();
 	$theme_version = wp_get_theme()->get( 'Version' );
+	$should_enqueue_yandex_map = main_theme_should_enqueue_yandex_map();
 
 	// Cache-bust assets when files change; fall back to theme version.
 	$get_version = static function ( $relative_path ) use ( $template_path, $theme_version ) {
@@ -176,12 +199,19 @@ function main_theme_enqueue_assets() {
 
 	$header_menu_version = $get_version( '/js/header-menu.min.js' );
 	$main_version        = $get_version( '/js/main.min.js' );
+	$main_script_dependencies = array( 'jquery' );
 
 	wp_enqueue_script( 'jquery' );
 	wp_enqueue_script( 'header-menu', $template_uri . '/js/header-menu.min.js', array( 'jquery' ), $header_menu_version, false );
 	wp_script_add_data( 'header-menu', 'strategy', 'defer' );
 
-	wp_enqueue_script( 'main', $template_uri . '/js/main.min.js', array( 'jquery' ), $main_version, true );
+	if ( $should_enqueue_yandex_map ) {
+		wp_enqueue_script( 'yandex-api', 'https://api-maps.yandex.ru/2.1/?apikey=09db6a00-2892-4c98-9c87-7fd13a357553&lang=ru_RU', array( 'jquery' ), null, true );
+		wp_script_add_data( 'yandex-api', 'strategy', 'defer' );
+		$main_script_dependencies[] = 'yandex-api';
+	}
+
+	wp_enqueue_script( 'main', $template_uri . '/js/main.min.js', $main_script_dependencies, $main_version, true );
 
 	$placeholder_image = function_exists( 'wc_placeholder_img_src' ) ? wc_placeholder_img_src( 'woocommerce_thumbnail' ) : '';
 	$comment_site_key  = isset( $GLOBALS['comment_RECAPTCHA_SITE_KEY'] ) ? (string) $GLOBALS['comment_RECAPTCHA_SITE_KEY'] : '';
@@ -199,10 +229,10 @@ function main_theme_enqueue_assets() {
 			'comment_recaptcha_site_key' => $comment_site_key,
 			'is_local_environment'      => main_theme_is_local_environment(),
 			'review_recaptcha_site_key' => '6LeZlf8pAAAAALIprB1_PfRBJBKPfwXhT2IV3SWw',
+			'has_yandex_map'            => $should_enqueue_yandex_map,
 		)
 	);
 
-	wp_enqueue_script( 'yandex-api', 'https://api-maps.yandex.ru/2.1/?apikey=09db6a00-2892-4c98-9c87-7fd13a357553&lang=ru_RU', array( 'jquery' ), null, true );
 }
 
 add_action( 'wp_head', 'main_theme_preload_header_menu_script', 1 );

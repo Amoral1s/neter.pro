@@ -9,114 +9,60 @@ if ( empty( $product ) || ! $product->is_visible() ) {
 	return;
 }
 
- 
+static $catalog_context = null;
 
-// Инициализируем переменную для хранения текущей категории
-$current_category = ''; 
+if ($catalog_context === null) {
+    $current_category = '';
+    $queried_object = get_queried_object();
 
-// Получаем текущий объект категории
-$queried_object = get_queried_object();
-
-// Проверяем, определена ли категория на основе текущего URL
-if ($queried_object && is_a($queried_object, 'WP_Term')) {
-    // Проверяем, есть ли родительская категория
-    if ($queried_object->parent) {
-        // Получаем основную (родительскую) категорию
-        $parent_category = get_term($queried_object->parent, 'product_cat');
-        $current_category = $parent_category->slug;
-    } else {
-        // Если родительской категории нет, используем текущую
-        $current_category = $queried_object->slug;
+    if ($queried_object && is_a($queried_object, 'WP_Term')) {
+        if ($queried_object->parent) {
+            $parent_category = get_term($queried_object->parent, 'product_cat');
+            $current_category = $parent_category ? $parent_category->slug : '';
+        } else {
+            $current_category = $queried_object->slug;
+        }
     }
+
+    if (empty($current_category)) {
+        $request_url = '';
+
+        if (!empty($_SERVER['REQUEST_URI'])) {
+            $request_url = (string) $_SERVER['REQUEST_URI'];
+        } elseif (!empty($_SERVER['HTTP_REFERER'])) {
+            $request_url = (string) $_SERVER['HTTP_REFERER'];
+        }
+
+        if (strpos($request_url, 'akkumulyatornye-batarei') !== false) {
+            $current_category = 'akkumulyatornye-batarei';
+        } elseif (strpos($request_url, 'bms-plata') !== false) {
+            $current_category = 'bms-plata';
+        } elseif (strpos($request_url, 'akkumulyatornye-yacheyki') !== false) {
+            $current_category = 'akkumulyatornye-yacheyki';
+        } elseif (strpos($request_url, 'zaryadnye-ustrojstva-dlya-akkumulyatorov') !== false) {
+            $current_category = 'zaryadnye-ustrojstva-dlya-akkumulyatorov';
+        }
+    }
+
+    $catalog_context = array(
+        'current_category' => $current_category,
+        'attributes_map'   => array(
+            'default'                               => array('pa_tip-himii', 'pa_napryazhenie', 'pa_emkost-ah', 'pa_maks-tok-razryada-ab', 'pa_gabarity-mm', 'pa_ves-kg'),
+            'akkumulyatornye-batarei'              => array('pa_tip-himii', 'pa_emkost-ah', 'pa_maks-tok-razryada-ab', 'pa_napryazhenie', 'pa_gabarity-mm', 'pa_ves-kg'),
+            'bms-plata'                            => array('pa_tip-himii', 'pa_napryazhenie', 'pa_seriya', 'pa_tok-zaryada', 'pa_tok-razryada', 'pa_ves-kg'),
+            'specials'                             => array('pa_tip-himii', 'pa_emkost-ah', 'pa_napryazhenie', 'pa_tokootdacha', 'pa_gabarity-mm', 'pa_ves-kg'),
+            'akkumulyatornye-yacheyki'             => array('pa_tip-himii', 'pa_emkost-ah', 'pa_tokootdacha', 'pa_napryazhenie', 'pa_gabarity-mm', 'pa_ves-kg'),
+            'zaryadnye-ustrojstva-dlya-akkumulyatorov' => array('pa_tip-himii', 'pa_napryazhenie-zaryada', 'pa_seriya', 'pa_tok-zaryada', 'pa_ves-kg'),
+        ),
+    );
 }
 
-// Если категория не определена через текущий объект (например, при AJAX-запросе), проверяем HTTP_REFERER
-if (empty($current_category)) {
-    $current_url = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '';
-
-    if (strpos($current_url, 'akkumulyatornye-batarei') !== false) {
-        $current_category = 'akkumulyatornye-batarei';
-    } elseif (strpos($current_url, 'bms-plata') !== false) {
-        $current_category = 'bms-plata';
-    } elseif (strpos($current_url, 'akkumulyatornye-yacheyki') !== false) {
-        $current_category = 'akkumulyatornye-yacheyki';
-    } elseif (strpos($current_url, 'zaryadnye-ustrojstva-dlya-akkumulyatorov') !== false) {
-        $current_category = 'zaryadnye-ustrojstva-dlya-akkumulyatorov';
-    }
-}
-
-// Определяем атрибуты для отображения на основе текущей категории
-$attributes_to_display = array(
-    'pa_tip-himii', 
-    'pa_napryazhenie', 
-    'pa_emkost-ah', 
-    'pa_maks-tok-razryada-ab', 
-    'pa_gabarity-mm', 
-    'pa_ves-kg'  
-);
-
-if ($current_category) {
-    if ($current_category == 'akkumulyatornye-batarei') {
-        $attributes_to_display = array(
-            'pa_tip-himii', 
-            'pa_emkost-ah', 
-            'pa_maks-tok-razryada-ab',
-            'pa_napryazhenie', 
-            'pa_gabarity-mm', 
-            'pa_ves-kg' 
-        );
-    } elseif ($current_category == 'bms-plata') {
-        $attributes_to_display = array(
-            'pa_tip-himii', 
-            'pa_napryazhenie', 
-            'pa_seriya', 
-            'pa_tok-zaryada', 
-            'pa_tok-razryada', 
-            'pa_ves-kg' 
-        );
-    } elseif ($current_category == 'specials') {
-        $attributes_to_display = array(
-            'pa_tip-himii', 
-            'pa_emkost-ah', 
-            'pa_napryazhenie', 
-            'pa_tokootdacha', 
-            'pa_gabarity-mm', 
-            'pa_ves-kg' 
-        );
-    } elseif ($current_category == 'akkumulyatornye-yacheyki') {
-        $attributes_to_display = array(
-            'pa_tip-himii', 
-            'pa_emkost-ah', 
-            'pa_tokootdacha', 
-            'pa_napryazhenie', 
-            'pa_gabarity-mm', 
-            'pa_ves-kg' 
-        );
-    } elseif ($current_category == 'zaryadnye-ustrojstva-dlya-akkumulyatorov') {
-        $attributes_to_display = array(
-            'pa_tip-himii', 
-            'pa_napryazhenie-zaryada', 
-            'pa_seriya', 
-            'pa_tok-zaryada', 
-            'pa_ves-kg' 
-        );
-    }
-}
-
-
-
-
-// Получаем все атрибуты продукта
+$current_category = $catalog_context['current_category'];
+$attributes_map = $catalog_context['attributes_map'];
+$attributes_to_display = isset($attributes_map[$current_category]) ? $attributes_map[$current_category] : $attributes_map['default'];
 $attributes = $product->get_attributes();
-
-// Получаем цены
-$regular_price = $product->get_regular_price();
-$sale_price = $product->get_sale_price();
-$price_to_display = $sale_price ? $sale_price : $regular_price;
- 
-// Форматирование цены и удаление HTML-тегов
-$price_formatted = wp_strip_all_tags( wc_price( $price_to_display ) );
-$new_product = get_field('new_product');
+$new_product = get_post_meta($product->get_id(), 'new_product', true);
+static $attribute_labels = array();
 ?>
 <li <?php wc_product_class( 'table-product', $product ); ?>>
 	<?php
@@ -135,17 +81,16 @@ $new_product = get_field('new_product');
 		<?php
 		foreach ( $attributes_to_display as $attribute_slug ) {
 			echo '<div class="product-attribute">';
-			if ( isset( $attributes[ $attribute_slug ] ) ) {
-				$attribute = $attributes[ $attribute_slug ];
+			$attribute_label = isset($attribute_labels[$attribute_slug]) ? $attribute_labels[$attribute_slug] : wc_attribute_label($attribute_slug);
+			$attribute_labels[$attribute_slug] = $attribute_label;
 
-				if ( $attribute->is_taxonomy() ) {
-					$terms = wc_get_product_terms( $product->get_id(), $attribute_slug, array( 'fields' => 'names' ) );
-					echo '<span class="attribute-name">' . esc_html( wc_attribute_label( $attribute_slug ) ) . ': </span>';
-					echo '<span class="attribute-value">' . esc_html( implode( ', ', $terms ) ) . '</span>';
+			if ( isset( $attributes[ $attribute_slug ] ) ) {
+				$attribute_value = trim((string) $product->get_attribute($attribute_slug));
+				if ($attribute_value !== '') {
+					echo '<span class="attribute-name">' . esc_html( $attribute_label ) . ': </span>';
+					echo '<span class="attribute-value">' . esc_html( $attribute_value ) . '</span>';
 				} else {
-					// Если это не таксономия, получаем значение атрибута напрямую
-					echo '<span class="attribute-name">' . esc_html( wc_attribute_label( $attribute_slug ) ) . ': </span>';
-					echo '<span class="attribute-value">' . esc_html( implode( ', ', $attribute->get_options() ) ) . '</span>';
+					echo '-';
 				}
 			} else {
 				echo '-';
@@ -153,9 +98,5 @@ $new_product = get_field('new_product');
 			echo '</div>';
 		}
 		?>
-		<!-- <div class="product-attribute price">
-			<span class="attribute-name"><?php esc_html_e( 'Price', 'woocommerce' ); ?>: </span>
-			<span class="attribute-value"><?php echo esc_html( $price_formatted ); ?></span>
-		</div> -->
 	</div>
 </li>

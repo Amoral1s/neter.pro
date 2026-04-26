@@ -2,8 +2,10 @@ jQuery(document).ready(function ($) {
 
 		
   $(".wpcf7").on('wpcf7mailsent', function(event){
-			ym(74565406,'reachGoal','send_all_forms');
-			console.log('send_all_forms')
+			if (typeof window.ym === 'function') {
+				window.ym(74565406,'reachGoal','send_all_forms');
+				console.log('send_all_forms');
+			}
 
 		if (event.detail.contactFormId == '203' || event.detail.contactFormId == '326') {
 			$('#thx-catalog').fadeIn(200);

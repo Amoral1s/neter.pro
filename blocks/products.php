@@ -12,14 +12,20 @@
     <div class="swiper">
       <?php
         $ids = get_field('products_id');
-        $args = array(
-            'post_type' => 'product',
-            'post__in' => $ids,
-            'posts_per_page' => -1,
-        );
-        $random_products = new WP_Query( $args );
+        $random_products = null;
 
-        if ( $random_products->have_posts() ) : ?>
+        if (!empty($ids) && is_array($ids)) {
+          $args = array(
+              'post_type'           => 'product',
+              'post__in'            => array_map('intval', $ids),
+              'posts_per_page'      => count($ids),
+              'no_found_rows'       => true,
+              'ignore_sticky_posts' => true,
+          );
+          $random_products = new WP_Query($args);
+        }
+
+        if ( $random_products && $random_products->have_posts() ) : ?>
 
             <ul class="products">
                 <?php while ( $random_products->have_posts() ) : $random_products->the_post(); ?>
@@ -52,12 +58,24 @@
     </div>
     <div class="swiper">
       <?php
-        // Получаем случайные продукты
+        $random_ids = function_exists('main_theme_get_random_product_ids')
+          ? main_theme_get_random_product_ids(10, 900)
+          : array();
+
         $args = array(
             'post_type' => 'product',
-            'posts_per_page' => 10,
-            'orderby' => 'rand'
+            'posts_per_page' => !empty($random_ids) ? count($random_ids) : 10,
+            'no_found_rows' => true,
+            'ignore_sticky_posts' => true,
         );
+
+        if (!empty($random_ids)) {
+          $args['post__in'] = $random_ids;
+          $args['orderby'] = 'post__in';
+        } else {
+          $args['orderby'] = 'rand';
+        }
+
         $random_products = new WP_Query( $args );
 
         if ( $random_products->have_posts() ) : ?>

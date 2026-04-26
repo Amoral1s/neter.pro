@@ -95,8 +95,10 @@
 
 <?php 
 	$current_post_id = get_the_ID();
+	$current_post_date = get_post_field('post_date', $current_post_id);
 	$categories = get_the_category( $current_post_id );
 	$category_ids = array();
+	$related_posts = array();
 
 	if ( ! empty( $categories ) ) {
 			// Собираем ID категорий, если они есть
@@ -105,49 +107,43 @@
 			}
 	}
 
-	// Если категории есть, делаем запрос по категориям, иначе берем все посты
-	$args_all = array(
+	$base_args = array(
 			'post_type'      => 'projects',
-			'posts_per_page' => -1, // Получаем все записи
+			'post_status'    => 'publish',
+			'post__not_in'   => array($current_post_id),
+			'posts_per_page' => 15,
 			'orderby'        => 'date',
-			'order'          => 'DESC'
+			'order'          => 'DESC',
+			'no_found_rows'  => true,
+			'ignore_sticky_posts' => true,
 	);
 
 	if ( !empty( $category_ids ) ) {
-			$args_all['category__in'] = $category_ids; // Фильтруем по категориям
+			$base_args['category__in'] = $category_ids; // Фильтруем по категориям
 	}
 
-	$all_posts = new WP_Query( $args_all );
+	if ( !empty( $current_post_date ) ) {
+			$newer_args = array_merge($base_args, array(
+					'date_query' => array(
+							array(
+									'after'     => $current_post_date,
+									'inclusive' => false,
+							),
+					),
+			));
 
-	// Ищем индекс текущей записи
-	$current_index = -1; 
-	if ( $all_posts->have_posts() ) {
-			$posts_array = $all_posts->posts;
-			foreach ( $posts_array as $index => $post ) {
-					if ( $post->ID == $current_post_id ) {
-							$current_index = $index;
-							break;
-					}
-			}
-	}
+			$older_args = array_merge($base_args, array(
+					'date_query' => array(
+							array(
+									'before'    => $current_post_date,
+									'inclusive' => false,
+							),
+					),
+			));
 
-	// Выводим 5 записей до текущей и 5 записей после текущей
-	if ( $current_index != -1 ) {
-			$related_posts = array();
-
-			// Добавляем 5 записей до текущей записи
-			for ( $i = $current_index - 15; $i < $current_index; $i++ ) {
-					if ( $i >= 0 && $posts_array[$i]->ID != $current_post_id ) {
-							$related_posts[] = $posts_array[$i];
-					}
-			}
-
-			// Добавляем 5 записей после текущей записи
-			for ( $i = $current_index + 1; $i <= $current_index + 15 && $i < count( $posts_array ); $i++ ) {
-					if ( $posts_array[$i]->ID != $current_post_id ) {
-							$related_posts[] = $posts_array[$i];
-					}
-			}
+			$newer_posts = new WP_Query($newer_args);
+			$older_posts = new WP_Query($older_args);
+			$related_posts = array_merge($newer_posts->posts, $older_posts->posts);
 	}
 
 	// Выводим только если есть найденные посты
@@ -221,4 +217,3 @@
 
 
 <?php get_footer();
-

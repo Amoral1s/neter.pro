@@ -32,55 +32,30 @@ foreach ( $product_categories as $category ) {
     }
 }
 
-// Получаем все продукты из текущей категории и родительской категории
 $args_all = array(
-    'post_type'      => 'product',
-    'posts_per_page' => -1, // Получаем все записи
-    'orderby'        => 'date',
-    'order'          => 'DESC',
-    'post__not_in'   => array($current_product_id),
-    'tax_query'      => array(
+    'post_type'           => 'product',
+    'posts_per_page'      => 30,
+    'orderby'             => 'date',
+    'order'               => 'DESC',
+    'post__not_in'        => array($current_product_id),
+    'no_found_rows'       => true,
+    'ignore_sticky_posts' => true,
+);
+
+if (!empty($category_ids)) {
+    $args_all['tax_query'] = array(
         array(
             'taxonomy' => 'product_cat',
             'field'    => 'term_id',
             'terms'    => $category_ids,
             'operator' => 'IN',
         ),
-    ),
-);
-$all_products = new WP_Query( $args_all );
-
-$current_index = -1;
-$related_products = array();
-
-if ( $all_products->have_posts() ) {
-    $products_array = $all_products->posts;
-
-    foreach ( $products_array as $index => $post ) {
-        if ( $post->ID == $current_product_id ) {
-            $current_index = $index;
-            break;
-        }
-    }
-
-    // Если не нашли текущий продукт, добавим его в массив для корректного поиска
-    if ( $current_index == -1 ) {
-        $products_array[] = get_post($current_product_id);
-        $current_index = count($products_array) - 1;
-    }
-
-    // Добавляем записи после текущего
-    for ( $i = $current_index + 1; $i < $current_index + 15 && $i < count( $products_array ); $i++ ) {
-        $related_products[] = $products_array[$i];
-    }
-
-    // Если недостаточно, добавляем записи до текущего в обратном порядке
-    if ( count( $related_products ) < 30 ) {
-        for ( $i = $current_index - 1; $i >= 0 && count( $related_products ) < 30; $i-- ) {
-            array_unshift($related_products, $products_array[$i]);
-        }
-    }
+    );
 }
+
+$all_products = new WP_Query($args_all);
+$related_products = $all_products->posts;
+
 if ( !empty( $related_products ) ) : ?>
 
 <section class="related">

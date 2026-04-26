@@ -27,7 +27,7 @@ get_header();
             </svg>
           </div>
           <div class="meta">
-            <a target="blank" href="tel:<?php echo get_field('phone', 'options'); ?>">
+            <a target="_blank" href="tel:<?php echo get_field('phone', 'options'); ?>">
               <?php echo get_field('phone', 'options'); ?>
             </a>
             <p>Единый номер по России</p>
@@ -49,28 +49,28 @@ get_header();
         </div>
       </div>
       <div class="social">
-        <a href="<?php echo get_field('tg', 'options'); ?>" target="blank">
+        <a href="<?php echo get_field('tg', 'options'); ?>" target="_blank">
           <div class="icon">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
               <path fill-rule="evenodd" clip-rule="evenodd" d="M2.95078 10.8534C8.2955 8.52476 11.8595 6.9896 13.6427 6.24789C18.7342 4.13015 19.7922 3.76228 20.4818 3.75013C20.6335 3.74746 20.9726 3.78504 21.1922 3.96329C21.3777 4.11379 21.4287 4.3171 21.4532 4.45979C21.4776 4.60248 21.508 4.92754 21.4838 5.18154C21.2079 8.08056 20.014 15.1157 19.4067 18.3627C19.1497 19.7366 18.6436 20.1972 18.1537 20.2423C17.089 20.3403 16.2806 19.5387 15.2494 18.8627C13.6357 17.805 12.7241 17.1465 11.1578 16.1144C9.34771 14.9215 10.5211 14.2659 11.5527 13.1945C11.8227 12.9141 16.5137 8.64722 16.6045 8.26015C16.6159 8.21174 16.6264 8.03129 16.5192 7.93601C16.412 7.84073 16.2538 7.87331 16.1396 7.89922C15.9778 7.93596 13.4 9.63977 8.40627 13.0107C7.67457 13.5131 7.01183 13.7579 6.41803 13.7451C5.76341 13.7309 4.50419 13.375 3.56809 13.0707C2.41993 12.6975 1.50739 12.5001 1.58685 11.8663C1.62824 11.5361 2.08289 11.1985 2.95078 10.8534Z" fill="#2CB4C2"/>
             </svg>
           </div>
         </a>
-        <a href="<?php echo get_field('vk', 'options'); ?>" target="blank">
+        <a href="<?php echo get_field('vk', 'options'); ?>" target="_blank">
           <div class="icon">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
               <path d="M12.9403 18.432C5.74791 18.432 1.64554 13.603 1.47461 5.56738H5.07739C5.19573 11.4653 7.85172 13.9635 9.95554 14.4786V5.56738H13.3481V10.654C15.4256 10.4351 17.608 8.11714 18.3444 5.56738H21.7368C21.1714 8.7095 18.8046 11.0275 17.1216 11.9804C18.8046 12.7531 21.5003 14.7748 22.5259 18.432H18.7915C17.9894 15.9853 15.991 14.0923 13.3481 13.8348V18.432H12.9403Z" fill="#2CB4C2"/>
             </svg>
           </div>
         </a>
-        <a href="<?php echo get_field('ok', 'options'); ?>" target="blank">
+        <a href="<?php echo get_field('ok', 'options'); ?>" target="_blank">
           <div class="icon">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
               <path d="M12.0006 1.36523C8.86486 1.36523 6.31395 3.82768 6.31395 6.85489C6.31395 9.88186 8.86486 12.3432 12.0006 12.3432C15.1362 12.3432 17.6859 9.88186 17.6859 6.85489C17.6859 3.82768 15.1363 1.36523 12.0006 1.36523ZM12.0006 4.58166C13.2984 4.58166 14.3538 5.60191 14.3538 6.85489C14.3538 8.10733 13.2984 9.1268 12.0006 9.1268C10.7025 9.1268 9.64608 8.10735 9.64608 6.85489C9.64608 5.60191 10.7025 4.58166 12.0006 4.58166ZM7.31223 12.53C6.74961 12.5215 6.19636 12.7893 5.87541 13.2831C5.38495 14.0353 5.6199 15.028 6.39727 15.5011C7.42553 16.1239 8.54131 16.5658 9.69843 16.8205L6.52051 19.89C5.86995 20.5184 5.8705 21.5362 6.5212 22.1646C6.84734 22.4782 7.2727 22.6352 7.69915 22.6352C8.12516 22.6352 8.55195 22.478 8.8771 22.1639L11.9993 19.1483L15.1242 22.1639C15.7742 22.7922 16.8282 22.7922 17.4794 22.1639C18.1302 21.536 18.1302 20.5171 17.4794 19.8901L14.3001 16.8212C15.4575 16.5665 16.5737 16.1244 17.6012 15.5011C18.3801 15.028 18.6154 14.0342 18.1251 13.2831C17.6343 12.5307 16.6065 12.304 15.8271 12.7779C13.499 14.1917 10.4994 14.1908 8.1721 12.7779C7.90421 12.615 7.60693 12.5344 7.31223 12.53V12.53Z" fill="#2CB4C2"/>
             </svg>
           </div>
         </a>
-        <a href="<?php echo get_field('wa', 'options'); ?>" target="blank">
+        <a href="<?php echo get_field('wa', 'options'); ?>" target="_blank">
           <div class="icon">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
               <path d="M1.77361 11.9072C1.77297 13.7084 2.24571 15.4668 3.14462 17.017L1.6875 22.3134L7.13193 20.8922C8.63198 21.7059 10.3209 22.1355 12.0397 22.1361H12.0441C17.7045 22.1361 22.3117 17.5508 22.3142 11.9152C22.3152 9.18416 21.2479 6.61646 19.3087 4.68433C17.3699 2.75248 14.7913 1.68799 12.0437 1.68671C6.38306 1.68671 1.77581 6.27143 1.77335 11.9072L1.77361 11.9072ZM12.044 22.136H12.0441H12.044C12.0439 22.136 12.0438 22.136 12.044 22.136Z" fill="#2CB4C2"/>
@@ -78,11 +78,18 @@ get_header();
             </svg>
           </div>
         </a> 
+        <a href="<?php echo get_field('max', 'options'); ?>" target="_blank">
+          <div class="icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M12.2149 21.9429C10.2521 21.9429 9.33999 21.6551 7.75453 20.504C6.75166 21.799 3.57594 22.8111 3.43743 21.0796C3.43743 19.7798 3.1509 18.6815 2.82616 17.4824C2.43935 16.0051 2 14.36 2 11.9763C2 6.28308 6.65138 2 12.1623 2C17.6781 2 21.9999 6.49411 21.9999 12.029C22.0184 17.4783 17.6406 21.9139 12.2149 21.9429ZM12.2961 6.92097C9.61221 6.78189 7.52051 8.64765 7.05729 11.5734C6.67525 13.9955 7.35338 16.9452 7.93121 17.0987C8.20819 17.1658 8.90543 16.5999 9.33999 16.1634C10.0586 16.662 10.8954 16.9614 11.766 17.0315C14.5469 17.1659 16.9231 15.0396 17.1098 12.2497C17.2185 9.45383 15.0773 7.08578 12.2961 6.92578V6.92097Z" fill="#2CB4C2"></path>
+            </svg>
+          </div>
+        </a>
       </div>
     </div>
     <div class="contacts-row">
       <?php if (have_rows('contacts_emails', 'options')) : while(have_rows('contacts_emails', 'options')) : the_row(); ?>
-        <a href="mailto:<?php echo get_sub_field('email'); ?>" target="blank" class="item">
+        <a href="mailto:<?php echo get_sub_field('email'); ?>" target="_blank" class="item">
           <span><?php echo get_sub_field('name'); ?></span>
           <b><?php echo get_sub_field('email'); ?></b>
         </a>
@@ -152,14 +159,14 @@ get_header();
               <span><?php echo get_sub_field('place'); ?></span>
               <b><?php echo get_sub_field('name'); ?></b>
               <?php if (get_sub_field('email')) : ?>
-              <a target="blank" href="mailto:<?php echo get_sub_field('email'); ?>"><?php echo get_sub_field('email'); ?></a>
+              <a target="_blank" href="mailto:<?php echo get_sub_field('email'); ?>"><?php echo get_sub_field('email'); ?></a>
               <?php endif; ?>
             </div>
           <?php endwhile; endif; ?>
         </div>
         <?php endif; ?>
         <?php if (have_rows('req_doc', 'options')) : while(have_rows('req_doc', 'options')) : the_row(); ?>
-          <a target="blank" download href="<?php echo get_sub_field('dokument'); ?>" class="doc">
+          <a target="_blank" download href="<?php echo get_sub_field('dokument'); ?>" class="doc">
             <div class="icon">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
                 <path fill-rule="evenodd" clip-rule="evenodd" d="M8.25 17.5C8.25 17.0858 8.58579 16.75 9 16.75L15 16.75C15.4142 16.75 15.75 17.0858 15.75 17.5C15.75 17.9142 15.4142 18.25 15 18.25L9 18.25C8.58579 18.25 8.25 17.9142 8.25 17.5Z" fill="#2CB4C2"/>

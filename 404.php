@@ -40,12 +40,24 @@
       </div>
       <div class="swiper">
         <?php
-          // Получаем случайные продукты
+          $random_ids = function_exists('main_theme_get_random_product_ids')
+            ? main_theme_get_random_product_ids(10, 900)
+            : array();
+
           $args = array(
               'post_type' => 'product',
-              'posts_per_page' => 10,
-              'orderby' => 'rand'
+              'posts_per_page' => !empty($random_ids) ? count($random_ids) : 10,
+              'no_found_rows' => true,
+              'ignore_sticky_posts' => true,
           );
+
+          if (!empty($random_ids)) {
+            $args['post__in'] = $random_ids;
+            $args['orderby'] = 'post__in';
+          } else {
+            $args['orderby'] = 'rand';
+          }
+
           $random_products = new WP_Query( $args );
 
           if ( $random_products->have_posts() ) : ?>

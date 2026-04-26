@@ -70,7 +70,7 @@ get_header();
           </defs>
         </svg>
       </div>
-      <iframe data-link="<?php echo get_field('about_video'); ?>?rel=0" src="" frameborder="0"></iframe>
+      <iframe data-link="<?php echo get_field('about_video'); ?>?rel=0" src="" frameborder="0" loading="lazy" title="Видео о компании"></iframe>
     </div>
   </div>
 </section>
@@ -270,7 +270,9 @@ get_header();
           <?php
             $args = array(
               'post_type'      => 'post',
-              'posts_per_page' => 10
+              'posts_per_page' => 10,
+              'no_found_rows'  => true,
+              'ignore_sticky_posts' => true,
             );
             $query = new WP_Query( $args );
 
