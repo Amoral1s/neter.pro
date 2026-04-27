@@ -454,7 +454,7 @@ svg:hover rect {
 
 @media (min-width: 992px) {
   .main-cats .item {
-    max-width: calc(33.3% - 20px);
+    width: calc(25% - 15px);
     margin-right: 20px;
   }
 
@@ -546,6 +546,38 @@ svg:hover rect {
     cursor: pointer;
     margin: 0 10px;
     position: relative;
+  }
+
+  .header .catalog-toggle.active .icon {
+    position: relative;
+  }
+
+  .header .catalog-toggle.active .icon:after {
+    position: absolute;
+    content: "";
+    height: 2px;
+    border-radius: 100px;
+    width: 20px;
+    background-color: #2CB4C2;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(45deg);
+  }
+
+  .header .catalog-toggle.active .icon:before {
+    position: absolute;
+    content: "";
+    height: 2px;
+    border-radius: 100px;
+    width: 20px;
+    background-color: #2CB4C2;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-45deg);
+  }
+
+  .header .catalog-toggle.active .icon svg {
+    opacity: 0;
   }
 
   .header .catalog-toggle.active span {
@@ -1031,9 +1063,9 @@ svg:hover rect {
   }
 
   .pc-catalog .wrap .sub-menu-wrap b {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 500;
-    margin-bottom: 24px;
+    margin-bottom: 16px;
     width: 100%;
     min-height: 24px;
   }
@@ -1041,9 +1073,9 @@ svg:hover rect {
   .pc-catalog .wrap .sub-menu-wrap a,
   .pc-catalog .wrap .sub-menu-wrap span {
     display: block;
-    margin-bottom: 14px;
-    font-size: 16px;
-    letter-spacing: -0.5px;
+    margin-bottom: 12px;
+    font-size: 15px;
+    letter-spacing: -0.3px;
   }
 
   .pc-catalog .wrap .item {

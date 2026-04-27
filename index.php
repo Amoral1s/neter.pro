@@ -71,28 +71,34 @@
     <div class="wrap swiper">
       <div class="swiper-wrapper">
         <?php if (have_rows('cats','options')) : while(have_rows('cats','options')) : the_row(); ?>
-          <?php if (get_sub_field('view') == 'double') : ?>
-            <div class="item double swiper-slide">
-              <?php if (have_rows('double')) : while(have_rows('double')) : the_row(); ?>
-                <a href="<?php echo get_sub_field('link'); ?>" class="item-part" style="background-image: url(<?php echo get_sub_field('img'); ?>);">
-                  <span><?php echo get_sub_field('subtitle'); ?></span>
-                  <b <?php if (get_sub_field('img_place') == 'left') { echo 'class="left"'; } ?>>
-                    <?php echo the_sub_field('title'); ?>
+          <div class="item double swiper-slide">
+            <?php foreach (array('sfera_primeneniya', 'sfera_primeneniya_2') as $sphere_field) : ?>
+              <?php
+                $sphere_id = (int) get_sub_field($sphere_field, false);
+                $sphere = $sphere_id ? get_term($sphere_id) : false;
+
+                if (!$sphere || is_wp_error($sphere)) {
+                  continue;
+                }
+
+                $sphere_link = get_term_link($sphere);
+
+                if (is_wp_error($sphere_link)) {
+                  continue;
+                }
+
+                $img = get_field('izobrazhenie_dlya_kataloga', 'term_' . $sphere_id);
+              ?>
+                <a href="<?php echo esc_url($sphere_link); ?>" class="item-part" >
+                  <b>
+                    <?php echo esc_html($sphere->name); ?>
                   </b>
+                  <?php if ($img) : ?>
+                    <img class="bg" src="<?php echo esc_url($img); ?>" alt="<?php echo esc_attr($sphere->name); ?>">
+                  <?php endif; ?>
                 </a>
-              <?php endwhile; endif; ?>
-            </div>
-          <?php else : ?>
-            <?php if (have_rows('onest')) : while(have_rows('onest')) : the_row(); ?>
-            <a href="<?php echo get_sub_field('link'); ?>" class="item onest swiper-slide" style="background-image: url(<?php echo get_sub_field('img'); ?>);">
-              <span><?php echo get_sub_field('subtitle'); ?></span>
-              <b><?php the_sub_field('title'); ?></b>
-              <p>
-                <?php echo get_sub_field('content'); ?>
-              </p>
-            </a>
-            <?php endwhile; endif; ?>
-          <?php endif; ?>
+            <?php endforeach; ?>
+          </div>
         <?php endwhile; endif; ?>
       </div>
     </div>
@@ -204,73 +210,99 @@
 </section>
 <?php endif; ?>
 
+<?php echo do_shortcode('[no_product]'); ?>
 
 <?php if (get_field('projects_title', 'options')) : ?>
 <section class="projects-row">
   <div class="container">
     <div class="title-row">
       <h2 class="title"><?php echo get_field('projects_title', 'options') ?></h2>
-      <p class="subtitle"><?php echo get_field('projects_subtitle', 'options') ?></p>
-    </div>
-    <div class="wrap">
-      <div class="item first">
-        <span><?php echo get_field('projects_years', 'options'); ?> лет опыта</span>
-        <div class="num"><?php echo get_field('projects_years', 'options'); ?></div>
-      </div>
-      <?php
-          $count_of_projects_obj = wp_count_posts('projects');
-          $count_of_projects = isset($count_of_projects_obj->publish) ? (int) $count_of_projects_obj->publish : 0;
-          //main query
-          $args = array(
-            'post_type'      => 'projects',
-            'posts_per_page' => 3,
-            'no_found_rows'  => true,
-            'ignore_sticky_posts' => true,
-          );
-          $query = new WP_Query( $args );
-          $post_index = 1;
-          if ( $query->have_posts() ) {
-            while ( $query->have_posts() ) {
-              $query->the_post();
-      ?>
-        <a href="<?php the_permalink(); ?>" class="item <?php if ($post_index == 2) { echo 'full'; } ?>" style="background-image: url();">
-          <?php
-            // Получаем ID поста
-            $post_id = get_the_ID();
-            // Получаем заголовок поста для использования в атрибуте alt
-            $alt_text = get_the_title($post_id);
-            // Параметры для вывода изображения
-            $thumbnail_attributes = array(
-                'class' => 'img', // Ваш кастомный класс
-                'alt'   => $alt_text, // Атрибут alt с заголовком поста
-            );
-            // Вывод изображения с указанными параметрами
-            echo get_the_post_thumbnail($post_id, 'large', $thumbnail_attributes);
-          ?>
-          <?php if ($post_index == 2) : ?>
-          <div class="meta">
-            <b><?php the_title(); ?></b>
-            <p><?php echo get_field('subtitle'); ?></p>
-          </div>
-          <?php endif; ?>
-        </a>
-      <?php $post_index++; } }  wp_reset_postdata(); ?>
-      <a href="<?php echo get_field('project_link', 'options'); ?>" class="item last">
-        <div class="last-row">
-          <div class="count">
-            <?php echo $count_of_projects; ?> +
-          </div>
+      <div class="subtitle">
+        <p><?php echo get_field('projects_subtitle', 'options') ?></p>
+        <a href="<?php echo get_field('project_link', 'options'); ?>" class="link">
+          Смотреть все проекты
           <div class="icon">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
               <path d="M17 7L6 18" stroke="#2CB4C2" stroke-width="1.5" stroke-linecap="round"/>
               <path d="M11 6H17C17.4714 6 17.7071 6 17.8536 6.14645C18 6.29289 18 6.5286 18 7V13" stroke="#2CB4C2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </div>
+        </a>
+      </div>
+    </div>
+    <div class="wrap slider-wrap">
+      <div class="arr arr-prev">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <path d="M14.9999 6L9.70703 11.2929C9.37369 11.6262 9.20703 11.7929 9.20703 12C9.20703 12.2071 9.37369 12.3738 9.70703 12.7071L14.9999 18" stroke="#2CB4C2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="swiper">
+        <div class="swiper-wrapper">
+          <?php
+            $args = array(
+              'post_type'      => 'projects',
+              'posts_per_page' => 5,
+            );
+            $query = new WP_Query( $args );
+
+            if ( $query->have_posts() ) {
+              while ( $query->have_posts() ) {
+                $query->the_post();
+          ?>
+          <div class="swiper-slide item">
+            <div class="left">
+              <h3 class="mini-title"><?php echo get_the_title(); ?></h3>
+              <div class="date"><?php echo get_the_date('d.m.Y') ?></div>
+              <?php $task = get_field('task'); ?>
+              <?php if ($task) : ?>
+                <div class="task item__content">
+                  <b>Задача</b>
+                  <div class="content"><?php echo $task; ?></div>
+                </div>
+              <?php endif; ?>
+              <?php $task = get_field('decision'); ?>
+              <?php if ($task) : ?>
+                <div class="result item__content">
+                  <b>Решение</b>
+                  <div class="content"><?php echo $task; ?></div>
+                </div>
+              <?php endif; ?>
+              <?php if (have_rows('char')) : ?>
+                <div class="item__attrs">
+                  <?php while (have_rows('char')) : the_row(); ?>
+                    <?php
+                      $name = get_sub_field('name', 'text');
+                      $value = get_sub_field('value', 'text');
+                    ?>
+                    <div class="item__attr">
+                      <p><?php echo $name; ?></p>
+                      <b><?php echo $value; ?></b>
+                    </div>
+                  <?php endwhile; ?>
+                </div>
+              <?php endif; ?>
+              <div class="item__btns">
+                <div class="button callback">
+                  Запросить КП
+                </div>
+                <a href="<?php echo get_the_permalink(); ?>" class="button button-white">
+                  Подробнее
+                </a>
+              </div>
+            </div>
+            <div class="right">
+              <img src="<?php echo the_post_thumbnail_url(); ?>" alt="<?php echo get_the_title(); ?>">
+            </div>
+          </div>
+          <?php } }  wp_reset_postdata(); ?>
         </div>
-        <div class="moar">
-          Смотреть все проекты
-        </div>
-      </a>
+      </div>
+      <div class="arr arr-next">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <path d="M9.00008 6L14.293 11.2929C14.6263 11.6262 14.793 11.7929 14.793 12C14.793 12.2071 14.6263 12.3738 14.293 12.7071L9.00008 18" stroke="#2CB4C2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="dots" style="display: none"></div>
     </div>
   </div>
 </section>
@@ -333,6 +365,102 @@
       </div>
     </div>
    
+  </div>
+</section>
+<?php endif; ?>
+
+<?php $title = get_field('brand_title', 'options'); ?>
+<?php if ($title) : ?>
+<section class="home-brands">
+  <div class="container">
+    <div class="title-row">
+      <h2 class="title"><?php echo $title; ?></h2>
+      <p class="subtitle"><?php echo get_field('brand_subtitle', 'options'); ?></p>
+      <div class="arrows">
+        <div class="arr-prev arr">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M14.9999 6L9.70703 11.2929C9.37369 11.6262 9.20703 11.7929 9.20703 12C9.20703 12.2071 9.37369 12.3738 9.70703 12.7071L14.9999 18" stroke="#2CB4C2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="arr-next arr">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M9.00008 6L14.293 11.2929C14.6263 11.6262 14.793 11.7929 14.793 12C14.793 12.2071 14.6263 12.3738 14.293 12.7071L9.00008 18" stroke="#2CB4C2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div class="wrap slider-wrap">
+      <div class="swiper">
+        <div class="swiper-wrapper">
+          <?php $gallery = get_field('brand_gall', 'options'); ?>
+          <?php if ($gallery) : ?>
+            <?php foreach ($gallery as $img) : ?>
+              <?php
+                $url = $img['url'] ?? '';
+                $alt = $img['alt'] ?? '';
+                $title = $img['title'] ?? '';
+                if (!$alt) $alt = 'Бренд';
+                if (!$title) $title = 'Бренд';
+              ?>
+              <div class="swiper-slide">
+                <?php if ($url) : ?>
+                  <img src="<?php echo esc_url($url); ?>" alt="<?php echo esc_attr($alt); ?>" title="<?php echo esc_attr($title); ?>">
+                <?php endif; ?>
+              </div>
+            <?php endforeach; ?>
+          <?php endif; ?>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+<?php endif; ?>
+
+<?php $title = get_field('sert_title', 'options'); ?>
+<?php if ($title) : ?>
+<section class="home-sert">
+  <div class="container">
+    <div class="title-row">
+      <h2 class="title"><?php echo $title; ?></h2>
+      <p class="subtitle"><?php echo get_field('sert_subtitle', 'options'); ?></p>
+      <div class="arrows">
+        <div class="arr-prev arr">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M14.9999 6L9.70703 11.2929C9.37369 11.6262 9.20703 11.7929 9.20703 12C9.20703 12.2071 9.37369 12.3738 9.70703 12.7071L14.9999 18" stroke="#2CB4C2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="arr-next arr">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M9.00008 6L14.293 11.2929C14.6263 11.6262 14.793 11.7929 14.793 12C14.793 12.2071 14.6263 12.3738 14.293 12.7071L9.00008 18" stroke="#2CB4C2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div class="wrap slider-wrap">
+      <div class="swiper">
+        <div class="swiper-wrapper">
+          <?php $gallery = get_field('sert_gall', 'options'); ?>
+          <?php if ($gallery) : ?>
+            <?php foreach ($gallery as $img) : ?>
+              <?php
+                $url = $img['url'] ?? '';
+                $alt = $img['alt'] ?? '';
+                $title = $img['title'] ?? '';
+                if (!$alt) $alt = 'Сертификат';
+                if (!$title) $title = 'Сертификат';
+              ?>
+              <a href="<?php echo esc_url($url); ?>" data-fancybox="sert" class="swiper-slide item">
+                <?php if ($url) : ?>
+                  <img src="<?php echo $img['sizes']['large']; ?>" alt="<?php echo esc_attr($alt); ?>" title="<?php echo esc_attr($title); ?>">
+                <?php endif; ?>
+              </a>
+            <?php endforeach; ?>
+          <?php endif; ?>
+        </div>
+      </div>
+
+    </div>
   </div>
 </section>
 <?php endif; ?>

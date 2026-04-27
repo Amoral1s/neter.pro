@@ -40,6 +40,7 @@ const paths = {
         cssAll: source_folder + '/sass/**/*.sass', // Все SASS файлы, включая префиксы
         js: [
             source_folder + '/js/swiper.js',
+            source_folder + '/js/libs/fancybox.js',
             source_folder + '/js/lightgallery.js',
             source_folder + '/js/lg-thumbnail.js',
             source_folder + '/js/phone_mask.js',

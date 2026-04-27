@@ -23,12 +23,14 @@ jQuery(document).ready(function ($) {
         pagination: {
           el: pagination,
           clickable: true,
+          type: 'progressbar',
+
         },
         breakpoints: {
           300: {
             autoHeight: false,
-            slidesPerView: 1,
-            spaceBetween: 10,
+            slidesPerView: 2,
+            spaceBetween: 8,
           },
           578: {
             spaceBetween: 10,
@@ -39,7 +41,7 @@ jQuery(document).ready(function ($) {
             spaceBetween: 20,
           },
           992: {
-            slidesPerView: 3,
+            slidesPerView: 4,
             spaceBetween: 20,
           } 
         }
@@ -194,6 +196,38 @@ jQuery(document).ready(function ($) {
 
 	}
 
+  const projectsRow = document.querySelector('.projects-row');
+	if (projectsRow) {
+      const swiper = projectsRow.querySelector('.swiper');
+      const wrapper = projectsRow.querySelector('.slider-wrap');
+      const arrNext = projectsRow.querySelector('.arr-next');
+      const arrPrev = projectsRow.querySelector('.arr-prev');
+      const pagination = projectsRow.querySelector('.dots');
+
+      let feedSwiper = new Swiper(swiper, {
+        spaceBetween: 0,
+        slidesPerView: 1,
+        autoHeight: true,
+        navigation: {
+          nextEl: arrNext,
+          prevEl: arrPrev
+        },
+        pagination: {
+          el: pagination,
+          clickable: true,
+        },
+        breakpoints: {
+          300: {
+            spaceBetween: 15,
+          },
+          578: {
+            spaceBetween: 0,
+          }
+        },
+      });
+
+	}
+
   const gallerySlider = document.querySelectorAll('.gallery-slider');
 
 	if (gallerySlider.length > 0) {
@@ -234,6 +268,94 @@ jQuery(document).ready(function ($) {
           startSlider();
         } else {
           wrapper.classList.add('disabled-slider');
+        }
+      });
+	}
+
+  const homeBrands = document.querySelectorAll('.home-brands');
+
+	if (homeBrands.length > 0) {
+    homeBrands.forEach(section => {
+        const wrapper = section.querySelector('.wrap');
+        const swiper = section.querySelector('.swiper');
+        const arrNext = section.querySelector('.arr-next');
+        const arrPrev = section.querySelector('.arr-prev');
+        const items = section.querySelectorAll('.swiper-slide');
+        function startSlider() {
+          new Swiper(swiper, {
+            spaceBetween: 8,
+            lazy: false,
+            autoHeight: false,
+            navigation: {
+              nextEl: arrNext,
+              prevEl: arrPrev
+            },
+            breakpoints: {
+              300: {
+                slidesPerView: 2,
+                spaceBetween: 8,
+              },
+              578: {
+                spaceBetween: 8,
+                slidesPerView: 4,
+              },  
+              992: {
+                slidesPerView: 6,
+                spaceBetween: 20,
+              }
+            },
+          });
+        }
+        if (window.screen.width > 992 && items.length > 6) {
+          startSlider();
+        } else if (window.screen.width < 993 && items.length > 4) {
+          startSlider();
+        } else {
+          section.classList.add('disabled-slider');
+        }
+      });
+	}
+
+  const homeSert = document.querySelectorAll('.home-sert');
+
+	if (homeSert.length > 0) {
+    homeSert.forEach(section => {
+        const wrapper = section.querySelector('.wrap');
+        const swiper = section.querySelector('.swiper');
+        const arrNext = section.querySelector('.arr-next');
+        const arrPrev = section.querySelector('.arr-prev');
+        const items = section.querySelectorAll('.swiper-slide');
+        function startSlider() {
+          new Swiper(swiper, {
+            spaceBetween: 8,
+            lazy: false,
+            autoHeight: false,
+            navigation: {
+              nextEl: arrNext,
+              prevEl: arrPrev
+            },
+            breakpoints: {
+              300: {
+                slidesPerView: 2,
+                spaceBetween: 8,
+              },
+              578: {
+                spaceBetween: 8,
+                slidesPerView: 2,
+              },  
+              992: {
+                slidesPerView: 4,
+                spaceBetween: 20,
+              }
+            },
+          });
+        }
+        if (window.screen.width > 992 && items.length > 4) {
+          startSlider();
+        } else if (window.screen.width < 993 && items.length > 2) {
+          startSlider();
+        } else {
+          section.classList.add('disabled-slider');
         }
       });
 	}
