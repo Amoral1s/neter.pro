@@ -226,11 +226,70 @@
 
 
 
-
-
+@media (min-width: 992px)
+  .single .content
+    .related
+      .wrap.disabled-slider
+        ul.products
+          .product
+            width: calc(33.3% - 20px)
 
   
 
+
+.single
+  .blog-banner
+    width: 100%
+    border-radius: 24px
+    background-color: rgba(255, 255, 255, 0.60)
+    padding: 32px
+    margin-bottom: 40px
+    &__wrap
+      display: flex
+      justify-content: flex-start
+      align-items: center
+    &__button
+      min-width: 140px
+      margin-left: 20px
+    &__thumb
+      width: 120px
+      margin-right: 20px
+    &__meta
+      width: calc(100% - 120px - 20px - 140px - 20px)
+    &__title
+      font-weight: 500
+      line-height: 1
+      font-size: 24px
+      letter-spacing: -0.7px
+      margin-bottom: 10px
+    p
+      color: #818793
+      line-height: 1.2
+      font-size: 16px
+
+@media (max-width: 992px)
+  .single
+    .blog-banner
+      border-radius: 20px
+      padding: 16px
+      margin-bottom: 28px
+      &__wrap
+        display: block
+      &__button
+        min-width: 100%
+        margin-left: 0
+        margin-top: 16px
+      &__thumb
+        width: 110px
+        margin-bottom: 16px
+        margin-right: 0
+      &__meta
+        width: 100%
+      &__title
+        font-size: 18px
+        letter-spacing: -0.5px
+      p
+        font-size: 12px
 
 
 

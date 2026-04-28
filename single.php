@@ -45,6 +45,8 @@
 	<meta itemprop="datePublished" content="<?php the_time('c'); ?>">
 	<meta itemprop="dateModified" content="<?php the_modified_date('c'); ?>">
 
+	<?php get_template_part('blocks/blog-banner'); ?>
+	
 	<div class="single__row">
 		<div class="single__main">
 			<div class="single-top">

@@ -1,0 +1,469 @@
+.editor-styles-wrapper .wp-block-acf-important-text,
+.editor-styles-wrapper .wp-block-acf-products-ids,
+.editor-styles-wrapper .wp-block-acf-citata,
+.editor-styles-wrapper .wp-block-acf-category,
+.editor-styles-wrapper .wp-block-acf-sfery,
+.editor-styles-wrapper .wp-block-acf-garanty {
+	box-sizing: border-box;
+	position: relative;
+	max-width: 1100px;
+	margin-top: 22px;
+	margin-bottom: 22px;
+	padding: 36px 16px 16px;
+	border: 1px dashed rgba(44, 180, 194, 0.55);
+	border-radius: 14px;
+	background: #f7fbfc;
+	color: #0a3141;
+	font-family: inherit;
+	letter-spacing: 0;
+}
+
+.editor-styles-wrapper .wp-block-acf-important-text::before,
+.editor-styles-wrapper .wp-block-acf-products-ids::before,
+.editor-styles-wrapper .wp-block-acf-citata::before,
+.editor-styles-wrapper .wp-block-acf-category::before,
+.editor-styles-wrapper .wp-block-acf-sfery::before,
+.editor-styles-wrapper .wp-block-acf-garanty::before {
+	position: absolute;
+	top: 8px;
+	left: 12px;
+	z-index: 2;
+	display: inline-flex;
+	align-items: center;
+	min-height: 22px;
+	padding: 0 10px;
+	border-radius: 999px;
+	background: #0a3141;
+	color: #fff;
+	font-size: 12px;
+	font-weight: 600;
+	line-height: 1.2;
+	letter-spacing: 0;
+	pointer-events: none;
+}
+
+.editor-styles-wrapper .wp-block-acf-important-text::before {
+	content: "ACF: Важный текст";
+}
+
+.editor-styles-wrapper .wp-block-acf-products-ids::before {
+	content: "ACF: Товары";
+}
+
+.editor-styles-wrapper .wp-block-acf-citata::before {
+	content: "ACF: Цитата";
+}
+
+.editor-styles-wrapper .wp-block-acf-category::before {
+	content: "ACF: Категории";
+}
+
+.editor-styles-wrapper .wp-block-acf-sfery::before {
+	content: "ACF: Сферы";
+}
+
+.editor-styles-wrapper .wp-block-acf-garanty::before {
+	content: "ACF: Баннер сервиса";
+}
+
+.editor-styles-wrapper .wp-block-acf-important-text .acf-block-preview:empty::after,
+.editor-styles-wrapper .wp-block-acf-citata .acf-block-preview:empty::after,
+.editor-styles-wrapper .wp-block-acf-sfery .acf-block-preview:empty::after {
+	content: "Заполни поля блока, и тут появится превью.";
+	display: flex;
+	align-items: center;
+	min-height: 60px;
+	padding: 16px;
+	border-radius: 10px;
+	background: #fff;
+	color: #5f6f77;
+	font-size: 14px;
+	line-height: 1.35;
+}
+
+.editor-styles-wrapper .block_important-text,
+.editor-styles-wrapper .block_citata {
+	box-sizing: border-box;
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	gap: 20px;
+	width: 100%;
+	margin: 0;
+	padding: 30px;
+	border-radius: 20px;
+}
+
+.editor-styles-wrapper .block_important-text {
+	background: rgba(44, 180, 194, 0.16);
+}
+
+.editor-styles-wrapper .block_citata {
+	border: 1px solid #e5e7eb;
+	background: #fff;
+}
+
+.editor-styles-wrapper .block_important-text .icon,
+.editor-styles-wrapper .block_citata .icon {
+	display: flex;
+	flex: 0 0 auto;
+	align-items: center;
+	justify-content: center;
+}
+
+.editor-styles-wrapper .block_important-text b,
+.editor-styles-wrapper .block_citata b {
+	display: block;
+	flex: 1 1 auto;
+	margin: 0;
+	color: #0a3141;
+	font-size: 20px;
+	font-weight: 500;
+	line-height: 1.2;
+	letter-spacing: 0;
+}
+
+.editor-styles-wrapper .block_category {
+	display: block;
+	width: 100%;
+	margin: 0;
+}
+
+.editor-styles-wrapper .block_category .title,
+.editor-styles-wrapper .related .title,
+.editor-styles-wrapper .product-links .title,
+.editor-styles-wrapper .consult-banner .title {
+	display: block;
+	margin: 0 0 18px;
+	color: #0a3141;
+	font-size: 28px;
+	font-weight: 500;
+	line-height: 1.15;
+	letter-spacing: 0;
+}
+
+.editor-styles-wrapper .block_category .swiper,
+.editor-styles-wrapper .related .swiper {
+	overflow: visible;
+	border-radius: 20px;
+}
+
+.editor-styles-wrapper .block_category .swiper-wrapper {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	gap: 16px;
+	transform: none !important;
+}
+
+.editor-styles-wrapper .block_category .item {
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-between;
+	min-height: 210px;
+	margin: 0;
+	padding: 20px 20px 0;
+	border: 1px solid #edf2f4;
+	border-radius: 20px;
+	background: #fff;
+	text-decoration: none;
+	box-shadow: 0 8px 28px rgba(0, 70, 84, 0.08);
+}
+
+.editor-styles-wrapper .block_category .item.swiper-slide {
+	width: auto !important;
+}
+
+.editor-styles-wrapper .block_category .item .top {
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	width: 100%;
+	gap: 12px;
+}
+
+.editor-styles-wrapper .block_category .item .top b {
+	display: block;
+	margin: 0;
+	color: #0a3141;
+	font-size: 17px;
+	font-weight: 500;
+	line-height: 1.2;
+	letter-spacing: 0;
+}
+
+.editor-styles-wrapper .block_category .item img {
+	display: block;
+	max-width: 170px;
+	width: 100%;
+	height: auto;
+	margin: 20px auto 0;
+	object-fit: contain;
+}
+
+.editor-styles-wrapper .product-links {
+	display: block;
+	width: 100%;
+	margin: 0;
+}
+
+.editor-styles-wrapper .product-links .scroll-wrapper {
+	overflow: visible;
+}
+
+.editor-styles-wrapper .product-links .wrap {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 10px;
+	margin: 0;
+	padding: 0;
+}
+
+.editor-styles-wrapper .product-links .item {
+	box-sizing: border-box;
+	display: inline-flex;
+	align-items: center;
+	justify-content: flex-start;
+	min-height: 52px;
+	margin: 0;
+	padding: 0 18px;
+	border: 1px solid #e5e7eb;
+	border-radius: 999px;
+	background: #fff;
+	color: #0a3141;
+	text-decoration: none;
+}
+
+.editor-styles-wrapper .product-links .item .icon {
+	display: flex;
+	flex: 0 0 24px;
+	width: 24px;
+	height: 24px;
+	margin-right: 10px;
+}
+
+.editor-styles-wrapper .product-links .item .icon img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+}
+
+.editor-styles-wrapper .product-links .item p {
+	margin: 0;
+	color: #0a3141;
+	font-size: 15px;
+	font-weight: 500;
+	line-height: 1.2;
+	letter-spacing: 0;
+}
+
+.editor-styles-wrapper .related {
+	display: block;
+	width: 100%;
+	margin: 0;
+}
+
+.editor-styles-wrapper .related .slider-wrap {
+	position: relative;
+	width: 100%;
+	margin: 0;
+}
+
+.editor-styles-wrapper .related .arr {
+	display: none;
+}
+
+.editor-styles-wrapper .related ul.products {
+	display: grid;
+	grid-template-columns: repeat(4, minmax(0, 1fr));
+	gap: 16px;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	transform: none !important;
+}
+
+.editor-styles-wrapper .related ul.products::after {
+	display: none;
+}
+
+.editor-styles-wrapper .related ul.products li,
+.editor-styles-wrapper .related ul.products .product {
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	min-width: 0;
+	margin: 0;
+	padding: 16px;
+	border: 1px solid #edf2f4;
+	border-radius: 20px;
+	background: #fff;
+	box-shadow: 0 8px 28px rgba(0, 70, 84, 0.08);
+}
+
+.editor-styles-wrapper .related ul.products li.swiper-slide,
+.editor-styles-wrapper .related ul.products .product.swiper-slide {
+	width: auto !important;
+}
+
+.editor-styles-wrapper .related a {
+	color: #0a3141;
+	text-decoration: none;
+}
+
+.editor-styles-wrapper .related .product-thumb {
+	display: block;
+	margin-bottom: 12px;
+	border-radius: 16px;
+	overflow: hidden;
+}
+
+.editor-styles-wrapper .related .product-thumb img,
+.editor-styles-wrapper .related ul.products img {
+	display: block;
+	width: 100%;
+	height: auto;
+	aspect-ratio: 1 / 1;
+	border-radius: 16px;
+	object-fit: cover;
+}
+
+.editor-styles-wrapper .related .product-rating,
+.editor-styles-wrapper .related .product-attrs {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 8px 14px;
+	margin-bottom: 12px;
+	color: #0a3141;
+	font-size: 13px;
+	line-height: 1.2;
+}
+
+.editor-styles-wrapper .related .product-attrs .item {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	padding: 0;
+	border: 0;
+	box-shadow: none;
+}
+
+.editor-styles-wrapper .related .product-attrs p,
+.editor-styles-wrapper .related .product-title {
+	margin: 0;
+	color: #0a3141;
+	line-height: 1.2;
+	letter-spacing: 0;
+}
+
+.editor-styles-wrapper .related .product-title {
+	display: block;
+	margin-bottom: 12px;
+	font-size: 15px;
+	font-weight: 500;
+}
+
+.editor-styles-wrapper .related .product-price {
+	color: #0a3141;
+	font-size: 20px;
+	font-weight: 500;
+	line-height: 1.2;
+}
+
+.editor-styles-wrapper .related .button,
+.editor-styles-wrapper .related .added_to_cart {
+	display: none !important;
+}
+
+.editor-styles-wrapper .consult-banner {
+	display: block;
+	width: 100%;
+	margin: 0 !important;
+}
+
+.editor-styles-wrapper .consult-banner .wrap {
+	position: relative;
+	box-sizing: border-box;
+	display: grid;
+	grid-template-columns: minmax(180px, 290px) minmax(0, 1fr);
+	gap: 28px;
+	align-items: center;
+	margin: 0;
+	padding: 32px;
+	border-radius: 22px;
+	background: #0a3141;
+	color: #fff;
+	overflow: hidden;
+}
+
+.editor-styles-wrapper .consult-banner .left {
+	position: static;
+	width: auto;
+}
+
+.editor-styles-wrapper .consult-banner .title {
+	margin: 0;
+	color: #fff;
+}
+
+.editor-styles-wrapper .consult-banner .right {
+	width: 100%;
+}
+
+.editor-styles-wrapper .consult-banner .line {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	height: 10px;
+	overflow: hidden;
+}
+
+.editor-styles-wrapper .consult-banner .line svg {
+	display: block;
+	width: 100%;
+	height: 10px;
+}
+
+@media (max-width: 900px) {
+	.editor-styles-wrapper .block_category .swiper-wrapper,
+	.editor-styles-wrapper .related ul.products {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+
+	.editor-styles-wrapper .consult-banner .wrap {
+		grid-template-columns: 1fr;
+	}
+}
+
+@media (max-width: 600px) {
+	.editor-styles-wrapper .wp-block-acf-important-text,
+	.editor-styles-wrapper .wp-block-acf-products-ids,
+	.editor-styles-wrapper .wp-block-acf-citata,
+	.editor-styles-wrapper .wp-block-acf-category,
+	.editor-styles-wrapper .wp-block-acf-sfery,
+	.editor-styles-wrapper .wp-block-acf-garanty {
+		padding: 34px 10px 10px;
+	}
+
+	.editor-styles-wrapper .block_important-text,
+	.editor-styles-wrapper .block_citata {
+		gap: 12px;
+		padding: 20px;
+	}
+
+	.editor-styles-wrapper .block_important-text b,
+	.editor-styles-wrapper .block_citata b {
+		font-size: 16px;
+	}
+
+	.editor-styles-wrapper .block_category .swiper-wrapper,
+	.editor-styles-wrapper .related ul.products {
+		grid-template-columns: 1fr;
+	}
+}

@@ -12,6 +12,7 @@ function register_blocks() {
             'description'       => __('Важный текст для статьи (NEW)'),
             'render_template'   => '/blocks/important_text.php',
             'category'          => 'formatting',
+            'mode'              => 'preview',
         ));
 
         acf_register_block_type(array(
@@ -20,6 +21,7 @@ function register_blocks() {
             'description'       => __('Товары (NEW)'),
             'render_template'   => '/blocks/products.php',
             'category'          => 'formatting',
+            'mode'              => 'preview',
         ));
 
         acf_register_block_type(array(
@@ -28,6 +30,7 @@ function register_blocks() {
             'description'       => __('Цитата (NEW)'),
             'render_template'   => '/blocks/citata.php',
             'category'          => 'formatting',
+            'mode'              => 'preview',
         ));
         acf_register_block_type(array(
             'name'              => 'category',
@@ -35,6 +38,7 @@ function register_blocks() {
             'description'       => __('Категории (NEW)'),
             'render_template'   => '/blocks/category.php',
             'category'          => 'formatting',
+            'mode'              => 'preview',
         ));
         acf_register_block_type(array(
             'name'              => 'sfery',
@@ -42,6 +46,7 @@ function register_blocks() {
             'description'       => __('Сферы (NEW)'),
             'render_template'   => '/blocks/sfery.php',
             'category'          => 'formatting',
+            'mode'              => 'preview',
         ));
         acf_register_block_type(array(
             'name'              => 'garanty',
@@ -49,6 +54,7 @@ function register_blocks() {
             'description'       => __('Баннер сервиса (NEW)'),
             'render_template'   => '/blocks/garanty.php',
             'category'          => 'formatting',
+            'mode'              => 'preview',
         ));
     }
 }

@@ -4,6 +4,8 @@ if ( ! function_exists( 'main_theme_setup' ) ) :
 	function main_theme_setup() {
 		load_theme_textdomain( 'main-theme', get_template_directory() . '/languages' );
 		add_theme_support( 'post-thumbnails' );
+		add_theme_support( 'editor-styles' );
+		add_editor_style( 'css/acf-blocks-editor.css' );
 		register_nav_menus(
 			array(
 				'menu-1' => esc_html__( 'Main menu', 'main-theme' ),
