@@ -177,6 +177,36 @@ function redirect_lowercase_urls()
 }
 add_action('template_redirect', 'redirect_lowercase_urls');
 
+function main_theme_redirect_paged_author_archive() {
+    if (!is_author() || !is_paged()) {
+        return;
+    }
+
+    $author_id = get_queried_object_id();
+
+    if (!$author_id) {
+        return;
+    }
+
+    $redirect_url = get_author_posts_url($author_id);
+
+    foreach (array('blog_page', 'news_page') as $page_var) {
+        if (!isset($_GET[$page_var])) {
+            continue;
+        }
+
+        $page = is_scalar($_GET[$page_var]) ? absint(wp_unslash($_GET[$page_var])) : 1;
+
+        if ($page > 1) {
+            $redirect_url = add_query_arg($page_var, $page, $redirect_url);
+        }
+    }
+
+    wp_safe_redirect($redirect_url, 301);
+    exit;
+}
+add_action('template_redirect', 'main_theme_redirect_paged_author_archive', 20);
+
 
 function add_page_number_to_title( $title ) {
     if (is_paged()) {

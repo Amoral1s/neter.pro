@@ -958,18 +958,25 @@
     background-image: url(../img/banner-catalog.png)
   .form
     width: 350px
-    small.privacy-item
-      margin-top: 20px
-      color: $white_70
-      &::after
-        background-color: #fff
-      &.active
-        &::after
-          background-color: $text
-      a
+    .privacy-wrap
+      small.privacy-item
         color: $white_70
-        &:hover
-          color: $dark
+        margin-top: 12px
+        margin-bottom: 0
+        font-size: 12px
+        a
+          font-size: 12px
+        &::after
+          background-color: #fff
+          transform: none
+          top: 4px
+        &.active
+          &::after
+            background-color: $text
+        a
+          color: $white_70
+          &:hover
+            color: $dark
     .input
       margin-bottom: 10px
   .left

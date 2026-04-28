@@ -12,6 +12,7 @@
       display: block
   .page-title
     margin-bottom: 25px
+    font-size: 56px
   .subtitle
     max-width: 100%
     margin-bottom: 25px
@@ -112,16 +113,28 @@
   display: block
   background-color: #fff
   padding: 30px
+  &-wrap
+    padding-top: 24px
   b
-    font-size: 20px
+    font-size: 24px
     display: block
-    margin-bottom: 15px
     color: $text
+    font-weight: 500
+    display: flex
+    justify-content: space-between
+    align-items: center
+    cursor: pointer
+    transition: .3s
+    &.active
+      .icon
+        transform: rotate(180deg)
+    &:hover
+      color: #2CB4C2
   a
     display: block
-    font-size: 16px
-    color: $text
-    margin-bottom: 14px
+    font-size: 18px
+    margin-bottom: 12px
+    color: #818793
     &:hover
       color: $main
     &:last-child
@@ -143,6 +156,9 @@
 
 @media (max-width: 767px)
   .only-single-page.single 
+    .page-title
+      font-size: 26px
+      letter-spacing: -0.7px
     .subtitle
       font-size: 14px
       margin-bottom: 25px
@@ -196,7 +212,7 @@
       line-height: 1.6
       margin-bottom: 20px
     .meta-wrap
-      margin-bottom: 30px
+      margin-bottom: 12px
       .meta-wrap-items
         .rating
           margin-bottom: 0
@@ -240,5 +256,35 @@
   .comments
     .title
       display: none!important
+
+
+
+.single
+  &__row
+    display: flex
+    justify-content: space-between
+    align-items: flex-start
+    flex-wrap: wrap
+  &__main
+    width: calc(100% - 295px - 20px)
+
+@media (max-width: 992px)
+  .single
+    &__row
+      display: block
+    &__main
+      width: 100%
+    &-nav
+      b
+        font-size: 18px
+      &-wrap
+        padding-top: 20px
+        a
+          font-size: 14px
+          margin-bottom: 10px
+          &:last-child
+            margin-bottom: 0
+
+
 
 

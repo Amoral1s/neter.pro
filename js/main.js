@@ -8969,7 +8969,7 @@ jQuery(document).ready(function ($) {
 			 return
 		 }
 		 const navWrapParent = navWrap.parentElement;
-		 const content = document.querySelector('.content');
+		 const content = document.querySelector('.single__main .content');
 		 const contentBlocks = content.querySelectorAll('*');
 		 let elems = 0;
 		 contentBlocks.forEach((elem, index) => {
@@ -8994,16 +8994,28 @@ jQuery(document).ready(function ($) {
 				 elems++;
 			 }
 		 });
+		 $('.single-nav b').on('click', function() {
+			$(this).toggleClass('active');
+			$(this).next().slideToggle(200);
+		 });
+
+		$(".anchor").click(function () {
+			var elementClick = $(this).attr("href");
+			var destination = $(elementClick).offset().top - 100;
+			$("html:not(:animated),body:not(:animated)").animate({scrollTop: destination}, 500);
+			return false;
+		});
+
 		 if (elems === 0) {
 			 navWrapParent.remove();
 		 }
-		 const rating = document.querySelector('.wpd-rating-stars').cloneNode(true);
+		 /* const rating = document.querySelector('.wpd-rating-stars').cloneNode(true);
 		 const ratngTopWrap = document.querySelector('.new-rating');
 		 const ratngVotes = document.querySelector('.wpd-rating-value .wpdrc').textContent;
 		 const votes = document.querySelector('.votes');
  
 		 ratngTopWrap.appendChild(rating);
-		 votes.textContent = ratngVotes;
+		 votes.textContent = ratngVotes; */
 	 }
 
 	 

@@ -112,7 +112,7 @@ function custom_posts_per_page($query) {
             $post_types = array('post', 'blog', 'projects'); 
             
             if (in_array($post_type, $post_types)) {
-                $query->set('posts_per_page', 12);
+                $query->set('posts_per_page', 8);
             }
         }
     }
