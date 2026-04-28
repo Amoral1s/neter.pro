@@ -1164,6 +1164,27 @@
   margin-bottom: 0 !important;
 }
 
+.product .product-icons {
+  position: absolute;
+  display: block;
+  right: 20px;
+  z-index: 2;
+  top: 20px;
+}
+
+.product .product-icons .icon {
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.product .product-icons .icon.active svg path {
+  fill: #2CB4C2;
+}
+
+.product .product-icons .icon:hover svg path {
+  fill: #2CB4C2;
+}
+
 .calc-offer.shop-offer {
   padding-bottom: 166px;
 }
@@ -2420,6 +2441,53 @@
   background-color: rgba(255, 255, 255, 0.5);
 }
 
+.feat-page__no-products {
+  padding-top: 60px;
+  margin-bottom: 140px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.feat-page__no-products .icon {
+  margin-bottom: 24px;
+}
+
+.feat-page__no-products .page-title {
+  text-align: center;
+  font-size: 48px;
+  letter-spacing: -1.4px;
+  margin-bottom: 12px;
+}
+
+.feat-page__no-products p {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.feat-page__wrap {
+  display: block;
+}
+
+.feat-page__wrap ul.products {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: stretch;
+}
+
+.feat-page__wrap ul.products li.product {
+  width: calc(25% - 20px);
+  margin-right: 20px;
+  margin-bottom: 20px;
+  height: auto;
+}
+
+.feat-page__wrap ul.products li.product .product-icons .icon.active svg path {
+  fill: #D81654;
+}
+
 .load-circle {
   visibility: hidden;
   display: inline-block;
@@ -3235,6 +3303,36 @@
     background-color: transparent;
   }
 
+  .feat-page__no-products {
+    padding-top: 24px;
+    margin-bottom: 80px;
+  }
+
+  .feat-page__no-products .icon svg {
+    width: 64px;
+    height: 64px;
+  }
+
+  .feat-page__no-products .page-title {
+    font-size: 32px;
+    letter-spacing: -1px;
+    margin-bottom: 10px;
+  }
+
+  .feat-page__wrap ul.products {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: stretch;
+  }
+
+  .feat-page__wrap ul.products li.product {
+    width: calc(50% - 10px);
+    margin-right: 0;
+    margin-bottom: 20px;
+    height: auto;
+  }
+
   .form-text {
     margin-bottom: 16px;
     font-size: 14px;
@@ -3966,5 +4064,24 @@
 
   .product-links .wrap .item p {
     white-space: nowrap;
+  }
+
+  .feat-page__wrap ul.products li.product {
+    width: 100%;
+    margin-bottom: 8px;
+  }
+
+  .feat-page__wrap ul.products li.product .product-title {
+    font-size: 16px;
+  }
+
+  .feat-page__wrap ul.products li.product .product-rating {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .feat-page__wrap ul.products li.product .product-rating .star-rating {
+    margin-bottom: 0;
   }
 }

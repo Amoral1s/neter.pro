@@ -251,7 +251,22 @@
   .content .related ul.products li .product-top b
     margin-bottom: 8px
 
-
+.product
+  .product-icons
+    position: absolute
+    display: block
+    right: 20px
+    z-index: 2
+    top: 20px
+    .icon
+      margin-bottom: 10px
+      cursor: pointer
+      &.active
+        svg path
+          fill: #2CB4C2
+      &:hover
+        svg path
+          fill: #2CB4C2
 
 
 

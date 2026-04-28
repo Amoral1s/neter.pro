@@ -220,13 +220,15 @@ function main_theme_enqueue_assets() {
 
 	wp_localize_script(
 		'main',
-		'mainThemeData',
-		array(
-			'ajax_url'                  => admin_url( 'admin-ajax.php' ),
-			'cart_cookie_name'          => 'neter_cart',
-			'cookie_cart_products_action' => 'get_cookie_cart_products',
-			'placeholder_image'         => $placeholder_image,
-			'cart_form_id'              => 787,
+			'mainThemeData',
+			array(
+				'ajax_url'                  => admin_url( 'admin-ajax.php' ),
+				'cart_cookie_name'          => 'neter_cart',
+				'cookie_cart_products_action' => 'get_cookie_cart_products',
+				'featured_cookie_name'      => function_exists( 'main_theme_get_featured_cookie_name' ) ? main_theme_get_featured_cookie_name() : 'neter_featured_products',
+				'featured_validate_action'  => 'validate_featured_products',
+				'placeholder_image'         => $placeholder_image,
+				'cart_form_id'              => 787,
 			'is_local_comment'          => function_exists( 'is_local_comment' ) ? (bool) is_local_comment() : main_theme_is_local_environment(),
 			'comment_recaptcha_site_key' => $comment_site_key,
 			'is_local_environment'      => main_theme_is_local_environment(),

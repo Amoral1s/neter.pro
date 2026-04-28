@@ -134,6 +134,15 @@
     align-items: center
     justify-content: space-between
     align-items: center
+    .right
+      display: flex
+      justify-content: flex-end
+      align-items: center
+      .icon
+        margin-left: 12px
+        svg path
+          stroke: #6B7280
+          stroke-opacity: 1
     .logo
       img
         object-fit: contain
@@ -158,12 +167,23 @@
   .mob-header
     display: none
   .header
-    display: block!important
+    display: flex!important
+    justify-content: center
     position: absolute
     top: 0
     right: 0
     width: 100%
     z-index: 100
+    .icon
+      min-width: 50px
+      height: 50px
+      border-radius: 12px
+      background-color: rgba(255, 255, 255, 0.60)
+      margin-left: 12px
+      &:hover
+        background-color: $main
+        svg path
+          stroke: #fff
     &.header-home
       .logo
         .dark
@@ -440,6 +460,7 @@
       background-color: transparent
       transition: .2s
       border-bottom: 1px solid $white_15
+      max-width: max-content
       .wrap
         display: flex
         justify-content: space-between

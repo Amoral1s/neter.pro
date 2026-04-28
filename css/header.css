@@ -443,6 +443,21 @@ svg:hover rect {
   align-items: center;
 }
 
+.mob-header .wrap .right {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.mob-header .wrap .right .icon {
+  margin-left: 12px;
+}
+
+.mob-header .wrap .right .icon svg path {
+  stroke: #6B7280;
+  stroke-opacity: 1;
+}
+
 .mob-header .wrap .logo img {
   object-fit: contain;
   height: 32px;
@@ -473,12 +488,29 @@ svg:hover rect {
   }
 
   .header {
-    display: block !important;
+    display: flex !important;
+    justify-content: center;
     position: absolute;
     top: 0;
     right: 0;
     width: 100%;
     z-index: 100;
+  }
+
+  .header .icon {
+    min-width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    background-color: rgba(255, 255, 255, 0.6);
+    margin-left: 12px;
+  }
+
+  .header .icon:hover {
+    background-color: #2CB4C2;
+  }
+
+  .header .icon:hover svg path {
+    stroke: #fff;
   }
 
   .header.header-home .logo .dark {
@@ -852,6 +884,7 @@ svg:hover rect {
     background-color: transparent;
     transition: 0.2s;
     border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    max-width: max-content;
   }
 
   .header .header-pc .wrap {
@@ -1786,7 +1819,7 @@ svg:hover rect {
   }
 }
 
-@media (min-width: 992px) and (max-width: 1275px) {
+@media (min-width: 992px) and (max-width: 1311px) {
   html {
     zoom: 0.7;
   }
