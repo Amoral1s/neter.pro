@@ -94,7 +94,14 @@ if ($cell_shape_value === '') {
 		}
 	?>
 	<div class="table-product-cart">
-		<?php woocommerce_template_loop_add_to_cart(); ?>
+		<button
+			type="button"
+			class="button"
+			data-product_id="<?php echo esc_attr( $product->get_id() ); ?>"
+			aria-label="<?php echo esc_attr( sprintf( 'Добавить в корзину «%s»', $product->get_name() ) ); ?>"
+		>
+			В корзину
+		</button>
 		<div class="load-circle"></div>
 		</div>
 		<a class="table-product-title" href="<?php echo esc_url( get_permalink( $product->get_id() ) ); ?>">

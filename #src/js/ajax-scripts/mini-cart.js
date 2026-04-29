@@ -170,15 +170,24 @@ jQuery(document).ready(function($) {
         $('li.table-product .button').each(function() {
             const $button = $(this);
             const productId = toInt($button.data('product_id') || $button.val());
+            const $product = $button.closest('li.table-product');
+            const isAdded = cartIds.includes(productId);
+            const buttonText = isAdded ? 'Убрать из корзины' : 'В корзину';
 
             if (!productId) {
                 return;
             }
 
-            if (cartIds.includes(productId)) {
-                $button.addClass('added').text('Убрать из корзины');
+            if ($button.text() !== buttonText) {
+                $button.text(buttonText);
+            }
+
+            if (isAdded) {
+                $button.addClass('added');
+                $product.addClass('added-product');
             } else {
-                $button.removeClass('added').text('В корзину');
+                $button.removeClass('added');
+                $product.removeClass('added-product');
             }
         });
 
