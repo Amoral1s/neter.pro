@@ -122,7 +122,7 @@ add_action('pre_get_posts', 'custom_posts_per_page');
 // Устанавливаем количество товаров для WooCommerce на 100
 function custom_wc_products_per_page( $query ) {
     if (!is_admin() && $query->is_main_query() && (is_shop() || is_post_type_archive('product'))) {
-        $query->set('posts_per_page', 100); // Устанавливаем количество товаров на 100
+        $query->set('posts_per_page', 40); // Устанавливаем количество товаров на 100
     }
 }
 add_action('pre_get_posts', 'custom_wc_products_per_page');

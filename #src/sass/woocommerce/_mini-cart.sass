@@ -1,48 +1,83 @@
 @import "../reset/_vars"
 
-
+@media (min-width: 993px)
+  .cart-toggle
+    &__clear
+      &:hover
+        color: $main  
+        svg path
+          stroke: $main
+    .wrapper
+      &:hover
+        background-color: $text
 .cart-toggle
-  width: max-content
+  width: 100%
+  max-width: 100%
   z-index: 90
   position: fixed
-  right: 15px
-  bottom: 15px
-  .icon
-    display: none
-  &.loading
-    pointer-events: none
-    opacity: 0.5
-    .load-circle
-      visibility: visible
-  .wrapper
+  right: 0
+  bottom: 0
+  left: 0
+  background-color: rgba(251, 251, 251, 1)
+  border-radius: 24px 24px 0 0
+  box-shadow: 0 0 50px 0 rgba(0, 70, 84, 0.15)
+  &::after
+    position: absolute
+    content: ''
+    z-index: 2
+    background-color: red
+    width: 100%
+    height: 100%
+    top: 100%
+    left: 0
+    right: 0
+  &__clear
+    display: flex
+    justify-content: flex-start
+    align-items: center
+    transition: .3s
+    cursor: pointer
+    color: #818793
+    .icon
+      margin-left: 10px
+  &__text
+    display: flex
+    justify-content: flex-start
+    align-items: center
+    .text-count
+      margin-right: 26px
+      font-weight: 500
+      font-size: 18px
+      letter-spacing: -0.5px
+      line-height: 1
+  &__wrap
     display: flex
     justify-content: space-between
     align-items: center
-    width: 190px
+    padding-top: 14px
+    padding-bottom: 14px
+  
+  .wrapper
+    display: flex 
+    justify-content: space-between
+    align-items: center
+    width: max-content
     cursor: pointer
-    padding: 20px 30px
+    position: relative
+    padding: 11px 30px
+    transition: .5s
     border-radius: 9999px
     background-color: $main
-    box-shadow: 0px 130px 36px 0px rgba(0, 113, 128, 0.00), 0px 83px 33px 0px rgba(0, 113, 128, 0.02), 0px 47px 28px 0px rgba(0, 113, 128, 0.08), 0px 21px 21px 0px rgba(0, 113, 128, 0.14), 0px 5px 11px 0px rgba(0, 113, 128, 0.16)
-    .cart-count
-      background-color: #D81654
-      border-radius: 100%
-      color: #fff
-      width: 30px
-      height: 30px
-      display: flex
-      justify-content: center
-      align-items: center
-      line-height: 1
-      font-size: 16px
-      font-weight: 700
-      min-width: 30px
-      padding-top: 1px
+    &.loading
+      pointer-events: none
+      opacity: .8
+      .load-circle
+        visibility: visible
     p
-      width: 90px
+      width: max-content
       color: #fff
       font-size: 16px
-      margin-right: 10px
+      white-space: nowrap
       line-height: 1.2
       font-weight: 500
   
@@ -203,18 +238,37 @@
 
 @media (max-width: 992px)
   .cart-toggle
-    right: 10px
-    bottom: 20px
+    &__text
+      justify-content: space-between
+      width: 100%
+    &__wrap
+      flex-direction: column
+      justify-content: flex-start
+      align-items: center
+      padding: 15px
+    .text-count
+      font-size: 14px
+      line-height: 1
+    &__clear
+      font-size: 14px
+      white-space: nowrap
+      line-height: 1
+      .icon
+        margin-left: 6px
+        svg 
+          width: 20px
+          height: 20px
     .wrapper
       position: relative
       padding: 0
       z-index: 1
-      width: 50px
+      width: 100%
       height: 50px
-      border-radius: 100%
+      border-radius: 999px
       display: flex
       justify-content: center
       align-items: center
+      margin-top: 15px
       .load-circle
         z-index: 10
       .cart-count
@@ -232,8 +286,6 @@
         z-index: 5
       .icon
         display: flex
-      p
-        display: none
 
 @media (max-width: 767px)
   .mini-cart

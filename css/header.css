@@ -412,6 +412,14 @@ svg:hover rect {
   animation-fill-mode: forwards;
 }
 
+.mob-header.mob-header-home .icon span {
+  background-color: #fff !important;
+}
+
+.mob-header.mob-header-home .icon svg path {
+  stroke: #fff !important;
+}
+
 .mob-header.white,
 .mob-header.scrolled {
   border-bottom: 1px solid #E5E7EB;
@@ -419,6 +427,17 @@ svg:hover rect {
   background-color: lightgray;
   background-position: 0% 0%;
   background-repeat: repeat;
+}
+
+.mob-header.white .wrap .icon,
+.mob-header.scrolled .wrap .icon {
+  margin-left: 16px;
+}
+
+.mob-header.white .wrap .icon svg path,
+.mob-header.scrolled .wrap .icon svg path {
+  stroke: #6B7280 !important;
+  stroke-opacity: 1;
 }
 
 .mob-header.white .wrap .logo .light,
@@ -433,7 +452,7 @@ svg:hover rect {
 
 .mob-header.white .wrap .burger svg path,
 .mob-header.scrolled .wrap .burger svg path {
-  stroke: #6B7280;
+  stroke: #6B7280 !important;
 }
 
 .mob-header .wrap {
@@ -450,7 +469,7 @@ svg:hover rect {
 }
 
 .mob-header .wrap .right .icon {
-  margin-left: 12px;
+  margin-left: 16px;
 }
 
 .mob-header .wrap .right .icon svg path {

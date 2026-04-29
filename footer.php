@@ -720,20 +720,26 @@
     </div>
   </div>
   <div class="cart-toggle" style="display: none">
-    <div class="wrapper">
-      <div class="load-circle"></div>
-      <div class="icon">
-        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
-          <path d="M8.39996 16L17.1201 15.2733C19.8486 15.046 20.4611 14.45 20.7635 11.7289L21.4 6" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
-          <path d="M6.39996 6H22.4" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
-          <path d="M6.39996 22C7.50453 22 8.39996 21.1046 8.39996 20C8.39996 18.8954 7.50453 18 6.39996 18C5.29539 18 4.39996 18.8954 4.39996 20C4.39996 21.1046 5.29539 22 6.39996 22Z" stroke="white" stroke-width="1.5"/>
-          <path d="M17.4 22C18.5045 22 19.4 21.1046 19.4 20C19.4 18.8954 18.5045 18 17.4 18C16.2954 18 15.4 18.8954 15.4 20C15.4 21.1046 16.2954 22 17.4 22Z" stroke="white" stroke-width="1.5"/>
-          <path d="M8.39996 20H15.4" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
-          <path d="M2.39996 2H3.36596C4.31064 2 5.1341 2.62459 5.36322 3.51493L8.33848 15.0765C8.48883 15.6608 8.36016 16.2797 7.9882 16.7616L7.03209 18" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
-        </svg>
+    <div class="container cart-toggle__wrap">
+      <div class="cart-toggle__text">
+        <div class="text-count">
+          Выбрано
+          <span class="cart-count">0</span>
+          <span class="naming">позиции</span>
+        </div>
+        <div class="cart-toggle__clear clear-cart">
+          Сбросить выбор
+          <div class="icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M19.0002 5L5.00024 19M5.00024 5L19.0002 19" stroke="#818793" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </div>
       </div>
-      <p>Узнать стоимость</p>
-      <div class="cart-count">0</div>
+      <div class="wrapper">
+        <div class="load-circle"></div>
+        <p>Рассчитать стоимость</p>
+      </div>
     </div>
   </div>
 <!-- Cart END -->
@@ -741,8 +747,10 @@
 <!-- Filters popup -->
   <?php
     $main_theme_catalog_view = isset($GLOBALS['main_theme_catalog_view']) ? (string) $GLOBALS['main_theme_catalog_view'] : '';
-    $main_theme_render_popup_filters = $main_theme_catalog_view !== 'cards';
+    $main_theme_is_catalog_page = !empty($GLOBALS['main_theme_is_catalog_page']);
+    $main_theme_render_popup_filters_shortcode = $main_theme_is_catalog_page && $main_theme_catalog_view !== 'cards';
   ?>
+  <?php if ($main_theme_is_catalog_page) : ?>
   <div class="filters-popup">
     <div class="wrap">
       <div class="close-row">
@@ -756,7 +764,7 @@
         </div>
       </div>
       <div class="filters-wrapper" data-catalog-popup-filters>
-        <?php if ($main_theme_render_popup_filters) : ?>
+        <?php if ($main_theme_render_popup_filters_shortcode) : ?>
           <?php echo do_shortcode('[wpf-filters id=2]'); ?>
         <?php endif; ?>
       </div>
@@ -770,6 +778,7 @@
       </div>
     </div>
   </div>
+  <?php endif; ?>
 <!-- Filters popup END -->
 
 <?php wp_footer(); ?>
@@ -795,7 +804,7 @@
 			trackOpenFormGoal();
 		}
 	});
-	jQuery('.cart-toggle').on('click', function(event) { 
+	jQuery('.cart-toggle .wrapper').on('click', function(event) { 
 		trackOpenFormGoal();
 	});
 </script>

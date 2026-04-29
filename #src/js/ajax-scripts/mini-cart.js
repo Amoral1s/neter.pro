@@ -202,18 +202,43 @@ jQuery(document).ready(function($) {
             $button.toggleClass('added', cartIds.includes(productId));
         });
     }
+    function getPositionWord(count) {
+        count = Math.abs(Number(count)) % 100;
 
-    function updateCartToggle() {
-        const itemsCount = readCart().length;
+        const lastDigit = count % 10;
 
-        if (!itemsCount) {
-            $('.cart-count').text('0');
-            $('.cart-toggle').stop(true, true).fadeOut(200);
-            return;
+        if (count > 10 && count < 20) {
+            return 'позиций';
         }
 
+        if (lastDigit > 1 && lastDigit < 5) {
+            return 'позиции';
+        }
+
+        if (lastDigit === 1) {
+            return 'позиция';
+        }
+
+        return 'позиций';
+    }
+    function updateCartToggle() {
+
+        const itemsCount = readCart().length;
+
         $('.cart-count').text(itemsCount);
+
+        $('.naming').text(getPositionWord(itemsCount));
+
+        if (!itemsCount) {
+
+            $('.cart-toggle').stop(true, true).fadeOut(200);
+
+            return;
+
+        }
+
         $('.cart-toggle').stop(true, true).fadeIn(200);
+
     }
 
     function syncCartUi() {
@@ -410,7 +435,7 @@ jQuery(document).ready(function($) {
         }
 
         $item.addClass('loading');
-        $('.cart-toggle').addClass('loading');
+        $('.cart-toggle .wrapper').addClass('loading');
         $('li.table-product .button').prop('disabled', true);
 
         if (isProductInCart(productId)) {
@@ -423,7 +448,7 @@ jQuery(document).ready(function($) {
         updateMiniCartIfOpened();
 
         $item.removeClass('loading');
-        $('.cart-toggle').removeClass('loading');
+        $('.cart-toggle .wrapper').removeClass('loading');
         $('li.table-product .button').prop('disabled', false);
     });
 
@@ -458,7 +483,7 @@ jQuery(document).ready(function($) {
         });
     });
 
-    $(document).on('click', '.cart-toggle', function() {
+    $(document).on('click', '.cart-toggle .wrapper', function() {
         const $toggle = $(this);
         $toggle.addClass('loading');
 
@@ -472,7 +497,7 @@ jQuery(document).ready(function($) {
         $('.mini-cart').fadeOut(200);
     });
 
-    $('.mini-cart .clear-cart').on('click', function() {
+    $('.clear-cart').on('click', function() {
         clearCart();
         $('.overlay').fadeOut(200);
         $('.mini-cart').fadeOut(200);

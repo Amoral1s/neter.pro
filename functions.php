@@ -160,12 +160,65 @@ function update_all_products_meta_with_fallback_attributes_ajax() {
     ));
 }
 
-// 4. Функция для обновления мета-данных с fallback на атрибуты и возвращение результатов
-function update_all_products_meta_with_fallback_attributes() {
+function main_theme_update_single_product_catalog_sort_meta($product_id) {
+    $product_id = absint($product_id);
+
+    if (!$product_id || !function_exists('wc_get_product')) {
+        return new WP_Error('invalid_product', 'Не удалось получить объект продукта.');
+    }
+
+    $product = wc_get_product($product_id);
+
+    if (!$product || !is_a($product, 'WC_Product')) {
+        return new WP_Error('invalid_product', 'Не удалось получить объект продукта.');
+    }
+
     $priority_category_slugs = array('zaryadnye-ustrojstva-dlya-akkumulyatorov', 'bms-plata');
     $attribute_keys_priority = array('pa_napryazhenie');
     $attribute_keys_default = array('pa_emkost-ah');
+    $product_categories = wp_get_post_terms($product_id, 'product_cat', array('fields' => 'slugs'));
+    $is_priority_category = false;
 
+    if (is_wp_error($product_categories)) {
+        $product_categories = array();
+    }
+
+    foreach ($priority_category_slugs as $priority_slug) {
+        if (in_array($priority_slug, $product_categories, true) || is_product_category_child_of_slug($product_id, $priority_slug)) {
+            $is_priority_category = true;
+            break;
+        }
+    }
+
+    $attribute_keys = $is_priority_category ? $attribute_keys_priority : $attribute_keys_default;
+    $meta_value = 0;
+    $attribute_key = '';
+
+    foreach ($attribute_keys as $key) {
+        $attribute_value = $product->get_attribute($key);
+
+        if ($attribute_value) {
+            $meta_value = str_replace(',', '.', $attribute_value);
+            $meta_value = (float) trim($meta_value);
+            $attribute_key = $key;
+            break;
+        }
+    }
+
+    $priority = (bool) get_post_meta($product_id, 'new_product', true) ? 1 : 0;
+
+    update_post_meta($product_id, 'product_sort_value', $meta_value);
+    update_post_meta($product_id, 'new_product_sort_priority', $priority);
+
+    return array(
+        'sort_value'    => $meta_value,
+        'attribute_key' => $attribute_key,
+        'priority'      => $priority,
+    );
+}
+
+// 4. Функция для обновления мета-данных с fallback на атрибуты и возвращение результатов
+function update_all_products_meta_with_fallback_attributes() {
     $result_messages = array();
 
     $args = array(
@@ -179,52 +232,14 @@ function update_all_products_meta_with_fallback_attributes() {
         while ($products->have_posts()) {
             $products->the_post();
             $product_id = get_the_ID();
+            $sort_result = main_theme_update_single_product_catalog_sort_meta($product_id);
 
-            $product = wc_get_product($product_id);
-
-            if ($product && is_a($product, 'WC_Product')) {
-                $product_categories = wp_get_post_terms($product_id, 'product_cat', array('fields' => 'slugs'));
-                $is_priority_category = false;
-
-                foreach ($priority_category_slugs as $priority_slug) {
-                    if (in_array($priority_slug, $product_categories) || is_product_category_child_of_slug($product_id, $priority_slug)) {
-                        $is_priority_category = true;
-                        break;
-                    }
-                }
-
-                $attribute_keys = $is_priority_category ? $attribute_keys_priority : $attribute_keys_default;
-                $meta_value = '';
-
-                foreach ($attribute_keys as $key) {
-                    $attribute_value = $product->get_attribute($key);
-
-                    if ($attribute_value) {
-                        $meta_value = str_replace(',', '.', $attribute_value);
-						$meta_value = floatval(trim($meta_value));
-                        break;
-                    }
-                }
-
-                if ($meta_value) {
-					// Если есть значение атрибута
-					update_post_meta($product_id, 'product_sort_value', $meta_value);
-					$result_messages[] = "Продукт ID: $product_id обновлен с значением: $meta_value (атрибут найден в ключе: {$key})";
-				} else {
-					// Если атрибуты не найдены, ставим заведомо большое значение
-					$default_value = 0;
-					update_post_meta($product_id, 'product_sort_value', $default_value);
-					$result_messages[] = "Продукт ID: $product_id не имеет атрибутов, установлено дефолтное значение: $default_value";
-				}
-
-                // 👇 Добавляем проверку ACF поля new_product
-                $is_new_product = (bool) get_post_meta($product_id, 'new_product', true);
-                if ($is_new_product) {
-                    update_post_meta($product_id, 'new_product_sort_priority', 1);
+            if (!is_wp_error($sort_result)) {
+                if (!empty($sort_result['attribute_key'])) {
+                    $result_messages[] = "Продукт ID: $product_id обновлен с значением: {$sort_result['sort_value']} (атрибут найден в ключе: {$sort_result['attribute_key']})";
                 } else {
-                    update_post_meta($product_id, 'new_product_sort_priority', 0);
+                    $result_messages[] = "Продукт ID: $product_id не имеет атрибутов, установлено дефолтное значение: {$sort_result['sort_value']}";
                 }
-
             } else {
                 $result_messages[] = "Не удалось получить объект продукта для ID: $product_id";
             }
@@ -237,15 +252,32 @@ function update_all_products_meta_with_fallback_attributes() {
 
 // Проверяем дочерние категории
 function is_product_category_child_of_slug($product_id, $parent_category_slug) {
-    $parent_term = get_term_by('slug', $parent_category_slug, 'product_cat');
-    
-    if ($parent_term) {
-        $product_categories = wp_get_post_terms($product_id, 'product_cat', array('fields' => 'ids'));
-        foreach ($product_categories as $category_id) {
-            if (term_is_ancestor_of($parent_term->term_id, $category_id, 'product_cat')) {
-                return true;
-            }
+    static $children_by_slug = array();
+    static $product_terms_by_id = array();
+
+    $product_id = absint($product_id);
+
+    if (!$product_id) {
+        return false;
+    }
+
+    if (!isset($children_by_slug[$parent_category_slug])) {
+        $parent_term = get_term_by('slug', $parent_category_slug, 'product_cat');
+        $children_by_slug[$parent_category_slug] = array();
+
+        if ($parent_term) {
+            $child_terms = get_term_children($parent_term->term_id, 'product_cat');
+            $children_by_slug[$parent_category_slug] = is_wp_error($child_terms) ? array() : array_map('intval', $child_terms);
         }
+    }
+
+    if (!isset($product_terms_by_id[$product_id])) {
+        $product_terms = wp_get_post_terms($product_id, 'product_cat', array('fields' => 'ids'));
+        $product_terms_by_id[$product_id] = is_wp_error($product_terms) ? array() : array_map('intval', $product_terms);
+    }
+
+    if ($children_by_slug[$parent_category_slug] && $product_terms_by_id[$product_id]) {
+        return (bool) array_intersect($product_terms_by_id[$product_id], $children_by_slug[$parent_category_slug]);
     }
     
     return false;
@@ -262,6 +294,7 @@ function custom_sort_products_with_priority_and_fallback($query) {
         $query->is_tax('product_tag')
     ) {
         $GLOBALS['main_theme_catalog_sort_query'] = $query;
+        $query->set('main_theme_catalog_sort', true);
         $query->set('suppress_filters', false);
     }
 }
@@ -272,43 +305,42 @@ function main_theme_should_apply_catalog_sort($query) {
     }
 
     if (empty($GLOBALS['main_theme_catalog_sort_query'])) {
-        return false;
+        return (bool) $query->get('main_theme_catalog_sort');
     }
 
-    return $GLOBALS['main_theme_catalog_sort_query'] === $query;
+    return $GLOBALS['main_theme_catalog_sort_query'] === $query || (bool) $query->get('main_theme_catalog_sort');
 }
 
-function main_theme_catalog_sort_posts_join($join, $query) {
+function main_theme_catalog_sort_posts_clauses($clauses, $query) {
     if (!main_theme_should_apply_catalog_sort($query)) {
-        return $join;
+        return $clauses;
     }
 
     global $wpdb;
 
-    if (strpos($join, "new_priority.meta_key = 'new_product_sort_priority'") === false) {
-        $join .= " LEFT JOIN {$wpdb->postmeta} AS new_priority
-            ON ({$wpdb->posts}.ID = new_priority.post_id
-            AND new_priority.meta_key = 'new_product_sort_priority') ";
+    if (strpos($clauses['join'], 'AS catalog_sort_meta') === false) {
+        $clauses['join'] .= $wpdb->prepare(
+            " LEFT JOIN (
+                SELECT
+                    post_id,
+                    MAX(CASE WHEN meta_key = %s THEN meta_value+0 END) AS catalog_new_priority,
+                    MAX(CASE WHEN meta_key = %s THEN meta_value+0 END) AS catalog_sort_value
+                FROM {$wpdb->postmeta}
+                WHERE meta_key IN (%s, %s)
+                GROUP BY post_id
+            ) AS catalog_sort_meta ON ({$wpdb->posts}.ID = catalog_sort_meta.post_id) ",
+            'new_product_sort_priority',
+            'product_sort_value',
+            'new_product_sort_priority',
+            'product_sort_value'
+        );
     }
 
-    if (strpos($join, "sort_value.meta_key = 'product_sort_value'") === false) {
-        $join .= " LEFT JOIN {$wpdb->postmeta} AS sort_value
-            ON ({$wpdb->posts}.ID = sort_value.post_id
-            AND sort_value.meta_key = 'product_sort_value') ";
-    }
+    $clauses['orderby'] = "catalog_sort_meta.catalog_new_priority IS NULL ASC, catalog_sort_meta.catalog_new_priority DESC, catalog_sort_meta.catalog_sort_value IS NULL ASC, catalog_sort_meta.catalog_sort_value DESC";
 
-    return $join;
+    return $clauses;
 }
-add_filter('posts_join', 'main_theme_catalog_sort_posts_join', 20, 2);
-
-function main_theme_catalog_sort_posts_orderby($orderby, $query) {
-    if (!main_theme_should_apply_catalog_sort($query)) {
-        return $orderby;
-    }
-
-    return "CAST(new_priority.meta_value AS UNSIGNED) DESC, CAST(sort_value.meta_value AS DECIMAL(10,2)) DESC";
-}
-add_filter('posts_orderby', 'main_theme_catalog_sort_posts_orderby', 20, 2);
+add_filter('posts_clauses', 'main_theme_catalog_sort_posts_clauses', 20, 2);
 
 if (!function_exists('main_theme_get_random_product_ids')) {
     function main_theme_get_random_product_ids($limit = 10, $ttl = 600) {

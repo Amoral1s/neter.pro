@@ -22,6 +22,7 @@ get_header();
 <?php
 	$catalog_view = !is_search() && function_exists('main_theme_get_catalog_view') ? main_theme_get_catalog_view() : 'table';
 	$GLOBALS['main_theme_catalog_view'] = $catalog_view;
+	$GLOBALS['main_theme_is_catalog_page'] = true;
 
 	if (is_shop() && !is_search()) {
 			// Получаем URL категории с ID 15

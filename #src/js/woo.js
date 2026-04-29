@@ -1,5 +1,4 @@
 jQuery(document).ready(function ($) {
-  console.log('woocommerce JS')
 
   $('.product-tabs .tabs .item').on('click', function() {
       var index = $(this).index(); // Определяем индекс нажатого таба
@@ -143,9 +142,6 @@ jQuery(document).ready(function ($) {
           numberWrap.textContent = count;
         }
       }
-      
-      console.log('woo filters rendered')
-
     }
 
     function resetWpfFilters($filterWrapper) {
@@ -277,17 +273,19 @@ jQuery(document).ready(function ($) {
       };
     }
 
-    // Обёртка renderFiltersBtns в debounce с задержкой 500ms
-    const debouncedRenderFiltersBtns = debounce(renderFiltersBtns, 500);
+    const debouncedRenderFiltersBtns = debounce(renderFiltersBtns, 250);
+    const filterRootsSelector = '.filters-popup .wpfMainWrapper, [data-catalog-sidebar-filters] .wpfMainWrapper';
 
     $(window).on('resize', function() {
       moveCatalogCardFilters();
       renderFiltersBtns();
     });
 
-    if (window.screen.width > 992) {
-      $('.shop-catalog-wrapper').on('mousemove', debouncedRenderFiltersBtns);
-    }
+    $(document).on('change input wpfPriceChange wpfAttrSliderChange', filterRootsSelector, debouncedRenderFiltersBtns);
+
+    document.addEventListener('wpfAjaxSuccess', function() {
+      window.setTimeout(renderFiltersBtns, 50);
+    });
 
 
     initCatalogViewSwitcher();

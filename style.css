@@ -51,10 +51,7 @@ License URI: LICENSE
 #up-arr {
 	display: none!important
 }
-.cart-toggle {
-	right: auto;
-	left: 15px;
-}
+
 .b24-widget-button-wrapper {
 	z-index: 100!important;
 }

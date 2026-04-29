@@ -73,7 +73,9 @@ $cell_shape_value = '';
 $cell_shape_taxonomy = wc_attribute_taxonomy_name('forma-yachejki');
 
 if (taxonomy_exists($cell_shape_taxonomy)) {
-    $cell_shape_terms = wc_get_product_terms($product->get_id(), $cell_shape_taxonomy, array('fields' => 'slugs'));
+    $cell_shape_terms = function_exists('main_theme_get_product_attribute_values')
+        ? main_theme_get_product_attribute_values($product, $cell_shape_taxonomy, 'slugs')
+        : wc_get_product_terms($product->get_id(), $cell_shape_taxonomy, array('fields' => 'slugs'));
 
     if (!is_wp_error($cell_shape_terms) && !empty($cell_shape_terms)) {
         $cell_shape_value = sanitize_title((string) reset($cell_shape_terms));

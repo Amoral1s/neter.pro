@@ -118,23 +118,26 @@ $attributes = [
 					<?php echo $product->get_price_html(); ?>
 			</div>
             <?php endif; ?>
-			<?php
-				$attrs_output = '';
-				foreach ( $attributes as $attribute_slug => $icon_html ) {
-						$terms = wc_get_product_terms( $product->get_id(), $attribute_slug, array( 'fields' => 'names' ) );
-						if ( ! empty( $terms ) ) {
-								foreach ( $terms as $term ) {
-										$attrs_output .= '<div class="item">';
-										$attrs_output .= '<div class="icon">' . $icon_html . '</div>';
-										$attrs_output .= '<p>' . esc_html( $term ) . '</p>';
-										$attrs_output .= '</div>';
-								}
+				<?php
+					$attrs_output = '';
+					foreach ( $attributes as $attribute_slug => $icon_html ) {
+						$attribute_values = function_exists('main_theme_get_product_attribute_values')
+							? main_theme_get_product_attribute_values($product, $attribute_slug, 'names')
+							: array_filter(array_map('trim', explode(',', (string) $product->get_attribute($attribute_slug))));
+
+						if ( ! empty( $attribute_values ) ) {
+							foreach ( $attribute_values as $term ) {
+								$attrs_output .= '<div class="item">';
+								$attrs_output .= '<div class="icon">' . $icon_html . '</div>';
+								$attrs_output .= '<p>' . esc_html( $term ) . '</p>';
+								$attrs_output .= '</div>';
+							}
 						}
-				}
-				if ( ! empty( $attrs_output ) ) {
+					}
+					if ( ! empty( $attrs_output ) ) {
 						echo '<div class="product-attrs">' . $attrs_output . '</div>';
-				}
-			?>
+					}
+				?>
 		</div>
     <?php
     do_action( 'woocommerce_before_shop_loop_item' );

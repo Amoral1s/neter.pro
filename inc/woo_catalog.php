@@ -73,6 +73,65 @@ if (!function_exists('main_theme_get_catalog_view')) {
     }
 }
 
+if (!function_exists('main_theme_get_product_attribute_values')) {
+    function main_theme_get_product_attribute_values($product, $attribute_slug, $field = 'names') {
+        if (!is_a($product, 'WC_Product')) {
+            return array();
+        }
+
+        $attribute_slug = sanitize_key((string) $attribute_slug);
+        $field = $field === 'slugs' ? 'slugs' : 'names';
+        $values = array();
+        $attributes = $product->get_attributes();
+
+        if (isset($attributes[$attribute_slug]) && is_a($attributes[$attribute_slug], 'WC_Product_Attribute')) {
+            $attribute = $attributes[$attribute_slug];
+
+            if ($attribute->is_taxonomy()) {
+                $taxonomy = $attribute->get_name();
+
+                foreach ($attribute->get_options() as $term_id) {
+                    $term = get_term((int) $term_id, $taxonomy);
+
+                    if ($term && !is_wp_error($term)) {
+                        $values[] = $field === 'slugs' ? $term->slug : $term->name;
+                    }
+                }
+            } else {
+                foreach ($attribute->get_options() as $option) {
+                    $option = trim((string) $option);
+
+                    if ($option !== '') {
+                        $values[] = $field === 'slugs' ? sanitize_title($option) : $option;
+                    }
+                }
+            }
+        } elseif (taxonomy_exists($attribute_slug)) {
+            $terms = get_the_terms($product->get_id(), $attribute_slug);
+
+            if (!is_wp_error($terms) && !empty($terms)) {
+                foreach ($terms as $term) {
+                    $values[] = $field === 'slugs' ? $term->slug : $term->name;
+                }
+            }
+        }
+
+        if (empty($values)) {
+            $raw_value = trim((string) $product->get_attribute($attribute_slug));
+
+            if ($raw_value !== '') {
+                $values = array_map('trim', explode(',', $raw_value));
+
+                if ($field === 'slugs') {
+                    $values = array_map('sanitize_title', $values);
+                }
+            }
+        }
+
+        return array_values(array_filter(array_unique($values), 'strlen'));
+    }
+}
+
 if (!function_exists('main_theme_should_render_catalog_cards_loop')) {
     function main_theme_should_render_catalog_cards_loop() {
         if (main_theme_get_catalog_view() !== 'cards') {
