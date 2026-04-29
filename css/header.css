@@ -1245,6 +1245,33 @@ svg:hover rect {
     border-bottom: 1px solid #E5E7EB;
   }
 
+  .header.scrolled .wrap .button.button-transparent,
+  .header.scrolled .wrap .search-toggle {
+    background-color: #fff;
+  }
+
+  .header.scrolled .wrap .button.button-transparent:hover,
+  .header.scrolled .wrap .search-toggle:hover {
+    background-color: #284f5f;
+    color: #fff;
+  }
+
+  .header.scrolled .wrap .header-contacts .icon {
+    background-color: #fff;
+  }
+
+  .header.scrolled .wrap .header-contacts .icon svg path {
+    stroke: #2CB4C2;
+  }
+
+  .header.scrolled .wrap .header-contacts .icon:hover {
+    background-color: #284f5f;
+  }
+
+  .header.scrolled .wrap .header-contacts .icon:hover svg path {
+    stroke: #fff;
+  }
+
   .header.scrolled .search .search-wrap {
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
     border-radius: 12px;

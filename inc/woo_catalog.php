@@ -64,12 +64,60 @@ if (!function_exists('main_theme_get_catalog_view_cookie_name')) {
     }
 }
 
+if (!function_exists('main_theme_get_catalog_view_url_param')) {
+    function main_theme_get_catalog_view_url_param() {
+        return 'view';
+    }
+}
+
+if (!function_exists('main_theme_normalize_catalog_view')) {
+    function main_theme_normalize_catalog_view($view) {
+        $view = sanitize_key((string) $view);
+
+        if ($view === 'card') {
+            $view = 'cards';
+        }
+
+        return in_array($view, array('table', 'cards'), true) ? $view : '';
+    }
+}
+
 if (!function_exists('main_theme_get_catalog_view')) {
     function main_theme_get_catalog_view() {
         $cookie_name = main_theme_get_catalog_view_cookie_name();
-        $view = isset($_COOKIE[$cookie_name]) ? sanitize_key((string) wp_unslash($_COOKIE[$cookie_name])) : 'table';
+        $url_param = main_theme_get_catalog_view_url_param();
+        $view = '';
 
-        return in_array($view, array('table', 'cards'), true) ? $view : 'table';
+        if (isset($_REQUEST[$url_param])) {
+            $view = main_theme_normalize_catalog_view(wp_unslash($_REQUEST[$url_param]));
+        }
+
+        if ($view === '' && isset($_REQUEST[$cookie_name])) {
+            $view = main_theme_normalize_catalog_view(wp_unslash($_REQUEST[$cookie_name]));
+        }
+
+        if ($view === '' && !empty($_POST['currenturl'])) {
+            $current_url = esc_url_raw((string) wp_unslash($_POST['currenturl']));
+            $url_parts = wp_parse_url($current_url);
+
+            if (!empty($url_parts['query'])) {
+                parse_str($url_parts['query'], $url_query);
+
+                if (isset($url_query[$url_param])) {
+                    $view = main_theme_normalize_catalog_view($url_query[$url_param]);
+                }
+
+                if ($view === '' && isset($url_query[$cookie_name])) {
+                    $view = main_theme_normalize_catalog_view($url_query[$cookie_name]);
+                }
+            }
+        }
+
+        if ($view === '' && isset($_COOKIE[$cookie_name])) {
+            $view = main_theme_normalize_catalog_view(wp_unslash($_COOKIE[$cookie_name]));
+        }
+
+        return $view !== '' ? $view : 'table';
     }
 }
 

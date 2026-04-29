@@ -13750,6 +13750,7 @@ a small small {
   flex-direction: column;
   height: auto;
   color: #0A3141;
+  max-width: calc(25% - 20px);
 }
 
 .compare-card__product {
@@ -14034,21 +14035,15 @@ a small small {
   margin-top: -80px;
 }
 
-.catalog-cards__filters .ms-reflow {
-  display: flex !important;
-  align-items: center !important;
-}
-
-.catalog-cards__filters .ms-reflow * {
-  display: flex !important;
-  align-items: center !important;
-}
-
 .catalog-cards__filters .wpfMainWrapper .wpfFilterContent {
   max-height: 320px;
   overflow: visible;
   overflow-y: auto;
   transition: all 0.3s !important;
+}
+
+.catalog-cards__filters .wpfMainWrapper .wpfFilterContent label {
+  display: flex;
 }
 
 .catalog-cards__filters .wpfMainWrapper .wpfFilterContent::-webkit-scrollbar {
@@ -18549,6 +18544,10 @@ a small small {
     background-color: transparent;
   }
 
+  .compare-page {
+    max-width: calc(50% - 20px);
+  }
+
   .compare-page__top {
     align-items: flex-start;
     flex-direction: column;
@@ -20776,6 +20775,10 @@ a small small {
   .search-offer .wrap h1 span {
     font-size: 20px;
     top: -5px;
+  }
+
+  .compare-card {
+    max-width: 100%;
   }
 
   .compare-card__product {

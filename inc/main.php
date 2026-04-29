@@ -225,6 +225,8 @@ function main_theme_enqueue_assets() {
 			'ajax_url'                    => admin_url( 'admin-ajax.php' ),
 			'cart_cookie_name'            => 'neter_cart',
 			'catalog_view_cookie_name'    => function_exists( 'main_theme_get_catalog_view_cookie_name' ) ? main_theme_get_catalog_view_cookie_name() : 'neter_catalog_view',
+			'catalog_view_url_param'      => function_exists( 'main_theme_get_catalog_view_url_param' ) ? main_theme_get_catalog_view_url_param() : 'view',
+			'catalog_cards_url_value'     => 'card',
 			'cookie_cart_products_action' => 'get_cookie_cart_products',
 			'featured_cookie_name'        => function_exists( 'main_theme_get_featured_cookie_name' ) ? main_theme_get_featured_cookie_name() : 'neter_featured_products',
 			'featured_validate_action'    => 'validate_featured_products',
@@ -243,6 +245,39 @@ function main_theme_enqueue_assets() {
 }
 
 add_action( 'wp_head', 'main_theme_preload_header_menu_script', 1 );
+add_action( 'wp_head', 'main_theme_catalog_view_early_sync_script', 0 );
+function main_theme_catalog_view_early_sync_script() {
+	if ( is_admin() || is_search() ) {
+		return;
+	}
+
+	$is_catalog_archive = false;
+
+	if ( function_exists( 'is_shop' ) && is_shop() ) {
+		$is_catalog_archive = true;
+	}
+
+	if ( function_exists( 'is_product_taxonomy' ) && is_product_taxonomy() ) {
+		$is_catalog_archive = true;
+	}
+
+	if ( is_post_type_archive( 'product' ) ) {
+		$is_catalog_archive = true;
+	}
+
+	if ( ! $is_catalog_archive ) {
+		return;
+	}
+
+	$cookie_name = function_exists( 'main_theme_get_catalog_view_cookie_name' ) ? main_theme_get_catalog_view_cookie_name() : 'neter_catalog_view';
+	$url_param   = function_exists( 'main_theme_get_catalog_view_url_param' ) ? main_theme_get_catalog_view_url_param() : 'view';
+	?>
+<script id="main-theme-catalog-view-early">
+(function(){var c=<?php echo wp_json_encode( $cookie_name ); ?>,p=<?php echo wp_json_encode( $url_param ); ?>,v="card";function g(n){var m=document.cookie.match(new RegExp("(?:^|; )"+n.replace(/([.$?*|{}()\[\]\\/+^])/g,"\\$1")+"=([^;]*)"));return m?decodeURIComponent(m[1]):""}function n(x){return x===v||x==="cards"?"cards":x==="table"?"table":""}try{var u=new URL(window.location.href),s=n(g(c)),q=n(u.searchParams.get(p));if(s==="cards"&&q!=="cards"){u.searchParams.delete(c);u.searchParams.delete("main_theme_catalog_ajax");u.searchParams.delete("_");u.searchParams.set(p,v);window.location.replace(u.toString());return}if(s==="table"&&q==="cards"){u.searchParams.delete(c);u.searchParams.delete("main_theme_catalog_ajax");u.searchParams.delete("_");u.searchParams.delete(p);window.location.replace(u.toString())}}catch(e){}})();
+</script>
+	<?php
+}
+
 function main_theme_preload_header_menu_script() {
 	if ( is_admin() ) {
 		return;
