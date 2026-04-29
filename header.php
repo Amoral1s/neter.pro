@@ -53,7 +53,7 @@
 	 <link rel="preload" as="style" href="<?php echo get_stylesheet_directory_uri(); ?>/css/woo.min.css" onload="this.onload=null;this.rel='stylesheet'">
  <noscript>
       <link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri(); ?>/css/woo.min.css">
-  </noscript>  -->
+  </noscript>  --> 
 
   <?php if (is_home()) { ?>
     <link rel="preload" as="image" href="<?php echo esc_url(get_field('offer_bg', 'options')); ?>" />
@@ -95,7 +95,7 @@
   <?php wp_head(); ?>
 
 
-  <script type="text/javascript" >
+  <!-- <script type="text/javascript" >
     (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
     m[i].l=1*new Date();
     for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
@@ -111,7 +111,7 @@
   </script>
 
   <noscript><div><img src="https://mc.yandex.ru/watch/74565406" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-
+ -->
   
 </head>
 

@@ -26,22 +26,7 @@ License URI: LICENSE
 .content .block_category .item {
 	height: auto;
 }
-.catalog-page .products .label {
-	background: #FF0D65;
-	color: #fff;
-	height: 20px;
-	font-size: 12px;
-	padding: 0 15px;
-	border-radius: 999px;
-	position: absolute;
-	left: 50px;
-	top: -5px;
-	font-weight: 500;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	line-height: 0;
-}
+
 @media (max-width: 578px) {
 	.catalog-page .products .label {
 		left: 30px;
