@@ -1869,6 +1869,35 @@
   margin-bottom: 20px;
 }
 
+.shop-catalog-wrapper .shop-catalog-filters .catalog-view {
+  width: max-content;
+  min-width: 112px;
+  margin-left: 10px;
+  height: 60px;
+  border-radius: 12px;
+  background-color: #F6F8FA;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px;
+}
+
+.shop-catalog-wrapper .shop-catalog-filters .catalog-view .icon {
+  width: calc(50% - 3px);
+  border-radius: 12px;
+  background-color: transparent;
+  cursor: pointer;
+  aspect-ratio: 1/1;
+}
+
+.shop-catalog-wrapper .shop-catalog-filters .catalog-view .icon:hover {
+  background-color: rgba(255, 255, 255, 0.6);
+}
+
+.shop-catalog-wrapper .shop-catalog-filters .catalog-view .icon.active {
+  background-color: #fff;
+}
+
 .shop-catalog-wrapper .shop-catalog-filters .numbers {
   display: none;
   justify-content: center;
@@ -1894,8 +1923,8 @@
 }
 
 .shop-catalog-wrapper .shop-catalog-filters .wrap .call-filters {
-  min-width: 220px;
-  width: 220px;
+  min-width: 200px;
+  width: 200px;
   height: 60px;
   justify-content: center;
   position: relative;
@@ -1927,7 +1956,7 @@
   padding: 0;
   top: 50%;
   transform: translateY(-50%);
-  right: 0;
+  right: 122px;
   width: 60px;
   max-width: 60px;
   min-width: 0;
@@ -3509,6 +3538,30 @@
     background-position: center;
   }
 
+  .shop-catalog-wrapper .shop-catalog-filters .wrap .catalog-view {
+    height: 50px;
+    width: 106px;
+    min-width: 106px;
+    margin-left: 8px;
+    padding: 4px;
+    border-radius: 12px;
+  }
+
+  .shop-catalog-wrapper .shop-catalog-filters .wrap .catalog-view .icon {
+    border-radius: 10px;
+    width: calc(50% - 1px);
+    height: 42px;
+    aspect-ratio: none;
+  }
+
+  .shop-catalog-wrapper .shop-catalog-filters .wrap .catalog-view .icon:hover {
+    background-color: transparent;
+  }
+
+  .shop-catalog-wrapper .shop-catalog-filters .wrap .catalog-view .icon.active {
+    background-color: #fff;
+  }
+
   .shop-catalog-wrapper .shop-catalog-filters .wrap .call-filters {
     min-width: 0;
     width: 100%;
@@ -3519,7 +3572,8 @@
   }
 
   .shop-catalog-wrapper .shop-catalog-filters .wrap .call-filters.active {
-    margin-right: 126px;
+    margin-right: 58px;
+    margin-right: 0;
   }
 
   .shop-catalog-wrapper .shop-catalog-filters .wrap .call-filters span {
@@ -3537,10 +3591,10 @@
     padding: 0;
     top: 50%;
     transform: translateY(-50%);
-    right: 0;
-    width: 118px;
-    max-width: 118px;
-    min-width: 118px;
+    right: 114px;
+    width: 50px;
+    max-width: 50px;
+    min-width: 50px;
     height: 50px;
   }
 
@@ -3572,8 +3626,11 @@
     padding-right: 20px;
     background-repeat: no-repeat;
     background-size: 24px 24px;
-    background-position: 20px center;
+    background-position: center;
     background-image: url(../img/icons/clear.svg);
+    font-size: 0;
+    width: 50px;
+    padding-right: 0;
   }
 
   .shop-catalog-wrapper .shop-catalog-filters .wrap .wpfMainWrapper .wpfFilterWrapper {
