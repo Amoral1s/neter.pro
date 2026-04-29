@@ -9,6 +9,11 @@ if ( empty( $product ) || ! $product->is_visible() ) {
 	return;
 }
 
+if (function_exists('main_theme_should_render_catalog_cards_loop') && main_theme_should_render_catalog_cards_loop()) {
+	wc_get_template_part('content', 'related');
+	return;
+}
+
 static $catalog_context = null;
 
 if ($catalog_context === null) {

@@ -1,6 +1,16 @@
 <!doctype html>
 <html <?php language_attributes(); ?>>
 <head>
+  <!-- <link rel="preload" as="style" href="<?php echo get_stylesheet_directory_uri(); ?>/css/header.min.css" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri(); ?>/css/header.min.css">
+    </noscript>
+  
+  <link rel="preload" as="style" href="<?php echo get_stylesheet_directory_uri(); ?>/css/main.min.css" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+      <link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri(); ?>/css/main.min.css">
+  </noscript> 
+	  --> 
    <meta charset="UTF-8">
    <?php
     // Получаем текущий URL
@@ -35,25 +45,7 @@
         echo '<meta name="robots" content="noindex, nofollow"/>';
     }
   ?>
-<!-- <link rel="preload" as="style" href="<?php echo get_stylesheet_directory_uri(); ?>/css/header.min.css" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript>
-        <link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri(); ?>/css/header.min.css">
-    </noscript>
-  
-  <link rel="preload" as="style" href="<?php echo get_stylesheet_directory_uri(); ?>/css/main.min.css" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript>
-      <link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri(); ?>/css/main.min.css">
-  </noscript> 
-	
-	 <link rel="preload" as="style" href="<?php echo get_stylesheet_directory_uri(); ?>/css/pages.min.css" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript>
-      <link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri(); ?>/css/pages.min.css">
-  </noscript>
-		
-	 <link rel="preload" as="style" href="<?php echo get_stylesheet_directory_uri(); ?>/css/woo.min.css" onload="this.onload=null;this.rel='stylesheet'">
- <noscript>
-      <link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri(); ?>/css/woo.min.css">
-  </noscript>  --> 
+
 
   <?php if (is_home()) { ?>
     <link rel="preload" as="image" href="<?php echo esc_url(get_field('offer_bg', 'options')); ?>" />

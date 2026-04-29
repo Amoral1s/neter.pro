@@ -102,7 +102,7 @@ if (is_singular('product')) {
 	</div>
 
 	<div class="summary entry-summary single-product-right">
-		<div class="sku">
+		<div class="sku only-mob">
 			Артикул: <?php echo $product->get_sku(); ?>
 		</div>
 		<h1 class="title"><?php the_title(); ?></h1>
@@ -145,6 +145,27 @@ if (is_singular('product')) {
 						Нет в наличии
 					</div>
 				<?php endif; ?>
+			</div>
+		</div>
+		<div class="art-row">
+			<div class="product-icons">
+				<div class="icon add-feat add-featured <?php echo $is_featured_product ? 'active' : ''; ?>" data-product-id="<?php echo esc_attr($product_id); ?>" role="button" aria-pressed="<?php echo $is_featured_product ? 'true' : 'false'; ?>">
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+						<path d="M19.4626 3.99415C16.7809 2.34923 14.4404 3.01211 13.0344 4.06801C12.4578 4.50096 12.1696 4.71743 12 4.71743C11.8304 4.71743 11.5422 4.50096 10.9656 4.06801C9.55962 3.01211 7.21909 2.34923 4.53744 3.99415C1.01807 6.15294 0.22172 13.2749 8.33953 19.2834C9.88572 20.4278 10.6588 21 12 21C13.3412 21 14.1143 20.4278 15.6605 19.2834C23.7783 13.2749 22.9819 6.15294 19.4626 3.99415Z" stroke="#2CB4C2" stroke-width="1.5" stroke-linecap="round"/>
+					</svg>
+					В избранное
+				</div>
+				<div class="icon add-compare <?php echo $is_compare_product ? 'active' : ''; ?>" data-product-id="<?php echo esc_attr($product_id); ?>" role="button" aria-pressed="<?php echo $is_compare_product ? 'true' : 'false'; ?>">
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+						<path d="M7 17V16C7 15.0572 7 14.5858 6.70711 14.2929C6.41421 14 5.94281 14 5 14C4.05719 14 3.58579 14 3.29289 14.2929C3 14.5858 3 15.0572 3 16V17C3 17.9428 3 18.4142 3.29289 18.7071C3.58579 19 4.05719 19 5 19C5.94281 19 6.41421 19 6.70711 18.7071C7 18.4142 7 17.9428 7 17Z" stroke="#2CB4C2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+						<path d="M14 17V12C14 11.0572 14 10.5858 13.7071 10.2929C13.4142 10 12.9428 10 12 10C11.0572 10 10.5858 10 10.2929 10.2929C10 10.5858 10 11.0572 10 12V17C10 17.9428 10 18.4142 10.2929 18.7071C10.5858 19 11.0572 19 12 19C12.9428 19 13.4142 19 13.7071 18.7071C14 18.4142 14 17.9428 14 17Z" stroke="#2CB4C2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+						<path d="M21 17V8C21 7.05719 21 6.58579 20.7071 6.29289C20.4142 6 19.9428 6 19 6C18.0572 6 17.5858 6 17.2929 6.29289C17 6.58579 17 7.05719 17 8V17C17 17.9428 17 18.4142 17.2929 18.7071C17.5858 19 18.0572 19 19 19C19.9428 19 20.4142 19 20.7071 18.7071C21 18.4142 21 17.9428 21 17Z" stroke="#2CB4C2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+					</svg>
+					В сравнение
+				</div>
+			</div>
+			<div class="sku only-pc">
+				Артикул: <?php echo $product->get_sku(); ?>
 			</div>
 		</div>
 		<?php

@@ -193,8 +193,6 @@ function main_theme_enqueue_assets() {
 
 	wp_enqueue_style( 'header', $template_uri . '/css/header.min.css', array(), $get_version( '/css/header.min.css' ) );
 	wp_enqueue_style( 'main', $template_uri . '/css/main.min.css', array(), $get_version( '/css/main.min.css' ) );
-	wp_enqueue_style( 'pages', $template_uri . '/css/pages.min.css', array(), $get_version( '/css/pages.min.css' ) );
-	wp_enqueue_style( 'woo', $template_uri . '/css/woo.min.css', array(), $get_version( '/css/woo.min.css' ) );
 
 	$style_path = get_stylesheet_directory() . '/style.css';
 	wp_enqueue_style( 'stylecss', get_stylesheet_uri(), array(), file_exists( $style_path ) ? filemtime( $style_path ) : $theme_version );
@@ -207,13 +205,15 @@ function main_theme_enqueue_assets() {
 	wp_enqueue_script( 'header-menu', $template_uri . '/js/header-menu.min.js', array( 'jquery' ), $header_menu_version, false );
 	wp_script_add_data( 'header-menu', 'strategy', 'defer' );
 
+	wp_enqueue_script( 'main', $template_uri . '/js/main.min.js', $main_script_dependencies, $main_version, true );
+
+
 	if ( $should_enqueue_yandex_map ) {
 		wp_enqueue_script( 'yandex-api', 'https://api-maps.yandex.ru/2.1/?apikey=09db6a00-2892-4c98-9c87-7fd13a357553&lang=ru_RU', array( 'jquery' ), null, true );
 		wp_script_add_data( 'yandex-api', 'strategy', 'defer' );
 		$main_script_dependencies[] = 'yandex-api';
 	}
 
-	wp_enqueue_script( 'main', $template_uri . '/js/main.min.js', $main_script_dependencies, $main_version, true );
 
 	$placeholder_image = function_exists( 'wc_placeholder_img_src' ) ? wc_placeholder_img_src( 'woocommerce_thumbnail' ) : '';
 	$comment_site_key  = isset( $GLOBALS['comment_RECAPTCHA_SITE_KEY'] ) ? (string) $GLOBALS['comment_RECAPTCHA_SITE_KEY'] : '';
@@ -224,6 +224,7 @@ function main_theme_enqueue_assets() {
 		array(
 			'ajax_url'                    => admin_url( 'admin-ajax.php' ),
 			'cart_cookie_name'            => 'neter_cart',
+			'catalog_view_cookie_name'    => function_exists( 'main_theme_get_catalog_view_cookie_name' ) ? main_theme_get_catalog_view_cookie_name() : 'neter_catalog_view',
 			'cookie_cart_products_action' => 'get_cookie_cart_products',
 			'featured_cookie_name'        => function_exists( 'main_theme_get_featured_cookie_name' ) ? main_theme_get_featured_cookie_name() : 'neter_featured_products',
 			'featured_validate_action'    => 'validate_featured_products',

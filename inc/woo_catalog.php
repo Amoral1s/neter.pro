@@ -58,6 +58,39 @@ function get_cookie_cart_products() {
 add_action('wp_ajax_get_cookie_cart_products', 'get_cookie_cart_products');
 add_action('wp_ajax_nopriv_get_cookie_cart_products', 'get_cookie_cart_products');
 
+if (!function_exists('main_theme_get_catalog_view_cookie_name')) {
+    function main_theme_get_catalog_view_cookie_name() {
+        return 'neter_catalog_view';
+    }
+}
+
+if (!function_exists('main_theme_get_catalog_view')) {
+    function main_theme_get_catalog_view() {
+        $cookie_name = main_theme_get_catalog_view_cookie_name();
+        $view = isset($_COOKIE[$cookie_name]) ? sanitize_key((string) wp_unslash($_COOKIE[$cookie_name])) : 'table';
+
+        return in_array($view, array('table', 'cards'), true) ? $view : 'table';
+    }
+}
+
+if (!function_exists('main_theme_should_render_catalog_cards_loop')) {
+    function main_theme_should_render_catalog_cards_loop() {
+        if (main_theme_get_catalog_view() !== 'cards') {
+            return false;
+        }
+
+        if (is_search() || isset($_GET['s']) || isset($_REQUEST['s'])) {
+            return false;
+        }
+
+        $request_url = isset($_SERVER['REQUEST_URI']) ? (string) $_SERVER['REQUEST_URI'] : '';
+        $referer_url = isset($_SERVER['HTTP_REFERER']) ? (string) $_SERVER['HTTP_REFERER'] : '';
+        $search_pattern = '/(?:[?&]s=|\/\?s=)/';
+
+        return !preg_match($search_pattern, $request_url) && !preg_match($search_pattern, $referer_url);
+    }
+}
+
 if (!function_exists('main_theme_get_featured_cookie_name')) {
     function main_theme_get_featured_cookie_name() {
         return 'neter_featured_products';

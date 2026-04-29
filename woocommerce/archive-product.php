@@ -20,6 +20,9 @@ get_header();
 
 ?>
 <?php
+	$catalog_view = !is_search() && function_exists('main_theme_get_catalog_view') ? main_theme_get_catalog_view() : 'table';
+	$GLOBALS['main_theme_catalog_view'] = $catalog_view;
+
 	if (is_shop() && !is_search()) {
 			// Получаем URL категории с ID 15
 			$category_link = get_term_link(15, 'product_cat');
@@ -243,10 +246,12 @@ get_header();
 		endif; 
 		?>
 		<!-- табличный каталог -->
-		<div class="shop-catalog-filters <?php echo $filter_class; ?>">
+		<div class="shop-catalog-filters <?php echo $filter_class; ?> catalog-view--<?php echo esc_attr($catalog_view); ?>">
 			<div class="container">
 				<div class="wrap">
-					<?php echo do_shortcode('[wpf-filters id=3]'); ?>
+					<?php if ($catalog_view === 'table') : ?>
+						<?php echo do_shortcode('[wpf-filters id=3]'); ?>
+					<?php endif; ?>
 					<div class="button call-filters">
 						<div class="icon">
 							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -262,7 +267,7 @@ get_header();
 						<div class="numbers">0</div>
 					</div>
 					<div class="catalog-view">
-						<div class="catalog-view__toggle icon" data-view="cards">
+						<div class="catalog-view__toggle icon <?php echo $catalog_view === 'cards' ? 'active' : ''; ?>" data-view="cards">
 							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
 								<path d="M2 18C2 16.4596 2 15.6893 2.34673 15.1235C2.54074 14.8069 2.80693 14.5407 3.12353 14.3467C3.68934 14 4.45956 14 6 14C7.54044 14 8.31066 14 8.87647 14.3467C9.19307 14.5407 9.45926 14.8069 9.65327 15.1235C10 15.6893 10 16.4596 10 18C10 19.5404 10 20.3107 9.65327 20.8765C9.45926 21.1931 9.19307 21.4593 8.87647 21.6533C8.31066 22 7.54044 22 6 22C4.45956 22 3.68934 22 3.12353 21.6533C2.80693 21.4593 2.54074 21.1931 2.34673 20.8765C2 20.3107 2 19.5404 2 18Z" stroke="#9CA3AF" stroke-width="1.5"/>
 								<path d="M14 18C14 16.4596 14 15.6893 14.3467 15.1235C14.5407 14.8069 14.8069 14.5407 15.1235 14.3467C15.6893 14 16.4596 14 18 14C19.5404 14 20.3107 14 20.8765 14.3467C21.1931 14.5407 21.4593 14.8069 21.6533 15.1235C22 15.6893 22 16.4596 22 18C22 19.5404 22 20.3107 21.6533 20.8765C21.4593 21.1931 21.1931 21.4593 20.8765 21.6533C20.3107 22 19.5404 22 18 22C16.4596 22 15.6893 22 15.1235 21.6533C14.8069 21.4593 14.5407 21.1931 14.3467 20.8765C14 20.3107 14 19.5404 14 18Z" stroke="#9CA3AF" stroke-width="1.5"/>
@@ -270,7 +275,7 @@ get_header();
 								<path d="M14 6C14 4.45956 14 3.68934 14.3467 3.12353C14.5407 2.80693 14.8069 2.54074 15.1235 2.34673C15.6893 2 16.4596 2 18 2C19.5404 2 20.3107 2 20.8765 2.34673C21.1931 2.54074 21.4593 2.80693 21.6533 3.12353C22 3.68934 22 4.45956 22 6C22 7.54044 22 8.31066 21.6533 8.87647C21.4593 9.19307 21.1931 9.45926 20.8765 9.65327C20.3107 10 19.5404 10 18 10C16.4596 10 15.6893 10 15.1235 9.65327C14.8069 9.45926 14.5407 9.19307 14.3467 8.87647C14 8.31066 14 7.54044 14 6Z" stroke="#9CA3AF" stroke-width="1.5"/>
 							</svg>
 						</div>
-						<div class="catalog-view__toggle icon active" data-view="table">
+						<div class="catalog-view__toggle icon <?php echo $catalog_view === 'table' ? 'active' : ''; ?>" data-view="table">
 							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
 								<path d="M2 11.4C2 10.2417 2.24173 10 3.4 10H20.6C21.7583 10 22 10.2417 22 11.4V12.6C22 13.7583 21.7583 14 20.6 14H3.4C2.24173 14 2 13.7583 2 12.6V11.4Z" stroke="#2CB4C2" stroke-width="1.5" stroke-linecap="round"/>
 								<path d="M2 3.4C2 2.24173 2.24173 2 3.4 2H20.6C21.7583 2 22 2.24173 22 3.4V4.6C22 5.75827 21.7583 6 20.6 6H3.4C2.24173 6 2 5.75827 2 4.6V3.4Z" stroke="#2CB4C2" stroke-width="1.5" stroke-linecap="round"/>
@@ -281,7 +286,51 @@ get_header();
 				</div>
 			</div>
 		</div>
-		<div class="shop-catalog-loop" id="catalog">
+		<?php if ($catalog_view === 'cards') : ?>
+		<div class="catalog-cards__wrapper" id="catalog" data-catalog-view="cards">
+			<div class="container">
+				<div class="catalog-cards__layout">
+					<aside class="catalog-cards__filters">
+						<div class="catalog-cards__filter-list" data-catalog-sidebar-filters>
+							<?php echo do_shortcode('[wpf-filters id=2]'); ?>
+						</div>
+						<div class="catalog-cards__actions">
+							<button type="button" class="button button-white catalog-cards__reset" data-catalog-sidebar-reset>Сбросить</button>
+						</div>
+					</aside>
+					<div class="catalog-cards__products">
+						<?php
+
+						do_action( 'woocommerce_before_main_content' );
+						do_action( 'woocommerce_shop_loop_header' );
+
+						if ( woocommerce_product_loop() ) {
+							do_action( 'woocommerce_before_shop_loop' );
+
+							woocommerce_product_loop_start();
+
+							if ( wc_get_loop_prop( 'total' ) ) {
+								while ( have_posts() ) {
+									the_post();
+									do_action( 'woocommerce_shop_loop' );
+									wc_get_template_part( 'content', 'related' );
+								}
+							}
+
+							woocommerce_product_loop_end();
+							do_action( 'woocommerce_after_shop_loop' );
+						} else {
+							do_action( 'woocommerce_no_products_found' );
+						}
+
+						do_action( 'woocommerce_after_main_content' );
+						?>
+					</div>
+				</div>
+			</div>
+		</div>
+		<?php else : ?>
+		<div class="shop-catalog-loop" id="catalog" data-catalog-view="table">
 				
 			<?php
 
@@ -457,6 +506,7 @@ get_header();
 			do_action( 'woocommerce_after_main_content' );
 			?>
 		</div>
+		<?php endif; ?>
 		<!-- табличный каталог END -->
 
 	</div> <!-- shop-catalog-wrapper -->
@@ -940,7 +990,7 @@ if ($taxonomy_ids) {
 				<div class="numbers">0</div>
 			</div>
 			<div class="catalog-view">
-				<div class="catalog-view__toggle icon" data-view="cards">
+				<div class="catalog-view__toggle icon <?php echo $catalog_view === 'cards' ? 'active' : ''; ?>" data-view="cards">
 					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
 						<path d="M2 18C2 16.4596 2 15.6893 2.34673 15.1235C2.54074 14.8069 2.80693 14.5407 3.12353 14.3467C3.68934 14 4.45956 14 6 14C7.54044 14 8.31066 14 8.87647 14.3467C9.19307 14.5407 9.45926 14.8069 9.65327 15.1235C10 15.6893 10 16.4596 10 18C10 19.5404 10 20.3107 9.65327 20.8765C9.45926 21.1931 9.19307 21.4593 8.87647 21.6533C8.31066 22 7.54044 22 6 22C4.45956 22 3.68934 22 3.12353 21.6533C2.80693 21.4593 2.54074 21.1931 2.34673 20.8765C2 20.3107 2 19.5404 2 18Z" stroke="#9CA3AF" stroke-width="1.5"/>
 						<path d="M14 18C14 16.4596 14 15.6893 14.3467 15.1235C14.5407 14.8069 14.8069 14.5407 15.1235 14.3467C15.6893 14 16.4596 14 18 14C19.5404 14 20.3107 14 20.8765 14.3467C21.1931 14.5407 21.4593 14.8069 21.6533 15.1235C22 15.6893 22 16.4596 22 18C22 19.5404 22 20.3107 21.6533 20.8765C21.4593 21.1931 21.1931 21.4593 20.8765 21.6533C20.3107 22 19.5404 22 18 22C16.4596 22 15.6893 22 15.1235 21.6533C14.8069 21.4593 14.5407 21.1931 14.3467 20.8765C14 20.3107 14 19.5404 14 18Z" stroke="#9CA3AF" stroke-width="1.5"/>
@@ -948,7 +998,7 @@ if ($taxonomy_ids) {
 						<path d="M14 6C14 4.45956 14 3.68934 14.3467 3.12353C14.5407 2.80693 14.8069 2.54074 15.1235 2.34673C15.6893 2 16.4596 2 18 2C19.5404 2 20.3107 2 20.8765 2.34673C21.1931 2.54074 21.4593 2.80693 21.6533 3.12353C22 3.68934 22 4.45956 22 6C22 7.54044 22 8.31066 21.6533 8.87647C21.4593 9.19307 21.1931 9.45926 20.8765 9.65327C20.3107 10 19.5404 10 18 10C16.4596 10 15.6893 10 15.1235 9.65327C14.8069 9.45926 14.5407 9.19307 14.3467 8.87647C14 8.31066 14 7.54044 14 6Z" stroke="#9CA3AF" stroke-width="1.5"/>
 					</svg>
 				</div>
-				<div class="catalog-view__toggle icon active" data-view="table">
+				<div class="catalog-view__toggle icon <?php echo $catalog_view === 'table' ? 'active' : ''; ?>" data-view="table">
 					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
 						<path d="M2 11.4C2 10.2417 2.24173 10 3.4 10H20.6C21.7583 10 22 10.2417 22 11.4V12.6C22 13.7583 21.7583 14 20.6 14H3.4C2.24173 14 2 13.7583 2 12.6V11.4Z" stroke="#2CB4C2" stroke-width="1.5" stroke-linecap="round"/>
 						<path d="M2 3.4C2 2.24173 2.24173 2 3.4 2H20.6C21.7583 2 22 2.24173 22 3.4V4.6C22 5.75827 21.7583 6 20.6 6H3.4C2.24173 6 2 5.75827 2 4.6V3.4Z" stroke="#2CB4C2" stroke-width="1.5" stroke-linecap="round"/>

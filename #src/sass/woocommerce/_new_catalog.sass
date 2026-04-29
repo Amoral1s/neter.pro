@@ -1,0 +1,408 @@
+@import "../reset/_vars"
+
+.catalog-view
+  &__toggle
+    svg path
+      transition: .2s
+    &:not(.active)
+      svg path
+        stroke: $gray_400
+    &.active
+      svg path
+        stroke: $main
+
+.shop-catalog-wrapper
+  .shop-catalog-filters.catalog-view--cards
+    .wrap
+      justify-content: flex-end
+    @media (min-width: 992px)
+      .call-filters
+        display: none
+
+.catalog-cards
+  &__wrapper
+    width: 100%
+  &__layout
+    display: grid
+    grid-template-columns: 260px minmax(0, 1fr)
+    gap: 20px
+    align-items: flex-start
+  &__filters
+    border-radius: 24px
+    background-color: #F6F8FA
+    padding: 24px
+    padding-top: 4px
+    margin-top: -80px
+    .ms-reflow
+      display: flex!important
+      align-items: center!important
+      *
+        display: flex!important
+        align-items: center!important
+    .wpfMainWrapper
+      .wpfFilterContent
+        max-height: 320px
+        overflow: visible
+        overflow-y: auto
+        transition: all 0.3s!important
+        &::-webkit-scrollbar //скроллбар
+          width: 4px
+          background-color: #fff
+        &::-webkit-scrollbar-thumb //ползунок
+          background: $main
+          border-radius: 4px
+        &.wpfHide
+          max-height: 0
+          overflow: hidden
+      .wpfFilterButtons
+        display: none
+      .wpfFilterWrapper
+        display: block
+        width: 100%
+        margin: 0
+        padding: 0
+        border-bottom: 1px solid $gray_200
+        &:last-child
+          border-bottom: none
+        &[data-filter-type="wpfPrice"]
+          padding-bottom: 16px
+        .wpfFilterTitle
+          margin: 0
+          padding: 20px 0
+          display: flex
+          align-items: center
+          justify-content: space-between
+          .wfpTitle
+            color: $text
+            font-family: $font
+            font-size: 16px
+            font-weight: 500
+            height: auto
+            line-height: 1.2
+            display: flex
+            align-items: center
+            padding: 0
+          i
+            background-repeat: no-repeat
+            background-size: contain
+            transition: .3s
+            background-image: url(../img/icons/new-arr.svg)
+            &.fa-minus
+              transform: rotate(180deg)
+          .wpfTitleToggle
+            width: 24px
+            height: 24px
+        .wpfFilterContent
+          padding: 0
+          .wpfPriceInputs
+            display: grid
+            grid-template-columns: repeat(2, minmax(0, 1fr))
+            gap: 10px
+            margin-bottom: 14px
+            .wpfCurrencySymbol,
+            .wpfFilterDelimeter
+              display: none
+            input#wpfMaxPrice,
+            input#wpfMinPrice
+              width: 100%
+              height: 44px
+              border: none
+              border-radius: 8px
+              background-color: #fff
+              color: $text
+              font-family: $font
+              font-size: 13px
+              padding: 0 12px
+          .irs
+            margin-bottom: 14px!important
+            .irs-bar,
+            .irs-handle
+              background-color: $main
+              border-color: $main
+          ul
+            margin: 0 0 16px
+            padding: 0
+            li
+              display: flex
+              align-items: center
+              min-height: 24px
+              margin-bottom: 10px
+              &:last-child
+                margin-bottom: 0
+              .wpfDisplay
+                .wpfValue
+                  padding: 0!important
+                  margin: 0
+                  .wpfFilterTaxNameWrapper
+                    color: $text
+                    font-family: $font
+                    font-size: 13px
+                    line-height: 1.2
+              .wpfLiLabel
+                display: flex
+                align-items: center
+                cursor: pointer
+                .wpfCheckbox
+                  display: flex
+                  align-items: center
+                  justify-content: center
+                  input
+                    display: none
+                  label
+                    width: 22px
+                    min-width: 22px
+                    min-height: 22px
+                    height: 22px
+                    border-radius: 6px
+                    margin-right: 8px
+                    border: 1px solid $gray_200
+                    background-color: #fff
+                    background-position: center
+                    background-repeat: no-repeat
+                    background-size: contain
+                    &::before
+                      display: none!important
+                  input:checked + label
+                    background-color: $main
+                    border-color: $main
+                    background-image: url(../img/icons/checked-filter.svg)
+          .wpfCheckboxHier
+            .ms-options-wrap
+              button
+                display: none
+              .ms-options
+                display: block!important
+                position: static
+                width: 100%!important
+                min-height: 0!important
+                max-height: none!important
+                border: none
+                background-color: transparent
+                padding: 0
+                margin: 0 0 16px
+                ul
+                  margin: 0
+                  li
+                    margin-bottom: 10px
+                    &.selected
+                      label::after
+                        background-color: $main
+                        border-color: $main
+                        background-image: url(../img/icons/checked-filter.svg)
+                    input
+                      display: none!important
+                    label
+                      min-height: 22px
+                      padding: 0 0 0 30px!important
+                      color: $text!important
+                      font-family: $font!important
+                      font-size: 13px!important
+                      line-height: 1.2!important
+                      position: relative
+                      background-color: transparent!important
+                      &::after
+                        content: ''
+                        position: absolute
+                        left: 0
+                        top: 50%
+                        transform: translateY(-50%)
+                        width: 22px
+                        height: 22px
+                        border-radius: 6px
+                        border: 1px solid $gray_200
+                        background-color: #fff
+                        background-position: center
+                        background-repeat: no-repeat
+                        background-size: contain
+  &__actions
+    margin-top: 20px
+  &__reset
+    width: 100%
+    max-width: 100%
+    height: 52px
+    border: none
+    border-radius: 10px
+    color: $gray_450
+    font-family: $font
+    font-size: 14px
+    font-weight: 500
+    padding: 0 18px
+    text-transform: none
+    &:hover
+      color: $text
+  &__products
+    min-width: 0
+    .container
+      padding: 0
+    .woocommerce-result-count,
+    .woocommerce-ordering
+      display: none
+    ul.products
+      display: grid
+      grid-template-columns: repeat(3, minmax(0, 1fr))
+      gap: 20px
+      margin: 0
+      padding: 0
+      list-style: none
+      &::before,
+      &::after
+        display: none
+      li.product
+        width: 100%!important
+        margin: 0!important
+        min-width: 0
+        position: relative
+        background-color: $gray_50
+        border-radius: 24px
+        padding: 20px
+        display: flex
+        flex-direction: column
+        justify-content: space-between
+        .product-icons
+          right: 30px
+          top: 30px
+          .icon
+            margin-bottom: 8px
+        .product-top
+          display: block
+          text-decoration: none
+        .product-thumb
+          border-radius: 24px
+          display: block
+          margin-bottom: 14px
+          background-color: #fff
+          img
+            width: 100%
+            height: auto
+            aspect-ratio: 1 / .72
+            object-fit: contain
+            object-position: center
+            border-radius: 12px
+        .product-rating
+          display: flex
+          justify-content: space-between
+          align-items: center
+          gap: 10px
+          margin-bottom: 10px
+          .star-rating
+            font-size: 14px
+          .aviable
+            white-space: nowrap
+            font-size: 13px
+            font-weight: 500
+            color: #0FBA00
+        .product-title
+          display: block
+          color: $text
+          font-size: 15px
+          font-weight: 500
+          line-height: 1.2
+          margin-bottom: 12px
+        .product-bottom
+          width: 100%
+        .product-price
+          color: $text
+          margin-bottom: 10px
+          span bdi
+            color: $text
+            font-size: 24px
+            font-weight: 500
+            line-height: 1.2
+            span
+              color: $text
+              font-size: 24px
+              font-weight: 500
+        .product-attrs
+          display: flex
+          align-items: center
+          flex-wrap: wrap
+          gap: 8px 16px
+          margin-top: 0
+          .item
+            display: flex
+            align-items: center
+            margin: 0
+            .icon
+              width: 18px
+              height: 18px
+              margin-right: 6px
+              svg
+                width: 18px
+                height: 18px
+            p
+              color: $text
+              font-size: 13px
+              line-height: 1.2
+              margin: 0
+
+@media (max-width: 1200px)
+  .catalog-cards
+    &__layout
+      grid-template-columns: 240px minmax(0, 1fr)
+      gap: 18px
+    &__products
+      ul.products
+        gap: 16px
+
+@media (max-width: 992px)
+  .catalog-cards
+    &__layout
+      display: block
+    &__filters
+      display: none
+    &__products
+      ul.products
+        grid-template-columns: repeat(2, minmax(0, 1fr))
+
+@media (max-width: 578px)
+  .catalog-cards
+    &__products
+      ul.products
+        gap: 8px
+        li.product
+          padding: 10px
+          border-radius: 14px
+          .product-icons
+            right: 8px
+            top: 8px
+            .icon
+              margin-bottom: 4px
+              svg
+                width: 20px
+                height: 20px
+          .product-thumb
+            margin-bottom: 10px
+            position: relative
+            min-width: calc(100% + 12px)
+            left: -6px
+            margin-top: -6px
+            border-radius: 12px
+            img
+              aspect-ratio: 1 / .8
+          .product-rating
+            display: block
+            margin-bottom: 8px
+            .star-rating
+              margin-bottom: 6px
+            .aviable
+              font-size: 12px
+          .product-title
+            font-size: 12px
+            margin-bottom: 8px
+          .product-price
+            margin-bottom: 8px
+            span bdi
+              font-size: 16px
+              span
+                font-size: 16px
+          .product-attrs
+            gap: 6px 10px
+            .item
+              .icon
+                width: 16px
+                height: 16px
+                svg
+                  width: 16px
+                  height: 16px
+              p
+                font-size: 12px

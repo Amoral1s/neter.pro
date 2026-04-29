@@ -234,6 +234,12 @@
     height: 100%
     width: 100%
     position: relative
+    &::-webkit-scrollbar //скроллбар
+      width: 4px 
+      background-color: #fff
+    &::-webkit-scrollbar-thumb //ползунок
+      background: $text
+      border-radius: 4px
     .buttons
       display: block
       width: 100%
@@ -250,13 +256,31 @@
       align-items: center
       margin-bottom: 30px
     .mini-title
-      font-size: 48px
+      font-size: 42px
       white-space: nowrap
       display: block
       margin: 0
       line-height: 1
       letter-spacing: -1.5px
     .wpfMainWrapper
+      .wpfFilterContent
+        max-height: 320px
+        overflow: visible
+        overflow-y: auto
+        margin-bottom: 20px
+        margin-top: -10px
+        transition: all 0.3s!important
+        &::-webkit-scrollbar //скроллбар
+          width: 4px 
+          background-color: #fff
+        &::-webkit-scrollbar-thumb //ползунок
+          background: $main
+          border-radius: 4px
+        &.wpfHide
+          max-height: 0
+          overflow: hidden
+          margin-bottom: 0
+          margin-top: 0
       .wpfFilterWrapper[data-display-type="mul_dropdown"]
         .wpfFilterContent
           .wpfCheckboxHier
@@ -435,7 +459,7 @@
               transition: .2s
           .wfpTitle
             font-family: $font
-            font-size: 20px
+            font-size: 18px
             display: flex
             justify-content: flex-start
             align-items: center

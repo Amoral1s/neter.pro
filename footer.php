@@ -739,6 +739,10 @@
 <!-- Cart END -->
 
 <!-- Filters popup -->
+  <?php
+    $main_theme_catalog_view = isset($GLOBALS['main_theme_catalog_view']) ? (string) $GLOBALS['main_theme_catalog_view'] : '';
+    $main_theme_render_popup_filters = $main_theme_catalog_view !== 'cards';
+  ?>
   <div class="filters-popup">
     <div class="wrap">
       <div class="close-row">
@@ -751,8 +755,10 @@
           </svg>
         </div>
       </div>
-      <div class="filters-wrapper">
-        <?php echo do_shortcode('[wpf-filters id=2]'); ?>
+      <div class="filters-wrapper" data-catalog-popup-filters>
+        <?php if ($main_theme_render_popup_filters) : ?>
+          <?php echo do_shortcode('[wpf-filters id=2]'); ?>
+        <?php endif; ?>
       </div>
       <div class="buttons">
         <div class="button filers-popup-confirm">
