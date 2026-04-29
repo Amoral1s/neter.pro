@@ -174,7 +174,7 @@
     right: 0
     width: 100%
     z-index: 100
-    .icon
+    .header-contacts .icon
       min-width: 50px
       height: 50px
       border-radius: 12px
@@ -185,6 +185,18 @@
         svg path
           stroke: #fff
     &.header-home
+      .button.button-transparent, .search-toggle
+        background-color: rgba(255, 255, 255, 0.10)
+        &:hover
+          background-color: #284f5f
+      .header-contacts .icon
+        background-color: rgba(255, 255, 255, 0.10)
+        svg path
+          stroke: #fff
+        &:hover
+          background-color: #284f5f
+          svg path
+            stroke: #fff
       .logo
         .dark
           display: none!important
@@ -470,11 +482,24 @@
       background-color: lightgray
       background-position: 0% 0%
       background-repeat: repeat
+      .button.button-transparent, .search-toggle
+        background-color: #fff
+        &:hover
+          background-color: #284f5f
+          color: #fff
+      .header-contacts .icon
+        background-color: #fff
+        svg path
+          stroke: $main 
+        &:hover
+          background-color: #284f5f
+          svg path
+            stroke: #fff
       .button
         background-color: #fff
       .search
-        .seatch-toggle
-          transition: .2s
+        .search-toggle
+          transition: .2s 
           &:hover
             background-color: $main!important
         .search-wrap

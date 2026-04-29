@@ -495,6 +495,99 @@ jQuery(document).ready(function ($) {
       }
 	}
 
+  const compareSlider = document.querySelector('.compare-page__slider');
+  if (compareSlider) {
+    const swiper = compareSlider.querySelector('.swiper');
+    const arrNext = compareSlider.querySelector('.arr-next');
+    const arrPrev = compareSlider.querySelector('.arr-prev');
+    let compareSwiper = null;
+
+    function getCompareSlidesPerView() {
+      const width = window.innerWidth || document.documentElement.clientWidth || window.screen.width;
+
+      if (width > 992) {
+        return 4;
+      }
+
+      if (width > 578) {
+        return 2;
+      }
+
+      return 1;
+    }
+
+    function destroyCompareSlider() {
+      if (compareSwiper) {
+        compareSwiper.destroy(true, true);
+        compareSwiper = null;
+      }
+
+      compareSlider.classList.add('disabled-slider');
+    }
+
+    function startCompareSlider() {
+      compareSlider.classList.remove('disabled-slider');
+
+      if (compareSwiper) {
+        compareSwiper.update();
+        return;
+      }
+
+      compareSwiper = new Swiper(swiper, {
+        lazy: false,
+        autoHeight: false,
+        navigation: {
+          nextEl: arrNext,
+          prevEl: arrPrev
+        },
+        breakpoints: {
+          300: {
+            slidesPerView: 1,
+            spaceBetween: 12,
+          },
+          579: {
+            slidesPerView: 2,
+            spaceBetween: 20,
+          },
+          993: {
+            slidesPerView: 4,
+            spaceBetween: 20,
+          }
+        },
+      });
+    }
+
+    function updateCompareSlider() {
+      const items = compareSlider.querySelectorAll('.swiper-slide');
+      const slidesPerView = getCompareSlidesPerView();
+
+      if (items.length > slidesPerView) {
+        startCompareSlider();
+      } else {
+        destroyCompareSlider();
+      }
+    }
+
+    updateCompareSlider();
+
+    window.NETER_UPDATE_COMPARE_SLIDER = updateCompareSlider;
+
+    window.addEventListener('resize', updateCompareSlider);
+
+    if (typeof MutationObserver !== 'undefined') {
+      const compareObserver = new MutationObserver(updateCompareSlider);
+      const wrapper = compareSlider.querySelector('.swiper-wrapper');
+
+      if (wrapper) {
+        compareObserver.observe(wrapper, {
+          childList: true
+        });
+      }
+    }
+
+    jQuery(document).on('main_theme_compare_updated', updateCompareSlider);
+  }
+
   const relatedSlider = document.querySelector('.related');
 	if (relatedSlider) {
       const wrapper = relatedSlider.querySelector('.wrap');

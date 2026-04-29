@@ -5,50 +5,102 @@
 
 get_header();
 ?>
-<section class="feat-page page-top">
+<section class="compare-page feat-page page-top">
   <div class="container">
     <?php
       if ( function_exists('yoast_breadcrumb') ) { yoast_breadcrumb('<p class="breadcrumbs dark-crumbs">', '</p>'); }
     ?>
     <?php
-      $featured_product_ids = array();
+      $compare_product_ids = array();
 
-      if (function_exists('main_theme_get_featured_product_ids_from_cookie') && function_exists('main_theme_get_valid_featured_product_ids')) {
-        $featured_product_ids = main_theme_get_valid_featured_product_ids(main_theme_get_featured_product_ids_from_cookie());
+      if (function_exists('main_theme_get_compare_product_ids_from_cookie') && function_exists('main_theme_get_valid_compare_product_ids')) {
+        $compare_product_ids = main_theme_get_valid_compare_product_ids(main_theme_get_compare_product_ids_from_cookie());
       }
 
-      $featured_products_query = null;
+      $compare_products_query = null;
+      $compare_products = array();
 
-      if (!empty($featured_product_ids)) {
-        $featured_products_query = new WP_Query(array(
+      if (!empty($compare_product_ids)) {
+        $compare_products_query = new WP_Query(array(
           'post_type'           => 'product',
           'post_status'         => 'publish',
-          'posts_per_page'      => count($featured_product_ids),
-          'post__in'            => $featured_product_ids,
+          'posts_per_page'      => count($compare_product_ids),
+          'post__in'            => $compare_product_ids,
           'orderby'             => 'post__in',
           'no_found_rows'       => true,
           'ignore_sticky_posts' => true,
         ));
+
+        if ($compare_products_query->have_posts()) {
+          while ($compare_products_query->have_posts()) {
+            $compare_products_query->the_post();
+            $compare_product = wc_get_product(get_the_ID());
+
+            if ($compare_product) {
+              $compare_products[] = $compare_product;
+            }
+          }
+
+          wp_reset_postdata();
+        }
       }
 
-      $has_featured_products = $featured_products_query instanceof WP_Query && $featured_products_query->have_posts();
+      $compare_attribute_rows = function_exists('main_theme_get_compare_attribute_rows') ? main_theme_get_compare_attribute_rows($compare_products) : array();
+      $has_compare_products = !empty($compare_products);
     ?>
-    <?php if ($has_featured_products) : ?>
-      <div class="wrap">
-        <h1 class="page-title sub"><?php the_title(); ?></h1>
-        <div class="feat-page__wrap related" data-featured-products-wrap>
-          <?php woocommerce_product_loop_start(); ?>
-            <?php while ($featured_products_query->have_posts()) : $featured_products_query->the_post(); ?>
-              <?php
-                global $product;
-                $product = wc_get_product(get_the_ID());
-
-                if ($product) {
-                  wc_get_template_part('content', 'related');
-                }
-              ?>
-            <?php endwhile; ?>
-          <?php woocommerce_product_loop_end(); ?>
+    <?php if ($has_compare_products) : ?>
+      <div class="compare-page__content" data-compare-products-page>
+        <div class="compare-page__top">
+          <h1 class="page-title sub">
+            <?php the_title(); ?>
+            <button class="compare-page__clear" type="button" data-compare-clear>
+              <span class="icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M19.5 5.5L18.8803 15.5251C18.7219 18.0864 18.6428 19.3671 18.0008 20.2879C17.6833 20.7431 17.2747 21.1273 16.8007 21.416C15.8421 22 14.559 22 11.9927 22C9.42312 22 8.1383 22 7.17905 21.4149C6.7048 21.1257 6.296 20.7408 5.97868 20.2848C5.33688 19.3626 5.25945 18.0801 5.10461 15.5152L4.5 5.5" stroke="#818793" stroke-width="1.5" stroke-linecap="round"/>
+                  <path d="M9 11.7349H15" stroke="#818793" stroke-width="1.5" stroke-linecap="round"/>
+                  <path d="M10.5 15.6543H13.5" stroke="#818793" stroke-width="1.5" stroke-linecap="round"/>
+                  <path d="M3 5.5H21M16.0555 5.5L15.3729 4.09173C14.9194 3.15626 14.6926 2.68852 14.3015 2.39681C14.2148 2.3321 14.1229 2.27454 14.0268 2.2247C13.5937 2 13.0739 2 12.0343 2C10.9686 2 10.4358 2 9.99549 2.23412C9.89791 2.28601 9.80479 2.3459 9.7171 2.41317C9.32145 2.7167 9.10044 3.20155 8.65842 4.17126L8.05273 5.5" stroke="#818793" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+              </span>
+              <span>Очистить список</span>
+            </button>
+          </h1>
+          <label class="compare-page__diff-toggle">
+            <input type="checkbox" data-compare-diff-toggle>
+            <span class="switch"></span>
+            <span>только различающиеся</span>
+          </label>
+        </div>
+        <div class="compare-page__wrap">
+          <div class="compare-page__slider slider-wrap">
+            <div class="arr arr-prev">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M14.9999 6L9.70703 11.2929C9.37369 11.6262 9.20703 11.7929 9.20703 12C9.20703 12.2071 9.37369 12.3738 9.70703 12.7071L14.9999 18" stroke="#2CB4C2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="swiper">
+              <div class="swiper-wrapper" data-compare-products-wrap>
+                <?php foreach ($compare_products as $compare_index => $compare_product) : ?>
+                  <?php
+                    global $product;
+                    $product = $compare_product;
+                    wc_get_template(
+                      'content-compare.php',
+                      array(
+                        'compare_attribute_rows' => $compare_attribute_rows,
+                        'show_attribute_labels'  => $compare_index === 0,
+                      )
+                    );
+                  ?>
+                <?php endforeach; ?>
+              </div>
+            </div>
+            <div class="arr arr-next">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M9.00008 6L14.293 11.2929C14.6263 11.6262 14.793 11.7929 14.793 12C14.793 12.2071 14.6263 12.3738 14.293 12.7071L9.00008 18" stroke="#2CB4C2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+          </div>
           <?php wp_reset_postdata(); ?>
         </div>
       </div>

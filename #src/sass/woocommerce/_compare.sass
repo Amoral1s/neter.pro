@@ -1,150 +1,345 @@
-
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-  
-
-
-
-
-
-
-
-  
-
-
-
-
-
-  
-
-
-
-
-
-  
-
-
-
-
-
-  
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-  
-
-
-
-
-
-  
-
-
-
-
-
-  
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-  
-
-
-
-
-
-  
-
-
-
-
-
-  
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-  
-
-
-
-
-
-  
-
-
-
-
-
-  
-
+@import "../reset/_vars"
+
+.compare-page
+  padding-bottom: 60px
+  &__top
+    display: flex
+    align-items: center
+    justify-content: flex-start
+    gap: 28px
+    margin-bottom: 24px
+    .page-title
+      display: flex
+      align-items: center
+      gap: 32px
+      margin-bottom: 0
+  &__clear
+    border: none
+    background: transparent
+    padding: 0
+    display: inline-flex
+    align-items: center
+    justify-content: flex-start
+    gap: 6px
+    color: $gray_400
+    font-family: $font
+    font-size: 16px
+    font-weight: 400
+    line-height: 1.2
+    cursor: pointer
+    width: max-content
+    transition: color .2s ease
+    .icon
+      display: inline-flex
+      align-items: center
+      justify-content: center
+      width: 24px
+      height: 24px
+      svg
+        width: 24px
+        height: 24px
+        path
+          transition: stroke .2s ease
+    &:hover
+      color: $main
+      svg path
+        stroke: $main
+  &__diff-toggle
+    display: inline-flex
+    align-items: center
+    justify-content: flex-start
+    gap: 8px
+    cursor: pointer
+    color: $text
+    font-size: 16px
+    line-height: 1.2
+    user-select: none
+    input
+      position: absolute
+      opacity: 0
+      pointer-events: none
+      &:checked + .switch
+        background-color: #22C55E
+        &::after
+          transform: translateX(14px)
+    .switch
+      width: 36px
+      height: 20px
+      border-radius: 20px
+      background-color: $gray_300
+      position: relative
+      flex-shrink: 0
+      transition: background-color .2s ease
+      &::after
+        content: ''
+        position: absolute
+        top: 3px
+        left: 3px
+        width: 14px
+        height: 14px
+        border-radius: 50%
+        background-color: #fff
+        transition: transform .2s ease
+  &__wrap
+    position: relative
+  &__slider
+    position: relative
+    &.disabled-slider
+      .swiper
+        overflow: visible
+      .swiper-wrapper
+        display: grid
+        grid-template-columns: repeat(4, minmax(0, 1fr))
+        gap: 20px
+      .compare-card
+        width: auto
+        margin-right: 0
+    .swiper-wrapper
+      align-items: stretch
+    .swiper
+      width: 100%
+      overflow: hidden
+      border-radius: 24px
+    .arr
+      top: 194px
+    .arr-prev
+      left: -27px
+    .arr-next
+      right: -27px
+    .swiper-button-disabled
+      opacity: 0
+      pointer-events: none
+  &__content.only-different
+    .compare-card__attr-row[data-compare-row-different="0"]
+      display: none
+
+.compare-card
+  display: flex
+  flex-direction: column
+  height: auto
+  color: $text
+  &__product
+    box-sizing: border-box
+    position: relative
+    background-color: #fff
+    border-radius: 24px
+    padding: 20px
+    min-height: 316px
+    display: flex
+    flex-direction: column
+    justify-content: space-between
+    .product-top
+      display: block
+      text-decoration: none
+    .product-thumb
+      display: block
+      margin-bottom: 15px
+      border-radius: 24px
+      img
+        display: block
+        width: 100%
+        height: auto
+        aspect-ratio: 1 / 1
+        object-fit: contain
+        border-radius: 24px
+    .product-rating
+      display: flex
+      justify-content: space-between
+      align-items: center
+      gap: 10px
+      margin-bottom: 12px
+      .aviable
+        font-size: 14px
+        font-weight: 500
+        line-height: 1.2
+        white-space: nowrap
+        &-true
+          color: #0FBA00
+        &-false
+          color: $gray_400
+    .product-title
+      display: block
+      margin-bottom: 16px
+      color: $text
+      font-size: 16px
+      font-weight: 500
+      line-height: 1.2
+    .product-price
+      display: flex
+      align-items: center
+      flex-direction: row-reverse
+      justify-content: flex-end
+      margin-bottom: 12px
+      del
+        display: block
+        color: $gray_400
+        text-decoration: none
+        position: relative
+        width: max-content
+        margin-left: 16px
+        &::after
+          position: absolute
+          content: ''
+          height: 1px
+          width: 100%
+          left: 50%
+          transform: translate(-50%, -50%)
+          top: 50%
+          background-color: $gray_400
+        span
+          bdi
+            color: $gray_400
+            font-size: 14px
+            font-weight: 400
+            span
+              color: $gray_400
+              font-size: 14px
+              font-weight: 400
+      ins
+        display: block
+        text-decoration: none
+      span
+        bdi
+          color: $text
+          font-size: 24px
+          font-weight: 500
+          line-height: 1.2
+          span
+            color: $text
+            font-size: 24px
+            font-weight: 500
+            line-height: 1.2
+    .product-attrs
+      display: flex
+      align-items: center
+      justify-content: flex-start
+      flex-wrap: wrap
+      gap: 8px 18px
+      .item
+        display: flex
+        align-items: center
+        justify-content: flex-start
+        .icon
+          display: flex
+          margin-right: 6px
+          svg
+            width: 18px
+            height: 18px
+        p
+          margin: 0
+          color: $text
+          font-size: 14px
+          font-weight: 400
+          line-height: 1.2
+          white-space: nowrap
+  &__attrs
+    margin-top: 20px
+  &__attr-row
+    box-sizing: border-box
+    min-height: 42px
+    padding: 7px 0
+    border-bottom: 1px solid rgba(10, 49, 65, .12)
+  &__attr-label
+    margin-bottom: 4px
+    color: $gray_400
+    font-size: 14px
+    font-weight: 400
+    line-height: 1.2
+  &__attr-value
+    color: $text
+    font-size: 14px
+    font-weight: 400
+    line-height: 1.2
+    &.is-empty
+      color: $gray_400
+    span
+      bdi
+        color: $text
+        font-size: 14px
+        font-weight: 400
+        line-height: 1.2
+        span
+          color: $text
+          font-size: 14px
+          font-weight: 400
+          line-height: 1.2
+
+@media (max-width: 992px)
+  .compare-page
+    &__top
+      align-items: flex-start
+      flex-direction: column
+      gap: 14px
+    &__slider
+      &.disabled-slider
+        .swiper-wrapper
+          grid-template-columns: repeat(2, minmax(0, 1fr))
+      .arr-prev
+        left: -24px
+      .arr-next
+        right: -24px
+
+@media (max-width: 767px)
+  .compare-card
+    &__product
+      padding: 14px
+      min-height: 286px
+      .product-thumb
+        border-radius: 14px
+        margin-bottom: 10px
+        img
+          border-radius: 14px
+      .product-rating
+        display: block
+        margin-bottom: 8px
+        .star-rating
+          margin-bottom: 8px
+        .aviable
+          font-size: 12px
+      .product-title
+        font-size: 13px
+        margin-bottom: 10px
+      .product-price
+        margin-bottom: 8px
+        span
+          bdi
+            font-size: 18px
+            span
+              font-size: 18px
+      .product-attrs
+        gap: 8px 12px
+        .item
+          .icon
+            svg
+              width: 16px
+              height: 16px
+          p
+            font-size: 12px
+    &__attr-label,
+    &__attr-value
+      font-size: 12px
+
+@media (max-width: 578px)
+  .compare-page
+    overflow: hidden
+    &__top
+      .page-title
+        align-items: flex-start
+        flex-direction: column
+        gap: 10px
+    &__slider
+      &.disabled-slider
+        .swiper-wrapper
+          grid-template-columns: 1fr
+      .swiper
+        overflow: visible
+        position: relative
+        left: -15px
+        padding-right: 130px
+        padding-left: 15px
+        min-width: calc(100% + 30px)
+      .arr
+        display: none
+  .compare-card
+    &__product
+      min-height: 0
