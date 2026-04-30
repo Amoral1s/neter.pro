@@ -64,6 +64,11 @@ $attributes = $product->get_attributes();
 $new_product = get_post_meta($product->get_id(), 'new_product', true);
 static $attribute_labels = array();
 
+$wpf_ajax_mod = isset($_POST['mod']) ? sanitize_key(wp_unslash($_POST['mod'])) : '';
+$wpf_ajax_action = isset($_POST['action']) ? sanitize_key(wp_unslash($_POST['action'])) : '';
+$is_wpf_products_ajax = wp_doing_ajax() && $wpf_ajax_mod === 'woofilters' && $wpf_ajax_action === 'filtersfrontend';
+$render_dual_catalog_product = !is_search() && (!empty($GLOBALS['main_theme_render_dual_catalog_product']) || $is_wpf_products_ajax);
+
 $cell_shape_value = '';
 $cell_shape_taxonomy = wc_attribute_taxonomy_name('forma-yachejki');
 
@@ -91,7 +96,7 @@ if ($cell_shape_value === '') {
 
 $table_product_class = 'table-product';
 
-if (!empty($GLOBALS['main_theme_render_dual_catalog_product'])) {
+if ($render_dual_catalog_product) {
 	$row_index = isset($GLOBALS['main_theme_catalog_table_row_index']) ? (int) $GLOBALS['main_theme_catalog_table_row_index'] : 0;
 	$row_index++;
 	$GLOBALS['main_theme_catalog_table_row_index'] = $row_index;
@@ -184,7 +189,7 @@ if (!empty($GLOBALS['main_theme_render_dual_catalog_product'])) {
 	</div>
 </li>
 <?php
-if (!empty($GLOBALS['main_theme_render_dual_catalog_product']) && !is_search()) {
+if ($render_dual_catalog_product) {
 	wc_get_template_part('content', 'related');
 }
 ?>
