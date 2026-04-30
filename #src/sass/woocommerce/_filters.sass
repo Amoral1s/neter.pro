@@ -110,7 +110,7 @@
             background-size: 24px 24px
             background-position: center
             background-image: url(../img/icons/clear.svg)
-        .wpfFilterWrapper 
+        .wpfFilterWrapper
           padding: 0
           margin: 0
           margin-right: 10px
@@ -202,6 +202,23 @@
 .overlay
   display: block
 
+html.filters-popup-open
+  .shop-catalog-wrapper
+    z-index: 20030
+
+.filters-popup-overlay
+  display: none
+  position: fixed
+  z-index: 20040
+  top: 0
+  right: 0
+  bottom: 0
+  left: 0
+  width: 100%
+  height: 100%
+  opacity: .8
+  background: linear-gradient(0deg, rgba(0, 0, 0, .20) 0%, rgba(0, 0, 0, .20) 100%), #0A3141
+
 @media (min-width: 992px)
   .shop-catalog-wrapper .shop-catalog-filters .wrap .wpfMainWrapper .wpfFilterButtons .wpfClearButton
     &:hover
@@ -211,7 +228,7 @@
       transition: .2s
       &:hover
         transition: .2s
-        svg path 
+        svg path
           stroke: $main
 
 .filters-popup
@@ -223,7 +240,7 @@
   height: 100%
   width: 430px
   background-color: $bg
-  z-index: 200
+  z-index: 20050
   .close
     cursor: pointer
   .wrap
@@ -235,7 +252,7 @@
     width: 100%
     position: relative
     &::-webkit-scrollbar //скроллбар
-      width: 4px 
+      width: 4px
       background-color: #fff
     &::-webkit-scrollbar-thumb //ползунок
       background: $text
@@ -271,7 +288,7 @@
         margin-top: -10px
         transition: all 0.3s!important
         &::-webkit-scrollbar //скроллбар
-          width: 4px 
+          width: 4px
           background-color: #fff
         &::-webkit-scrollbar-thumb //ползунок
           background: $main
@@ -349,7 +366,7 @@
 
       .wpfFilterWrapper[data-filter-type="wpfPrice"]
         margin-bottom: 30px
-      .wpfFilterWrapper 
+      .wpfFilterWrapper
         margin: 0
         padding: 0
         width: 100%
@@ -373,7 +390,7 @@
               width: 162px
               padding-left: 20px
               width: calc(50% - 10px)
-            
+
             .wpfFilterDelimeter
               display: none
           .irs
@@ -470,17 +487,17 @@
 
 
 .wpf-loader-decorator
-  .wpfPreviewLoader 
+  .wpfPreviewLoader
     width: 300px
-    
-    
+
+
 
 @media (max-width: 992px)
   .filters-popup .wrap .wpfMainWrapper .wpfFilterWrapper[data-display-type=mul_dropdown] .wpfFilterContent .wpfCheckboxHier .ms-options-wrap .ms-options ul li label
     font-size: 14px
   .wpf-loader-decorator
     width: 100vw
-    .wpfPreviewLoader 
+    .wpfPreviewLoader
       display: flex
       justify-content: center
       align-items: center
@@ -570,15 +587,18 @@
               font-size: 0
               width: 50px
               padding-right: 0
-          .wpfFilterWrapper 
+          .wpfFilterWrapper
             display: none!important
   .filters-popup
-    top: auto
-    height: calc(100dvh - 30px)
-    border-radius: 24px 24px 0 0
+    top: 0
+    bottom: 0
+    height: 100dvh
+    max-height: 100dvh
+    border-radius: 0
     width: 100%
     .wrap
-      padding: 20px 15px
+      height: 100dvh
+      padding: calc(20px + env(safe-area-inset-top)) 15px calc(20px + env(safe-area-inset-bottom))
       .buttons
         .button
           max-height: 50px
@@ -592,7 +612,7 @@
         font-size: 24px
         letter-spacing: -0.7px
       .wpfMainWrapper
-        .wpfFilterWrapper 
+        .wpfFilterWrapper
           .wpfFilterContent
             ul
               li
@@ -610,43 +630,43 @@
               letter-spacing: -0.5px
 
 
-  
 
 
 
-  
 
 
 
-  
 
 
 
-  
 
 
 
-  
 
 
 
-  
 
 
 
-  
 
 
 
-  
 
 
 
-  
 
 
 
-  
+
+
+
+
+
+
+
+
+
+
 
 
 .shop-catalog-filters.akkum
@@ -658,7 +678,7 @@
 .shop-catalog-filters.zaryad
   .wpfFilterWrapper[data-get-attribute="wpf_filter_seriya"]
     display: none!important
-    
+
 .shop-catalog-filters.all
   .wpfFilterWrapper[data-get-attribute="wpf_filter_tokootdacha"],
   .wpfFilterWrapper[data-get-attribute="wpf_filter_napryazhenie-zaryada"],
@@ -666,60 +686,3 @@
   .wpfFilterWrapper[data-get-attribute="wpf_filter_tok-zaryada"],
   .wpfFilterWrapper[data-get-attribute="wpf_filter_seriya"]
     display: none!important
-    
-
-
-
-  
-
-
-
-  
-
-
-
-  
-
-
-
-  
-
-
-
-  
-
-
-
-  
-
-
-
-  
-
-
-
-  
-
-
-
-  
-
-
-
-  
-
-
-
-  
-
-
-
-  
-
-
-
-  
-
-
-
-  

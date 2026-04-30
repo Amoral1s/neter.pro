@@ -23,6 +23,7 @@ get_header();
 	$catalog_view = !is_search() && function_exists('main_theme_get_catalog_view') ? main_theme_get_catalog_view() : 'table';
 	$GLOBALS['main_theme_catalog_view'] = $catalog_view;
 	$GLOBALS['main_theme_is_catalog_page'] = true;
+	$GLOBALS['main_theme_has_inline_catalog_filters'] = !is_search();
 
 	if (is_shop() && !is_search()) {
 			// Получаем URL категории с ID 15
@@ -247,12 +248,10 @@ get_header();
 		endif; 
 		?>
 		<!-- табличный каталог -->
-		<div class="shop-catalog-filters <?php echo $filter_class; ?> catalog-view--<?php echo esc_attr($catalog_view); ?>">
+		<div class="shop-catalog-filters <?php echo $filter_class; ?> catalog-view--<?php echo esc_attr($catalog_view); ?>" data-catalog-view-controls>
 			<div class="container">
 				<div class="wrap">
-					<?php if ($catalog_view === 'table') : ?>
-						<?php echo do_shortcode('[wpf-filters id=3]'); ?>
-					<?php endif; ?>
+					<?php echo do_shortcode('[wpf-filters id=3]'); ?>
 					<div class="button call-filters">
 						<div class="icon">
 							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -287,227 +286,217 @@ get_header();
 				</div>
 			</div>
 		</div>
-		<?php if ($catalog_view === 'cards') : ?>
-		<div class="catalog-cards__wrapper" id="catalog" data-catalog-view="cards">
-			<div class="container">
+		<div class="shop-catalog-layout catalog-view--<?php echo esc_attr($catalog_view); ?>" data-catalog-layout data-catalog-view="<?php echo esc_attr($catalog_view); ?>">
+			<div class="container catalog-container">
 				<div class="catalog-cards__layout">
-					<aside class="catalog-cards__filters">
-						<div class="catalog-cards__filter-list" data-catalog-sidebar-filters>
+					<div class="filters-popup-overlay" data-catalog-filters-overlay></div>
+					<aside class="filters-popup catalog-filter-panel catalog-cards__filters" data-catalog-filter-panel>
+						<div class="wrap">
+							<div class="close-row">
+								<b class="mini-title">
+									Фильтры
+								</b>
+								<div class="close">
+									<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
+										<path d="M31.6663 8.33334L8.33301 31.6667M8.33301 8.33334L31.6663 31.6667" stroke="#141B34" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+									</svg>
+								</div>
+							</div>
+							<div class="filters-wrapper catalog-cards__filter-list" data-catalog-popup-filters data-catalog-sidebar-filters>
 							<?php echo do_shortcode('[wpf-filters id=2]'); ?>
-						</div>
-						<div class="catalog-cards__actions">
-							<button type="button" class="button button-white catalog-cards__reset" data-catalog-sidebar-reset>Сбросить</button>
+							</div>
+							<div class="buttons catalog-cards__actions">
+								<div class="button filers-popup-confirm">
+									Применить
+								</div>
+								<div class="button button-white filters-popup-reset catalog-cards__reset" data-catalog-sidebar-reset>
+									Сбросить
+								</div>
+							</div>
 						</div>
 					</aside>
-					<div class="catalog-cards__products">
+					<div class="shop-catalog-loop catalog-products" id="catalog">
+
 						<?php
 
+						/**
+						 * Hook: woocommerce_before_main_content.
+						 *
+						 * @hooked woocommerce_output_content_wrapper - 10 (outputs opening divs for the content)
+						 * @hooked woocommerce_breadcrumb - 20
+						 * @hooked WC_Structured_Data::generate_website_data() - 30
+						 */
 						do_action( 'woocommerce_before_main_content' );
+
+						/**
+						 * Hook: woocommerce_shop_loop_header.
+						 *
+						 * @since 8.6.0
+						 *
+						 * @hooked woocommerce_product_taxonomy_archive_header - 10
+						 */
 						do_action( 'woocommerce_shop_loop_header' );
 
 						if ( woocommerce_product_loop() ) {
-							do_action( 'woocommerce_before_shop_loop' );
 
+							/**
+							 * Hook: woocommerce_before_shop_loop.
+							 *
+							 * @hooked woocommerce_output_all_notices - 10
+							 * @hooked woocommerce_result_count - 20
+							 * @hooked woocommerce_catalog_ordering - 30
+							 */
+							do_action( 'woocommerce_before_shop_loop' ); ?>
+
+							<?php
+								if (is_product_category()) :
+										$current_category = get_queried_object();
+
+										$is_category_or_child_of = static function($slug, $current_category) {
+												$category = get_term_by('slug', $slug, 'product_cat');
+												if (!$category || !$current_category) {
+														return false;
+												}
+												$child_categories = get_term_children($category->term_id, 'product_cat');
+												return ($current_category->slug == $slug || in_array($current_category->term_id, $child_categories));
+										};
+
+										// Проверка текущей категории и её дочерних категорий
+										if ($current_category) {
+												if ($is_category_or_child_of('akkumulyatornye-batarei', $current_category)) { ?>
+														<div class="table-header">
+																<div class="header-title"><?php esc_html_e('Наименование', 'woocommerce'); ?></div>
+																<div class="header-wrapper">
+																		<div class="header-attribute">Тип химии</div>
+																		<div class="header-attribute">Номинальная <br>емкость&nbsp;(Ah)</div>
+																		<div class="header-attribute">Макс. ток <br>разряда АБ</div>
+																		<div class="header-attribute">Напряжение&nbsp;(V)</div>
+																		<div class="header-attribute">Габариты&nbsp;(мм)</div>
+																		<div class="header-attribute">Вес&nbsp;(кг)</div>
+																</div>
+														</div>
+												<?php } elseif ($is_category_or_child_of('bms-plata', $current_category)) { ?>
+														<div class="table-header">
+																<div class="header-title"><?php esc_html_e('Наименование', 'woocommerce'); ?></div>
+																<div class="header-wrapper">
+																		<div class="header-attribute">Тип химии</div>
+																		<div class="header-attribute">Напряжение&nbsp;(V)</div>
+																		<div class="header-attribute">Серия</div>
+																		<div class="header-attribute">Ток заряда</div>
+																		<div class="header-attribute">Ток разряда</div>
+																		<div class="header-attribute">Вес&nbsp;(кг)</div>
+																</div>
+														</div>
+												<?php } elseif ($is_category_or_child_of('akkumulyatornye-yacheyki', $current_category)) { ?>
+														<div class="table-header">
+																<div class="header-title"><?php esc_html_e('Наименование', 'woocommerce'); ?></div>
+																<div class="header-wrapper">
+																		<div class="header-attribute">Тип химии</div>
+																		<div class="header-attribute">Номинальная <br>емкость&nbsp;(Ah)</div>
+																		<div class="header-attribute">Токоотдача</div>
+																		<div class="header-attribute">Напряжение&nbsp;(V)</div>
+																		<div class="header-attribute">Габариты&nbsp;(мм)</div>
+																		<div class="header-attribute">Вес&nbsp;(кг)</div>
+																</div>
+														</div>
+												<?php } elseif ($is_category_or_child_of('zaryadnye-ustrojstva-dlya-akkumulyatorov', $current_category)) { ?>
+														<div class="table-header">
+																<div class="header-title"><?php esc_html_e('Наименование', 'woocommerce'); ?></div>
+																<div class="header-wrapper">
+																		<div class="header-attribute">Тип химии</div>
+																		<div class="header-attribute">Напряжение заряда</div>
+																		<div class="header-attribute">Серия</div>
+																		<div class="header-attribute">Ток заряда</div>
+																		<div class="header-attribute">Вес&nbsp;(кг)</div>
+																</div>
+														</div>
+												<?php } else { ?>
+													<div class="table-header" data-curr-cat="none">
+														<div class="header-title"><?php esc_html_e('Наименование', 'woocommerce'); ?></div>
+														<div class="header-wrapper">
+																<div class="header-attribute">Тип химии</div>
+																<div class="header-attribute">Номинальная <br>емкость&nbsp;(Ah)</div>
+																<div class="header-attribute">Напряжение&nbsp;(V)</div>
+																<div class="header-attribute">Токоотдача</div>
+																<div class="header-attribute">Габариты&nbsp;(мм)</div>
+																<div class="header-attribute">Вес&nbsp;(кг)</div>
+														</div>
+													</div>
+												<?php }
+										} else { ?>
+												<p><?php esc_html_e('No current category.', 'woocommerce'); ?></p>
+										<?php }
+								elseif (is_tax()) : ?>
+									<div class="table-header">
+										<div class="header-title"><?php esc_html_e('Наименование', 'woocommerce'); ?></div>
+										<div class="header-wrapper">
+												<div class="header-attribute">Тип химии</div>
+												<div class="header-attribute">Напряжение&nbsp;(V)</div>
+												<div class="header-attribute">Номинальная <br>емкость&nbsp;(Ah)</div>
+												<div class="header-attribute">Макс. ток <br>разряда АБ</div>
+												<div class="header-attribute">Габариты&nbsp;(мм)</div>
+												<div class="header-attribute">Вес&nbsp;(кг)</div>
+										</div>
+								</div>
+							<?php endif; ?>
+
+
+							<?php
+
+							$GLOBALS['main_theme_render_dual_catalog_product'] = true;
+							$GLOBALS['main_theme_catalog_table_row_index'] = 0;
 							woocommerce_product_loop_start();
+							?>
+
+							<?php
 
 							if ( wc_get_loop_prop( 'total' ) ) {
 								while ( have_posts() ) {
 									the_post();
+									/**
+									 * Hook: woocommerce_shop_loop.
+									 */
 									do_action( 'woocommerce_shop_loop' );
-									wc_get_template_part( 'content', 'related' );
+
+									wc_get_template_part( 'content', 'product' );
 								}
 							}
+							?>
 
+
+							<?php
 							woocommerce_product_loop_end();
+							$GLOBALS['main_theme_render_dual_catalog_product'] = false;
+							unset($GLOBALS['main_theme_catalog_table_row_index']);
+
+
+							/**
+							 * Hook: woocommerce_after_shop_loop.
+							 *
+							 * @hooked woocommerce_pagination - 10
+							 */
 							do_action( 'woocommerce_after_shop_loop' );
 						} else {
+							/**
+							 * Hook: woocommerce_no_products_found.
+							 *
+							 * @hooked wc_no_products_found - 10
+							 */
 							do_action( 'woocommerce_no_products_found' );
 						}
-
+						?>
+							<?php
+						/**
+						 * Hook: woocommerce_after_main_content.
+						 *
+						 * @hooked woocommerce_output_content_wrapper_end - 10 (outputs closing divs for the content)
+						 */
 						do_action( 'woocommerce_after_main_content' );
 						?>
 					</div>
 				</div>
 			</div>
 		</div>
-		<?php else : ?>
-		<div class="shop-catalog-loop" id="catalog" data-catalog-view="table">
-				
-			<?php
-
-			/**
-			 * Hook: woocommerce_before_main_content.
-			 *
-			 * @hooked woocommerce_output_content_wrapper - 10 (outputs opening divs for the content)
-			 * @hooked woocommerce_breadcrumb - 20
-			 * @hooked WC_Structured_Data::generate_website_data() - 30
-			 */
-			do_action( 'woocommerce_before_main_content' );
-
-			/**
-			 * Hook: woocommerce_shop_loop_header.
-			 *
-			 * @since 8.6.0
-			 *
-			 * @hooked woocommerce_product_taxonomy_archive_header - 10
-			 */
-			do_action( 'woocommerce_shop_loop_header' );
-
-			if ( woocommerce_product_loop() ) {
-
-				/**
-				 * Hook: woocommerce_before_shop_loop.
-				 *
-				 * @hooked woocommerce_output_all_notices - 10
-				 * @hooked woocommerce_result_count - 20
-				 * @hooked woocommerce_catalog_ordering - 30
-				 */
-				do_action( 'woocommerce_before_shop_loop' ); ?>
-				
-				<?php
-					if (is_product_category()) :
-							$current_category = get_queried_object();
-
-							// Функция для проверки категории и её потомков
-							function is_category_or_child_of($slug, $current_category) {
-									$category = get_term_by('slug', $slug, 'product_cat');
-									if (!$category || !$current_category) {
-											return false;
-									}
-									$child_categories = get_term_children($category->term_id, 'product_cat');
-									return ($current_category->slug == $slug || in_array($current_category->term_id, $child_categories));
-							}
-
-							// Проверка текущей категории и её дочерних категорий
-							if ($current_category) {
-									if (is_category_or_child_of('akkumulyatornye-batarei', $current_category)) { ?>
-											<div class="table-header">
-													<div class="header-title"><?php esc_html_e('Наименование', 'woocommerce'); ?></div>
-													<div class="header-wrapper">
-															<div class="header-attribute">Тип химии</div>
-															<div class="header-attribute">Номинальная <br>емкость&nbsp;(Ah)</div>
-															<div class="header-attribute">Макс. ток <br>разряда АБ</div>
-															<div class="header-attribute">Напряжение&nbsp;(V)</div>
-															<div class="header-attribute">Габариты&nbsp;(мм)</div>
-															<div class="header-attribute">Вес&nbsp;(кг)</div>
-													</div>
-											</div>
-									<?php } elseif (is_category_or_child_of('bms-plata', $current_category)) { ?>
-											<div class="table-header">
-													<div class="header-title"><?php esc_html_e('Наименование', 'woocommerce'); ?></div>
-													<div class="header-wrapper">
-															<div class="header-attribute">Тип химии</div>
-															<div class="header-attribute">Напряжение&nbsp;(V)</div>
-															<div class="header-attribute">Серия</div>
-															<div class="header-attribute">Ток заряда</div>
-															<div class="header-attribute">Ток разряда</div>
-															<div class="header-attribute">Вес&nbsp;(кг)</div>
-													</div>
-											</div>
-									<?php } elseif (is_category_or_child_of('akkumulyatornye-yacheyki', $current_category)) { ?>
-											<div class="table-header">
-													<div class="header-title"><?php esc_html_e('Наименование', 'woocommerce'); ?></div>
-													<div class="header-wrapper">
-															<div class="header-attribute">Тип химии</div>
-															<div class="header-attribute">Номинальная <br>емкость&nbsp;(Ah)</div>
-															<div class="header-attribute">Токоотдача</div>
-															<div class="header-attribute">Напряжение&nbsp;(V)</div>
-															<div class="header-attribute">Габариты&nbsp;(мм)</div>
-															<div class="header-attribute">Вес&nbsp;(кг)</div>
-													</div>
-											</div>
-									<?php } elseif (is_category_or_child_of('zaryadnye-ustrojstva-dlya-akkumulyatorov', $current_category)) { ?>
-											<div class="table-header">
-													<div class="header-title"><?php esc_html_e('Наименование', 'woocommerce'); ?></div>
-													<div class="header-wrapper">
-															<div class="header-attribute">Тип химии</div>
-															<div class="header-attribute">Напряжение заряда</div>
-															<div class="header-attribute">Серия</div>
-															<div class="header-attribute">Ток заряда</div>
-															<div class="header-attribute">Вес&nbsp;(кг)</div>
-													</div>
-											</div>
-									<?php } else { ?>
-										<div class="table-header" data-curr-cat="none">
-											<div class="header-title"><?php esc_html_e('Наименование', 'woocommerce'); ?></div>
-											<div class="header-wrapper">
-													<div class="header-attribute">Тип химии</div>
-													<div class="header-attribute">Номинальная <br>емкость&nbsp;(Ah)</div>
-													<div class="header-attribute">Напряжение&nbsp;(V)</div>
-													<div class="header-attribute">Токоотдача</div>
-													<div class="header-attribute">Габариты&nbsp;(мм)</div>
-													<div class="header-attribute">Вес&nbsp;(кг)</div>
-											</div>
-										</div>
-									<?php }
-							} else { ?>
-									<p><?php esc_html_e('No current category.', 'woocommerce'); ?></p>
-							<?php }
-					elseif (is_tax()) : ?>
-						<div class="table-header">
-							<div class="header-title"><?php esc_html_e('Наименование', 'woocommerce'); ?></div>
-							<div class="header-wrapper">
-									<div class="header-attribute">Тип химии</div>
-									<div class="header-attribute">Напряжение&nbsp;(V)</div>
-									<div class="header-attribute">Номинальная <br>емкость&nbsp;(Ah)</div>
-									<div class="header-attribute">Макс. ток <br>разряда АБ</div>
-									<div class="header-attribute">Габариты&nbsp;(мм)</div>
-									<div class="header-attribute">Вес&nbsp;(кг)</div>
-							</div>
-					</div>
-				<?php endif; ?>
-				
-
-				<?php
-
-				woocommerce_product_loop_start();
-				?>
-				
-				<?php
-
-				if ( wc_get_loop_prop( 'total' ) ) {
-					while ( have_posts() ) {
-						the_post();
-						/**
-						 * Hook: woocommerce_shop_loop.
-						 */
-						do_action( 'woocommerce_shop_loop' );
-
-						wc_get_template_part( 'content', 'product' );
-					}
-				}
-				?>
-				
-
-				<?php
-				woocommerce_product_loop_end();
-				
-
-				/**
-				 * Hook: woocommerce_after_shop_loop.
-				 *
-				 * @hooked woocommerce_pagination - 10
-				 */
-				do_action( 'woocommerce_after_shop_loop' );
-			} else {
-				/**
-				 * Hook: woocommerce_no_products_found.
-				 *
-				 * @hooked wc_no_products_found - 10
-				 */
-				do_action( 'woocommerce_no_products_found' );
-			}
-			?>
-				<?php
-			/**
-			 * Hook: woocommerce_after_main_content.
-			 *
-			 * @hooked woocommerce_output_content_wrapper_end - 10 (outputs closing divs for the content)
-			 */
-			do_action( 'woocommerce_after_main_content' );
-			?>
-		</div>
-		<?php endif; ?>
 		<!-- табличный каталог END -->
 
 	</div> <!-- shop-catalog-wrapper -->

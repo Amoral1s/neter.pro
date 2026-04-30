@@ -17,9 +17,7 @@ jQuery(document).ready(function ($) {
 
   if (catalogPage) {
     const catalogViewCookieName = (window.mainThemeData && window.mainThemeData.catalog_view_cookie_name) || 'neter_catalog_view';
-    const catalogViewUrlParam = (window.mainThemeData && window.mainThemeData.catalog_view_url_param) || 'view';
-    const catalogCardsUrlValue = (window.mainThemeData && window.mainThemeData.catalog_cards_url_value) || 'card';
-    const catalogScrollFlag = 'neterCatalogViewChanged';
+    const filtersOverlaySelector = '.filters-popup-overlay';
 
     function setCookie(name, value, days) {
       const expires = new Date();
@@ -33,7 +31,7 @@ jQuery(document).ready(function ($) {
     }
 
     function normalizeCatalogView(view) {
-      if (view === catalogCardsUrlValue || view === 'cards') {
+      if (view === 'card' || view === 'cards') {
         return 'cards';
       }
 
@@ -44,92 +42,60 @@ jQuery(document).ready(function ($) {
       return '';
     }
 
-    function isValidCatalogView(view) {
-      return normalizeCatalogView(view) !== '';
+    function getSavedCatalogView() {
+      let view = normalizeCatalogView(getCookie(catalogViewCookieName));
+
+      if (!view) {
+        try {
+          view = normalizeCatalogView(window.localStorage.getItem(catalogViewCookieName));
+        } catch (error) {
+          view = '';
+        }
+      }
+
+      return view || 'table';
     }
 
-    function getRenderedCatalogView() {
-      const renderedCatalog = document.querySelector('[data-catalog-view]');
-      return renderedCatalog ? normalizeCatalogView(renderedCatalog.getAttribute('data-catalog-view')) : '';
-    }
+    function saveCatalogView(view) {
+      setCookie(catalogViewCookieName, view, 30);
 
-    function getUrlCatalogView() {
-      const url = new URL(window.location.href);
-      return normalizeCatalogView(url.searchParams.get(catalogViewUrlParam));
+      try {
+        window.localStorage.setItem(catalogViewCookieName, view);
+      } catch (error) {}
     }
 
     function setCatalogToggleState(view) {
-      if (!isValidCatalogView(view)) {
-        return;
-      }
-
       $('.catalog-view__toggle').each(function() {
-        $(this).toggleClass('active', $(this).data('view') === view);
+        $(this).toggleClass('active', normalizeCatalogView($(this).data('view')) === view);
       });
     }
 
-    function applyCatalogViewToUrl(url, view) {
-      url.searchParams.delete(catalogViewCookieName);
-      url.searchParams.delete('main_theme_catalog_ajax');
-      url.searchParams.delete('_');
+    function applyCatalogView(view) {
+      view = normalizeCatalogView(view) || 'table';
 
-      if (view === 'cards') {
-        url.searchParams.set(catalogViewUrlParam, catalogCardsUrlValue);
-      } else {
-        url.searchParams.delete(catalogViewUrlParam);
-      }
+      document.documentElement.classList.remove('catalog-view-pref-table', 'catalog-view-pref-cards');
+      document.documentElement.classList.add('catalog-view-pref-' + view);
+      document.documentElement.setAttribute('data-catalog-view', view);
 
-      return url;
+      $('.shop-catalog-wrapper, [data-catalog-view-controls], [data-catalog-layout]')
+        .removeClass('catalog-view--table catalog-view--cards')
+        .addClass('catalog-view--' + view);
+
+      $('[data-catalog-view]').attr('data-catalog-view', view);
+      setCatalogToggleState(view);
     }
 
-    function buildCatalogPublicUrl(view) {
-      return applyCatalogViewToUrl(new URL(window.location.href), view).toString();
+    function isDesktopSidebarMode() {
+      return getSavedCatalogView() === 'cards' && window.matchMedia('(min-width: 992px)').matches;
     }
 
-    function normalizeCatalogLocation() {
-      const urlView = getUrlCatalogView();
-      const savedView = normalizeCatalogView(getCookie(catalogViewCookieName));
-      const targetView = urlView || savedView;
+    function closeFiltersPopup() {
+      $(filtersOverlaySelector).fadeOut(200);
+      $('html').removeClass('fixed filters-popup-open');
 
-      if (targetView === 'cards') {
-        const normalizedUrl = buildCatalogPublicUrl('cards');
-
-        if (normalizedUrl !== window.location.href) {
-          window.location.replace(normalizedUrl);
-          return true;
-        }
-      } else if (targetView === 'table' && new URL(window.location.href).searchParams.has(catalogViewUrlParam)) {
-        const normalizedUrl = buildCatalogPublicUrl('table');
-
-        if (normalizedUrl !== window.location.href) {
-          window.location.replace(normalizedUrl);
-          return true;
-        }
+      if (!isDesktopSidebarMode()) {
+        $('.filters-popup').fadeOut(200);
       }
-
-      return false;
-    }
-
-    function scrollToCatalogAfterReload() {
-      if (window.sessionStorage.getItem(catalogScrollFlag) !== '1') {
-        return;
-      }
-
-      window.sessionStorage.removeItem(catalogScrollFlag);
-
-      const catalog = document.querySelector('#catalog');
-
-      if (!catalog) {
-        return;
-      }
-
-      window.setTimeout(function() {
-        const top = catalog.getBoundingClientRect().top + window.pageYOffset - 100;
-        window.scrollTo({
-          top: Math.max(0, top),
-          behavior: 'smooth',
-        });
-      }, 120);
     }
 
     function reapplyWpfExistsTerms(root, attempt) {
@@ -171,81 +137,23 @@ jQuery(document).ready(function ($) {
       }
     }
 
-    let catalogRefreshInProgress = false;
-
-    function refreshCachedCatalogViewIfNeeded() {
-      const urlView = getUrlCatalogView();
-      const savedView = normalizeCatalogView(getCookie(catalogViewCookieName));
-      const renderedView = getRenderedCatalogView();
-      const targetView = urlView || savedView || 'table';
-
-      if (!isValidCatalogView(targetView) || !isValidCatalogView(renderedView)) {
-        setCatalogToggleState(renderedView || targetView);
-        return false;
-      }
-
-      setCatalogToggleState(targetView);
-
-      if (targetView === renderedView || catalogRefreshInProgress) {
-        return false;
-      }
-
-      const targetUrl = buildCatalogPublicUrl(targetView);
-
-      if (targetUrl !== window.location.href) {
-        catalogRefreshInProgress = true;
-        window.location.replace(targetUrl);
-        return true;
-      }
-
-      return false;
-    }
-
     function initCatalogViewSwitcher() {
-      if (!document.querySelector('[data-catalog-view]')) {
-        return;
-      }
-
       $(document).off('click.mainCatalogViewSwitcher').on('click.mainCatalogViewSwitcher', '.catalog-view .catalog-view__toggle', function() {
         const view = normalizeCatalogView($(this).data('view'));
 
-        if (!isValidCatalogView(view)) {
+        if (!view) {
           return;
         }
 
-        if ($(this).hasClass('active') && getRenderedCatalogView() === view) {
-          return;
-        }
-
-        setCookie(catalogViewCookieName, view, 30);
-        window.sessionStorage.setItem(catalogScrollFlag, '1');
-        window.location.assign(buildCatalogPublicUrl(view));
+        saveCatalogView(view);
+        applyCatalogView(view);
+        renderFiltersBtns();
+        document.dispatchEvent(new Event('mainThemeCatalogUpdated'));
       });
     }
 
-    function moveCatalogCardFilters() {
-      const sidebarFilters = document.querySelector('[data-catalog-sidebar-filters]');
-      const popupFilters = document.querySelector('[data-catalog-popup-filters]');
-
-      if (!sidebarFilters || !popupFilters) {
-        return;
-      }
-
-      const usePopup = window.matchMedia('(max-width: 991px)').matches;
-      const source = usePopup ? sidebarFilters : popupFilters;
-      const target = usePopup ? popupFilters : sidebarFilters;
-
-      if (!source.children.length || target.children.length) {
-        return;
-      }
-
-      while (source.firstChild) {
-        target.appendChild(source.firstChild);
-      }
-    }
-
     function renderFiltersBtns() {
-      const filterRoot = document.querySelector('.filters-popup .wpfMainWrapper') || document.querySelector('[data-catalog-sidebar-filters] .wpfMainWrapper');
+      const filterRoot = document.querySelector('.filters-popup .wpfMainWrapper');
       const inputs = filterRoot ? filterRoot.querySelectorAll('input[type="checkbox"]') : [];
       const numberWrap = document.querySelector('.call-filters .numbers');
       const filterBtn = document.querySelector('.call-filters');
@@ -260,32 +168,33 @@ jQuery(document).ready(function ($) {
         inputSLiders.forEach(range => {
           const min = range.querySelector('#wpfMinPrice');
           const max = range.querySelector('#wpfMaxPrice');
-          let minVal = min.min;
-          let maxVal = min.max;
-          if (min.value != minVal && max.value != maxVal) {
+
+          if (!min || !max) {
+            return;
+          }
+
+          if (min.value != min.min || max.value != max.max) {
             count++;
-          } else {
-            if (count > 0) {
-              count--;
-            }
           }
         });
       }
+
       if (inputs.length > 0) {
         inputs.forEach(elem => {
           if (elem.checked) {
-              count++;
+            count++;
           }
         });
-        if (count == 0) {
-          numberWrap.style.display = 'none';
-          filterBtn.classList.remove('active');
-          numberWrap.textContent = 0;
-        } else {
-          numberWrap.style.display = 'flex';
-          filterBtn.classList.add('active');
-          numberWrap.textContent = count;
-        }
+      }
+
+      if (count == 0) {
+        numberWrap.style.display = 'none';
+        filterBtn.classList.remove('active');
+        numberWrap.textContent = 0;
+      } else {
+        numberWrap.style.display = 'flex';
+        filterBtn.classList.add('active');
+        numberWrap.textContent = count;
       }
     }
 
@@ -357,56 +266,39 @@ jQuery(document).ready(function ($) {
     }
 
     $(document).on('click', '.call-filters', function() {
-      $('.overlay').fadeIn(200);
+      $(filtersOverlaySelector).fadeIn(200);
       $('.filters-popup').fadeIn(200);
-      $('html').addClass('fixed');
-      moveCatalogCardFilters();
+      $('html').addClass('fixed filters-popup-open');
       reapplyWpfExistsTerms(document);
     });
 
     $(document).on('click', '.filters-popup .close', function() {
-      $('.overlay').fadeOut(200);
-      $('.filters-popup').fadeOut(200);
-      $('html').removeClass('fixed');
+      closeFiltersPopup();
       renderFiltersBtns();
     });
 
-    $(document).on('click', '.overlay', function() {
-      $('.overlay').fadeOut(200);
-      $('.filters-popup').fadeOut(200);
-      $('html').removeClass('fixed');
+    $(document).on('click', filtersOverlaySelector, function() {
+      closeFiltersPopup();
       renderFiltersBtns();
     });
 
-    $(document).on('click', '.filters-popup .wrap .buttons .filters-popup-reset', function() {
-      const $filterWrapper = $('.filters-popup .wpfMainWrapper').first();
+    $(document).on('click', '.filters-popup .wrap .buttons .filters-popup-reset, [data-catalog-sidebar-reset]', function() {
+      const $filterWrapper = $(this).closest('.filters-popup, .catalog-cards__filters').find('.wpfMainWrapper').first();
 
-      $('.overlay').fadeOut(200);
+      if (!isDesktopSidebarMode()) {
+        closeFiltersPopup();
+      }
+
       resetWpfFilters($filterWrapper.length ? $filterWrapper : $('.wpfMainWrapper').first());
-      $('.filters-popup').fadeOut(200);
-      $('html').removeClass('fixed');
-
-      renderFiltersBtns();
-      window.setTimeout(renderFiltersBtns, 300);
-    });
-
-    $(document).on('click', '[data-catalog-sidebar-reset]', function() {
-      const $filterWrapper = $(this).closest('.catalog-cards__filters').find('.wpfMainWrapper').first();
-
-      resetWpfFilters($filterWrapper);
       renderFiltersBtns();
       window.setTimeout(renderFiltersBtns, 300);
     });
 
     $(document).on('click', '.filters-popup .wrap .buttons .filers-popup-confirm', function() {
-      $('.overlay').fadeOut(200);
-      $('.filters-popup').fadeOut(200);
-      $('html').removeClass('fixed');
-
+      closeFiltersPopup();
       renderFiltersBtns();
     });
 
-    // Функция debounce
     function debounce(func, delay) {
       let timeoutId;
       return function(...args) {
@@ -421,10 +313,10 @@ jQuery(document).ready(function ($) {
     }
 
     const debouncedRenderFiltersBtns = debounce(renderFiltersBtns, 250);
-    const filterRootsSelector = '.filters-popup .wpfMainWrapper, [data-catalog-sidebar-filters] .wpfMainWrapper';
+    const filterRootsSelector = '.filters-popup .wpfMainWrapper';
 
     $(window).on('resize', function() {
-      moveCatalogCardFilters();
+      applyCatalogView(getSavedCatalogView());
       renderFiltersBtns();
     });
 
@@ -432,25 +324,17 @@ jQuery(document).ready(function ($) {
 
     document.addEventListener('wpfAjaxSuccess', function() {
       window.setTimeout(function() {
-        moveCatalogCardFilters();
+        applyCatalogView(getSavedCatalogView());
         reapplyWpfExistsTerms(document);
         renderFiltersBtns();
         document.dispatchEvent(new Event('mainThemeCatalogUpdated'));
       }, 50);
     });
 
-    const catalogLocationChanging = normalizeCatalogLocation();
-
-    if (!catalogLocationChanging) {
-      initCatalogViewSwitcher();
-    }
-
-    if (!catalogLocationChanging && !refreshCachedCatalogViewIfNeeded()) {
-      moveCatalogCardFilters();
-      reapplyWpfExistsTerms(document);
-      scrollToCatalogAfterReload();
-      renderFiltersBtns();
-    }
+    initCatalogViewSwitcher();
+    applyCatalogView(getSavedCatalogView());
+    reapplyWpfExistsTerms(document);
+    renderFiltersBtns();
   }
 
 

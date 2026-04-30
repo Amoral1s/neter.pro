@@ -746,11 +746,12 @@
 
 <!-- Filters popup -->
   <?php
-    $main_theme_catalog_view = isset($GLOBALS['main_theme_catalog_view']) ? (string) $GLOBALS['main_theme_catalog_view'] : '';
     $main_theme_is_catalog_page = !empty($GLOBALS['main_theme_is_catalog_page']);
-    $main_theme_render_popup_filters_shortcode = $main_theme_is_catalog_page && $main_theme_catalog_view !== 'cards';
+    $main_theme_has_inline_catalog_filters = !empty($GLOBALS['main_theme_has_inline_catalog_filters']);
+    $main_theme_render_popup_filters_shortcode = $main_theme_is_catalog_page && !$main_theme_has_inline_catalog_filters;
   ?>
-  <?php if ($main_theme_is_catalog_page) : ?>
+  <?php if ($main_theme_is_catalog_page && !$main_theme_has_inline_catalog_filters) : ?>
+  <div class="filters-popup-overlay" data-catalog-filters-overlay></div>
   <div class="filters-popup">
     <div class="wrap">
       <div class="close-row">

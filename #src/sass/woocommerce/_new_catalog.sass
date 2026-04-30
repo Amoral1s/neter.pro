@@ -1,5 +1,7 @@
 @import "../reset/_vars"
-
+.shop-catalog-loop
+  .container
+    padding: 0
 .catalog-view
   &__toggle
     svg path
@@ -11,228 +13,46 @@
       svg path
         stroke: $main
 
-.shop-catalog-wrapper
-  .shop-catalog-filters.catalog-view--cards
-    .wrap
-      justify-content: flex-end
-    @media (min-width: 992px)
-      .call-filters
-        display: none
+html.catalog-view-pref-cards
+  .shop-catalog-wrapper
+    .shop-catalog-filters
+      .wrap
+        justify-content: flex-end
+      .wrap
+        > .wpfMainWrapper
+          display: none
+      @media (min-width: 992px)
+        .call-filters
+          display: none
 
-.catalog-cards
-  &__wrapper
-    width: 100%
-  &__layout
-    display: grid
-    grid-template-columns: 260px minmax(0, 1fr)
-    gap: 20px
-    align-items: flex-start
-  &__filters
-    border-radius: 24px
-    background-color: #F6F8FA
-    padding: 24px
-    padding-top: 4px
-    margin-top: -80px
-    .wpfMainWrapper
-      .wpfFilterContent
-        max-height: 320px
-        overflow: visible
-        overflow-y: auto
-        transition: all 0.3s!important
-        label
-          display: flex
-        &::-webkit-scrollbar //скроллбар
-          width: 4px
-          background-color: #fff
-        &::-webkit-scrollbar-thumb //ползунок
-          background: $main
-          border-radius: 4px
-        &.wpfHide
-          max-height: 0
-          overflow: hidden
-      .wpfFilterButtons
-        display: none
-      .wpfFilterWrapper
-        display: block
-        width: 100%
-        margin: 0
-        padding: 0
-        border-bottom: 1px solid $gray_200
-        &:last-child
-          border-bottom: none
-        &[data-filter-type="wpfPrice"]
-          padding-bottom: 16px
-        .wpfFilterTitle
-          margin: 0
-          padding: 20px 0
-          display: flex
-          align-items: center
-          justify-content: space-between
-          .wfpTitle
-            color: $text
-            font-family: $font
-            font-size: 16px
-            font-weight: 500
-            height: auto
-            line-height: 1.2
-            display: flex
-            align-items: center
-            padding: 0
-          i
-            background-repeat: no-repeat
-            background-size: contain
-            transition: .3s
-            background-image: url(../img/icons/new-arr.svg)
-            &.fa-minus
-              transform: rotate(180deg)
-          .wpfTitleToggle
-            width: 24px
-            height: 24px
-        .wpfFilterContent
-          padding: 0
-          .wpfPriceInputs
-            display: grid
-            grid-template-columns: repeat(2, minmax(0, 1fr))
-            gap: 10px
-            margin-bottom: 14px
-            .wpfCurrencySymbol,
-            .wpfFilterDelimeter
-              display: none
-            input#wpfMaxPrice,
-            input#wpfMinPrice
-              width: 100%
-              height: 44px
-              border: none
-              border-radius: 8px
-              background-color: #fff
-              color: $text
-              font-family: $font
-              font-size: 13px
-              padding: 0 12px
-          .irs
-            margin-bottom: 14px!important
-            .irs-bar,
-            .irs-handle
-              background-color: $main
-              border-color: $main
-          ul
-            margin: 0 0 16px
-            padding: 0
-            li
-              display: flex
-              align-items: center
-              min-height: 24px
-              margin-bottom: 10px
-              &:last-child
-                margin-bottom: 0
-              .wpfDisplay
-                .wpfValue
-                  padding: 0!important
-                  margin: 0
-                  .wpfFilterTaxNameWrapper
-                    color: $text
-                    font-family: $font
-                    font-size: 13px
-                    line-height: 1.2
-              .wpfLiLabel
-                display: flex
-                align-items: center
-                cursor: pointer
-                .wpfCheckbox
-                  display: flex
-                  align-items: center
-                  justify-content: center
-                  input
-                    display: none
-                  label
-                    width: 22px
-                    min-width: 22px
-                    min-height: 22px
-                    height: 22px
-                    border-radius: 6px
-                    margin-right: 8px
-                    border: 1px solid $gray_200
-                    background-color: #fff
-                    background-position: center
-                    background-repeat: no-repeat
-                    background-size: contain
-                    &::before
-                      display: none!important
-                  input:checked + label
-                    background-color: $main
-                    border-color: $main
-                    background-image: url(../img/icons/checked-filter.svg)
-          .wpfCheckboxHier
-            .ms-options-wrap
-              button
-                display: none
-              .ms-options
-                display: block!important
-                position: static
-                width: 100%!important
-                min-height: 0!important
-                max-height: none!important
-                border: none
-                background-color: transparent
-                padding: 0
-                margin: 0 0 16px
-                ul
-                  margin: 0
-                  li
-                    margin-bottom: 10px
-                    &.selected
-                      label::after
-                        background-color: $main
-                        border-color: $main
-                        background-image: url(../img/icons/checked-filter.svg)
-                    input
-                      display: none!important
-                    label
-                      min-height: 22px
-                      padding: 0 0 0 30px!important
-                      color: $text!important
-                      font-family: $font!important
-                      font-size: 13px!important
-                      line-height: 1.2!important
-                      position: relative
-                      background-color: transparent!important
-                      &::after
-                        content: ''
-                        position: absolute
-                        left: 0
-                        top: 50%
-                        transform: translateY(-50%)
-                        width: 22px
-                        height: 22px
-                        border-radius: 6px
-                        border: 1px solid $gray_200
-                        background-color: #fff
-                        background-position: center
-                        background-repeat: no-repeat
-                        background-size: contain
-  &__actions
-    margin-top: 20px
-  &__reset
-    width: 100%
-    max-width: 100%
-    height: 52px
-    border: none
-    border-radius: 10px
-    color: $gray_450
-    font-family: $font
-    font-size: 14px
-    font-weight: 500
-    padding: 0 18px
-    text-transform: none
-    &:hover
-      color: $text
-  &__products
-    min-width: 0
-    .container
-      padding: 0
+html.catalog-view-pref-table
+  .shop-catalog-wrapper
+    .shop-catalog-filters
+      .wrap > .wpfMainWrapper
+        display: flex!important
+      .call-filters
+        display: flex
+
+.catalog-page
+  ul.products
+    li.product:not(.table-product)
+      display: none!important
+    li.table-product.is-odd-row
+      background-color: #F6F8FA
+      &.added-product
+        background-color: rgba(234, 247, 249, 1)
+    li.table-product.is-even-row
+      background-color: transparent
+      &.added-product
+        background-color: rgba(234, 247, 249, 1)
+
+html.catalog-view-pref-cards .shop-catalog-wrapper
+  .catalog-products
     .woocommerce-result-count,
     .woocommerce-ordering
       display: none
+    .table-header
+      display: none!important
     ul.products
       display: grid
       grid-template-columns: repeat(3, minmax(0, 1fr))
@@ -243,15 +63,18 @@
       &::before,
       &::after
         display: none
-      li.product
+      > li.table-product
+        display: none!important
+      > li.product:not(.table-product)
         width: 100%!important
         margin: 0!important
         min-width: 0
+        float: none!important
         position: relative
         background-color: $gray_50
         border-radius: 24px
         padding: 20px
-        display: flex
+        display: flex!important
         flex-direction: column
         justify-content: space-between
         .product-icons
@@ -331,31 +154,274 @@
               line-height: 1.2
               margin: 0
 
-@media (max-width: 1200px)
-  .catalog-cards
-    &__layout
+html.catalog-view-pref-table .shop-catalog-wrapper
+  .catalog-products
+    ul.products
+      display: block
+      > li.product:not(.table-product)
+        display: none!important
+      > li.table-product
+        display: flex
+
+@media (min-width: 992px)
+  html.catalog-view-pref-cards .shop-catalog-wrapper
+    .catalog-cards__layout
+      display: grid
+      grid-template-columns: 260px minmax(0, 1fr)
+      gap: 20px
+      align-items: flex-start
+    .catalog-filter-panel
+      display: block!important
+      position: sticky
+      top: 110px
+      right: auto
+      bottom: auto
+      width: 100%
+      height: auto
+      max-height: none
+      z-index: 5
+      border-radius: 24px
+      background-color: #F6F8FA
+      padding: 24px
+      padding-top: 4px
+      overflow: visible
+      margin-top: -80px
+      .button-white
+        &:hover
+          color: #fff!important
+    .filters-popup-overlay
+      display: none!important
+    .catalog-filter-panel
+      .wrap
+        display: block
+        width: 100%
+        height: auto
+        padding: 0
+        overflow: visible
+      .close-row
+        display: none
+      .wpfMainWrapper
+        .wpfFilterButtons
+          display: none
+        .wpfFilterWrapper
+          display: block
+          width: 100%
+          margin: 0
+          padding: 0
+          border-bottom: 1px solid $gray_200
+          &:last-child
+            border-bottom: none
+          &[data-filter-type="wpfPrice"]
+            padding-bottom: 16px
+          .wpfFilterTitle
+            margin: 0
+            padding: 20px 0
+            display: flex
+            align-items: center
+            justify-content: space-between
+            .wfpTitle
+              color: $text
+              font-family: $font
+              font-size: 16px
+              font-weight: 500
+              height: auto
+              line-height: 1.2
+              display: flex
+              align-items: center
+              padding: 0
+            i
+              background-repeat: no-repeat
+              background-size: contain
+              transition: .3s
+              background-image: url(../img/icons/new-arr.svg)
+              &.fa-minus
+                transform: rotate(180deg)
+            .wpfTitleToggle
+              width: 24px
+              height: 24px
+          .wpfFilterContent
+            max-height: 320px
+            overflow: visible
+            overflow-y: auto
+            padding: 0
+            margin: 0
+            transition: all 0.3s!important
+            &::-webkit-scrollbar
+              width: 4px
+              background-color: #fff
+            &::-webkit-scrollbar-thumb
+              background: $main
+              border-radius: 4px
+            &.wpfHide
+              max-height: 0
+              overflow: hidden
+            .wpfPriceInputs
+              display: grid
+              grid-template-columns: repeat(2, minmax(0, 1fr))
+              gap: 10px
+              margin-bottom: 14px
+              .wpfCurrencySymbol,
+              .wpfFilterDelimeter
+                display: none
+              input#wpfMaxPrice,
+              input#wpfMinPrice
+                width: 100%
+                height: 44px
+                border: none
+                border-radius: 8px
+                background-color: #fff
+                color: $text
+                font-family: $font
+                font-size: 13px
+                padding: 0 12px
+            .irs
+              margin-bottom: 14px!important
+              .irs-bar,
+              .irs-handle
+                background-color: $main
+                border-color: $main
+            ul
+              margin: 0 0 16px
+              padding: 0
+              li
+                align-items: center
+                min-height: 24px
+                margin-bottom: 10px
+                &:last-child
+                  margin-bottom: 0
+                .wpfDisplay
+                  .wpfValue
+                    padding: 0!important
+                    margin: 0
+                    .wpfFilterTaxNameWrapper
+                      color: $text
+                      font-family: $font
+                      font-size: 13px
+                      line-height: 1.2
+                .wpfLiLabel
+                  display: flex
+                  align-items: center
+                  cursor: pointer
+                  .wpfCheckbox
+                    display: flex
+                    align-items: center
+                    justify-content: center
+                    input
+                      display: none
+                    label
+                      width: 22px
+                      min-width: 22px
+                      min-height: 22px
+                      height: 22px
+                      border-radius: 6px
+                      margin-right: 8px
+                      border: 1px solid $gray_200
+                      background-color: #fff
+                      background-position: center
+                      background-repeat: no-repeat
+                      background-size: contain
+                      &::before
+                        display: none!important
+                    input:checked + label
+                      background-color: $main
+                      border-color: $main
+                      background-image: url(../img/icons/checked-filter.svg)
+            .wpfCheckboxHier
+              .ms-options-wrap
+                button
+                  display: none
+                .ms-options
+                  display: block!important
+                  position: static
+                  width: 100%!important
+                  min-height: 0!important
+                  max-height: none!important
+                  border: none
+                  background-color: transparent
+                  padding: 0
+                  margin: 0 0 16px
+                  ul
+                    margin: 0
+                    li
+                      margin-bottom: 10px
+                      &.selected
+                        label::after
+                          background-color: $main
+                          border-color: $main
+                          background-image: url(../img/icons/checked-filter.svg)
+                      input
+                        display: none!important
+                      label
+                        min-height: 22px
+                        padding: 0 0 0 30px!important
+                        color: $text!important
+                        font-family: $font!important
+                        font-size: 13px!important
+                        line-height: 1.2!important
+                        position: relative
+                        background-color: transparent!important
+                        &::after
+                          content: ''
+                          position: absolute
+                          left: 0
+                          top: 50%
+                          transform: translateY(-50%)
+                          width: 22px
+                          height: 22px
+                          border-radius: 6px
+                          border: 1px solid $gray_200
+                          background-color: #fff
+                          background-position: center
+                          background-repeat: no-repeat
+                          background-size: contain
+      .catalog-cards__actions
+        margin-top: 20px
+        .filers-popup-confirm
+          display: none
+      .catalog-cards__reset
+        width: 100%
+        max-width: 100%
+        height: 52px
+        border: none
+        border-radius: 10px
+        color: $gray_450
+        font-family: $font
+        font-size: 14px
+        font-weight: 500
+        padding: 0 18px
+        text-transform: none
+        &:hover
+          color: $text
+
+@media (max-width: 1200px) and (min-width: 992px)
+  html.catalog-view-pref-cards .shop-catalog-wrapper
+    .catalog-cards__layout
       grid-template-columns: 240px minmax(0, 1fr)
       gap: 18px
-    &__products
+    .catalog-products
       ul.products
+        grid-template-columns: repeat(2, minmax(0, 1fr))
         gap: 16px
 
-@media (max-width: 992px)
-  .catalog-cards
-    &__layout
+@media (max-width: 991px)
+  html.catalog-view-pref-cards .shop-catalog-wrapper
+    .catalog-cards__layout
       display: block
-    &__filters
+    .catalog-filter-panel
       display: none
-    &__products
+    .shop-catalog-filters
+      .call-filters
+        display: flex
+    .catalog-products
       ul.products
         grid-template-columns: repeat(2, minmax(0, 1fr))
 
 @media (max-width: 578px)
-  .catalog-cards
-    &__products
+  html.catalog-view-pref-cards .shop-catalog-wrapper
+    .catalog-products
       ul.products
         gap: 8px
-        li.product
+        > li.product:not(.table-product)
           padding: 10px
           border-radius: 14px
           .product-icons

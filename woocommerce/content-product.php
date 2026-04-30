@@ -9,11 +9,6 @@ if ( empty( $product ) || ! $product->is_visible() ) {
 	return;
 }
 
-if (function_exists('main_theme_should_render_catalog_cards_loop') && main_theme_should_render_catalog_cards_loop()) {
-	wc_get_template_part('content', 'related');
-	return;
-}
-
 static $catalog_context = null;
 
 if ($catalog_context === null) {
@@ -93,8 +88,17 @@ if ($cell_shape_value === '') {
         $cell_shape_value = sanitize_title($raw_cell_shape_value);
     }
 }
+
+$table_product_class = 'table-product';
+
+if (!empty($GLOBALS['main_theme_render_dual_catalog_product'])) {
+	$row_index = isset($GLOBALS['main_theme_catalog_table_row_index']) ? (int) $GLOBALS['main_theme_catalog_table_row_index'] : 0;
+	$row_index++;
+	$GLOBALS['main_theme_catalog_table_row_index'] = $row_index;
+	$table_product_class .= $row_index % 2 ? ' is-odd-row' : ' is-even-row';
+}
 	?>
-<li <?php wc_product_class( 'table-product', $product ); ?>>
+<li <?php wc_product_class( $table_product_class, $product ); ?>>
 	<?php
 		if ($new_product == true) {
 			echo '<div class="label">Новинка</div>';
@@ -179,3 +183,8 @@ if ($cell_shape_value === '') {
 		?>
 	</div>
 </li>
+<?php
+if (!empty($GLOBALS['main_theme_render_dual_catalog_product']) && !is_search()) {
+	wc_get_template_part('content', 'related');
+}
+?>
