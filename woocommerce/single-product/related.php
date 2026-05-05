@@ -19,6 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 global $product;
 
+$current_product = $product;
 $current_product_id = $product->get_id();
 $product_categories = wp_get_post_terms( $current_product_id, 'product_cat' );
 $category_ids = array();
@@ -74,7 +75,12 @@ if ( !empty( $related_products ) ) : ?>
 			<?php woocommerce_product_loop_start(); ?>
 				<?php foreach ( $related_products as $related_product ) : ?>
 						<?php
-								$post_object = get_post( $related_product->ID );
+								$related_product_object = wc_get_product( $related_product->ID );
+								if ( ! $related_product_object || ! $related_product_object->is_visible() ) {
+									continue;
+								}
+								$post_object = get_post( $related_product_object->get_id() );
+								$GLOBALS['product'] = $related_product_object;
 								setup_postdata( $GLOBALS['post'] =& $post_object ); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited, Squiz.PHP.DisallowMultipleAssignments.Found
 								wc_get_template_part( 'content', 'related' );
 						?>
@@ -92,4 +98,5 @@ if ( !empty( $related_products ) ) : ?>
 endif;
 
 wp_reset_postdata();
+$GLOBALS['product'] = $current_product;
 ?>

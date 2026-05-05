@@ -8544,39 +8544,41 @@ jQuery(document).ready(function ($) {
       const arrPrev = relatedSlider.querySelector('.arr-prev');
       const itemsWrap = relatedSlider.querySelector('ul.products');
       const items = relatedSlider.querySelectorAll('li.product');
-      itemsWrap.classList.add('swiper-wrapper');
-      function startSlider() {
-        new Swiper(swiper, {
-          lazy: false,
-          autoHeight: false,
-          navigation: {
-            nextEl: arrNext,
-            prevEl: arrPrev
-          },
-          breakpoints: {
-            300: {
-              slidesPerView: 2,
-              spaceBetween: 8,
+      if (wrapper && swiper && itemsWrap) {
+        itemsWrap.classList.add('swiper-wrapper');
+        function startSlider() {
+          new Swiper(swiper, {
+            lazy: false,
+            autoHeight: false,
+            navigation: {
+              nextEl: arrNext,
+              prevEl: arrPrev
             },
-            768: {
-              spaceBetween: 10,
-              slidesPerView: 2,
-            },  
-            992: {
-              slidesPerView: 4,
-              spaceBetween: 20,
-            }
-          },
-        });
-      }
-      if (window.screen.width > 992 && items.length > 4) {
-        startSlider();
-      } else if (window.screen.width < 993 && items.length > 2) {
-        startSlider();
-      } else if (window.screen.width < 768 && items.length > 2) {
-        startSlider();
-      } else {
-        wrapper.classList.add('disabled-slider');
+            breakpoints: {
+              300: {
+                slidesPerView: 2,
+                spaceBetween: 8,
+              },
+              768: {
+                spaceBetween: 10,
+                slidesPerView: 2,
+              },  
+              992: {
+                slidesPerView: 4,
+                spaceBetween: 20,
+              }
+            },
+          });
+        }
+        if (window.screen.width > 992 && items.length > 4) {
+          startSlider();
+        } else if (window.screen.width < 993 && items.length > 2) {
+          startSlider();
+        } else if (window.screen.width < 768 && items.length > 2) {
+          startSlider();
+        } else {
+          wrapper.classList.add('disabled-slider');
+        }
       }
 	}
 

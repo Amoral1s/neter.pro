@@ -13764,7 +13764,6 @@ html.filters-popup-open .shop-catalog-wrapper {
   flex-direction: column;
   height: auto;
   color: #0A3141;
-  max-width: calc(25% - 20px);
 }
 
 .compare-card__product {
@@ -14044,6 +14043,10 @@ html.catalog-view-pref-table .shop-catalog-wrapper .shop-catalog-filters .wrap >
 
 html.catalog-view-pref-table .shop-catalog-wrapper .shop-catalog-filters .call-filters {
   display: flex;
+}
+
+.catalog-page .related ul.products li.product:not(.table-product) {
+  display: block !important;
 }
 
 .catalog-page ul.products li.product:not(.table-product) {
@@ -18620,10 +18623,6 @@ html.catalog-view-pref-table .shop-catalog-wrapper .catalog-products ul.products
   .search-page .products .table-product:nth-child(odd),
   .search-page .products .table-product:nth-child(even) {
     background-color: transparent;
-  }
-
-  .compare-page {
-    max-width: calc(50% - 20px);
   }
 
   .compare-page__top {
