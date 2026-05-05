@@ -5703,6 +5703,57 @@ a.button.button-transparent {
   margin-bottom: 100px;
 }
 
+.tech-banner__wrap {
+  display: block;
+  margin-top: 40px;
+  width: 900px;
+}
+
+.tech-banner__wrap .mini-title {
+  font-size: 24px;
+  margin-bottom: 28px;
+  display: block;
+}
+
+.tech-banner__row {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  min-width: calc(100% + 32px);
+}
+
+.tech-banner__item {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: calc(25% - 32px);
+  margin-right: 32px;
+}
+
+.tech-banner__item .meta {
+  display: block;
+}
+
+.tech-banner__item .meta b {
+  font-size: 18px;
+  margin-bottom: 4px;
+  line-height: 1.2;
+  font-weight: 500;
+}
+
+.tech-banner__item .meta p {
+  color: #9CA3AF;
+  font-size: 14px;
+  margin: 0;
+}
+
+.tech-banner__item .icon {
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  margin-right: 16px;
+}
+
 .tech-banner .subtitle {
   font-size: 16px;
 }
@@ -5743,9 +5794,8 @@ a.button.button-transparent {
 .tech-banner .wrap .right {
   position: absolute;
   width: 560px;
-  top: 50%;
-  transform: translateY(-50%);
-  right: -30px;
+  top: -25px;
+  right: -60px;
 }
 
 .tech-banner .wrap .right img {
@@ -15942,6 +15992,47 @@ html.catalog-view-pref-table .shop-catalog-wrapper .catalog-products ul.products
   .tech-banner {
     margin-top: 100px;
     margin-bottom: 40px;
+  }
+
+  .tech-banner__wrap {
+    margin-top: 24px;
+    width: 100%;
+  }
+
+  .tech-banner__wrap .mini-title {
+    font-size: 18px;
+    margin-bottom: 24px;
+  }
+
+  .tech-banner__row {
+    display: block;
+    min-width: 0;
+  }
+
+  .tech-banner__item {
+    align-items: flex-start;
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 18px;
+  }
+
+  .tech-banner__item:last-child {
+    margin-bottom: 0;
+  }
+
+  .tech-banner__item .meta {
+    display: block;
+  }
+
+  .tech-banner__item .meta b {
+    font-size: 16px;
+  }
+
+  .tech-banner__item .icon {
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    margin-right: 14px;
   }
 
   .tech-banner .form .form-row {

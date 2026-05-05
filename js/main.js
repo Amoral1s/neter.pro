@@ -9066,29 +9066,32 @@ jQuery(document).ready(function ($) {
 		 }
 		 const navWrapParent = navWrap.parentElement;
 		 const content = document.querySelector('.single__main .content');
-		 const contentBlocks = content.querySelectorAll('*');
+		 const headings = content ? content.querySelectorAll('h2') : [];
 		 let elems = 0;
-		 contentBlocks.forEach((elem, index) => {
-			 if (elem.id) {
-				 if (
-							elem.closest('.line') || 
-							elem.closest('.product') || 
-							elem.classList.contains('wpcf7') || 
-							elem.classList.contains('awooc-custom-order') || 
-							elem.classList.contains('swiper-wrapper')  || 
-							elem.id.includes('datawrapper-script-embed') ||
-							elem.id.includes('datawrapper') 
-						) 
-					{
-					 return
-				 }
-				 const navLink = document.createElement('a');
-				 navLink.href = `#${elem.id}`;
-				 navLink.classList.add('anchor');
-				 navLink.textContent = elem.id.replace(/\-/g, ' ');
-				 navWrap.appendChild(navLink);
-				 elems++;
+
+		 navWrap.innerHTML = '';
+		 headings.forEach((heading) => {
+			 const headingText = heading.textContent.trim();
+			 if (!headingText) {
+				 return
 			 }
+
+			 let headingId = `anchor-${elems + 1}`;
+			 let idIndex = elems + 2;
+
+			 while (document.getElementById(headingId) && document.getElementById(headingId) !== heading) {
+				 headingId = `anchor-${idIndex}`;
+				 idIndex++;
+			 }
+
+			 heading.id = headingId;
+
+			 const navLink = document.createElement('a');
+			 navLink.setAttribute('href', `#${headingId}`);
+			 navLink.classList.add('anchor');
+			 navLink.textContent = headingText;
+			 navWrap.appendChild(navLink);
+			 elems++;
 		 });
 		 $('.single-nav b').on('click', function() {
 			$(this).toggleClass('active');
@@ -9097,7 +9100,11 @@ jQuery(document).ready(function ($) {
 
 		$(".anchor").click(function () {
 			var elementClick = $(this).attr("href");
-			var destination = $(elementClick).offset().top - 100;
+			var target = document.getElementById(elementClick.replace('#', ''));
+			if (!target) {
+				return false;
+			}
+			var destination = $(target).offset().top - 100;
 			$("html:not(:animated),body:not(:animated)").animate({scrollTop: destination}, 500);
 			return false;
 		});
@@ -9120,6 +9127,7 @@ jQuery(document).ready(function ($) {
 	
  
  }); //end
+
 jQuery(document).ready(function ($) {
 
   $('.product-tabs .tabs .item').on('click', function() {

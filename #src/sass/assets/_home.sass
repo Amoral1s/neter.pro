@@ -616,6 +616,41 @@
   
 .tech-banner
   margin-bottom: 100px
+  &__wrap
+    display: block
+    margin-top: 40px
+    width: 900px
+    .mini-title
+      font-size: 24px
+      margin-bottom: 28px
+      display: block
+  &__row
+    display: flex
+    justify-content: flex-start
+    align-items: center
+    min-width: calc(100% + 32px)
+  &__item
+    display: flex
+    justify-content: flex-start
+    align-items: center
+    width: calc(25% - 32px)
+    margin-right: 32px
+    .meta
+      display: block
+      b
+        font-size: 18px
+        margin-bottom: 4px
+        line-height: 1.2
+        font-weight: 500
+      p
+        color: #9CA3AF
+        font-size: 14px
+        margin: 0
+    .icon
+      width: 32px
+      height: 32px
+      min-width: 32px
+      margin-right: 16px
   .subtitle
     font-size: 16px
   .form
@@ -643,9 +678,8 @@
     .right
       position: absolute
       width: 560px
-      top: 50%
-      transform: translateY(-50%)
-      right: -30px
+      top: -25px
+      right: -60px
       img
         display: block
         width: 100%
@@ -1483,6 +1517,31 @@
   .tech-banner 
     margin-top: 100px
     margin-bottom: 40px
+    &__wrap
+      margin-top: 24px
+      width: 100%
+      .mini-title
+        font-size: 18px
+        margin-bottom: 24px
+    &__row
+      display: block
+      min-width: 0
+    &__item
+      align-items: flex-start
+      width: 100%
+      margin-right: 0
+      margin-bottom: 18px
+      &:last-child
+        margin-bottom: 0
+      .meta
+        display: block
+        b
+          font-size: 16px
+      .icon
+        width: 24px
+        height: 24px
+        min-width: 24px
+        margin-right: 14px
     .form
       .form-row
         flex-wrap: wrap

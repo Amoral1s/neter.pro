@@ -24,10 +24,10 @@
       <h1 style="color: #fff"><?php echo get_field('offer_title', 'options') ?></h1>
       <p style="color: #fff"><?php echo get_field('offer_subtitle', 'options'); ?></p>
       <div class="btns">
-        <div class="button callback" style="width: 400px; max-width: 100%;">
-          Оставить заявку
+        <div class="button callback">
+          Отправить КП`
         </div>
-        <div target="blank" style="display: none" class="button button-transparent call-catalog">
+        <div target="blank" class="button button-transparent call-catalog">
           Скачать каталог
         </div>
       </div>
@@ -359,6 +359,35 @@
         <div class="form form-white">
           <?php echo do_shortcode('[contact-form-7 id="b534b37" title="Баннер изготовления по вашему ТЗ"]'); ?>
         </div>
+          <?php if (have_rows('tech_row','options')) : ?>
+            <div class="tech-banner__wrap">
+              <b class="mini-title">Условия сотрудничества</b>
+              <div class="tech-banner__row">
+                <?php while (have_rows('tech_row','options')) : the_row(); ?>
+                  <?php
+                    $text = get_sub_field('text');
+                    $title = get_sub_field('title');
+                    $icon = get_sub_field('icon');
+                  ?>
+                  <div class="tech-banner__item">
+                    <?php if ($icon) : ?>
+                      <div class="icon">
+                        <img src="<?php echo $icon; ?>" alt="icon">
+                      </div>
+                    <?php endif; ?>
+                    <div class="meta">
+                      <?php if ($title) : ?>
+                        <b><?php echo $title; ?></b>
+                      <?php endif; ?>
+                      <?php if ($text) : ?>
+                        <p><?php echo $text; ?></p>
+                      <?php endif; ?>
+                    </div>
+                  </div>
+                <?php endwhile; ?>
+              </div>
+            </div>
+          <?php endif; ?>
       </div>
       <div class="right">
         <img src="<?php echo get_field('tech_bg','options'); ?>" alt="<?php echo get_field('tech_title','options') ?>">
