@@ -221,9 +221,32 @@ jQuery(document).ready(function($) {
 
         return 'позиций';
     }
+
+    function getSelectedWord(count) {
+        count = Math.abs(Number(count)) % 100;
+
+        const lastDigit = count % 10;
+
+        if (count > 10 && count < 20) {
+            return 'Выбрано';
+        }
+
+        if (lastDigit === 1) {
+            return 'Выбрана';
+        }
+
+        if (lastDigit > 1 && lastDigit < 5) {
+            return 'Выбраны';
+        }
+
+        return 'Выбрано';
+    }
+
     function updateCartToggle() {
 
         const itemsCount = readCart().length;
+
+        $('.selected-word').text(getSelectedWord(itemsCount));
 
         $('.cart-count').text(itemsCount);
 
@@ -418,7 +441,7 @@ jQuery(document).ready(function($) {
             return;
         }
 
-        if ($(event.target).closest('li.table-product').hasClass('instock')) {
+        if (!$(event.target).closest('li.table-product').hasClass('outofstock')) {
             $(this).find('.button').trigger('click');
         }
     });
@@ -430,7 +453,7 @@ jQuery(document).ready(function($) {
         const productId = toInt($button.data('product_id') || $button.val());
         const $item = $button.closest('li.table-product');
 
-        if (!productId) {
+        if (!productId || $item.hasClass('outofstock')) {
             return;
         }
 
@@ -477,10 +500,9 @@ jQuery(document).ready(function($) {
 
         setCartItem(productId, quantity);
         syncCartUi();
+        updateMiniCartIfOpened();
 
-        refreshMiniCart(true, function() {
-            $button.removeClass('loading');
-        });
+        $button.removeClass('loading');
     });
 
     $(document).on('click', '.cart-toggle .wrapper', function() {

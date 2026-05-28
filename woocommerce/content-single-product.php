@@ -221,9 +221,7 @@ if (is_singular('product')) {
     </div>
 		<?php endif; ?>
 		<div class="single-btns">
-			<?php if ($product->is_on_backorder()) : ?>
-				<div class="button call-pre-order " data-title="<?php echo get_the_title(); ?>">Предзаказ</div>
-			<?php else : ?>
+			<?php if ( $product->is_in_stock() || $product->is_on_backorder() ) : ?>
 				<?php woocommerce_template_single_add_to_cart(); ?>
 			<?php endif; ?>
 			<div class="button button-white callback">

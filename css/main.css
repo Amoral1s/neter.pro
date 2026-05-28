@@ -12471,23 +12471,19 @@ a small small {
   line-height: 0;
 }
 
-.catalog-page .products .table-product.onbackorder,
 .catalog-page .products .table-product.outofstock {
   cursor: auto;
 }
 
-.catalog-page .products .table-product.onbackorder:hover,
 .catalog-page .products .table-product.outofstock:hover {
   box-shadow: none;
 }
 
-.catalog-page .products .table-product.onbackorder .table-product-cart,
 .catalog-page .products .table-product.outofstock .table-product-cart {
   opacity: 0;
   pointer-events: none;
 }
 
-.catalog-page .products .table-product.onbackorder .table-product-cart a.button,
 .catalog-page .products .table-product.outofstock .table-product-cart a.button {
   pointer-events: none;
   opacity: 0;

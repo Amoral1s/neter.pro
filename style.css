@@ -10,6 +10,15 @@ Requires PHP: 7.4
 License: GNU General Public License v2 or later
 License URI: LICENSE
 */
+
+#carrotquest-messenger-collapsed-container.carrotquest-messenger-right_bottom {
+		bottom: 110px!important;
+	} 
+@media (max-width: 992px) {
+	#carrotquest-messenger-collapsed-container.carrotquest-messenger-right_bottom {
+		bottom: 110px!important;
+	} 
+}
 .shop-catalog-wrapper .shop-catalog-filters .wrap .wpfMainWrapper .wpfFilterWrapper .wpfFilterContent .wpfCheckboxHier .ms-options-wrap button {
 	font-size: 14px;
 	padding-left: 12px;
