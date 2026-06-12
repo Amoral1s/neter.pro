@@ -13,34 +13,85 @@ static $catalog_context = null;
 
 if ($catalog_context === null) {
     $current_category = '';
-    $queried_object = get_queried_object();
+    $catalog_category_slugs = array(
+        'akkumulyatornye-batarei',
+        'bms-plata',
+        'akkumulyatornye-yacheyki',
+        'zaryadnye-ustrojstva-dlya-akkumulyatorov',
+    );
 
-    if ($queried_object && is_a($queried_object, 'WP_Term')) {
-        if ($queried_object->parent) {
-            $parent_category = get_term($queried_object->parent, 'product_cat');
-            $current_category = $parent_category ? $parent_category->slug : '';
-        } else {
-            $current_category = $queried_object->slug;
+    $resolve_category_from_term = static function($term) use ($catalog_category_slugs) {
+        if (!$term || is_wp_error($term) || !is_a($term, 'WP_Term') || $term->taxonomy !== 'product_cat') {
+            return '';
+        }
+
+        if (in_array($term->slug, $catalog_category_slugs, true)) {
+            return $term->slug;
+        }
+
+        $ancestor_ids = get_ancestors($term->term_id, 'product_cat');
+
+        foreach ($ancestor_ids as $ancestor_id) {
+            $ancestor = get_term($ancestor_id, 'product_cat');
+
+            if ($ancestor && !is_wp_error($ancestor) && in_array($ancestor->slug, $catalog_category_slugs, true)) {
+                return $ancestor->slug;
+            }
+        }
+
+        return $term->parent ? '' : $term->slug;
+    };
+
+    $resolve_category_from_url = static function($url) use ($catalog_category_slugs) {
+        $url = rawurldecode((string) $url);
+
+        foreach ($catalog_category_slugs as $category_slug) {
+            if (strpos($url, $category_slug) !== false) {
+                return $category_slug;
+            }
+        }
+
+        return '';
+    };
+
+    $queried_object = get_queried_object();
+    $current_category = $resolve_category_from_term($queried_object);
+
+    if (empty($current_category)) {
+        $queryvars = array();
+        $queryvars_raw = isset($_POST['queryvars']) ? wp_unslash($_POST['queryvars']) : '';
+
+        if (is_string($queryvars_raw) && $queryvars_raw !== '') {
+            $decoded_queryvars = json_decode($queryvars_raw, true);
+            $queryvars = is_array($decoded_queryvars) ? $decoded_queryvars : array();
+        }
+
+        if (!empty($queryvars['product_category_id'])) {
+            $current_category = $resolve_category_from_term(get_term((int) $queryvars['product_category_id'], 'product_cat'));
         }
     }
 
     if (empty($current_category)) {
-        $request_url = '';
+        $request_urls = array();
 
-        if (!empty($_SERVER['REQUEST_URI'])) {
-            $request_url = (string) $_SERVER['REQUEST_URI'];
-        } elseif (!empty($_SERVER['HTTP_REFERER'])) {
-            $request_url = (string) $_SERVER['HTTP_REFERER'];
+        if (!empty($_POST['currenturl'])) {
+            $request_urls[] = wp_unslash($_POST['currenturl']);
         }
 
-        if (strpos($request_url, 'akkumulyatornye-batarei') !== false) {
-            $current_category = 'akkumulyatornye-batarei';
-        } elseif (strpos($request_url, 'bms-plata') !== false) {
-            $current_category = 'bms-plata';
-        } elseif (strpos($request_url, 'akkumulyatornye-yacheyki') !== false) {
-            $current_category = 'akkumulyatornye-yacheyki';
-        } elseif (strpos($request_url, 'zaryadnye-ustrojstva-dlya-akkumulyatorov') !== false) {
-            $current_category = 'zaryadnye-ustrojstva-dlya-akkumulyatorov';
+        if (!empty($_SERVER['HTTP_REFERER'])) {
+            $request_urls[] = wp_unslash($_SERVER['HTTP_REFERER']);
+        }
+
+        if (!empty($_SERVER['REQUEST_URI'])) {
+            $request_urls[] = wp_unslash($_SERVER['REQUEST_URI']);
+        }
+
+        foreach ($request_urls as $request_url) {
+            $current_category = $resolve_category_from_url($request_url);
+
+            if ($current_category !== '') {
+                break;
+            }
         }
     }
 
