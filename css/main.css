@@ -6564,10 +6564,11 @@ a.button.button-transparent {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: nowrap;
 }
 
 .footer-feat .wrap .dir {
-  width: calc(33.3% - 20px);
+  width: calc(25% - 12px);
   display: block;
 }
 
@@ -6604,15 +6605,40 @@ a.button.button-transparent {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  width: calc(33.3% - 20px);
+  max-width: calc(25% - 12px);
+  width: max-content;
+  padding-right: 12px;
+}
+
+.footer-feat .wrap .item.clasters .meta b {
+  color: #fff;
+}
+
+.footer-feat .wrap .item.clasters .meta p {
+  color: #9CA3AF;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  font-size: 14px;
+}
+
+.footer-feat .wrap .item.clasters .meta p span {
+  color: red;
+  font-size: 14px;
+  padding-left: 5px;
 }
 
 .footer-feat .wrap .item .icon {
   min-width: 70px;
   height: 70px;
-  margin-right: 20px;
-  border-radius: 20px;
+  margin-right: 12px;
+  border-radius: 16px;
   background-color: rgba(255, 255, 255, 0.08);
+}
+
+.footer-feat .wrap .item .icon img {
+  width: 42px;
+  height: 42px;
 }
 
 .footer-feat .wrap .item .meta {
@@ -6621,14 +6647,14 @@ a.button.button-transparent {
 
 .footer-feat .wrap .item .meta b {
   color: #fff;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 500;
   margin-bottom: 8px;
 }
 
 .footer-feat .wrap .item .meta a,
 .footer-feat .wrap .item .meta span {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 400;
   color: #9CA3AF;
   margin: 0;
@@ -19581,6 +19607,11 @@ html.catalog-view-pref-table .shop-catalog-wrapper .catalog-products ul.products
 
   .footer-top .wrap .center .item:last-child {
     margin-bottom: 0;
+  }
+
+  .footer-feat .wrap .item {
+    width: 100%;
+    max-width: 100%;
   }
 
   .footer-feat .wrap .item .meta b {

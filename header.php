@@ -1,7 +1,7 @@
 <!doctype html>
 <html <?php language_attributes(); ?>>
 <head>
-  <link rel="preload" as="style" href="<?php echo get_stylesheet_directory_uri(); ?>/css/header.min.css" onload="this.onload=null;this.rel='stylesheet'">
+ <!--  <link rel="preload" as="style" href="<?php echo get_stylesheet_directory_uri(); ?>/css/header.min.css" onload="this.onload=null;this.rel='stylesheet'">
     <noscript>
         <link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri(); ?>/css/header.min.css">
     </noscript>
@@ -9,7 +9,7 @@
   <link rel="preload" as="style" href="<?php echo get_stylesheet_directory_uri(); ?>/css/main.min.css" onload="this.onload=null;this.rel='stylesheet'">
   <noscript>
       <link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri(); ?>/css/main.min.css">
-  </noscript> 
+  </noscript>  -->
    <meta charset="UTF-8">
    <?php
     // Получаем текущий URL

@@ -18,6 +18,7 @@ add_filter('wpcf7_spam', '__return_false'); // отключает внутрен
 @include('inc/woo_review.php');
 @include('inc/woo_loop_item.php');
 @include('inc/woo_catalog.php');
+@include('inc/wpf-filter-performance.php');
 @include('inc/vacancy.php');
 @include('inc/comments.php');
 
@@ -47,14 +48,38 @@ add_filter('get_the_archive_title', function($title) {
 });
 
 add_filter('wpseo_metadesc', function($desc) {
+  $paged = max(1, (int) get_query_var('paged'));
+  $pagination_suffix = $paged > 1 ? ' - Страница ' . $paged : '';
+
+  if (is_post_type_archive('post')) {
+    return 'Новости компании НЭТЕР — всё о технологиях, разработках и опыте внедрения решений 🔋 ' . $pagination_suffix;
+  }
+
   if (is_post_type_archive('blog')) {
-    return 'Блог компании НЭТЕР — всё о технологиях, разработках и опыте внедрения решений 🔋 Следите за новостями, историями и обновлениями от нашей команды, которая делает будущее уже сегодня.';
+    return 'Блог компании НЭТЕР — всё о технологиях, разработках и опыте внедрения решений 🔋' . $pagination_suffix;
   }
   if (is_post_type_archive('projects')) {
-    return 'Примеры реализованных проектов от НЭТЕР 🧪 Как мы создаем решения для складской техники, электромобилей, ИБП и систем хранения энергии. Ознакомьтесь с кейсами, где технологии встречаются с реальным бизнесом.';
+    return 'Примеры реализованных проектов от НЭТЕР 🧪' . $pagination_suffix;
   }
   return $desc;
 });
+
+add_filter('wpseo_metadesc', function($desc) {
+  if (!is_singular(array('post', 'blog'))) {
+    return $desc;
+  }
+
+  $post_id = get_queried_object_id();
+  $custom_description = get_post_meta($post_id, '_yoast_wpseo_metadesc', true);
+
+  if (trim((string) $custom_description) !== '') {
+    return $desc;
+  }
+
+  $excerpt = trim(wp_strip_all_tags(get_the_excerpt($post_id), true));
+
+  return $excerpt !== '' ? $excerpt : $desc;
+}, 20);
 
 add_filter('wpseo_breadcrumb_links', 'customize_yoast_breadcrumbs_last_link');
 
@@ -92,6 +117,11 @@ function remove_shop_page_from_breadcrumbs($links) {
 
     return $links;
 }
+
+function main_theme_remove_trailing_slash_from_breadcrumb_link($link_output) {
+    return preg_replace('#/(?=["\'])#', '', $link_output);
+}
+add_filter('wpseo_breadcrumb_single_link', 'main_theme_remove_trailing_slash_from_breadcrumb_link', 99);
 
 
 //Сортировка каталога

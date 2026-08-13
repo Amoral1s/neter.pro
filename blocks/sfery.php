@@ -4,7 +4,7 @@
     <div class="scroll-wrapper">
       <div class="wrap">
         <?php if (have_rows('sfery_hand')) : while(have_rows('sfery_hand')) : the_row(); ?>
-          <a href="<?php echo get_sub_field('ssylka'); ?>" class="item">
+          <a href="https://neter.pro<?php echo get_sub_field('ssylka'); ?>" class="item">
             <?php if (get_sub_field('ikonka')) : ?>
             <div class="icon">
               <img src="<?php echo get_sub_field('ikonka'); ?>" alt="<?php echo get_sub_field('imya'); ?>">

@@ -138,6 +138,15 @@
   <div class="footer-feat">
     <div class="container">
       <div class="wrap">
+        <a href="https://www.clusterunion.ru/" rel="nofollow" target="_blank" class="item clasters">
+          <div class="icon">
+            <img src="<?php echo get_template_directory_uri(); ?>/img/icons/clasters.png" alt="icon">
+          </div>
+          <div class="meta">
+            <b>Деловое обьеденение</b>
+            <p>кластеров <span>России</span></p>
+          </div>
+        </a>
         <div class="item">
           <div class="icon">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
@@ -305,6 +314,11 @@
       </div>
     </div>
   </div>
+  <style>
+    .form.form-white .form-text {
+        color: #000;
+      }
+  </style>
 
   <div class="popup popup-pre-order" style="display: none">
     <div class="close">

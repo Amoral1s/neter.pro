@@ -1158,7 +1158,6 @@
 .footer
   margin: 0
   padding: 0
-
   &-top
     border-bottom: 1px solid $white_15
     padding-top: 25px
@@ -1231,8 +1230,9 @@
       display: flex
       justify-content: space-between
       align-items: center
+      flex-wrap: nowrap
       .dir
-        width: calc(33.3% - 20px)
+        width: calc(25% - 12px)
         display: block
         p
           font-size: 14px
@@ -1255,27 +1255,45 @@
             color: $main
             font-size: 16px
             font-weight: 500
-
       .item
         display: flex
         align-items: center
         justify-content: flex-start
-        width: calc(33.3% -  20px)
+        max-width: calc(25% - 12px)
+        width: max-content
+        padding-right: 12px
+        &.clasters
+          .meta
+            b
+              color: #fff
+            p
+              color: $gray_400
+              display: flex
+              justify-content: flex-start
+              align-items: center
+              font-size: 14px
+              span
+                color: red
+                font-size: 14px
+                padding-left: 5px
         .icon
           min-width: 70px
           height: 70px
-          margin-right: 20px
-          border-radius: 20px
+          margin-right: 12px
+          border-radius: 16px
           background-color: $white_8
+          img
+            width: 42px
+            height: 42px
         .meta
           display: block
           b
             color: #fff
-            font-size: 18px
+            font-size: 16px
             font-weight: 500
             margin-bottom: 8px
           a, span
-            font-size: 16px
+            font-size: 14px
             font-weight: 400
             color: $gray_400
             margin: 0
@@ -2015,6 +2033,8 @@
     &-feat
       .wrap
         .item
+          width: 100%
+          max-width: 100%
           .meta
             b
               font-size: 16px
