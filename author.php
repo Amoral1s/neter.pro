@@ -213,7 +213,7 @@
     <h2 class="title"><?php echo esc_html($title); ?></h2>
     <div class="blog-wrap">
       <?php while ($author_posts->have_posts()) : $author_posts->the_post(); ?>
-        <a itemprop="blogPosts" itemscope itemtype="http://schema.org/BlogPosting" itemprop="url" href="<?php the_permalink(); ?>" class="item">
+        <a itemprop="blogPosts" itemscope itemtype="http://schema.org/BlogPosting" href="<?php the_permalink(); ?>" class="item">
           <img itemprop="image" src="<?php the_post_thumbnail_url(); ?>" alt="<?php the_title(); ?>">
           <div class="meta">
             <b><?php the_title(); ?></b>

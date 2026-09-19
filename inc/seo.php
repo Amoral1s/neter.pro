@@ -107,6 +107,11 @@ remove_action( 'wp_head', 'adjacent_posts_rel_link', 10, 0 );
 add_filter( 'wpseo_next_rel_link', '__return_false' );
 add_filter( 'wpseo_prev_rel_link', '__return_false' );
 
+// RSS этих архивов отключён на сайте: не выводим ссылки на редиректы.
+add_filter('feed_links_extra_show_post_type_archive_feed', function($show) {
+    return is_post_type_archive(array('blog', 'projects')) ? false : $show;
+});
+
 //Убираем ul в меню
 function remove_wp_nav_menu_ul($menu){
   return preg_replace( array( '#^<ul[^>]*>#', '#</ul>$#'), '', $menu );
@@ -168,7 +173,16 @@ add_filter( 'language_attributes', 'artabr_opengraph_fix_yandex',20,1); */
 function redirect_lowercase_urls()
 {
     $request_uri = $_SERVER['REQUEST_URI'];
-    $lowercase_url = strtolower($request_uri);
+    $url_parts = explode('?', $request_uri, 2);
+
+    // Не меняем регистр percent-encoding и значений query-параметров.
+    $lowercase_url = preg_replace_callback('/%[0-9A-Fa-f]{2}|[A-Z]+/', function($match) {
+        return $match[0][0] === '%' ? $match[0] : strtolower($match[0]);
+    }, $url_parts[0]);
+
+    if (isset($url_parts[1])) {
+        $lowercase_url .= '?' . $url_parts[1];
+    }
   
     if ($request_uri !== $lowercase_url) {
         wp_redirect(home_url($lowercase_url), 301);

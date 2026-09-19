@@ -113,7 +113,7 @@ get_header();
         if (have_posts()) :
             while (have_posts()) : the_post();
                 ?>
-                <a itemprop="blogPosts" itemscope itemtype="http://schema.org/BlogPosting" itemprop="url" href="<?php the_permalink(); ?>" class="item">
+                <a itemprop="blogPosts" itemscope itemtype="http://schema.org/BlogPosting" href="<?php the_permalink(); ?>" class="item">
                     <img itemprop="image" src="<?php the_post_thumbnail_url(); ?>" alt="<?php the_title(); ?>">
                     <div class="meta">
                       <b><?php the_title(); ?></b>

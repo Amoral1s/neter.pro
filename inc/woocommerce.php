@@ -28,7 +28,18 @@ remove_action('woocommerce_before_shop_loop', 'woocommerce_result_count', 20);
 
 add_filter('woocommerce_pagination_args', 'change_pagination_text');
 function change_pagination_text($args){
+    global $wp_rewrite;
+
     $args['prev_text'] = 'Назад';
     $args['next_text'] = 'Дальше';
+
+    // Первая страница каталога должна вести на архив, без /page/1.
+    $pagination_format = '/' . user_trailingslashit($wp_rewrite->pagination_base . '/%#%', 'paged');
+
+    if (strpos($args['base'], $pagination_format) !== false) {
+        $args['base'] = str_replace($pagination_format, $wp_rewrite->use_trailing_slashes ? '%_%/' : '%_%', $args['base']);
+        $args['format'] = rtrim($pagination_format, '/');
+    }
+
     return $args;
 }
