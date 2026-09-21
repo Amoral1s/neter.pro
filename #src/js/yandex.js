@@ -5,10 +5,6 @@ jQuery(document).ready(function($) {
     return;
   }
 
-  if (typeof window.ymaps === 'undefined' || typeof window.ymaps.ready !== 'function') {
-    return;
-  }
-
   const mapTargets = [];
   const officeMapSection = document.querySelector('section.map:not(.contacts-map)');
   const deliveryMapSection = document.querySelector('section.delivery-map');
@@ -172,6 +168,30 @@ jQuery(document).ready(function($) {
   }
 
   const initializedSections = new WeakSet();
+  let mapApiPromise;
+
+  function loadMapApi() {
+    if (window.ymaps && typeof window.ymaps.ready === 'function') {
+      return Promise.resolve();
+    }
+
+    if (!mapApiPromise) {
+      mapApiPromise = new Promise(function(resolve, reject) {
+        const script = document.createElement('script');
+        script.src = settings.yandex_maps_url;
+        script.async = true;
+        script.onload = resolve;
+        script.onerror = function() {
+          script.remove();
+          mapApiPromise = null;
+          reject(new Error('Не удалось загрузить Яндекс.Карты'));
+        };
+        document.head.appendChild(script);
+      });
+    }
+
+    return mapApiPromise;
+  }
 
   function initTarget(target) {
     if (initializedSections.has(target.section)) {
@@ -180,8 +200,12 @@ jQuery(document).ready(function($) {
 
     initializedSections.add(target.section);
 
-    window.ymaps.ready(function() {
-      initMapByType(target);
+    loadMapApi().then(function() {
+      window.ymaps.ready(function() {
+        initMapByType(target);
+      });
+    }).catch(function() {
+      initializedSections.delete(target.section);
     });
   }
 
@@ -190,9 +214,8 @@ jQuery(document).ready(function($) {
       initTarget(target);
     };
 
-    window.addEventListener('scroll', initOnInteraction, { passive: true, once: true });
-    window.addEventListener('touchstart', initOnInteraction, { passive: true, once: true });
-    window.addEventListener('mousemove', initOnInteraction, { passive: true, once: true });
+    target.section.addEventListener('pointerenter', initOnInteraction, { passive: true });
+    target.section.addEventListener('touchstart', initOnInteraction, { passive: true });
   }
 
   if (typeof IntersectionObserver === 'undefined') {

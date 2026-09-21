@@ -9,6 +9,7 @@
     'post_type' => $popular_post_types,
     'post_status' => 'publish',
     'posts_per_page' => 6,
+    'no_found_rows' => true,
     'ignore_sticky_posts' => true,
     'meta_query' => array(
       'relation' => 'OR',

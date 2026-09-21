@@ -115,7 +115,7 @@
     <div class="wrap">
     <?php if (have_rows('features','options')) : while(have_rows('features','options')) : the_row(); ?>
       <div class="item">
-        <img src="<?php echo get_sub_field('img'); ?>" alt="<?php echo get_sub_field('title'); ?>">
+        <img loading="lazy" decoding="async" src="<?php echo get_sub_field('img'); ?>" alt="<?php echo get_sub_field('title'); ?>">
         <b><?php echo get_sub_field('title'); ?></b>
         <p><?php echo get_sub_field('content'); ?></p>
       </div>
@@ -134,7 +134,7 @@
       <div class="our-feat">
         <?php if (have_rows('our_feat','options')) : while(have_rows('our_feat','options')) : the_row(); ?>
           <div class="item">
-            <img src="<?php echo get_sub_field('img'); ?>" alt="<?php echo get_sub_field('text'); ?>">
+            <img loading="lazy" decoding="async" src="<?php echo get_sub_field('img'); ?>" alt="<?php echo get_sub_field('text'); ?>">
             <b><?php echo get_sub_field('text'); ?></b>
           </div>
         <?php endwhile; endif; ?>
@@ -151,14 +151,14 @@
                   </svg>
                 </div>
                 <b><?php echo get_sub_field('title'); ?></b>
-                <img src="<?php echo get_sub_field('img'); ?>" alt="<?php echo get_sub_field('title'); ?>">
+                <img loading="lazy" decoding="async" src="<?php echo get_sub_field('img'); ?>" alt="<?php echo get_sub_field('title'); ?>">
               </a>
             <?php endwhile; endif; ?>
           </div>
         </div>
         <div class="dots"></div>
       </div>
-      <img src="<?php echo get_field('our_bg_img','options') ?>" alt="<?php echo get_field('our_title','options') ?>" class="our-bg">
+      <img loading="lazy" decoding="async" src="<?php echo get_field('our_bg_img','options') ?>" alt="<?php echo get_field('our_title','options') ?>" class="our-bg">
     </div>
   </div>
 </section>
@@ -169,7 +169,7 @@
   <div class="container">
     <div class="wrap">
       <div class="left">
-        <img src="<?php echo get_field('consult_banner_img','options') ?>" alt="<?php echo get_field('consult_banner_title','options') ?>">
+        <img loading="lazy" decoding="async" src="<?php echo get_field('consult_banner_img','options') ?>" alt="<?php echo get_field('consult_banner_title','options') ?>">
       </div>
       <div class="right">
         <b class="title sub"><?php echo get_field('consult_banner_title','options') ?></b>
@@ -199,7 +199,7 @@
                 </svg>
               </div>
               <b><?php echo get_sub_field('title'); ?></b>
-              <img src="<?php echo get_sub_field('img'); ?>" alt="<?php echo get_sub_field('title'); ?>">
+              <img loading="lazy" decoding="async" src="<?php echo get_sub_field('img'); ?>" alt="<?php echo get_sub_field('title'); ?>">
             </a>
           <?php endwhile; endif; ?>
         </div>
@@ -242,6 +242,7 @@
             $args = array(
               'post_type'      => 'projects',
               'posts_per_page' => 5,
+              'no_found_rows'  => true,
             );
             $query = new WP_Query( $args );
 
@@ -291,7 +292,7 @@
               </div>
             </div>
             <div class="right">
-              <img src="<?php echo the_post_thumbnail_url(); ?>" alt="<?php echo get_the_title(); ?>">
+              <img loading="lazy" decoding="async" src="<?php echo the_post_thumbnail_url(); ?>" alt="<?php echo get_the_title(); ?>">
             </div>
           </div>
           <?php } }  wp_reset_postdata(); ?>
@@ -336,7 +337,7 @@
           <?php if (have_rows('order_feat','options')) : while(have_rows('order_feat','options')) : the_row(); ?>
           <div class="item swiper-slide">
             <div class="icon">
-              <img src="<?php echo get_sub_field('img'); ?>" alt="<?php echo get_sub_field('title'); ?>">
+              <img loading="lazy" decoding="async" src="<?php echo get_sub_field('img'); ?>" alt="<?php echo get_sub_field('title'); ?>">
             </div>
             <b><?php echo get_sub_field('title'); ?></b>
           </div>
@@ -372,7 +373,7 @@
                   <div class="tech-banner__item">
                     <?php if ($icon) : ?>
                       <div class="icon">
-                        <img src="<?php echo $icon; ?>" alt="icon">
+                        <img loading="lazy" decoding="async" src="<?php echo $icon; ?>" alt="icon">
                       </div>
                     <?php endif; ?>
                     <div class="meta">
@@ -390,7 +391,7 @@
           <?php endif; ?>
       </div>
       <div class="right">
-        <img src="<?php echo get_field('tech_bg','options'); ?>" alt="<?php echo get_field('tech_title','options') ?>">
+        <img loading="lazy" decoding="async" src="<?php echo get_field('tech_bg','options'); ?>" alt="<?php echo get_field('tech_title','options') ?>">
       </div>
     </div>
    
@@ -433,7 +434,7 @@
               ?>
               <div class="swiper-slide">
                 <?php if ($url) : ?>
-                  <img src="<?php echo esc_url($url); ?>" alt="<?php echo esc_attr($alt); ?>" title="<?php echo esc_attr($title); ?>">
+                  <img loading="lazy" decoding="async" src="<?php echo esc_url($url); ?>" alt="<?php echo esc_attr($alt); ?>" title="<?php echo esc_attr($title); ?>">
                 <?php endif; ?>
               </div>
             <?php endforeach; ?>
@@ -481,7 +482,7 @@
               ?>
               <a href="<?php echo esc_url($url); ?>" data-fancybox="sert" class="swiper-slide item">
                 <?php if ($url) : ?>
-                  <img src="<?php echo $img['sizes']['large']; ?>" alt="<?php echo esc_attr($alt); ?>" title="<?php echo esc_attr($title); ?>">
+                  <img loading="lazy" decoding="async" src="<?php echo $img['sizes']['large']; ?>" alt="<?php echo esc_attr($alt); ?>" title="<?php echo esc_attr($title); ?>">
                 <?php endif; ?>
               </a>
             <?php endforeach; ?>
@@ -506,7 +507,7 @@
       </div>
       <div class="right">
         <div class="image">
-          <img src="<?php echo get_field('about_img', 'options'); ?>" alt="<?php echo get_field('about_title', 'options'); ?>">
+          <img loading="lazy" decoding="async" src="<?php echo get_field('about_img', 'options'); ?>" alt="<?php echo get_field('about_title', 'options'); ?>">
         </div>
         <div class="meta">
           <div class="meta-projects">
@@ -519,7 +520,7 @@
               <?php foreach( $about_avatars as $avatar ): ?>
                 <div class="item">
                   <?php 
-                    echo '<img src="' . esc_url($avatar['url']) . '" alt="Специалист">';
+                    echo '<img loading="lazy" decoding="async" src="' . esc_url($avatar['url']) . '" alt="Специалист">';
                   ?>
                 </div>
               <?php endforeach; endif; ?>
@@ -535,13 +536,13 @@
     <div class="about-feat">
       <?php if (have_rows('about_feat','options')) : while(have_rows('about_feat','options')) : the_row(); ?>
         <div class="item">
-          <img src="<?php echo get_sub_field('img'); ?>" alt="<?php echo get_sub_field('title'); ?>">
+          <img loading="lazy" decoding="async" src="<?php echo get_sub_field('img'); ?>" alt="<?php echo get_sub_field('title'); ?>">
           <p><?php echo get_sub_field('title'); ?></p>
         </div>
       <?php endwhile; endif; ?>
     </div>
     <div class="about-video">
-      <img src="<?php echo get_field('about_video_img', 'options'); ?>" alt="Видео о компании" class="view">
+      <img loading="lazy" decoding="async" src="<?php echo get_field('about_video_img', 'options'); ?>" alt="Видео о компании" class="view">
       <div class="play">
         <svg xmlns="http://www.w3.org/2000/svg" width="134" height="134" viewBox="0 0 134 134" fill="none">
           <g filter="url(#filter0_b_131_77)">
@@ -564,12 +565,12 @@
       <h3 class="title center"><?php echo get_field('about_circle_title', 'options'); ?></h3>
       <div class="wrap">
         <div class="circle-bg">
-          <img class="bg" src="<?php echo get_template_directory_uri(); ?>/img/bg-about.svg" alt="Круги">
-          <img class="image" src="<?php echo get_field('about_circle_bg', 'options'); ?>" alt="<?php echo get_field('about_circle_title', 'options'); ?>">
+          <img loading="lazy" decoding="async" class="bg" src="<?php echo get_template_directory_uri(); ?>/img/bg-about.svg" alt="Круги">
+          <img loading="lazy" decoding="async" class="image" src="<?php echo get_field('about_circle_bg', 'options'); ?>" alt="<?php echo get_field('about_circle_title', 'options'); ?>">
         </div>
         <?php if (have_rows('about_circle', 'options')) : while(have_rows('about_circle', 'options')) : the_row(); ?>
           <div class="item">
-            <div class="icon"><img src="<?php echo get_sub_field('img'); ?>" alt="<?php echo get_sub_field('title'); ?>"></div>
+            <div class="icon"><img loading="lazy" decoding="async" src="<?php echo get_sub_field('img'); ?>" alt="<?php echo get_sub_field('title'); ?>"></div>
             <div class="meta">
               <b><?php echo get_sub_field('title'); ?></b>
               <span><?php echo get_sub_field('text'); ?></span>
@@ -638,7 +639,7 @@
         </div>
       </div>
       <div class="right">
-        <img src="<?php echo get_field('catalog_banner_bg', 'options'); ?>" alt="<?php echo get_field('catalog_banner_title', 'options'); ?>">
+        <img loading="lazy" decoding="async" src="<?php echo get_field('catalog_banner_bg', 'options'); ?>" alt="<?php echo get_field('catalog_banner_title', 'options'); ?>">
       </div>
     </div>
   </div>

@@ -199,20 +199,12 @@ function main_theme_enqueue_assets() {
 
 	$header_menu_version = $get_version( '/js/header-menu.min.js' );
 	$main_version        = $get_version( '/js/main.min.js' );
-	$main_script_dependencies = array( 'jquery' );
 
 	wp_enqueue_script( 'jquery' );
 	wp_enqueue_script( 'header-menu', $template_uri . '/js/header-menu.min.js', array( 'jquery' ), $header_menu_version, false );
 	wp_script_add_data( 'header-menu', 'strategy', 'defer' );
 
-	wp_enqueue_script( 'main', $template_uri . '/js/main.min.js', $main_script_dependencies, $main_version, true );
-
-
-	if ( $should_enqueue_yandex_map ) {
-		wp_enqueue_script( 'yandex-api', 'https://api-maps.yandex.ru/2.1/?apikey=09db6a00-2892-4c98-9c87-7fd13a357553&lang=ru_RU', array( 'jquery' ), null, true );
-		wp_script_add_data( 'yandex-api', 'strategy', 'defer' );
-		$main_script_dependencies[] = 'yandex-api';
-	}
+	wp_enqueue_script( 'main', $template_uri . '/js/main.min.js', array( 'jquery' ), $main_version, true );
 
 
 	$placeholder_image = function_exists( 'wc_placeholder_img_src' ) ? wc_placeholder_img_src( 'woocommerce_thumbnail' ) : '';
@@ -237,6 +229,7 @@ function main_theme_enqueue_assets() {
 			'is_local_environment'        => main_theme_is_local_environment(),
 			'review_recaptcha_site_key'   => '6LeZlf8pAAAAALIprB1_PfRBJBKPfwXhT2IV3SWw',
 			'has_yandex_map'              => $should_enqueue_yandex_map,
+			'yandex_maps_url'             => $should_enqueue_yandex_map ? 'https://api-maps.yandex.ru/2.1/?apikey=09db6a00-2892-4c98-9c87-7fd13a357553&lang=ru_RU' : '',
 		)
 	);
 

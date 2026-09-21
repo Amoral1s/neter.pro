@@ -224,7 +224,13 @@ if ($render_dual_catalog_product) {
 			$attribute_labels[$attribute_slug] = $attribute_label;
 
 			if ( isset( $attributes[ $attribute_slug ] ) ) {
-				$attribute_value = trim((string) $product->get_attribute($attribute_slug));
+				$attribute = $attributes[$attribute_slug];
+				if ($attribute->is_taxonomy() && count($attribute->get_options()) === 1) {
+					// The term is already primed with the product; a single value needs no sorting query.
+					$attribute_value = implode(', ', main_theme_get_product_attribute_values($product, $attribute_slug));
+				} else {
+					$attribute_value = trim((string) $product->get_attribute($attribute_slug));
+				}
 				if ($attribute_value !== '') {
 					echo '<span class="attribute-name">' . esc_html( $attribute_label ) . ': </span>';
 					echo '<span class="attribute-value">' . esc_html( $attribute_value ) . '</span>';

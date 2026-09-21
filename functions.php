@@ -8,6 +8,7 @@ add_filter('wpcf7_spam', '__return_false'); // отключает внутрен
 //remove_filter('wpcf7_spam', 'wpcf7_akismet_check_spam', 10); // отключает Akismet (если установлен)
 //
 @include('inc/main.php');
+@include('inc/performance.php');
 @include('inc/posts.php');
 @include('inc/seo.php');
 @include('inc/shortcodes.php');
@@ -18,7 +19,6 @@ add_filter('wpcf7_spam', '__return_false'); // отключает внутрен
 @include('inc/woo_review.php');
 @include('inc/woo_loop_item.php');
 @include('inc/woo_catalog.php');
-@include('inc/wpf-filter-performance.php');
 @include('inc/vacancy.php');
 @include('inc/comments.php');
 
@@ -330,7 +330,15 @@ function custom_sort_products_with_priority_and_fallback($query) {
 }
 
 function main_theme_should_apply_catalog_sort($query) {
-    if (is_admin() || !($query instanceof WP_Query) || !$query->is_main_query()) {
+    if (!($query instanceof WP_Query)) {
+        return false;
+    }
+
+    if (wp_doing_ajax()) {
+        return (bool) $query->get('main_theme_catalog_sort');
+    }
+
+    if (is_admin() || !$query->is_main_query()) {
         return false;
     }
 
@@ -366,7 +374,7 @@ function main_theme_catalog_sort_posts_clauses($clauses, $query) {
         );
     }
 
-    $clauses['orderby'] = "catalog_sort_meta.catalog_new_priority IS NULL ASC, catalog_sort_meta.catalog_new_priority DESC, catalog_sort_meta.catalog_sort_value IS NULL ASC, catalog_sort_meta.catalog_sort_value DESC";
+    $clauses['orderby'] = "catalog_sort_meta.catalog_new_priority IS NULL ASC, catalog_sort_meta.catalog_new_priority DESC, catalog_sort_meta.catalog_sort_value IS NULL ASC, catalog_sort_meta.catalog_sort_value DESC, {$wpdb->posts}.ID ASC";
 
     return $clauses;
 }
