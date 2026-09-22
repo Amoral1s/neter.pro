@@ -15,6 +15,7 @@ add_filter('wpcf7_spam', '__return_false'); // отключает внутрен
 @include('inc/acf_blocks.php');
 @include('inc/unisender.php');
 @include('inc/woocommerce.php');
+@include('inc/woo_stock.php');
 @include('inc/woo_single_product.php');
 @include('inc/woo_review.php');
 @include('inc/woo_loop_item.php');
