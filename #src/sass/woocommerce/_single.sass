@@ -135,13 +135,21 @@
           color: $text
           display: block
           margin-left: 10px
+          display: flex
+          justify-content: flex-start
+          align-items: center
+          white-space: nowrap
         .aviable
+          display: flex
+          justify-content: flex-start
+          align-items: center
+          margin-left: 24px
+          gap: 6px
           div
             font-size: 16px
             font-weight: 500
             display: block
             white-space: nowrap
-            margin-left: 24px
           &-false
             color: #0FBA00
           &-true
@@ -375,10 +383,13 @@
           margin-bottom: 16px
         .rating-row
           margin-bottom: 20px
+          flex-wrap: wrap
+          gap: 12px
           .rating-count
             font-size: 14px
-            margin-left: 4px
+            margin: 0
           .aviable
+            margin: 0
             div
               font-size: 14px
         .attrs

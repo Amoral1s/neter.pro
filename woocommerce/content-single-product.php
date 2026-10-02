@@ -136,6 +136,11 @@ if (is_singular('product')) {
 					<div class="aviable-true" <?php if (!comments_open()) { echo 'style="margin-left: 0"'; } ?>>
 						В наличии
 					</div>
+					<?php if ($product->managing_stock()) : ?>
+						<div class="aviable-count">
+							— <?php echo esc_html($product->get_stock_quantity()); ?> шт.
+						</div>
+					<?php endif; ?>
 				<?php elseif ( $product->is_on_backorder() ) : ?>
 					<div class="aviable-false" <?php if (!comments_open()) { echo 'style="margin-left: 0"'; } ?>>
 						Предзаказ

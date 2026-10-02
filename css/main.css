@@ -11235,6 +11235,18 @@ a small small {
   color: #0A3141;
   display: block;
   margin-left: 10px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.catalog-page .single-product-right .rating-row .aviable {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-left: 24px;
+  gap: 6px;
 }
 
 .catalog-page .single-product-right .rating-row .aviable div {
@@ -11242,7 +11254,6 @@ a small small {
   font-weight: 500;
   display: block;
   white-space: nowrap;
-  margin-left: 24px;
 }
 
 .catalog-page .single-product-right .rating-row .aviable-false {
@@ -20519,11 +20530,17 @@ html.catalog-view-pref-table .shop-catalog-wrapper .catalog-products ul.products
 
   .catalog-page .single-product-right .rating-row {
     margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 12px;
   }
 
   .catalog-page .single-product-right .rating-row .rating-count {
     font-size: 14px;
-    margin-left: 4px;
+    margin: 0;
+  }
+
+  .catalog-page .single-product-right .rating-row .aviable {
+    margin: 0;
   }
 
   .catalog-page .single-product-right .rating-row .aviable div {
